@@ -5,7 +5,8 @@
     "puerto_cpu": 8002,
     "algoritmo_planificacion"   : "FIFO",
     "quantum" : 2000,
-    "log_level": "DEBUG"
+    "log_level": "DEBUG",
+    "mensaje": "Hola, soy un mensaje de prueba"
 }
 
 

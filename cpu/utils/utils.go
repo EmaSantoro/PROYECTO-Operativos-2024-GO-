@@ -39,17 +39,6 @@ func ConfigurarLogger() {
 	log.SetOutput(mw)
 }
 
-func InciarServidor(puerto int) {
-	mux := http.NewServeMux()
-
-	mux.HandleFunc("/mensaje", RecibirMensaje)
-
-	err := http.ListenAndServe(":8002", mux)
-	if err != nil {
-		panic(err)
-	}
-}
-
 func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var mensaje Mensaje

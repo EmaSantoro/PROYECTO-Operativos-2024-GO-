@@ -10,3 +10,17 @@
 2024/09/02 18:12:44 Hola soy un log
 2024/09/02 18:14:01 Hola soy un log
 2024/09/02 18:14:01 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/02 18:32:00 open cpu/config.json: The system cannot find the file specified.
+2024/09/02 18:32:58 open /c:/Users/Usuario/Desktop/Sistemas Operativos/TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/config.json: The filename, directory name, or volume label syntax is incorrect.
+2024/09/02 18:33:13 open TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/config.json: The system cannot find the path specified.
+2024/09/02 18:33:28 open tp-2024-2c-Operativo2/cpu/config.json: The system cannot find the path specified.
+2024/09/02 18:33:43 open config.json: The system cannot find the file specified.
+2024/09/02 18:34:48 open configsCPU/config.json: The system cannot find the path specified.
+2024/09/02 18:35:19 Hola soy un log
+2024/09/02 18:35:19 respuesta del servidor: 404 Not Found
+2024/09/02 18:39:43 Hola soy un log
+2024/09/02 18:39:43 respuesta del servidor: 404 Not Found
+2024/09/02 18:44:02 Hola soy un log
+2024/09/02 18:44:02 respuesta del servidor: 404 Not Found
+2024/09/02 18:47:02 Hola soy un log
+2024/09/02 18:47:02 respuesta del servidor: 404 Not Found
