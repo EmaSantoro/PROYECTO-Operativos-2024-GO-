@@ -1,2 +1,12 @@
 2024/09/02 17:08:27 Hola soy un log
 2024/09/02 17:08:27 open client/config.json: The system cannot find the path specified.
+2024/09/02 18:07:09 Hola soy un log
+2024/09/02 18:07:09 open cpu/config.json: The system cannot find the file specified.
+2024/09/02 18:08:18 Hola soy un log
+2024/09/02 18:08:18 open TP-2024-2C-OPERATIVO2/cpu/config.json: The system cannot find the path specified.
+2024/09/02 18:09:04 Hola soy un log
+2024/09/02 18:10:36 Hola soy un log
+2024/09/02 18:10:47 Hola soy un log
+2024/09/02 18:12:44 Hola soy un log
+2024/09/02 18:14:01 Hola soy un log
+2024/09/02 18:14:01 error enviando mensaje a ip:127.0.0.1 puerto:8002

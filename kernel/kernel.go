@@ -16,4 +16,6 @@ func main() {
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
+
+	utils.EnviarMensaje(globals.ClientConfig.IpCpu, globals.ClientConfig.PuertoCpu, "Conexion exitosa desde kernel")
 }

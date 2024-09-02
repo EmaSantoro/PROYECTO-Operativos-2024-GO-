@@ -11,9 +11,5 @@ func main() {
 	utils.ConfigurarLogger()
 	log.Println("Hola soy un log")
 
-	globals.ClientConfig = utils.IniciarConfiguracion("cpu/config.json")
-
-	if globals.ClientConfig == nil {
-		log.Fatalf("No se pudo cargar la configuración")
-	}
+	utils.InciarServidor(globals.ClientConfig.Puerto)
 }
