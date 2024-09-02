@@ -7,6 +7,7 @@ type Config struct {
 	PuertoKernel  int    `json:"puerto_kernel"`  //Puerto al cual se deberá conectar con el Kernel
 	Puerto        int    `json:"puerto"`         //Puerto en el cual se deberá escuchar las conexiones
 	LogLevel      string `json:"log_level"`      //Nivel de detalle máximo a mostrar.
+
 }
 
 var ClientConfig *Config

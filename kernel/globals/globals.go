@@ -8,7 +8,7 @@ type Config struct {
 	AlgoritmoPlanificacion string `json:"algoritmo_planificacion"` //Algoritmo de planificación a utilizar
 	Quantum                int    `json:"quantum"`                 //Quantum de tiempo a utilizar en el algoritmo de planificación
 	LogLevel               string `json:"log_level"`               //Nivel de detalle máximo a mostrar.
-	Mensaje                string `json:"mensaje"`                 //Mensaje a enviar al Kernel
+	Mensaje                string `json:"mensaje"`                 //Mensaje a mostrar en el log
 }
 
 var ClientConfig *Config

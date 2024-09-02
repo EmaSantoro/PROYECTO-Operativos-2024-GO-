@@ -23,9 +23,10 @@ func main() {
 	mux := http.NewServeMux()
 	//mux.HandleFunc("/mensaje", utils.RecibirMensaje)
 
-	mux.HandleFunc("/cpu", utils.RecibirMensaje)
 	err := http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
 	if err != nil {
 		panic(err)
 	}
+
+	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
 }

@@ -13,7 +13,7 @@ import (
 )
 
 type Mensaje struct {
-	Mensaje string `json:"cpu"`
+	Mensaje string `json:"mensaje"`
 }
 
 //	INICIAR CONFIGURACION Y LOGGERS
