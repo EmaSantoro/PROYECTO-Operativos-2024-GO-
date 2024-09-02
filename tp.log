@@ -40,3 +40,17 @@
 2024/09/02 19:22:05 Me llego un mensaje de un cliente
 2024/09/02 19:22:05 {Mensaje:mensaje}
 2024/09/02 19:22:05 respuesta del servidor: 200 OK
+2024/09/02 22:35:29 respuesta del servidor: 404 Not Found
+2024/09/02 22:36:46 respuesta del servidor: 404 Not Found
+2024/09/02 22:37:23 respuesta del servidor: 404 Not Found
+2024/09/02 22:37:38 respuesta del servidor: 404 Not Found
+2024/09/02 22:37:43 open /kernel/configsKERNEL/config.json: no such file or directory
+2024/09/02 22:38:28 Me llego un mensaje de un cliente
+2024/09/02 22:38:28 {Mensaje:Mensaje}
+2024/09/02 22:38:28 respuesta del servidor: 200 OK
+2024/09/02 22:40:43 Me llego un mensaje de un cliente
+2024/09/02 22:40:43 {Mensaje:Hola, soy el kernel}
+2024/09/02 22:40:43 respuesta del servidor: 200 OK
+2024/09/02 22:40:58 Me llego un mensaje de un cliente
+2024/09/02 22:40:58 {Mensaje:Hola, soy el kernel}
+2024/09/02 22:40:58 respuesta del servidor: 200 OK
