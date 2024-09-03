@@ -52,11 +52,15 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Println("Me llego un mensaje de un cliente")
+	log.Println("Conexion con Memoria")
 	log.Printf("%+v\n", mensaje)
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
+
+	//EnviarMensaje(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, "Hola Kernel, Soy Memoria")
+	//EnviarMensaje(globals.ClientConfig.IpCpu, globals.ClientConfig.PuertoCpu, "Hola CPU, Soy Memoria")
+	//EnviarMensaje(globals.ClientConfig.IpFs, globals.ClientConfig.PuertoFs, "Hola FS, Soy Memoria")
 }
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
@@ -71,6 +75,9 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	if err != nil {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
 	}
-
+	/*defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return
+	}*/
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }

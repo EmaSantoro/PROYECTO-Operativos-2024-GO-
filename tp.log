@@ -57,3 +57,18 @@
 2024/09/02 23:50:01 open configsMemoria/config.json: The system cannot find the path specified.
 2024/09/02 23:50:25 open configsCPU/config.json: The system cannot find the path specified.
 2024/09/02 23:50:42 open configsKERNEL/config.json: The system cannot find the path specified.
+2024/09/03 10:22:47 open configsMemoria/config.json: The system cannot find the path specified.
+2024/09/03 10:43:04 error enviando mensaje a ip:127.0.0.1 puerto:0
+2024/09/03 10:46:00 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 10:47:12 error enviando mensaje a ip: puerto:0
+2024/09/03 10:50:48 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 10:53:42 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 10:57:49 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 10:59:21 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 11:06:02 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 11:06:18 error enviando mensaje a ip: puerto:0
+2024/09/03 11:06:26 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/03 11:12:21 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/03 11:12:29 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/03 11:14:27 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/03 11:15:59 error enviando mensaje a ip:128.0.0.1 puerto:8002

@@ -11,26 +11,29 @@ import (
 func main() {
 	utils.ConfigurarLogger()
 
-	globals.ClientConfig = utils.IniciarConfiguracion("configsFS/config.json")
+	globals.ClientConfig = utils.IniciarConfiguracion("filesystem/configsFS/config.json")
 
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
-	IpFS := globals.ClientConfig.IpMemoria
-	PuertoFS := globals.ClientConfig.PuertoMemoria
+	IpMemoria := globals.ClientConfig.IpMemoria
+	PuertoMemoria := globals.ClientConfig.PuertoMemoria
 	puerto := globals.ClientConfig.Puerto
 
+	utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria, Soy FS")
 	
 	mux := http.NewServeMux() // se crea el servidor
 	
 	// funciones que va a manejar el servidor (SOLO CON MEMORIA)
 	//mux.HandleFunc("Endpoint", Funcion a la que responde)
+
 	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
 
-	err := http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
-	if err != nil {
-		panic(err)
-	}
 
-	utils.EnviarMensaje(IpFS, PuertoFS, "Hola Memoria, Soy FS")
+	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
+	/* if err != nil {
+		panic(err)
+	} */
+
+
 }

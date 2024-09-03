@@ -53,7 +53,10 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	if err != nil {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
 	}
-
+	/*defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return
+	}*/
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }
 
@@ -68,9 +71,12 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Println("Me llego un mensaje de un cliente")
+	log.Println("Conexion con Kernel")
 	log.Printf("%+v\n", mensaje)
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
+
+	//EnviarMensaje(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, "Hola Memoria,  Soy Kernel")
+	//EnviarMensaje(globals.ClientConfig.IpCpu, globals.ClientConfig.PuertoCpu, "Hola Cpu,  Soy Kernel")
 }
