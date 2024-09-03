@@ -12,7 +12,7 @@ import (
 func main() {
 	utils.ConfigurarLogger()
 
-	globals.ClientConfig = utils.IniciarConfiguracion("cpu/configsCPU/config.json")
+	globals.ClientConfig = utils.IniciarConfiguracion("configsCPU/config.json")
 
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")

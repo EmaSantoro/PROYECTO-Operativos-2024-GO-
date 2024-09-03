@@ -11,7 +11,7 @@ import (
 func main() {
 	utils.ConfigurarLogger()
 
-	globals.ClientConfig = utils.IniciarConfiguracion("kernel/configsKERNEL/config.json")
+	globals.ClientConfig = utils.IniciarConfiguracion("configsKERNEL/config.json")
 
 	Ip := globals.ClientConfig.IpCpu
 	Puerto := globals.ClientConfig.PuertoCpu
