@@ -54,3 +54,6 @@
 2024/09/02 22:40:58 Me llego un mensaje de un cliente
 2024/09/02 22:40:58 {Mensaje:Hola, soy el kernel}
 2024/09/02 22:40:58 respuesta del servidor: 200 OK
+2024/09/02 23:50:01 open configsMemoria/config.json: The system cannot find the path specified.
+2024/09/02 23:50:25 open configsCPU/config.json: The system cannot find the path specified.
+2024/09/02 23:50:42 open configsKERNEL/config.json: The system cannot find the path specified.
