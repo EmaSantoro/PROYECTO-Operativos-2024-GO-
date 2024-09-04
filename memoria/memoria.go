@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+
 	"github.com/sisoputnfrba/tp-golang/memoria/globals"
 	"github.com/sisoputnfrba/tp-golang/memoria/utils"
 )
@@ -11,8 +12,8 @@ import (
 func main() {
 	utils.ConfigurarLogger()
 
-	globals.ClientConfig = utils.IniciarConfiguracion("memoria/configsMemoria/config.json")
-	
+	globals.ClientConfig = utils.IniciarConfiguracion("configsMemoria/config.json")
+
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
@@ -23,20 +24,16 @@ func main() {
 	puerto := globals.ClientConfig.Puerto
 
 	mux := http.NewServeMux() // se crea el servidor
-	
+
 	// funciones que va a manejar el servidor (Kernel , cpu y filesystem)
 	//mux.HandleFunc("Endpoint", Funcion a la que responde)
 	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
 	//utils.EnviarMensaje(IpCpu, PuertoCpu, "Hola CPU, Soy Memoria")
 	//utils.EnviarMensaje(IpFS, PuertoFS, "Hola FS, Soy Memoria")
 
-
-
-	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
-/*	if err != nil {
+	err := http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
+	if err != nil {
 		panic(err)
-	} */
-
-
+	}
 
 }

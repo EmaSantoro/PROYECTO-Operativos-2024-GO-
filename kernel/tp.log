@@ -1,3 +1,7 @@
 2024/09/02 22:55:45 open kernel/configsKERNEL/config.json: no such file or directory
 2024/09/02 23:11:32 open kernel/configsKERNEL/config.json: no such file or directory
 2024/09/02 23:12:30 respuesta del servidor: 200 OK
+2024/09/04 21:30:44 open kernel/configsKERNEL/config.json: no such file or directory
+2024/09/04 21:31:18 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/04 21:34:26 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/04 21:38:14 error enviando mensaje a ip:127.0.0.1 puerto:8004

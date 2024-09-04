@@ -2,3 +2,10 @@
 2024/09/02 23:08:30 open cpu/configsCPU/config.json: no such file or directory
 2024/09/02 23:12:30 Me llego un mensaje de un cliente
 2024/09/02 23:12:30 {Mensaje:Hola, soy el kernel}
+2024/09/04 21:33:28 open configsCpu/config.json: no such file or directory
+2024/09/04 21:33:32 open configsCpu/config.json: no such file or directory
+2024/09/04 21:34:39 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/04 21:39:05 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/04 21:47:40 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/04 21:57:08 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/04 21:59:13 error enviando mensaje a ip:128.0.0.1 puerto:8002
