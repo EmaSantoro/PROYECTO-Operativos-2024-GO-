@@ -22,3 +22,130 @@
 2024/09/05 15:40:03 respuesta del servidor: 200 OK
 2024/09/05 15:40:03 respuesta del servidor: 200 OK
 2024/09/05 15:40:03 respuesta del servidor: 200 OK
+2024/09/05 16:48:37 Error al decodificar mensaje: EOF
+2024/09/05 16:49:36 Error al decodificar mensaje: EOF
+2024/09/05 16:49:37 respuesta del servidor: 200 OK
+2024/09/05 16:49:38 respuesta del servidor: 200 OK
+2024/09/05 16:49:38 respuesta del servidor: 200 OK
+2024/09/05 16:49:57 Error al decodificar mensaje: EOF
+2024/09/05 16:51:33 Error al decodificar mensaje: EOF
+2024/09/05 17:57:57 Conexion con Memoria
+2024/09/05 17:57:57 {Mensaje:Hola Memoria, Soy CPU}
+2024/09/05 17:57:57 respuesta del servidor: 200 OK
+2024/09/05 17:57:57 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/05 17:57:57 http: panic serving 127.0.0.1:58042: runtime error: invalid memory address or nil pointer dereference
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da8a0?, 0x98a9d0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.EnviarMensaje({0xc0000146a0, 0x9}, 0x1f44, {0x7327bb?, 0x10?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:84 +0x33f
+github.com/sisoputnfrba/tp-golang/memoria/utils.RecibirMensaje({0x7b7bd0, 0xc0000a41c0}, 0x66bec7?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:64 +0x3d3
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7b7bd0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7bd0, 0xc0000a41c0}, 0xc0000ac280)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6798?}, {0x7b7bd0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae1b0, {0x7b8128, 0xc00007d200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/05 17:59:53 Conexion con Memoria
+2024/09/05 17:59:53 {Mensaje:Hola Memoria, Soy CPU}
+2024/09/05 17:59:53 respuesta del servidor: 200 OK
+2024/09/05 17:59:53 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/05 17:59:53 http: panic serving 127.0.0.1:55928: runtime error: invalid memory address or nil pointer dereference
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da8a0?, 0x98a9d0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.EnviarMensaje({0xc0000146a0, 0x9}, 0x1f44, {0x7327bb?, 0x10?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:84 +0x33f
+github.com/sisoputnfrba/tp-golang/memoria/utils.RecibirMensaje({0x7b7bd0, 0xc0000a41c0}, 0x66bec7?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:64 +0x3d3
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7b7bd0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7bd0, 0xc0000a41c0}, 0xc0000ac280)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6798?}, {0x7b7bd0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae1b0, {0x7b8128, 0xc00007d200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/05 18:01:20 Conexion con Memoria
+2024/09/05 18:01:20 {Mensaje:Hola Memoria, Soy CPU}
+2024/09/05 18:01:20 respuesta del servidor: 200 OK
+2024/09/05 18:01:20 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/05 18:01:20 http: panic serving 127.0.0.1:49300: runtime error: invalid memory address or nil pointer dereference
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da8a0?, 0x98a9d0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.EnviarMensaje({0xc0000146a0, 0x9}, 0x1f44, {0x7327bb?, 0x10?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:84 +0x33f
+github.com/sisoputnfrba/tp-golang/memoria/utils.RecibirMensaje({0x7b7bd0, 0xc0000ac1c0}, 0x66bec7?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:64 +0x3d3
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7b7bd0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7bd0, 0xc0000ac1c0}, 0xc0000b4280)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6798?}, {0x7b7bd0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b61b0, {0x7b8128, 0xc00008d200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/05 18:04:21 Conexion con Memoria
+2024/09/05 18:04:21 {Mensaje:Hola Memoria, Soy CPU}
+2024/09/05 18:04:21 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/05 18:04:21 http: panic serving 127.0.0.1:36496: runtime error: invalid memory address or nil pointer dereference
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da8a0?, 0x98a9d0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.EnviarMensaje({0xc0000146a0, 0x9}, 0x1f44, {0x7327a7?, 0x10?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:84 +0x33f
+github.com/sisoputnfrba/tp-golang/memoria/utils.RecibirMensaje({0x7b7bb0, 0xc0000ac1c0}, 0x66bec7?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:64 +0x3af
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7b7bb0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7bb0, 0xc0000ac1c0}, 0xc0000b4280)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6778?}, {0x7b7bb0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b61b0, {0x7b8108, 0xc00008d200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/05 18:06:39 Conexion con Memoria
+2024/09/05 18:06:39 {Mensaje:Hola Memoria, Soy CPU}
+2024/09/05 18:06:39 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/05 18:06:39 http: panic serving 127.0.0.1:34494: runtime error: invalid memory address or nil pointer dereference
+goroutine 11 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da8a0?, 0x98a9d0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.EnviarMensaje({0xc0000146a0, 0x9}, 0x1f44, {0x7327a7?, 0x10?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:84 +0x33f
+github.com/sisoputnfrba/tp-golang/memoria/utils.RecibirMensaje({0x7b7bb0, 0xc0000ac2a0}, 0x66bec7?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/memoria/utils/utils.go:64 +0x3af
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7b7bb0?, 0xc0000ac2a0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7bb0, 0xc0000ac2a0}, 0xc0000b4780)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6778?}, {0x7b7bb0?, 0xc0000ac2a0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b65a0, {0x7b8108, 0xc00008d200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/05 18:16:01 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/05 18:16:40 error enviando mensaje a ip:127.0.0.1 puerto:8004

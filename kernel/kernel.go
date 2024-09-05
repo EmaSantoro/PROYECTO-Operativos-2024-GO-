@@ -19,13 +19,13 @@ func main() {
 	}
 
 	puerto := globals.ClientConfig.Puerto
-	//IpCpu := globals.ClientConfig.IpCpu
-	//PuertoCpu := globals.ClientConfig.PuertoCpu
-	IpMemoria := globals.ClientConfig.IpMemoria
-	PuertoMemoria := globals.ClientConfig.PuertoMemoria
+	IpCpu := globals.ClientConfig.IpCpu
+	PuertoCpu := globals.ClientConfig.PuertoCpu
+	//IpMemoria := globals.ClientConfig.IpMemoria
+	//PuertoMemoria := globals.ClientConfig.PuertoMemoria
 
-	//utils.EnviarMensaje(IpCpu, PuertoCpu, "Hola Cpu,  Soy Kernel")
-	utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria,  Soy Kernel")
+	utils.EnviarMensaje(IpCpu, PuertoCpu, "Hola Cpu,  Soy Kernel")
+	//utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria,  Soy Kernel")
 
 	mux := http.NewServeMux()
 	// funciones que va a manejar el servidor (Kernel y Memoria)

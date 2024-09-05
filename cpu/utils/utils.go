@@ -80,4 +80,7 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 		return
 	}*/
 	log.Printf("respuesta del servidor: %s", resp.Status)
+	//EnviarMensaje(globals.ClientConfig.IpKernel,globals.ClientConfig.PuertoKernel,"Hola Kernel soy CPU")
+	//EnviarMensaje(globals.ClientConfig.IpMemoria,globals.ClientConfig.PuertoMemoria,"Hola Memoria soy CPU")
+
 }

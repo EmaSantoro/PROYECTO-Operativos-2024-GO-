@@ -42,7 +42,7 @@ func ConfigurarLogger() {
 }
 
 func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
-	fmt.Print("Mensaje Decodificado")
+
 	decoder := json.NewDecoder(r.Body)
 	var mensaje Mensaje
 	err := decoder.Decode(&mensaje)
