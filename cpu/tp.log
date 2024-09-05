@@ -9,3 +9,34 @@
 2024/09/04 21:47:40 error enviando mensaje a ip:128.0.0.1 puerto:8002
 2024/09/04 21:57:08 error enviando mensaje a ip:128.0.0.1 puerto:8002
 2024/09/04 21:59:13 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 01:09:03 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 01:39:38 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 01:42:57 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 01:47:05 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:11:15 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:13:05 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:14:04 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:16:15 Conexion con CPU
+2024/09/05 14:16:15 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/05 14:20:29 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 14:27:20 Conexion con CPU
+2024/09/05 14:27:20 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:30:35 Conexion con CPU
+2024/09/05 14:30:35 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:38:27 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 14:40:19 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 14:42:30 Conexion con CPU
+2024/09/05 14:42:30 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/05 14:43:14 Conexion con CPU
+2024/09/05 14:43:14 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:44:59 Conexion con CPU
+2024/09/05 14:44:59 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/05 14:49:05 Conexion con CPU
+2024/09/05 14:49:05 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/05 14:49:19 Conexion con CPU
+2024/09/05 14:49:19 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:50:18 Conexion con CPU
+2024/09/05 14:50:18 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:52:07 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 14:54:37 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 15:02:08 error enviando mensaje a ip:128.0.0.1 puerto:8080

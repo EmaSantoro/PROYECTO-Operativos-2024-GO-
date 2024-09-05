@@ -70,6 +70,7 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	}
 
 	url := fmt.Sprintf("http://%s:%d/mensaje", ip, puerto)
+
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 	if err != nil {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
