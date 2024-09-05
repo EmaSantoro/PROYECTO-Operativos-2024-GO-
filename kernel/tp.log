@@ -14,3 +14,10 @@
 2024/09/05 14:44:59 respuesta del servidor: 200 OK
 2024/09/05 14:45:29 error enviando mensaje a ip:128.0.0.1 puerto:8002
 2024/09/05 14:49:05 respuesta del servidor: 200 OK
+2024/09/05 15:36:26 respuesta del servidor: 200 OK
+2024/09/05 15:37:38 Conexion con Kernel
+2024/09/05 15:37:38 {Mensaje:Hola Kernel, Soy Memoria}
+2024/09/05 15:38:38 Conexion con Kernel
+2024/09/05 15:38:38 {Mensaje:Hola Kernel, Soy CPU}
+2024/09/05 15:40:03 Conexion con Kernel
+2024/09/05 15:40:03 {Mensaje:Hola Kernel, Soy Memoria}

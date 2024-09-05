@@ -12,3 +12,13 @@
 2024/09/05 14:55:42 error enviando mensaje a ip:126.0.0.1 puerto:8001
 2024/09/05 15:06:38 error enviando mensaje a ip: puerto:0
 2024/09/05 15:08:25 error enviando mensaje a ip:129.0.0.1 puerto:8006
+2024/09/05 15:33:56 Conexion con Memoria
+2024/09/05 15:33:56 {Mensaje:Hola Memoria, Soy CPU}
+2024/09/05 15:35:09 Conexion con Memoria
+2024/09/05 15:35:09 {Mensaje:Hola Memoria, Soy FS}
+2024/09/05 15:36:26 Conexion con Memoria
+2024/09/05 15:36:26 {Mensaje:Hola Memoria,  Soy Kernel}
+2024/09/05 15:37:38 respuesta del servidor: 200 OK
+2024/09/05 15:40:03 respuesta del servidor: 200 OK
+2024/09/05 15:40:03 respuesta del servidor: 200 OK
+2024/09/05 15:40:03 respuesta del servidor: 200 OK

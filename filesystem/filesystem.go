@@ -17,11 +17,11 @@ func main() {
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
-	//IpMemoria := globals.ClientConfig.IpMemoria
-	//PuertoMemoria := globals.ClientConfig.PuertoMemoria
+	IpMemoria := globals.ClientConfig.IpMemoria
+	PuertoMemoria := globals.ClientConfig.PuertoMemoria
 	puerto := globals.ClientConfig.Puerto
 
-	//utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria, Soy FS")
+	utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria, Soy FS")
 
 	mux := http.NewServeMux() // se crea el servidor
 

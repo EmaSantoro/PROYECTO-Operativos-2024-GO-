@@ -40,3 +40,7 @@
 2024/09/05 14:52:07 error enviando mensaje a ip:126.0.0.1 puerto:8001
 2024/09/05 14:54:37 error enviando mensaje a ip:126.0.0.1 puerto:8001
 2024/09/05 15:02:08 error enviando mensaje a ip:128.0.0.1 puerto:8080
+2024/09/05 15:33:56 respuesta del servidor: 200 OK
+2024/09/05 15:38:38 respuesta del servidor: 200 OK
+2024/09/05 15:40:03 Conexion con CPU
+2024/09/05 15:40:03 {Mensaje:Hola CPU, Soy Memoria}
