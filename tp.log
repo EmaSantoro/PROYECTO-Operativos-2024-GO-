@@ -72,3 +72,5 @@
 2024/09/03 11:12:29 error enviando mensaje a ip:128.0.0.1 puerto:8002
 2024/09/03 11:14:27 error enviando mensaje a ip:128.0.0.1 puerto:8002
 2024/09/03 11:15:59 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/06 11:30:10 open configsMemoria/config.json: The system cannot find the path specified.
+2024/09/06 11:30:19 open configsCPU/config.json: The system cannot find the path specified.

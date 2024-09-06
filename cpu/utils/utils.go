@@ -33,6 +33,12 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 	return config
 }
 
+func init() {
+	ConfigsCpu := IniciarConfiguracion("configsCPU/config.json")
+	//EnviarMensaje(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, "Hola Kernel, Soy CPU")
+	EnviarMensaje(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, "Hola Memoria, Soy CPU")
+}
+
 func ConfigurarLogger() {
 	logFile, err := os.OpenFile("tp.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
@@ -58,9 +64,6 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
-
-	//EnviarMensaje(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, "Hola Kernel, Soy CPU")
-	//EnviarMensaje(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, "Hola Memoria, Soy CPU")
 }
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
@@ -75,10 +78,6 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	if err != nil {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
 	}
-	/*defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return
-	}*/
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }
 
@@ -117,5 +116,4 @@ func PedirPaquete() {
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }
 
-//EnviarMensaje(globals.ClientConfig.IpKernel,globals.ClientConfig.PuertoKernel,"Hola Kernel soy CPU")
-//EnviarMensaje(globals.ClientConfig.IpMemoria,globals.ClientConfig.PuertoMemoria,"Hola Memoria soy CPU")
+

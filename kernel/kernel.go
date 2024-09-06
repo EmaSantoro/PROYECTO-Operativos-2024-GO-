@@ -20,15 +20,10 @@ func main() {
 
 	puerto := globals.ClientConfig.Puerto //posteriormente se va a asignar el puerto dentro de cada funcion
 
-	//IpMemoria := globals.ClientConfig.IpMemoria
-	//PuertoMemoria := globals.ClientConfig.PuertoMemoria
-
-	//utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria,  Soy Kernel")
-	utils.EnviarPaqueteACPU()
+	//utils.EnviarPaqueteACPU()
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/mensaje", utils.RecibirMensaje) // buscar que es mux xd
-
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
 
 }

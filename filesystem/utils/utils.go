@@ -18,6 +18,8 @@ type Mensaje struct {
 
 //	INICIAR CONFIGURACION Y LOGGERS
 
+
+
 func IniciarConfiguracion(filePath string) *globals.Config {
 	var config *globals.Config
 	configFile, err := os.Open(filePath)
@@ -31,7 +33,10 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 
 	return config
 }
-
+func init() {
+	ConfigFs := IniciarConfiguracion("configsFS/config.json")
+	EnviarMensaje(ConfigFs.IpMemoria, ConfigFs.PuertoMemoria, "Hola Memoria, Soy FS")
+}
 func ConfigurarLogger() {
 	logFile, err := os.OpenFile("tp.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
@@ -58,7 +63,7 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 
-	//EnviarMensaje(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, "Hola Memoria, Soy FS")
+	
 }
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
@@ -73,9 +78,5 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	if err != nil {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
 	}
-	/*defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return
-	}*/
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }

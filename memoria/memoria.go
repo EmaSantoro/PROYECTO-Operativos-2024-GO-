@@ -17,28 +17,14 @@ func main() {
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
-	//PuertoFS := globals.ClientConfig.PuertoFs
-	//IpFS := globals.ClientConfig.IpFs
-	//PuertoCpu := globals.ClientConfig.PuertoCpu
-	//IpCpu := globals.ClientConfig.IpCpu
-	puerto := globals.ClientConfig.Puerto
-	//PuertoKernel := globals.ClientConfig.PuertoKernel
-	//IpKernel := globals.ClientConfig.IpKernel
 
-	mux := http.NewServeMux() // se crea el servidor
+	puerto := globals.ClientConfig.Puerto
 
 	// funciones que va a manejar el servidor (Kernel , cpu y filesystem)
 	//mux.HandleFunc("Endpoint", Funcion a la que responde)
-	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
+	mux := http.NewServeMux() // se crea el servidor
+	mux.HandleFunc(" /mensaje", utils.RecibirMensaje)
+	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
 
-	//utils.EnviarMensaje(IpCpu, PuertoCpu, "Hola CPU, Soy Memoria")
-	//utils.EnviarMensaje(IpKernel, PuertoKernel, "Hola Kernel, Soy Memoria")
-	//utils.EnviarMensaje(IpFS, PuertoFS, "Hola FS, Soy Memoria")
-
-	err := http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
-
-	if err != nil {
-		panic(err)
-	}
 
 }

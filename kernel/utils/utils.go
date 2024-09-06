@@ -49,6 +49,12 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 	return config
 }
 
+func init() {
+	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
+	EnviarMensaje(ConfigKernel.IpMemoria, ConfigKernel.PuertoMemoria, "Hola Memoria, Soy Kernel")
+	EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
+}
+
 func ConfigurarLogger() {
 	logFile, err := os.OpenFile("tp.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {

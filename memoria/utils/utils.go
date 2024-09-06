@@ -32,6 +32,13 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 	return config
 }
 
+func init() {
+	//ConfigMemoria := IniciarConfiguracion("configsMemoria/config.json")
+	//EnviarMensaje(ConfigMemoria.IpKernel, ConfigMemoria.PuertoKernel, "Hola Kernel, Soy Memoria")
+	//EnviarMensaje(ConfigMemoria.IpFs, ConfigMemoria.PuertoFs, "Hola FS, Soy Memoria")
+	//EnviarMensaje(ConfigMemoria.IpCpu, ConfigMemoria.PuertoCpu, "Hola CPU, Soy Memoria")
+}
+
 func ConfigurarLogger() {
 	logFile, err := os.OpenFile("tp.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
@@ -59,10 +66,6 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
-
-	//EnviarMensaje(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, "Hola Kernel, Soy Memoria")
-	//EnviarMensaje(globals.ClientConfig.IpCpu, globals.ClientConfig.PuertoCpu, "Hola CPU, Soy Memoria")
-	//EnviarMensaje(globals.ClientConfig.IpFs, globals.ClientConfig.PuertoFs, "Hola FS, Soy Memoria")
 }
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {

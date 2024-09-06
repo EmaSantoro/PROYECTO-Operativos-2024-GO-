@@ -83,3 +83,11 @@
 2024/09/06 05:18:55 Mensaje:Soy CPU
 2024/09/06 05:18:55 Rune: Hola
 2024/09/06 05:18:55 Tamanio: 4
+2024/09/06 11:32:37 entrando a func paquete
+2024/09/06 11:32:37 creando paquete
+2024/09/06 11:32:37 ID:CPU
+2024/09/06 11:32:37 Mensaje:Soy CPU
+2024/09/06 11:32:37 Rune: Hola
+2024/09/06 11:32:37 Tamanio: 4
+2024/09/06 12:43:10 Conexion con CPU
+2024/09/06 12:43:10 {Mensaje:Hola CPU, Soy Kernel}

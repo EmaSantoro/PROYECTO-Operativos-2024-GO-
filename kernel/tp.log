@@ -135,3 +135,4 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/09/06 05:15:48 error enviando mensaje a ip:127.0.0.1 puerto:8004
 2024/09/06 05:17:42 error enviando mensaje a ip:127.0.0.1 puerto:8004
 2024/09/06 05:18:55 respuesta del servidor: 200 OK
+2024/09/06 11:32:37 respuesta del servidor: 200 OK

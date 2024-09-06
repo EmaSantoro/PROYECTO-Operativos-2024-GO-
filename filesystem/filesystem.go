@@ -17,22 +17,13 @@ func main() {
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
-	IpMemoria := globals.ClientConfig.IpMemoria
-	PuertoMemoria := globals.ClientConfig.PuertoMemoria
 	puerto := globals.ClientConfig.Puerto
 
-	utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria, Soy FS")
-
-	mux := http.NewServeMux() // se crea el servidor
 
 	// funciones que va a manejar el servidor (SOLO CON MEMORIA)
 	//mux.HandleFunc("Endpoint", Funcion a la que responde)
-
+	mux := http.NewServeMux() // se crea el servidor
 	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
-
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
-	/* if err != nil {
-		panic(err)
-	} */
 
 }

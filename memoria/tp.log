@@ -149,3 +149,13 @@ created by net/http.(*Server).Serve in goroutine 1
 	/usr/local/go/src/net/http/server.go:3360 +0x485
 2024/09/05 18:16:01 error enviando mensaje a ip:127.0.0.1 puerto:8004
 2024/09/05 18:16:40 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 11:33:32 Conexion con Memoria
+2024/09/06 11:33:32 {Mensaje:Hola Memoria, Soy FS}
+2024/09/06 12:27:09 Conexion con Memoria
+2024/09/06 12:27:09 {Mensaje:Hola Memoria, Soy FS}
+2024/09/06 12:42:40 Conexion con Memoria
+2024/09/06 12:42:40 {Mensaje:Hola Memoria, Soy FS}
+2024/09/06 12:42:58 Conexion con Memoria
+2024/09/06 12:42:58 {Mensaje:Hola Memoria, Soy CPU}
+2024/09/06 12:43:10 Conexion con Memoria
+2024/09/06 12:43:10 {Mensaje:Hola Memoria, Soy Kernel}
