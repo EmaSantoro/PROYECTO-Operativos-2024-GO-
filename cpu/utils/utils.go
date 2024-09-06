@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+
 	"os"
 
 	"github.com/sisoputnfrba/tp-golang/cpu/globals"
@@ -70,7 +71,6 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	}
 
 	url := fmt.Sprintf("http://%s:%d/mensaje", ip, puerto)
-
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 	if err != nil {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
@@ -80,7 +80,7 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 		return
 	}*/
 	log.Printf("respuesta del servidor: %s", resp.Status)
-	//EnviarMensaje(globals.ClientConfig.IpKernel,globals.ClientConfig.PuertoKernel,"Hola Kernel soy CPU")
-	//EnviarMensaje(globals.ClientConfig.IpMemoria,globals.ClientConfig.PuertoMemoria,"Hola Memoria soy CPU")
-
 }
+
+//EnviarMensaje(globals.ClientConfig.IpKernel,globals.ClientConfig.PuertoKernel,"Hola Kernel soy CPU")
+//EnviarMensaje(globals.ClientConfig.IpMemoria,globals.ClientConfig.PuertoMemoria,"Hola Memoria soy CPU")

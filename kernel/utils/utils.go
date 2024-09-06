@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/sisoputnfrba/tp-golang/global"
 	"github.com/sisoputnfrba/tp-golang/kernel/globals"
 )
 
@@ -79,4 +80,22 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 
 	//EnviarMensaje(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, "Hola Memoria,  Soy Kernel")
 	//EnviarMensaje(globals.ClientConfig.IpCpu, globals.ClientConfig.PuertoCpu, "Hola Cpu,  Soy Kernel")
+}
+
+func EnviarPaquete(ip string, puerto int, paquete global.Paquete) {
+	body, err := json.Marshal(paquete)
+	if err != nil {
+		log.Printf("error codificando paquete: %s", err.Error())
+	}
+
+	url := fmt.Sprintf("http://%s:%d/paquete", ip, puerto)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+	if err != nil {
+		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return
+	}
+	log.Printf("respuesta del servidor: %s", resp.Status)
 }
