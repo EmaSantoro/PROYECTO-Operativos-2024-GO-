@@ -18,25 +18,17 @@ func main() {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
 
-	puerto := globals.ClientConfig.Puerto //	posteriormente se va a asignar dentro de cada funcion
-	IpCpu := globals.ClientConfig.IpCpu
-	PuertoCpu := globals.ClientConfig.PuertoCpu
+	puerto := globals.ClientConfig.Puerto //posteriormente se va a asignar el puerto dentro de cada funcion
+
 	//IpMemoria := globals.ClientConfig.IpMemoria
 	//PuertoMemoria := globals.ClientConfig.PuertoMemoria
 
-	utils.EnviarMensaje(IpCpu, PuertoCpu, "Hola Cpu,  Soy Kernel")
 	//utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria,  Soy Kernel")
-
-	utils.EnviarPaquete(IpCpu, PuertoCpu)
+	utils.EnviarPaqueteACPU()
 
 	mux := http.NewServeMux()
-	// funciones que va a manejar el servidor (Kernel y Memoria)
-	//mux.HandleFunc("Endpoint", Funcion a la que responde)
+	mux.HandleFunc("/mensaje", utils.RecibirMensaje) // buscar que es mux xd
 
-	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
-	/* if err != nil {
-		panic(err)
-	} */
 
 }

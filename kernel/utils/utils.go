@@ -70,6 +70,7 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	if err != nil {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
 	}
+
 	/*defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return
@@ -93,12 +94,12 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
-
-	//EnviarMensaje(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, "Hola Memoria,  Soy Kernel")
-	//EnviarMensaje(globals.ClientConfig.IpCpu, globals.ClientConfig.PuertoCpu, "Hola Cpu,  Soy Kernel")
 }
 
-func EnviarPaquete(ip string, puerto int) {
+func EnviarPaqueteACPU() {
+	ip := globals.ClientConfig.IpCpu
+	puerto := globals.ClientConfig.PuertoCpu
+
 	body, err := json.Marshal(paquete)
 	if err != nil {
 		log.Printf("error codificando paquete: %s", err.Error())
@@ -114,4 +115,5 @@ func EnviarPaquete(ip string, puerto int) {
 		return
 	}
 	log.Printf("respuesta del servidor: %s", resp.Status)
+
 }

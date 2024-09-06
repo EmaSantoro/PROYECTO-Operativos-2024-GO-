@@ -106,6 +106,16 @@ func RecibirPaquete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 }
+func PedirPaquete() {
+	ip := globals.ClientConfig.IpKernel
+	puerto := globals.ClientConfig.PuertoKernel
+
+	mensaje := "HOLA"
+	body, _ := json.Marshal(mensaje)
+	url := fmt.Sprintf("http://%s:%d/enviarPaqueteACPU", ip, puerto)
+	resp, _ := http.Post(url, "application/json", bytes.NewBuffer(body))
+	log.Printf("respuesta del servidor: %s", resp.Status)
+}
 
 //EnviarMensaje(globals.ClientConfig.IpKernel,globals.ClientConfig.PuertoKernel,"Hola Kernel soy CPU")
 //EnviarMensaje(globals.ClientConfig.IpMemoria,globals.ClientConfig.PuertoMemoria,"Hola Memoria soy CPU")
