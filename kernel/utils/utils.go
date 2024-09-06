@@ -18,7 +18,19 @@ type Mensaje struct {
 	Mensaje string `json:"mensaje"`
 }
 
-type Paquete struct {
+type PCB struct {
+	Pid   int
+	Tid   []int
+	Mutex []int
+}
+
+type TCB struct {
+	Pid       int
+	Tid       int
+	Prioridad int
+}
+
+/*type Paquete struct {
 	ID      string `json:"ID"` //de momento es un string que indica desde donde sale el mensaje.
 	Mensaje string `json:"mensaje"`
 	Size    int16  `json:"size"`
@@ -30,7 +42,7 @@ var paquete Paquete = Paquete{
 	Mensaje: "Soy CPU",
 	Size:    int16(len([]rune{'H', 'o', 'l', 'a'})),
 	Array:   []rune{'H', 'o', 'l', 'a'},
-}
+}*/
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -102,7 +114,7 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("ok"))
 }
 
-func EnviarPaqueteACPU() {
+/*func EnviarPaqueteACPU() {
 	ip := globals.ClientConfig.IpCpu
 	puerto := globals.ClientConfig.PuertoCpu
 
@@ -122,4 +134,4 @@ func EnviarPaqueteACPU() {
 	}
 	log.Printf("respuesta del servidor: %s", resp.Status)
 
-}
+}*/

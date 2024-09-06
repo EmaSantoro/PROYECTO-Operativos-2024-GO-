@@ -18,7 +18,7 @@ func main() {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
 
-	puerto := globals.ClientConfig.Puerto //posteriormente se va a asignar el puerto dentro de cada funcion
+	puerto := globals.ClientConfig.Puerto
 
 	//utils.EnviarPaqueteACPU()
 
