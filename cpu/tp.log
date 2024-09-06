@@ -1,0 +1,95 @@
+2024/09/02 22:51:01 open cpu/configsCPU/config.json: no such file or directory
+2024/09/02 23:08:30 open cpu/configsCPU/config.json: no such file or directory
+2024/09/02 23:12:30 Me llego un mensaje de un cliente
+2024/09/02 23:12:30 {Mensaje:Hola, soy el kernel}
+2024/09/04 21:33:28 open configsCpu/config.json: no such file or directory
+2024/09/04 21:33:32 open configsCpu/config.json: no such file or directory
+2024/09/04 21:34:39 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/04 21:39:05 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/04 21:47:40 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/04 21:57:08 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/04 21:59:13 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 01:09:03 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 01:39:38 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 01:42:57 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 01:47:05 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:11:15 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:13:05 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:14:04 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:16:15 Conexion con CPU
+2024/09/05 14:16:15 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/05 14:20:29 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 14:27:20 Conexion con CPU
+2024/09/05 14:27:20 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:30:35 Conexion con CPU
+2024/09/05 14:30:35 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:38:27 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 14:40:19 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 14:42:30 Conexion con CPU
+2024/09/05 14:42:30 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/05 14:43:14 Conexion con CPU
+2024/09/05 14:43:14 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:44:59 Conexion con CPU
+2024/09/05 14:44:59 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/05 14:49:05 Conexion con CPU
+2024/09/05 14:49:05 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/05 14:49:19 Conexion con CPU
+2024/09/05 14:49:19 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:50:18 Conexion con CPU
+2024/09/05 14:50:18 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 14:52:07 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 14:54:37 error enviando mensaje a ip:126.0.0.1 puerto:8001
+2024/09/05 15:02:08 error enviando mensaje a ip:128.0.0.1 puerto:8080
+2024/09/05 15:33:56 respuesta del servidor: 200 OK
+2024/09/05 15:38:38 respuesta del servidor: 200 OK
+2024/09/05 15:40:03 Conexion con CPU
+2024/09/05 15:40:03 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 16:49:37 Conexion con CPU
+2024/09/05 16:49:37 {Mensaje:Hola CPU, Soy Memoria}
+2024/09/05 17:57:57 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/05 17:59:34 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/05 17:59:53 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/05 18:01:20 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/05 18:04:07 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/05 18:04:21 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/05 18:06:39 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/05 18:17:54 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/06 03:23:38 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/06 03:24:54 Conexion con CPU
+2024/09/06 03:24:54 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/06 03:27:36 Conexion con CPU
+2024/09/06 03:27:36 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/06 03:30:52 obteniendo paquete
+2024/09/06 03:33:26 entrando a func paquete
+2024/09/06 03:33:26 creando paquete
+2024/09/06 03:33:26 ID:CPU
+2024/09/06 03:33:26 Mensaje:Soy CPU
+2024/09/06 03:33:26 Rune: Hola
+2024/09/06 03:33:26 Tamanio: 4
+2024/09/06 03:35:19 Conexion con CPU
+2024/09/06 03:35:19 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/06 03:35:19 entrando a func paquete
+2024/09/06 03:35:19 creando paquete
+2024/09/06 03:35:19 ID:CPU
+2024/09/06 03:35:19 Mensaje:Soy CPU
+2024/09/06 03:35:19 Rune: Hola
+2024/09/06 03:35:19 Tamanio: 4
+2024/09/06 04:55:56 respuesta del servidor: 404 Not Found
+2024/09/06 04:58:15 respuesta del servidor: 404 Not Found
+2024/09/06 05:03:15 respuesta del servidor: 404 Not Found
+2024/09/06 05:18:55 entrando a func paquete
+2024/09/06 05:18:55 creando paquete
+2024/09/06 05:18:55 ID:CPU
+2024/09/06 05:18:55 Mensaje:Soy CPU
+2024/09/06 05:18:55 Rune: Hola
+2024/09/06 05:18:55 Tamanio: 4
+2024/09/06 11:32:37 entrando a func paquete
+2024/09/06 11:32:37 creando paquete
+2024/09/06 11:32:37 ID:CPU
+2024/09/06 11:32:37 Mensaje:Soy CPU
+2024/09/06 11:32:37 Rune: Hola
+2024/09/06 11:32:37 Tamanio: 4
+2024/09/06 12:43:10 Conexion con CPU
+2024/09/06 12:43:10 {Mensaje:Hola CPU, Soy Kernel}
+2024/09/06 16:36:47 Conexion con CPU
+2024/09/06 16:36:47 {Mensaje:Hola CPU, Soy Kernel}

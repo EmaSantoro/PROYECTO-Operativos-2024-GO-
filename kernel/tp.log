@@ -1,0 +1,138 @@
+2024/09/02 22:55:45 open kernel/configsKERNEL/config.json: no such file or directory
+2024/09/02 23:11:32 open kernel/configsKERNEL/config.json: no such file or directory
+2024/09/02 23:12:30 respuesta del servidor: 200 OK
+2024/09/04 21:30:44 open kernel/configsKERNEL/config.json: no such file or directory
+2024/09/04 21:31:18 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/04 21:34:26 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/04 21:38:14 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/05 02:39:08 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:16:15 respuesta del servidor: 200 OK
+2024/09/05 14:32:33 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:38:45 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:40:34 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:42:30 respuesta del servidor: 200 OK
+2024/09/05 14:44:59 respuesta del servidor: 200 OK
+2024/09/05 14:45:29 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/05 14:49:05 respuesta del servidor: 200 OK
+2024/09/05 15:36:26 respuesta del servidor: 200 OK
+2024/09/05 15:37:38 Conexion con Kernel
+2024/09/05 15:37:38 {Mensaje:Hola Kernel, Soy Memoria}
+2024/09/05 15:38:38 Conexion con Kernel
+2024/09/05 15:38:38 {Mensaje:Hola Kernel, Soy CPU}
+2024/09/05 15:40:03 Conexion con Kernel
+2024/09/05 15:40:03 {Mensaje:Hola Kernel, Soy Memoria}
+2024/09/05 16:49:38 Conexion con Kernel
+2024/09/05 16:49:38 {Mensaje:Hola Kernel, Soy Memoria}
+2024/09/05 17:57:57 Conexion con Kernel
+2024/09/05 17:57:57 {Mensaje:Hola Kernel, Soy Memoria}
+2024/09/05 17:59:53 Conexion con Kernel
+2024/09/05 17:59:53 {Mensaje:Hola Kernel, Soy Memoria}
+2024/09/05 18:01:20 Conexion con Kernel
+2024/09/05 18:01:20 {Mensaje:Hola Kernel, Soy Memoria}
+2024/09/05 18:17:28 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 03:24:54 respuesta del servidor: 200 OK
+2024/09/06 03:24:54 error enviando mensaje a ip:127.0.0.1 puerto:8001
+2024/09/06 03:27:36 respuesta del servidor: 200 OK
+2024/09/06 03:33:26 respuesta del servidor: 200 OK
+2024/09/06 03:35:19 respuesta del servidor: 200 OK
+2024/09/06 03:35:19 respuesta del servidor: 200 OK
+2024/09/06 05:03:42 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 05:03:42 http: panic serving 127.0.0.1:60622: runtime error: invalid memory address or nil pointer dereference
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da7a0?, 0x98a9f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/kernel/utils.EnviarPaqueteACPU({0x0?, 0xc0000c3b40?}, 0x66bec7?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/kernel/utils/utils.go:114 +0x339
+net/http.HandlerFunc.ServeHTTP(0xc0000ae0e0?, {0x7b7a50?, 0xc0000ae1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7a50, 0xc0000ae1c0}, 0xc0000b6280)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6618?}, {0x7b7a50?, 0xc0000ae1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b8120, {0x7b7fa8, 0xc00007f050})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/06 05:04:41 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 05:04:41 http: panic serving 127.0.0.1:48054: runtime error: invalid memory address or nil pointer dereference
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da7a0?, 0x98a9f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/kernel/utils.EnviarPaqueteACPU({0x0?, 0xc0000c3b40?}, 0x66bec7?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/kernel/utils/utils.go:114 +0x339
+net/http.HandlerFunc.ServeHTTP(0xc0000ae0e0?, {0x7b7a50?, 0xc0000ae1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7a50, 0xc0000ae1c0}, 0xc0000b6280)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6618?}, {0x7b7a50?, 0xc0000ae1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b8120, {0x7b7fa8, 0xc00007f050})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/06 05:04:45 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 05:04:45 http: panic serving 127.0.0.1:48058: runtime error: invalid memory address or nil pointer dereference
+goroutine 11 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da7a0?, 0x98a9f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/kernel/utils.EnviarPaqueteACPU({0x0?, 0xc00005bb40?}, 0x66bec7?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/kernel/utils/utils.go:114 +0x339
+net/http.HandlerFunc.ServeHTTP(0xc0000ae0e0?, {0x7b7a50?, 0xc0000ae2a0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7a50, 0xc0000ae2a0}, 0xc0000b6640)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6618?}, {0x7b7a50?, 0xc0000ae2a0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b8510, {0x7b7fa8, 0xc00007f050})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/06 05:04:48 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 05:04:48 http: panic serving 127.0.0.1:53954: runtime error: invalid memory address or nil pointer dereference
+goroutine 15 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da7a0?, 0x98a9f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/kernel/utils.EnviarPaqueteACPU({0x0?, 0xc00005bb40?}, 0x66bec7?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/kernel/utils/utils.go:114 +0x339
+net/http.HandlerFunc.ServeHTTP(0xc0000ae0e0?, {0x7b7a50?, 0xc0000ae380?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7a50, 0xc0000ae380}, 0xc0000b6a00)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6618?}, {0x7b7a50?, 0xc0000ae380?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b87e0, {0x7b7fa8, 0xc00007f050})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/06 05:06:07 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 05:06:07 http: panic serving 127.0.0.1:40082: runtime error: invalid memory address or nil pointer dereference
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6da7a0?, 0x98a9f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/kernel/utils.EnviarPaqueteACPU({0x0?, 0xc0000c3b40?}, 0x66bec7?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/kernel/utils/utils.go:114 +0x339
+net/http.HandlerFunc.ServeHTTP(0xc0000ae0e0?, {0x7b7a50?, 0xc0000ae1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7b7a50, 0xc0000ae1c0}, 0xc0000b6280)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b6618?}, {0x7b7a50?, 0xc0000ae1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b8120, {0x7b7fa8, 0xc00007f080})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/09/06 05:15:01 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 05:15:48 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 05:17:42 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/06 05:18:55 respuesta del servidor: 200 OK
+2024/09/06 11:32:37 respuesta del servidor: 200 OK

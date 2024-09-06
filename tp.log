@@ -1,0 +1,77 @@
+2024/09/02 17:08:27 Hola soy un log
+2024/09/02 17:08:27 open client/config.json: The system cannot find the path specified.
+2024/09/02 18:07:09 Hola soy un log
+2024/09/02 18:07:09 open cpu/config.json: The system cannot find the file specified.
+2024/09/02 18:08:18 Hola soy un log
+2024/09/02 18:08:18 open TP-2024-2C-OPERATIVO2/cpu/config.json: The system cannot find the path specified.
+2024/09/02 18:09:04 Hola soy un log
+2024/09/02 18:10:36 Hola soy un log
+2024/09/02 18:10:47 Hola soy un log
+2024/09/02 18:12:44 Hola soy un log
+2024/09/02 18:14:01 Hola soy un log
+2024/09/02 18:14:01 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/02 18:32:00 open cpu/config.json: The system cannot find the file specified.
+2024/09/02 18:32:58 open /c:/Users/Usuario/Desktop/Sistemas Operativos/TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/config.json: The filename, directory name, or volume label syntax is incorrect.
+2024/09/02 18:33:13 open TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/config.json: The system cannot find the path specified.
+2024/09/02 18:33:28 open tp-2024-2c-Operativo2/cpu/config.json: The system cannot find the path specified.
+2024/09/02 18:33:43 open config.json: The system cannot find the file specified.
+2024/09/02 18:34:48 open configsCPU/config.json: The system cannot find the path specified.
+2024/09/02 18:35:19 Hola soy un log
+2024/09/02 18:35:19 respuesta del servidor: 404 Not Found
+2024/09/02 18:39:43 Hola soy un log
+2024/09/02 18:39:43 respuesta del servidor: 404 Not Found
+2024/09/02 18:44:02 Hola soy un log
+2024/09/02 18:44:02 respuesta del servidor: 404 Not Found
+2024/09/02 18:47:02 Hola soy un log
+2024/09/02 18:47:02 respuesta del servidor: 404 Not Found
+2024/09/02 18:52:56 Hola soy un log
+2024/09/02 18:52:56 respuesta del servidor: 404 Not Found
+2024/09/02 19:02:09 Hola soy un log
+2024/09/02 19:02:09 Me llego un mensaje de un cliente
+2024/09/02 19:02:09 {Mensaje:Hola, soy el kernel}
+2024/09/02 19:02:09 respuesta del servidor: 200 OK
+2024/09/02 19:04:05 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/02 19:05:21 Me llego un mensaje de un cliente
+2024/09/02 19:05:21 {Mensaje:Hola, soy el kernel}
+2024/09/02 19:05:21 respuesta del servidor: 200 OK
+2024/09/02 19:15:15 Me llego un mensaje de un cliente
+2024/09/02 19:15:15 {Mensaje:mensaje}
+2024/09/02 19:15:15 respuesta del servidor: 200 OK
+2024/09/02 19:22:05 Me llego un mensaje de un cliente
+2024/09/02 19:22:05 {Mensaje:mensaje}
+2024/09/02 19:22:05 respuesta del servidor: 200 OK
+2024/09/02 22:35:29 respuesta del servidor: 404 Not Found
+2024/09/02 22:36:46 respuesta del servidor: 404 Not Found
+2024/09/02 22:37:23 respuesta del servidor: 404 Not Found
+2024/09/02 22:37:38 respuesta del servidor: 404 Not Found
+2024/09/02 22:37:43 open /kernel/configsKERNEL/config.json: no such file or directory
+2024/09/02 22:38:28 Me llego un mensaje de un cliente
+2024/09/02 22:38:28 {Mensaje:Mensaje}
+2024/09/02 22:38:28 respuesta del servidor: 200 OK
+2024/09/02 22:40:43 Me llego un mensaje de un cliente
+2024/09/02 22:40:43 {Mensaje:Hola, soy el kernel}
+2024/09/02 22:40:43 respuesta del servidor: 200 OK
+2024/09/02 22:40:58 Me llego un mensaje de un cliente
+2024/09/02 22:40:58 {Mensaje:Hola, soy el kernel}
+2024/09/02 22:40:58 respuesta del servidor: 200 OK
+2024/09/02 23:50:01 open configsMemoria/config.json: The system cannot find the path specified.
+2024/09/02 23:50:25 open configsCPU/config.json: The system cannot find the path specified.
+2024/09/02 23:50:42 open configsKERNEL/config.json: The system cannot find the path specified.
+2024/09/03 10:22:47 open configsMemoria/config.json: The system cannot find the path specified.
+2024/09/03 10:43:04 error enviando mensaje a ip:127.0.0.1 puerto:0
+2024/09/03 10:46:00 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 10:47:12 error enviando mensaje a ip: puerto:0
+2024/09/03 10:50:48 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 10:53:42 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 10:57:49 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 10:59:21 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 11:06:02 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/03 11:06:18 error enviando mensaje a ip: puerto:0
+2024/09/03 11:06:26 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/03 11:12:21 error enviando mensaje a ip:127.0.0.1 puerto:8004
+2024/09/03 11:12:29 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/03 11:14:27 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/03 11:15:59 error enviando mensaje a ip:128.0.0.1 puerto:8002
+2024/09/06 11:30:10 open configsMemoria/config.json: The system cannot find the path specified.
+2024/09/06 11:30:19 open configsCPU/config.json: The system cannot find the path specified.
+2024/09/06 16:34:40 open configsMemoria/config.json: The system cannot find the path specified.
