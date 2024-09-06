@@ -54,3 +54,23 @@
 2024/09/05 18:04:21 error enviando mensaje a ip:127.0.0.1 puerto:8002
 2024/09/05 18:06:39 error enviando mensaje a ip:127.0.0.1 puerto:8002
 2024/09/05 18:17:54 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/06 03:23:38 error enviando mensaje a ip:127.0.0.1 puerto:8002
+2024/09/06 03:24:54 Conexion con CPU
+2024/09/06 03:24:54 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/06 03:27:36 Conexion con CPU
+2024/09/06 03:27:36 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/06 03:30:52 obteniendo paquete
+2024/09/06 03:33:26 entrando a func paquete
+2024/09/06 03:33:26 creando paquete
+2024/09/06 03:33:26 ID:CPU
+2024/09/06 03:33:26 Mensaje:Soy CPU
+2024/09/06 03:33:26 Rune: Hola
+2024/09/06 03:33:26 Tamanio: 4
+2024/09/06 03:35:19 Conexion con CPU
+2024/09/06 03:35:19 {Mensaje:Hola Cpu,  Soy Kernel}
+2024/09/06 03:35:19 entrando a func paquete
+2024/09/06 03:35:19 creando paquete
+2024/09/06 03:35:19 ID:CPU
+2024/09/06 03:35:19 Mensaje:Soy CPU
+2024/09/06 03:35:19 Rune: Hola
+2024/09/06 03:35:19 Tamanio: 4

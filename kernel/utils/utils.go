@@ -12,10 +12,27 @@ import (
 	"github.com/sisoputnfrba/tp-golang/kernel/globals"
 )
 
+/*---------------------- ESTRUCTURAS ----------------------*/
+
 type Mensaje struct {
 	Mensaje string `json:"mensaje"`
 }
 
+type Paquete struct {
+	ID      string `json:"ID"` //de momento es un string que indica desde donde sale el mensaje.
+	Mensaje string `json:"mensaje"`
+	Size    int16  `json:"size"`
+	Array   []rune `json:"array"`
+}
+
+var paquete Paquete = Paquete{
+	ID:      "CPU", //de momento es un string que indica desde donde sale el mensaje.
+	Mensaje: "Soy CPU",
+	Size:    int16(len([]rune{'H', 'o', 'l', 'a'})),
+	Array:   []rune{'H', 'o', 'l', 'a'},
+}
+
+/*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
 
 func IniciarConfiguracion(filePath string) *globals.Config {
@@ -81,7 +98,7 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 	//EnviarMensaje(globals.ClientConfig.IpCpu, globals.ClientConfig.PuertoCpu, "Hola Cpu,  Soy Kernel")
 }
 
-func EnviarPaquete(ip string, puerto int, paquete globals.Paquete) {
+func EnviarPaquete(ip string, puerto int) {
 	body, err := json.Marshal(paquete)
 	if err != nil {
 		log.Printf("error codificando paquete: %s", err.Error())

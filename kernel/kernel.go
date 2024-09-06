@@ -18,7 +18,7 @@ func main() {
 		log.Fatalf("No se pudo cargar la configuración")
 	}
 
-	puerto := globals.ClientConfig.Puerto
+	puerto := globals.ClientConfig.Puerto //	posteriormente se va a asignar dentro de cada funcion
 	IpCpu := globals.ClientConfig.IpCpu
 	PuertoCpu := globals.ClientConfig.PuertoCpu
 	//IpMemoria := globals.ClientConfig.IpMemoria
@@ -27,14 +27,7 @@ func main() {
 	utils.EnviarMensaje(IpCpu, PuertoCpu, "Hola Cpu,  Soy Kernel")
 	//utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria,  Soy Kernel")
 
-	paquete := globals.Paquete{
-		ID:      "CPU", //de momento es un string que indica desde donde sale el mensaje.
-		Mensaje: "Soy CPU",
-		Size:    int16(len([]rune{'H', 'o', 'l', 'a'})),
-		Array:   []rune{'H', 'o', 'l', 'a'},
-	}
-
-	utils.EnviarPaquete(IpCpu, puerto, paquete)
+	utils.EnviarPaquete(IpCpu, PuertoCpu)
 
 	mux := http.NewServeMux()
 	// funciones que va a manejar el servidor (Kernel y Memoria)

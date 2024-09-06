@@ -82,5 +82,30 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }
 
+func RecibirPaquete(w http.ResponseWriter, r *http.Request) {
+	log.Printf("entrando a func paquete")
+
+	/*if r.Method != http.MethodGet {
+		http.Error(w, "Método erroneo", http.StatusMethodNotAllowed) //detecta metodo de protocolo https
+		log.Printf("error codificando mensaje: %s", err.Error())
+		return
+	}
+	*/
+	var paquete globals.Paquete
+	log.Printf("creando paquete")
+	if err := json.NewDecoder(r.Body).Decode(&paquete); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	log.Printf("ID:" + paquete.ID + "\n")
+	log.Printf("Mensaje:" + paquete.Mensaje + "\n")
+	log.Printf("Rune: " + string(paquete.Array) + "\n")
+	log.Printf("Tamanio: %d\n", paquete.Size)
+
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("ok"))
+}
+
 //EnviarMensaje(globals.ClientConfig.IpKernel,globals.ClientConfig.PuertoKernel,"Hola Kernel soy CPU")
 //EnviarMensaje(globals.ClientConfig.IpMemoria,globals.ClientConfig.PuertoMemoria,"Hola Memoria soy CPU")
