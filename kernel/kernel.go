@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/sisoputnfrba/tp-golang/global"
 	"github.com/sisoputnfrba/tp-golang/kernel/globals"
 	"github.com/sisoputnfrba/tp-golang/kernel/utils"
 )
@@ -28,7 +27,7 @@ func main() {
 	utils.EnviarMensaje(IpCpu, PuertoCpu, "Hola Cpu,  Soy Kernel")
 	//utils.EnviarMensaje(IpMemoria, PuertoMemoria, "Hola Memoria,  Soy Kernel")
 
-	paquete := global.Paquete{
+	paquete := globals.Paquete{
 		ID:      "CPU", //de momento es un string que indica desde donde sale el mensaje.
 		Mensaje: "Soy CPU",
 		Size:    int16(len([]rune{'H', 'o', 'l', 'a'})),
