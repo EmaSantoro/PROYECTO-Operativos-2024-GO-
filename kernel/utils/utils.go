@@ -30,6 +30,13 @@ type TCB struct {
 	Prioridad int
 }
 
+var colaNew []PCB
+var colaReady []PCB
+var colaExec []PCB
+var colaBlock []PCB
+var colaExit []PCB
+
+
 /*type Paquete struct {
 	ID      string `json:"ID"` //de momento es un string que indica desde donde sale el mensaje.
 	Mensaje string `json:"mensaje"`
@@ -135,3 +142,50 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 	log.Printf("respuesta del servidor: %s", resp.Status)
 
 }*/
+
+func iniciarProceso() {
+
+	var procesoInicial PCB // creo el proceso inicial (esto nose si esta bien porque se supone que hace esto con cada proceso que llega)
+	procesoInicial.Pid = 1
+	
+	if(len(colaNew) == 0){  // si no hay procesos en colaNew se agrega y se intenta inicializar
+		colaNew = append(colaNew, procesoInicial)
+	//	if(/*hay espacio en memoria*/){
+			
+			colaNew = colaNew[1:]  // saco el proceso de la colaNew
+
+			procesoInicial.Tid = append(procesoInicial.Tid , 0) // creo el hilo 0 y lo agrego a la lista de hilos del proceso
+			
+			colaReady = append(colaReady, procesoInicial)
+	
+		//else {
+			//esperara a que haya espacio en memoria para inicializarlo
+		//}
+
+	}	
+	//else si hay procesos en colaNew se lo encola 
+		colaNew = append(colaNew, procesoInicial)
+	
+		
+	
+
+	 
+}
+
+func finalizarProceso(){
+	// Liberar PCB asociado
+	pcb := colaExec[0]
+	colaExec = colaExec[1:]
+
+	// Informar a la Memoria la finalización del proceso
+	EnviarMensaje(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, fmt.Sprintf("Finalizar proceso %d", pcb.Pid))
+
+	// Esperar confirmación de la Memoria
+	// ...
+
+	// Liberar PCB
+	pcb = PCB{}
+
+	// Intentar inicializar un proceso en estado NEW si los hubiere
+	iniciarProceso()
+}
