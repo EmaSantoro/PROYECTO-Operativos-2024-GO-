@@ -47,20 +47,13 @@ var colaExecHilo []TCB
 var colaBlockHilo []TCB
 var colaExitHilo []TCB
 
+/*-------------------- VAR GLOBALES --------------------*/
 
-/*type Paquete struct {
-	ID      string `json:"ID"` //de momento es un string que indica desde donde sale el mensaje.
-	Mensaje string `json:"mensaje"`
-	Size    int16  `json:"size"`
-	Array   []rune `json:"array"`
-}
+var (
+	nextPid = 1
+)
 
-var paquete Paquete = Paquete{
-	ID:      "CPU", //de momento es un string que indica desde donde sale el mensaje.
-	Mensaje: "Soy CPU",
-	Size:    int16(len([]rune{'H', 'o', 'l', 'a'})),
-	Array:   []rune{'H', 'o', 'l', 'a'},
-}*/
+
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -79,12 +72,6 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 	return config
 }
 
-func init() {
-	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
-	EnviarMensaje(ConfigKernel.IpMemoria, ConfigKernel.PuertoMemoria, "Hola Memoria, Soy Kernel")
-	EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
-}
-
 func ConfigurarLogger() {
 	logFile, err := os.OpenFile("tp.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
@@ -94,65 +81,13 @@ func ConfigurarLogger() {
 	log.SetOutput(mw)
 }
 
-func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
-	mensaje := Mensaje{Mensaje: mensajeTxt}
-	body, err := json.Marshal(mensaje)
-	if err != nil {
-		log.Printf("error codificando mensaje: %s", err.Error())
-	}
+//	Iniciar modulo
+func init() {
+	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
 
-	url := fmt.Sprintf("http://%s:%d/mensaje", ip, puerto)
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
-	if err != nil {
-		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
-	}
-
-	/*defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return
-	}*/
-	log.Printf("respuesta del servidor: %s", resp.Status)
+	iniciarProcesoInicial("./procesoBasico", TAMANIO)
+	
 }
-
-func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-	var mensaje Mensaje
-	err := decoder.Decode(&mensaje)
-	if err != nil {
-		log.Printf("Error al decodificar mensaje: %s\n", err.Error())
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Error al decodificar mensaje"))
-		return
-	}
-
-	log.Println("Conexion con Kernel")
-	log.Printf("%+v\n", mensaje)
-
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
-}
-
-/*func EnviarPaqueteACPU() {
-	ip := globals.ClientConfig.IpCpu
-	puerto := globals.ClientConfig.PuertoCpu
-
-	body, err := json.Marshal(paquete)
-	if err != nil {
-		log.Printf("error codificando paquete: %s", err.Error())
-	}
-
-	url := fmt.Sprintf("http://%s:%d/paquete", ip, puerto)
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
-	if err != nil {
-		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return
-	}
-	log.Printf("respuesta del servidor: %s", resp.Status)
-
-}*/
 
 func iniciarProceso(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
@@ -160,13 +95,13 @@ func iniciarProceso(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&path)
 
 	if err != nil {
-		log.Printf("Error al decodificar mensaje: %s\n", err.Error())
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Error al decodificar mensaje"))
+		http.Error(w, "Error decoding JSON data", http.StatusInternalServerError)
 		return
 	}
 
-	
+	//CREAMOS PCB
+	pcb := createPCB()
+
 	log.Printf("%+v\n", path)
 
 
@@ -175,6 +110,16 @@ func iniciarProceso(w http.ResponseWriter, r *http.Request) {
 
 	// iniciarProcesoInicial( path , tamanioMemoria ) ver de donde sacar el tamanio del proceso inicial?????
 
+}
+
+func createPCB() PCB {
+	nextPid++
+
+	return PCB{
+		Pid: nextPid - 1 // ASIGNO EL VALOR ANTERIOR AL pid
+		//Tid
+		//Mutex
+	}
 }
 
 
