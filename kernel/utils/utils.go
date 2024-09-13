@@ -53,8 +53,6 @@ var (
 	nextPid = 1
 )
 
-
-
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
 
@@ -81,15 +79,14 @@ func ConfigurarLogger() {
 	log.SetOutput(mw)
 }
 
-//	Iniciar modulo
+// Iniciar modulo
 func init() {
 	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
-
-	iniciarProcesoInicial("./procesoBasico", TAMANIO)
-	
+	EnviarMensaje(ConfigKernel.IpMemoria, ConfigKernel.PuertoMemoria, "Hola Memoria, Soy Kernel")
+	EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
 }
 
-func iniciarProceso(w http.ResponseWriter, r *http.Request) {
+/*func iniciarProceso(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var path Path
 	err := decoder.Decode(&path)
@@ -125,7 +122,7 @@ func createPCB() PCB {
 
 func iniciarProcesoInicial(path string, tamanioMemoria int){
 	//inicializar PCB
- 
+
 	procesoInicial.Pid = 1
 	procesoInicial.Tid = append(procesoInicial.Tid, 0)
 
@@ -141,6 +138,44 @@ func iniciarProcesoInicial(path string, tamanioMemoria int){
 
 
 	// enviar tamanio a memoria
-	
 
+
+}*/
+
+func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
+	mensaje := Mensaje{Mensaje: mensajeTxt}
+	body, err := json.Marshal(mensaje)
+	if err != nil {
+		log.Printf("error codificando mensaje: %s", err.Error())
+	}
+
+	url := fmt.Sprintf("http://%s:%d/mensaje", ip, puerto)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+	if err != nil {
+		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
+	}
+
+	/*defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return
+	}*/
+	log.Printf("respuesta del servidor: %s", resp.Status)
+}
+
+func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
+	decoder := json.NewDecoder(r.Body)
+	var mensaje Mensaje
+	err := decoder.Decode(&mensaje)
+	if err != nil {
+		log.Printf("Error al decodificar mensaje: %s\n", err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Error al decodificar mensaje"))
+		return
+	}
+
+	log.Println("Conexion con Kernel")
+	log.Printf("%+v\n", mensaje)
+
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("ok"))
 }

@@ -26,8 +26,11 @@ func main() {
 		el TID 0 creado por este proceso tendrá la prioridad máxima 0 (cero).
 	*/
 
+	mux := http.NewServeMux()
+	mux.HandleFunc("/mensaje", utils.RecibirMensaje) // buscar que es mux xd
+
 	// Funciones
-	http.HandleFunc("PUT /proceso", utils.iniciarProceso) // buscar que es mux xd
+	//http.HandleFunc("PUT /proceso", utils.iniciarProceso) // buscar que es mux xd
 
 	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), nil)
