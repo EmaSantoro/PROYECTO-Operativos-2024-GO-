@@ -36,6 +36,7 @@ type TCB struct {
 
 var procesoInicial PCB
 
+/*-------------------- ESTADOS --------------------*/
 var colaNewproceso []PCB
 var colaReadyproceso []PCB
 var colaExecproceso []PCB
@@ -84,63 +85,12 @@ func init() {
 	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
 	EnviarMensaje(ConfigKernel.IpMemoria, ConfigKernel.PuertoMemoria, "Hola Memoria, Soy Kernel")
 	EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
-}
-
-/*func iniciarProceso(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-	var path Path
-	err := decoder.Decode(&path)
-
-	if err != nil {
-		http.Error(w, "Error decoding JSON data", http.StatusInternalServerError)
-		return
-	}
-
-	//CREAMOS PCB
-	pcb := createPCB()
-
-	log.Printf("%+v\n", path)
-
-
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
-
-	// iniciarProcesoInicial( path , tamanioMemoria ) ver de donde sacar el tamanio del proceso inicial?????
+	/*SE CREA PROCESO INICIAL PARA SER PLANIFICADO
+	EL HILO 0 CREADO POR ESTE PROCESO TENDRA PRIORIDAD MAXIMA
+	el Kernel inicia con un único proceso que se le pasa y después ese proceso puede
+	ir creando otros procesos y/o hilos por medio de las syscalls correspondientes.*/
 
 }
-
-func createPCB() PCB {
-	nextPid++
-
-	return PCB{
-		Pid: nextPid - 1 // ASIGNO EL VALOR ANTERIOR AL pid
-		//Tid
-		//Mutex
-	}
-}
-
-
-func iniciarProcesoInicial(path string, tamanioMemoria int){
-	//inicializar PCB
-
-	procesoInicial.Pid = 1
-	procesoInicial.Tid = append(procesoInicial.Tid, 0)
-
-	colaNewproceso = append(colaNewproceso, procesoInicial)
-
-	tcb := TCB{Pid: procesoInicial.Pid , Tid: 0, Prioridad: 0}
-
-	colaReadyHilo = append(colaReadyHilo, tcb)
-	fmt.Println(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", procesoInicial.Pid) // se tendria que hacer esto con cada proceso y hilo que llega
-	fmt.Println(" ## (<PID>:%d) Se crea el hilo - Estado: READY ##", tcb.Pid)  			// el valor de sus estructura se obtiene de los parametros que llegan de las instrucciones
-
-	// enviar path a cpu
-
-
-	// enviar tamanio a memoria
-
-
-}*/
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	mensaje := Mensaje{Mensaje: mensajeTxt}
@@ -155,10 +105,6 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
 	}
 
-	/*defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return
-	}*/
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }
 
