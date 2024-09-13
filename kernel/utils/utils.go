@@ -18,6 +18,10 @@ type Mensaje struct {
 	Mensaje string `json:"mensaje"`
 }
 
+type Path struct {
+	Path string `json:"path"`
+}
+
 type PCB struct {
 	Pid   int
 	Tid   []int
@@ -30,11 +34,18 @@ type TCB struct {
 	Prioridad int
 }
 
-var colaNew []PCB
-var colaReady []PCB
-var colaExec []PCB
-var colaBlock []PCB
-var colaExit []PCB
+var procesoInicial PCB
+
+var colaNewproceso []PCB
+var colaReadyproceso []PCB
+var colaExecproceso []PCB
+var colaBlockproceso []PCB
+var colaExitproceso []PCB
+
+var colaReadyHilo []TCB
+var colaExecHilo []TCB
+var colaBlockHilo []TCB
+var colaExitHilo []TCB
 
 
 /*type Paquete struct {
@@ -143,49 +154,48 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 
 }*/
 
-func iniciarProceso() {
+func iniciarProceso(w http.ResponseWriter, r *http.Request) {
+	decoder := json.NewDecoder(r.Body)
+	var path Path
+	err := decoder.Decode(&path)
 
-	var procesoInicial PCB // creo el proceso inicial (esto nose si esta bien porque se supone que hace esto con cada proceso que llega)
-	procesoInicial.Pid = 1
-	
-	if(len(colaNew) == 0){  // si no hay procesos en colaNew se agrega y se intenta inicializar
-		colaNew = append(colaNew, procesoInicial)
-	//	if(/*hay espacio en memoria*/){
-			
-			colaNew = colaNew[1:]  // saco el proceso de la colaNew
+	if err != nil {
+		log.Printf("Error al decodificar mensaje: %s\n", err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Error al decodificar mensaje"))
+		return
+	}
 
-			procesoInicial.Tid = append(procesoInicial.Tid , 0) // creo el hilo 0 y lo agrego a la lista de hilos del proceso
-			
-			colaReady = append(colaReady, procesoInicial)
 	
-		//else {
-			//esperara a que haya espacio en memoria para inicializarlo
-		//}
+	log.Printf("%+v\n", path)
 
-	}	
-	//else si hay procesos en colaNew se lo encola 
-		colaNew = append(colaNew, procesoInicial)
-	
-		
-	
 
-	 
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("ok"))
+
+	// iniciarProcesoInicial( path , tamanioMemoria ) ver de donde sacar el tamanio del proceso inicial?????
+
 }
 
-func finalizarProceso(){
-	// Liberar PCB asociado
-	pcb := colaExec[0]
-	colaExec = colaExec[1:]
 
-	// Informar a la Memoria la finalización del proceso
-	EnviarMensaje(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, fmt.Sprintf("Finalizar proceso %d", pcb.Pid))
+func iniciarProcesoInicial(path string, tamanioMemoria int){
+	//inicializar PCB
+ 
+	procesoInicial.Pid = 1
+	procesoInicial.Tid = append(procesoInicial.Tid, 0)
 
-	// Esperar confirmación de la Memoria
-	// ...
+	colaNewproceso = append(colaNewproceso, procesoInicial)
 
-	// Liberar PCB
-	pcb = PCB{}
+	tcb := TCB{Pid: procesoInicial.Pid , Tid: 0, Prioridad: 0}
 
-	// Intentar inicializar un proceso en estado NEW si los hubiere
-	iniciarProceso()
+	colaReadyHilo = append(colaReadyHilo, tcb)
+	fmt.Println(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", procesoInicial.Pid) // se tendria que hacer esto con cada proceso y hilo que llega
+	fmt.Println(" ## (<PID>:%d) Se crea el hilo - Estado: READY ##", tcb.Pid)  			// el valor de sus estructura se obtiene de los parametros que llegan de las instrucciones
+
+	// enviar path a cpu
+
+
+	// enviar tamanio a memoria
+	
+
 }
