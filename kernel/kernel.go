@@ -28,10 +28,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/mensaje", utils.RecibirMensaje) // buscar que es mux xd
-
-	// Funciones
-	//http.HandleFunc("PUT /proceso", utils.iniciarProceso) // buscar que es mux xd
-
+//	mux.HandleFunc("PUT /proceso", utils.iniciarProceso) 
 	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), nil)
 

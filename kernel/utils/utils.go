@@ -28,13 +28,22 @@ type PCB struct {
 	Mutex []int
 }
 
+
 type TCB struct {
-	Pid       int
 	Tid       int
 	Prioridad int
 }
 
-var procesoInicial PCB
+type Proceso struct {
+	Path Path
+	PCB  PCB
+}
+
+type Hilo struct {
+	Pid	int
+	TCB	TCB
+
+}
 
 var colaNewproceso []PCB
 var colaReadyproceso []PCB
@@ -86,9 +95,12 @@ func init() {
 	EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
 }
 
-/*func iniciarProceso(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
+func iniciarProceso(w http.ResponseWriter, r *http.Request) {
+	
 	var path Path
+	
+	decoder := json.NewDecoder(r.Body)
+	
 	err := decoder.Decode(&path)
 
 	if err != nil {
@@ -98,14 +110,16 @@ func init() {
 
 	//CREAMOS PCB
 	pcb := createPCB()
+	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
+	tcb := createTCB()
 
-	log.Printf("%+v\n", path)
+	iniciarPlanificacion(path , pcb, tcb)
 
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 
-	// iniciarProcesoInicial( path , tamanioMemoria ) ver de donde sacar el tamanio del proceso inicial?????
+
 
 }
 
@@ -113,34 +127,41 @@ func createPCB() PCB {
 	nextPid++
 
 	return PCB{
-		Pid: nextPid - 1 // ASIGNO EL VALOR ANTERIOR AL pid
-		//Tid
-		//Mutex
+		Pid:   nextPid - 1, // ASIGNO EL VALOR ANTERIOR AL pid
+		Tid:   []int{0},     // TID
+		Mutex: []int{},     // Mutex
+	}
+}
+
+func createTCB() TCB {
+	return TCB{
+		Tid:       0,
+		Prioridad: 0,
 	}
 }
 
 
-func iniciarProcesoInicial(path string, tamanioMemoria int){
-	//inicializar PCB
 
-	procesoInicial.Pid = 1
-	procesoInicial.Tid = append(procesoInicial.Tid, 0)
+func iniciarPlanificacion(path Path, pcb PCB, tcb TCB) { // preguntar si colas de los distintos estados son para los procesos o hilos o ambos
+	proceso := Proceso{									
+		Path: path,
+		PCB : pcb,
+	}
+	hilo0 := Hilo{
+		Pid: pcb.Pid,
+		TCB: tcb,
+	}
 
-	colaNewproceso = append(colaNewproceso, procesoInicial)
+	colaNewproceso = append(colaNewproceso, proceso.PCB)
 
-	tcb := TCB{Pid: procesoInicial.Pid , Tid: 0, Prioridad: 0}
+	colaReadyHilo = append(colaReadyHilo, hilo0.TCB)
 
-	colaReadyHilo = append(colaReadyHilo, tcb)
-	fmt.Println(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", procesoInicial.Pid) // se tendria que hacer esto con cada proceso y hilo que llega
-	fmt.Println(" ## (<PID>:%d) Se crea el hilo - Estado: READY ##", tcb.Pid)  			// el valor de sus estructura se obtiene de los parametros que llegan de las instrucciones
+	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", proceso.PCB.Pid) 
+	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", hilo0.Pid, hilo0.TCB.Tid)
 
-	// enviar path a cpu
+	//enviarPathMemoria(proceso , hilo)
 
-
-	// enviar tamanio a memoria
-
-
-}*/
+}
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	mensaje := Mensaje{Mensaje: mensajeTxt}
@@ -155,10 +176,6 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
 	}
 
-	/*defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return
-	}*/
 	log.Printf("respuesta del servidor: %s", resp.Status)
 }
 
