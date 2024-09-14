@@ -29,24 +29,14 @@ type PCB struct {
 }
 
 type TCB struct {
+	Pid 	 int
 	Tid       int
 	Prioridad int
 }
 
-type Proceso struct {
-	Path Path
-	PCB  PCB
-}
 
-type Hilo struct {
-	Pid int
-	TCB TCB
-}
 
 var colaNewproceso []PCB
-var colaReadyproceso []PCB
-var colaExecproceso []PCB
-var colaBlockproceso []PCB
 var colaExitproceso []PCB
 
 var colaReadyHilo []TCB
@@ -117,6 +107,10 @@ func iniciarProceso(w http.ResponseWriter, r *http.Request) {
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
 	// como averiguo el tamanio del archivo
 	tcb := createTCB(0) // creamos hilo main
+	tcb.Pid = pcb.Pid
+	pcb.Tid = append(pcb.Tid, tcb.Tid)
+	//enviarPathMemoria(path , tamanioProceso)
+	//enviarPcbTcbCPU(pcb , tcb)
 
 	iniciarPlanificacion(path, pcb, tcb)
 
@@ -130,7 +124,7 @@ func createPCB() PCB {
 
 	return PCB{
 		Pid:   nextPid - 1, // ASIGNO EL VALOR ANTERIOR AL pid
-		Tid:   []int{0},    // TID
+		Tid:   []int{},    // TID
 		Mutex: []int{},     // Mutex
 	}
 }
@@ -139,27 +133,21 @@ func createTCB(prioridad int) TCB {
 	nextTid++
 
 	return TCB{
+		Pid:       0,
 		Tid:       nextTid - 1,
 		Prioridad: prioridad,
 	}
 }
 
 func iniciarPlanificacion(path Path, pcb PCB, tcb TCB) { // preguntar si colas de los distintos estados son para los procesos o hilos o ambos
-	proceso := Proceso{
-		Path: path,
-		PCB:  pcb,
-	}
-	hilo0 := Hilo{
-		Pid: pcb.Pid,
-		TCB: tcb,
-	}
 
-	colaNewproceso = append(colaNewproceso, proceso.PCB)
 
-	colaReadyHilo = append(colaReadyHilo, hilo0.TCB)
+	colaNewproceso = append(colaNewproceso, pcb)
 
-	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", proceso.PCB.Pid)
-	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", hilo0.Pid, hilo0.TCB.Tid)
+	colaReadyHilo = append(colaReadyHilo, tcb)
+
+	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
+	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
 
 	//enviarPathMemoria(proceso , hilo)
 
