@@ -59,6 +59,9 @@ var colaExitHilo []TCB
 var (
 	nextPid = 1
 )
+var (
+	nextTid = 0
+)
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -113,7 +116,7 @@ func iniciarProceso(w http.ResponseWriter, r *http.Request) {
 	pcb := createPCB()
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
 	// como averiguo el tamanio del archivo
-	tcb := createTCB()
+	tcb := createTCB(0) // creamos hilo main
 
 	iniciarPlanificacion(path, pcb, tcb)
 
@@ -132,10 +135,12 @@ func createPCB() PCB {
 	}
 }
 
-func createTCB() TCB {
+func createTCB(prioridad int) TCB {
+	nextTid++
+
 	return TCB{
-		Tid:       0,
-		Prioridad: 0,
+		Tid:       nextTid - 1,
+		Prioridad: prioridad,
 	}
 }
 
