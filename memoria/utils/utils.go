@@ -188,7 +188,7 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 
 
 
-//PROBAR COMO TENDRIA QUE HACER TIPO RECIBO PCB, TCB y PATH
+//-----------------------PROBAR COMO TENDRIA QUE HACER TIPO RECIBO PCB, TCB y PATH---------------------------
 
 type PCB struct { 
    pid int 
@@ -207,7 +207,7 @@ type TCB struct {
 	GX int
 	HX int
 	PC int 
-}
+} 
 
 // Mapa anidado que almacena los contextos de ejecución
 var mapPCBPorTCB = make(map[PCB]map[TCB][]string)
@@ -228,7 +228,7 @@ func SetInstructionsFromFileToMap(w http.ResponseWriter, r *http.Request) {
 	}
 	defer readFile.Close()
 
-	// Simular el retardo configurado en el archivo de configuración
+	
     time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
 	// Crear un escáner para leer el archivo línea por línea
@@ -253,7 +253,7 @@ func SetInstructionsFromFileToMap(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Instructions loaded successfully"))
 }
 
-///-------------GET INSTRUCTION-------------------
+///--------------------------------------------GET INSTRUCTION---------------------------------------------
 
 type InstructionResponse struct {
    Instruction string `json:"instruction"`
@@ -311,7 +311,7 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("No se encontró el PID")
 }
 
-// GET EXECUTION CONTEXT 
+//------------------------------------ GET EXECUTION CONTEXT --------------------------------------------- 
 
 func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 	// Extraer los parámetros PID y TID de la URL
@@ -390,7 +390,6 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Simular el retardo configurado en el archivo de configuración
     time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
 	// Buscar el PCB correspondiente al PID
@@ -416,9 +415,7 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 					tcb.HX = newContext.TCB.HX
 					tcb.PC = newContext.TCB.PC
 
-					// Guardar los cambios actualizados en el mapa
-					tidMap[tcb] = tidMap[tcb] // Actualizar el map anidado
-
+			
 					// Responder con éxito
 					w.WriteHeader(http.StatusOK)
 					w.Write([]byte("Execution context updated successfully"))
@@ -435,3 +432,6 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 	// Si no se encuentra el PCB correspondiente
 	http.Error(w, "PID not found", http.StatusNotFound)
 }
+
+
+
