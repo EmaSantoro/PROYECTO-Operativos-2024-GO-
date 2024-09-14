@@ -28,7 +28,6 @@ type PCB struct {
 	Mutex []int
 }
 
-
 type TCB struct {
 	Tid       int
 	Prioridad int
@@ -40,9 +39,8 @@ type Proceso struct {
 }
 
 type Hilo struct {
-	Pid	int
-	TCB	TCB
-
+	Pid int
+	TCB TCB
 }
 
 var colaNewproceso []PCB
@@ -93,14 +91,17 @@ func init() {
 	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
 	EnviarMensaje(ConfigKernel.IpMemoria, ConfigKernel.PuertoMemoria, "Hola Memoria, Soy Kernel")
 	EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
+
+	//Cuando levanto kernel se inicia un proceso ppal y luego se ejecutan syscalls?
+
 }
 
 func iniciarProceso(w http.ResponseWriter, r *http.Request) {
-	
+
 	var path Path
-	
+
 	decoder := json.NewDecoder(r.Body)
-	
+
 	err := decoder.Decode(&path)
 
 	if err != nil {
@@ -111,15 +112,13 @@ func iniciarProceso(w http.ResponseWriter, r *http.Request) {
 	//CREAMOS PCB
 	pcb := createPCB()
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
+	// como averiguo el tamanio del archivo
 	tcb := createTCB()
 
-	iniciarPlanificacion(path , pcb, tcb)
-
+	iniciarPlanificacion(path, pcb, tcb)
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
-
-
 
 }
 
@@ -128,7 +127,7 @@ func createPCB() PCB {
 
 	return PCB{
 		Pid:   nextPid - 1, // ASIGNO EL VALOR ANTERIOR AL pid
-		Tid:   []int{0},     // TID
+		Tid:   []int{0},    // TID
 		Mutex: []int{},     // Mutex
 	}
 }
@@ -140,12 +139,10 @@ func createTCB() TCB {
 	}
 }
 
-
-
 func iniciarPlanificacion(path Path, pcb PCB, tcb TCB) { // preguntar si colas de los distintos estados son para los procesos o hilos o ambos
-	proceso := Proceso{									
+	proceso := Proceso{
 		Path: path,
-		PCB : pcb,
+		PCB:  pcb,
 	}
 	hilo0 := Hilo{
 		Pid: pcb.Pid,
@@ -156,7 +153,7 @@ func iniciarPlanificacion(path Path, pcb PCB, tcb TCB) { // preguntar si colas d
 
 	colaReadyHilo = append(colaReadyHilo, hilo0.TCB)
 
-	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", proceso.PCB.Pid) 
+	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", proceso.PCB.Pid)
 	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", hilo0.Pid, hilo0.TCB.Tid)
 
 	//enviarPathMemoria(proceso , hilo)

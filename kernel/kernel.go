@@ -19,11 +19,9 @@ func main() {
 
 	puerto := globals.ClientConfig.Puerto
 
-
-
 	mux := http.NewServeMux()
-	mux.HandleFunc("/mensaje", utils.RecibirMensaje) // buscar que es mux xd
-//	mux.HandleFunc("PUT /proceso", utils.iniciarProceso) 
+	mux.HandleFunc("/mensaje", utils.RecibirMensaje) // buscar que es mux
+	//	mux.HandleFunc("PUT /proceso", utils.iniciarProceso)
 	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
 
