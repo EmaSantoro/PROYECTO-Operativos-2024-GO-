@@ -102,14 +102,36 @@ func ConfigurarLogger() {
 // Iniciar modulo
 func init() {
 	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
-	EnviarMensaje(ConfigKernel.IpMemoria, ConfigKernel.PuertoMemoria, "Hola Memoria, Soy Kernel")
-	EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
 
-	//Cuando levanto kernel se inicia un proceso ppal y luego se ejecutan syscalls?
-	procesoInicial(0, Path{Path: "/procesoInicial"})
+	if ConfigKernel != nil {
+
+		EnviarMensaje(ConfigKernel.IpMemoria, ConfigKernel.PuertoMemoria, "Hola Memoria, Soy Kernel")
+		EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
+
+		//Cuando levanto kernel se inicia un proceso ppal y luego se ejecutan syscalls?
+		procesoInicial(Path{Path: "/procesoInicial"}, 0)
+
+		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
+
+			ejecutarHilosFIFO()
+
+		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
+
+			// ejecutarHilosPrioridades()
+
+		} else if ConfigKernel.AlgoritmoPlanificacion == "COLASMULTINIVEL" {
+			
+			// ejecutarHilosColasMultinivel()
+
+		} 
+
+		
+	} else {
+		log.Printf("Algoritmo de planificacion no valido")
+	}
 }
 
-func procesoInicial(size int, path Path) {
+func procesoInicial(path Path, size int) {
 	//CREAMOS PCB
 	pcb := createPCB()
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
@@ -187,29 +209,41 @@ func PlanificacionProcesoInicial(path Path, pcb PCB, tcb TCB) {
 	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
 	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
 
-	planificacionCortoPlazo() // envio el hilo main a execute y le mando a cpu su tcb para que ejecute sus instrucciones
-	enviarTCB(path, tcb)
+	
 
 }
 
-func planificacionCortoPlazo() {
-	if len(colaReadyHilo) > 0 {
-		mutexColaReadyHilo.Lock()
-		tcb := colaReadyHilo[0]
-		colaReadyHilo = colaReadyHilo[1:]
-		mutexColaReadyHilo.Unlock()
-
-		mutexColaExecHilo.Lock()
-		colaExecHilo = append(colaExecHilo, tcb)
-		mutexColaExecHilo.Unlock()
-
-		fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se mueve a la cola de ejecucion ##", tcb.Pid, tcb.Tid)
+func ejecutarHilosFIFO() {
+	var Hilo TCB
+	for {
+		if len(colaReadyHilo) > 0 {
+			Hilo = colaReadyHilo[0]
+			ejecutarInstruccion(Hilo)
+		}
 	}
 }
 
-func enviarTCB(path Path, tcb TCB) error {
+func ejecutarInstruccion(Hilo TCB) {
+	if len(colaReadyHilo) > 0 {
+
+		mutexColaReadyHilo.Lock()
+		colaReadyHilo = colaReadyHilo[1:] // saco el hilo de la cola de ready
+		mutexColaReadyHilo.Unlock()
+
+		mutexColaExecHilo.Lock()
+		colaExecHilo = append(colaExecHilo, Hilo) // agrego el hilo a la cola de ejecucion
+		mutexColaExecHilo.Unlock()
+
+		fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se ejecuta el hilo - Estado: EXEC ##", Hilo.Pid, Hilo.Tid)
+
+		enviarTCB(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
+	}
+}
+
+
+func enviarTCB(tcb TCB) error {
+
 	var cpuRequest Hilo
-	cpuRequest.Path = path
 	cpuRequest.Tcb = tcb
 
 	puerto := globals.ClientConfig.PuertoCpu
