@@ -19,6 +19,7 @@ type Config struct {
 
 type Particion struct {
 	Tamanio int `json:"tamanio"` // Tamaño de la particion
+	Estado int `json:"estado"` // Estado de la particion //
 }
 
 var ClientConfig *Config
