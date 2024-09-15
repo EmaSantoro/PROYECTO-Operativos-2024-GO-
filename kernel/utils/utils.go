@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sync"
 
 	"github.com/sisoputnfrba/tp-golang/kernel/globals"
 )
@@ -29,12 +30,23 @@ type PCB struct {
 }
 
 type TCB struct {
-	Pid 	 int
+	Pid       int
 	Tid       int
 	Prioridad int
 }
 
+type KernelResponse struct {
+	Size int    `json:"size"`
+	Path string `json:"path"`
+	PCB  PCB    `json:"pcb"`
+}
 
+type Hilo struct {
+	Path Path `json:"path"`
+	Tcb  TCB  `json:"tcb"`
+}
+
+/*-------------------- COLAS GLOBALES --------------------*/
 
 var colaNewproceso []PCB
 var colaExitproceso []PCB
@@ -44,12 +56,20 @@ var colaExecHilo []TCB
 var colaBlockHilo []TCB
 var colaExitHilo []TCB
 
+/*-------------------- MUTEX GLOBALES --------------------*/
+
+var mutexColaNewproceso sync.Mutex
+var mutexColaExitproceso sync.Mutex
+
+var mutexColaReadyHilo sync.Mutex
+var mutexColaExecHilo sync.Mutex
+var mutexColaBlockHilo sync.Mutex
+var mutexColaExitHilo sync.Mutex
+
 /*-------------------- VAR GLOBALES --------------------*/
 
 var (
 	nextPid = 1
-)
-var (
 	nextTid = 0
 )
 
@@ -86,37 +106,52 @@ func init() {
 	EnviarMensaje(ConfigKernel.IpCpu, ConfigKernel.PuertoCpu, "Hola CPU, Soy Kernel")
 
 	//Cuando levanto kernel se inicia un proceso ppal y luego se ejecutan syscalls?
-
+	procesoInicial(0, Path{Path: "/procesoInicial"})
 }
 
-func iniciarProceso(w http.ResponseWriter, r *http.Request) {
-
-	var path Path
-
-	decoder := json.NewDecoder(r.Body)
-
-	err := decoder.Decode(&path)
-
-	if err != nil {
-		http.Error(w, "Error decoding JSON data", http.StatusInternalServerError)
-		return
-	}
-
+func procesoInicial(size int, path Path) {
 	//CREAMOS PCB
 	pcb := createPCB()
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
-	// como averiguo el tamanio del archivo
-	tcb := createTCB(0) // creamos hilo main
-	tcb.Pid = pcb.Pid
-	pcb.Tid = append(pcb.Tid, tcb.Tid)
-	//enviarPathMemoria(path , tamanioProceso)
-	//enviarPcbTcbCPU(pcb , tcb)
 
-	iniciarPlanificacion(path, pcb, tcb)
+	if consultaEspacioAMemoria(size, path, pcb) {
+		tcb := createTCB(0) // creamos hilo main
+		tcb.Pid = pcb.Pid
+		PlanificacionProcesoInicial(path, pcb, tcb)
+	} else {
+		fmt.Println("No hay espacio en memoria")
+		return // obviamente el primer proceso tiene espacio en memoria salvo que sea mas grande que el tamaño de la memoria
+	}
+}
 
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
+func consultaEspacioAMemoria(size int, path Path, pcb PCB) bool {
+	var memoryRequest KernelResponse
+	memoryRequest.Size = size
+	memoryRequest.Path = path.Path
+	memoryRequest.PCB = pcb
 
+	puerto := globals.ClientConfig.PuertoMemoria
+	ip := globals.ClientConfig.IpMemoria
+
+	body, err := json.Marshal(memoryRequest)
+
+	if err != nil {
+		log.Printf("error codificando %s", err.Error())
+		return false
+	}
+
+	url := fmt.Sprintf("http://%s:%d/hayEspacioEnLaMemoria", ip, puerto)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+
+	if err != nil {
+		log.Printf("error enviando tamanio del proceso a ip:%s puerto:%d", ip, puerto)
+		return false
+	}
+	if resp.StatusCode != http.StatusOK {
+		return false
+	}
+
+	return true
 }
 
 func createPCB() PCB {
@@ -124,7 +159,7 @@ func createPCB() PCB {
 
 	return PCB{
 		Pid:   nextPid - 1, // ASIGNO EL VALOR ANTERIOR AL pid
-		Tid:   []int{},    // TID
+		Tid:   []int{},     // TID
 		Mutex: []int{},     // Mutex
 	}
 }
@@ -139,18 +174,47 @@ func createTCB(prioridad int) TCB {
 	}
 }
 
-func iniciarPlanificacion(path Path, pcb PCB, tcb TCB) { // preguntar si colas de los distintos estados son para los procesos o hilos o ambos
+func PlanificacionProcesoInicial(path Path, pcb PCB, tcb TCB) {
 
-
+	mutexColaNewproceso.Lock()
 	colaNewproceso = append(colaNewproceso, pcb)
+	mutexColaNewproceso.Unlock()
 
+	mutexColaReadyHilo.Lock()
 	colaReadyHilo = append(colaReadyHilo, tcb)
+	mutexColaReadyHilo.Unlock()
 
 	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
 	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
 
-	//enviarPathMemoria(proceso , hilo)
+	enviarTCB(path, tcb)
 
+}
+
+func enviarTCB(path Path, tcb TCB) error {
+	var cpuRequest Hilo
+	cpuRequest.Path = path
+	cpuRequest.Tcb = tcb
+
+	puerto := globals.ClientConfig.PuertoCpu
+	ip := globals.ClientConfig.IpCpu
+
+	body, err := json.Marshal(cpuRequest)
+
+	if err != nil {
+		return fmt.Errorf("error codificando %s", err.Error())
+	}
+
+	url := fmt.Sprintf("http://%s:%d/recibirTcb", ip, puerto)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+
+	if err != nil {
+		return fmt.Errorf("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+	}
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("error en la respuesta del módulo de cpu: %v", resp.StatusCode)
+	}
+	return nil
 }
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
