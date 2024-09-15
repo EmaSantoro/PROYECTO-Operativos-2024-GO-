@@ -187,8 +187,24 @@ func PlanificacionProcesoInicial(path Path, pcb PCB, tcb TCB) {
 	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
 	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
 
+	planificacionCortoPlazo() // envio el hilo main a execute y le mando a cpu su tcb para que ejecute sus instrucciones
 	enviarTCB(path, tcb)
 
+}
+
+func planificacionCortoPlazo() {
+	if len(colaReadyHilo) > 0 {
+		mutexColaReadyHilo.Lock()
+		tcb := colaReadyHilo[0]
+		colaReadyHilo = colaReadyHilo[1:]
+		mutexColaReadyHilo.Unlock()
+
+		mutexColaExecHilo.Lock()
+		colaExecHilo = append(colaExecHilo, tcb)
+		mutexColaExecHilo.Unlock()
+
+		fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se mueve a la cola de ejecucion ##", tcb.Pid, tcb.Tid)
+	}
 }
 
 func enviarTCB(path Path, tcb TCB) error {
