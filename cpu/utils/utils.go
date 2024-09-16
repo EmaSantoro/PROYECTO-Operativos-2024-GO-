@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"reflect"
 	"strconv"
 	"strings"
 
@@ -239,26 +238,22 @@ func Decode(instructionLine []string) (string, error) {
 }
 
 func Execute(ContextoDeEjecucion *TCB, intruction string, line []string) error {
-
+	var err error
 	switch intruction {
 	case "SET":
-		err := Set(ContextoDeEjecucion, line[2], line[1])
-		if err != nil {
-			return err
-		}
-
+		err = Set(ContextoDeEjecucion, line[2], line[1])
 	case "READ_MEM":
 		//funcion
 	case "WRITE_MEM":
 		//funcion
 	case "SUM":
-		//funcion
+		err = Sumar(ContextoDeEjecucion, line[1], line[2])
 	case "SUB":
-		//funcion
+		err = Restar(ContextoDeEjecucion, line[1], line[2])
 	case "JNZ":
-		//funcion
+		err = JNZ(ContextoDeEjecucion, line[1], line[2])
 	case "LOG":
-		//funcion
+		err = Log(ContextoDeEjecucion, line[1])
 	case "DUMP_MEMORY":
 		//funcion
 	case "IO":
@@ -283,8 +278,9 @@ func Execute(ContextoDeEjecucion *TCB, intruction string, line []string) error {
 		//funcion
 	default:
 		log.Printf("Instruccion no valida %s", intruction)
-		return nil
-
+	}
+	if err != nil {
+		return err
 	}
 	return nil
 }
@@ -315,39 +311,167 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 func Set(registrosCPU *TCB, valor string, registro string) error {
 
 	//ver si el registro en la instruccion existe
+	/*
+		registers := reflect.ValueOf(registrosCPU)
 
-	registers := reflect.ValueOf(registrosCPU)
+		campoRef := registers.Elem().FieldByName(registro)
 
-	campoRef := registers.Elem().FieldByName(registro)
+		if !campoRef.IsValid() {
+			err := fmt.Errorf("SET error :registro %s no existente en la estructura", registro)
+			return err
+		}
+		//pasar el string a unit36 ver si debe tomarse un tipo generico
+		if campoRef.CanSet() {
+			err := fmt.Errorf("SET error: cannot set %v", campoRef)
+			return err
+		}
+	*/
 
-	if !campoRef.IsValid() {
-		err := fmt.Errorf("SET error :registro %s no existente en la estructura", registro)
-		return err
+	register, errR := GetRegister(registrosCPU, registro)
+	if errR != nil {
+		return errR
 	}
-	//pasar el string a unit36 ver si debe tomarse un tipo generico
-	if campoRef.CanSet() {
-		err := fmt.Errorf("SET error: cannot set %v", campoRef)
-		return err
-	}
+
 	valorParse, err := strconv.ParseUint(valor, 10, 32)
 	if err != nil {
-		log.Printf("SET error: Error al convertir valor %s al del tipo del registro %v", valor, reflect.TypeOf(campoRef))
+		log.Printf("SET error: Error al convertir valor %s al del tipo del registro %s", valor, registro)
 		return err
 	}
-	campoRef.SetUint(valorParse)
+	*register = uint32(valorParse)
+
 	return nil
 
 }
 
 /*
-func ConvertStringToUint32(cadena string) (uint32, error) {
-	valorParse64, err := strconv.ParseUint(cadena, 10, 32)
+	func ConvertStringToUint32(cadena string) (uint32, error) {
+		valorParse64, err := strconv.ParseUint(cadena, 10, 32)
 
+		if err != nil {
+			return 0, err
+		}
+
+		valorParse32 := uint32(valorParse64)
+		return valorParse32, nil
+	}
+*/
+func Read_Memory(context *contextoEjecucion, registroDireccion string, registroDato string) error {
+
+	register, err := GetRegister(&context.tcb, registroDireccion)
 	if err != nil {
+		return err
+	}
+	direccionLogica := register
+
+	direccionFisica, errT := TranslateAdress(*direccionLogica, context.pcb.base, context.pcb.limit)
+	if errT != nil {
+		return err // ver su solo esto basta o si hay que aca terminar el programa
+	}
+	log.Printf("Leer memoria con direccion fisica %d", direccionFisica)
+	//leer en memoria
+	return nil
+
+}
+
+func GetRegister(registrosCPU *TCB, registro string) (*uint32, error) {
+
+	switch registro {
+	case "AX":
+		return &registrosCPU.AX, nil
+	case "BX":
+		return &registrosCPU.BX, nil
+	case "CX":
+		return &registrosCPU.CX, nil
+	case "DX":
+		return &registrosCPU.DX, nil
+	case "EX":
+		return &registrosCPU.EX, nil
+	case "FX":
+		return &registrosCPU.FX, nil
+	case "GX":
+		return &registrosCPU.GX, nil
+	case "HX":
+		return &registrosCPU.HX, nil
+	case "PC":
+		return &registrosCPU.PC, nil
+	default:
+		err := fmt.Errorf("Registro %s no existente en la estructura", registro)
+		return nil, err
+	}
+}
+
+func TranslateAdress(direccionLogica uint32, base int, limite int) (int, error) {
+	direccionFisica := int(direccionLogica) + base
+
+	if direccionFisica > limite {
+		err := fmt.Errorf("Segmentation Fault")
 		return 0, err
 	}
 
-	valorParse32 := uint32(valorParse64)
-	return valorParse32, nil
+	return direccionFisica, nil
 }
-*/
+
+func Sumar(registrosCPU *TCB, registroDestino string, registroOrigen string) error {
+	originRegister, finalRegister, err := obtenerOperandos(registrosCPU, registroDestino, registroOrigen)
+
+	if err != nil {
+		return err
+	}
+
+	*finalRegister += *originRegister
+	return nil
+}
+
+func Restar(registrosCPU *TCB, registroDestino string, registroOrigen string) error {
+	originRegister, finalRegister, err := obtenerOperandos(registrosCPU, registroDestino, registroOrigen)
+
+	if err != nil {
+		return err
+	}
+
+	*finalRegister = *finalRegister - *originRegister
+	return nil
+}
+
+func obtenerOperandos(registrosCPU *TCB, registroDestino string, registroOrigen string) (*uint32, *uint32, error) {
+
+	originRegister, errR := GetRegister(registrosCPU, registroOrigen)
+	if errR != nil {
+		return nil, nil, errR
+	}
+
+	register, err2 := GetRegister(registrosCPU, registroDestino)
+	if err2 != nil {
+		return nil, nil, err2
+	}
+
+	return originRegister, register, nil
+}
+
+func JNZ(registrosCPU *TCB, registro string, instruccion string) error {
+
+	register, err := GetRegister(registrosCPU, registro)
+	if err != nil {
+		return err
+	}
+	instruction, errI := strconv.Atoi(instruccion)
+	if errI != nil {
+		return errI
+	}
+	if *register != 0 {
+		registrosCPU.PC = uint32(instruction)
+	}
+	return nil
+
+}
+
+func Log(registrosCPU *TCB, registro string) error {
+
+	register, err := GetRegister(registrosCPU, registro)
+	if err != nil {
+		return err
+	}
+	log.Printf("EL registro %s contiene el valor %d", registro, *register)
+	return nil
+
+}
