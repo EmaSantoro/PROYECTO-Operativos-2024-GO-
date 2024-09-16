@@ -21,6 +21,8 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
+	mux.HandleFunc("/crearProceso", utils.CrearProceso)
+	mux.HandleFunc("/finalizarProceso", utils.FinalizarProceso)
 	
 	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
