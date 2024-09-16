@@ -38,12 +38,10 @@ type KernelResponse struct {
 }
 
 type IniciarProceso struct {
-	Path string `json:"path"`
-	Size int    `json:"size"`
-	Prioridad int `json:"prioridad"`
+	Path      string `json:"path"`
+	Size      int    `json:"size"`
+	Prioridad int    `json:"prioridad"`
 }
-
-
 
 /*-------------------- COLAS GLOBALES --------------------*/
 
@@ -77,8 +75,9 @@ var (
 /*---------------------- CANALES ----------------------*/
 
 var finProceso = make(chan bool)
-var procesosActivos = make(map[int]PCB) // mapa que gestiona los procesos activos y se puede acceder a travez de una clave
-										// en este caso seria por el pid
+
+//var procesosActivos = make(map[int]PCB) // mapa que gestiona los procesos activos y se puede acceder a travez de una clave
+// en este caso seria por el pid
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -119,20 +118,12 @@ func init() {
 		procesoInicial("procesoInicial", 0)
 
 		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
-
 			go ejecutarHilosFIFO()
-
 		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
-
 			// go ejecutarHilosPrioridades()
-
 		} else if ConfigKernel.AlgoritmoPlanificacion == "COLASMULTINIVEL" {
-			
 			// go ejecutarHilosColasMultinivel()
-
-		} 
-
-		
+		}
 	} else {
 		log.Printf("Algoritmo de planificacion no valido")
 	}
@@ -144,7 +135,7 @@ func procesoInicial(path string, size int) {
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
 
 	if consultaEspacioAMemoria(size, path, pcb) {
-		tcb := createTCB(pcb.Pid, 0) // creamos hilo main
+		tcb := createTCB(pcb.Pid, 0)       // creamos hilo main
 		pcb.Tid = append(pcb.Tid, tcb.Tid) // agregamos el hilo a la listas de hilos del proceso
 		enviarTCBMemoria(tcb)
 		PlanificacionProcesoInicial(pcb, tcb)
@@ -188,9 +179,9 @@ func createPCB() PCB {
 	nextPid++
 
 	return PCB{
-		Pid:   nextPid - 1, 
-		Tid:   []int{},     
-		Mutex: []int{},    
+		Pid:   nextPid - 1,
+		Tid:   []int{},
+		Mutex: []int{},
 	}
 }
 
@@ -216,15 +207,12 @@ func PlanificacionProcesoInicial(pcb PCB, tcb TCB) {
 
 	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
 	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
-
-	
-
 }
 
 func ejecutarHilosFIFO() {
 	var Hilo TCB
 	for {
-		if len(colaReadyHilo) > 0  && len(colaExecHilo) == 0 {
+		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo = colaReadyHilo[0]
 			ejecutarInstruccion(Hilo)
 		}
@@ -247,7 +235,6 @@ func ejecutarInstruccion(Hilo TCB) {
 		enviarTCBCpu(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
 	}
 }
-
 
 func enviarTCBCpu(tcb TCB) error {
 
@@ -301,7 +288,7 @@ func enviarTCBMemoria(tcb TCB) error {
 	return nil
 }
 
-func CrearProceso( w http.ResponseWriter, r *http.Request) {
+func CrearProceso(w http.ResponseWriter, r *http.Request) {
 	var proceso IniciarProceso
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&proceso)
@@ -313,12 +300,7 @@ func CrearProceso( w http.ResponseWriter, r *http.Request) {
 	size := proceso.Size
 	prioridad := proceso.Prioridad
 
-	err = iniciarProceso(path, size, prioridad)
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	go iniciarProceso(path, size, prioridad) // go routine para que no bloquee el hilo principal en caso de que no haya espacio en memoria para iniciar proceso. CONSULTAR!!
 
 	w.WriteHeader(http.StatusOK)
 
@@ -328,51 +310,53 @@ func iniciarProceso(path string, size int, prioridad int) error {
 
 	//CREAMOS PCB
 	pcb := createPCB()
-	
+
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
-		if consultaEspacioAMemoria(size, path, pcb) {
-			nextTid = 0
-			tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
-			pcb.Tid = append(pcb.Tid, tcb.Tid) // agregamos el hilo a la listas de hilos del proceso
-			enviarTCBMemoria(tcb)
+	if consultaEspacioAMemoria(size, path, pcb) {
+		nextTid = 0
+		tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
+		pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
+		enviarTCBMemoria(tcb)
 
-			mutexColaNewproceso.Lock()
-			colaNewproceso = append(colaNewproceso, pcb) // agregamos el proceso a la cola de new
-			mutexColaNewproceso.Unlock()
-		
-			mutexColaReadyHilo.Lock()
-			colaReadyHilo = append(colaReadyHilo, tcb) // agregamos el hilo a la cola de ready
-			mutexColaReadyHilo.Unlock()
-		
-			fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
-			fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
+		mutexColaNewproceso.Lock()
+		colaNewproceso = append(colaNewproceso, pcb) // agregamos el proceso a la cola de new
+		mutexColaNewproceso.Unlock()
 
-		} else {
-			fmt.Println("El tamaño del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....") 
-			// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
-			<-finProceso
-			iniciarProceso(path, size, prioridad)
-		}
+		mutexColaReadyHilo.Lock()
+		colaReadyHilo = append(colaReadyHilo, tcb) // agregamos el hilo a la cola de ready
+		mutexColaReadyHilo.Unlock()
+
+		fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
+		fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
+
+	} else {
+		fmt.Println("El tamaño del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
+		// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
+		<-finProceso
+		iniciarProceso(path, size, prioridad)
+	}
 
 	return nil
 }
 
-func FinalizarProceso( w http.ResponseWriter, r *http.Request) {
+func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 	var hilo TCB
 	decoder := json.NewDecoder(r.Body)
+
 	err := decoder.Decode(&hilo)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
 	pid := hilo.Pid
 	tid := hilo.Tid
 
 	if tid == 0 {
-	err = exitProcess(pid)
+		err = exitProcess(pid)
 	} else {
-		fmt.Printf("El hilo no es el principal no puede ejecutar esta instruccion")	
-		return
+		fmt.Printf("El hilo no es el principal, no se puede ejecutar esta instruccion")
+		return //Ver como hacer para que no finalice el kernel y el hilo continue con su siguiente instruccion
 	}
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -384,7 +368,7 @@ func exitProcess(pid int) error {
 
 	for i, pcb := range colaNewproceso { // lo que hace range es recoreer la lista de procesos y devuelve la posicion en la que esta y el proceso
 
-		if pcb.Pid == pid {  // si coincide el pid del proceso con el pid que se quiere finalizar
+		if pcb.Pid == pid { // si coincide el pid del proceso con el pid que se quiere finalizar
 
 			mutexColaNewproceso.Lock()
 			colaNewproceso = append(colaNewproceso[:i], colaNewproceso[i+1:]...) // sacamos el proceso de la cola de new
@@ -438,28 +422,27 @@ func exitProcess(pid int) error {
 					fmt.Printf(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
 				}
 			}
-			 
+
 			resp := enviarProcesoFinalizadoAMemoria(pcb)
 
 			if resp == nil {
-				mutexProcesosActivos.Lock()
-				defer mutexProcesosActivos.Unlock()
-			
+				//mutexProcesosActivos.Lock()
+				//defer mutexProcesosActivos.Unlock()
+
 				// eliminar el PCB del proceso terminado
-					delete(procesosActivos, pid)
-			
-			
-					// Notificar a través del canal
-					finProceso <- true			
+				//delete(procesosActivos, pid)
+
+				// Notificar a través del canal
+				finProceso <- true
 			}
-		}			
+		}
 	}
 
 	return nil
 }
 
 func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
-	
+
 	memoryRequest := PCB{}
 	memoryRequest = pcb
 
@@ -485,34 +468,33 @@ func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 
 }
 
-func crearHilo( w http.ResponseWriter, r *http.Request) {
-	
+func crearHilo(w http.ResponseWriter, r *http.Request) {
+
 }
 
-func finalizarHilo( w http.ResponseWriter, r *http.Request) {
-	
+func finalizarHilo(w http.ResponseWriter, r *http.Request) {
+
 }
 
-func unirHilo( w http.ResponseWriter, r *http.Request) {
-	
+func unirHilo(w http.ResponseWriter, r *http.Request) {
+
 }
 
-func cancelarHilo( w http.ResponseWriter, r *http.Request) {
-	
+func cancelarHilo(w http.ResponseWriter, r *http.Request) {
+
 }
 
-func crearMutex( w http.ResponseWriter, r *http.Request) {
-	
+func crearMutex(w http.ResponseWriter, r *http.Request) {
+
 }
 
-func bloquearMutex( w http.ResponseWriter, r *http.Request) {
-	
+func bloquearMutex(w http.ResponseWriter, r *http.Request) {
+
 }
 
-func liberarMutex( w http.ResponseWriter, r *http.Request) {
-	
-}
+func liberarMutex(w http.ResponseWriter, r *http.Request) {
 
+}
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	mensaje := Mensaje{Mensaje: mensajeTxt}
