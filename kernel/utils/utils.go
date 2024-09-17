@@ -213,8 +213,8 @@ func PlanificacionProcesoInicial(pcb PCB, tcb TCB) {
 	colaReadyHilo = append(colaReadyHilo, tcb)
 	mutexColaReadyHilo.Unlock()
 
-	slog.Info(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
-	slog.Info(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
+	slog.Info("Se crea el proceso - Estado: NEW", slog.Int("pid", pcb.Pid))
+	slog.Info("Se crea el hilo - Estado: READY", slog.Int("pid", tcb.Pid), slog.Int("tid", tcb.Tid))
 }
 
 func ejecutarHilosFIFO() {
@@ -238,8 +238,7 @@ func ejecutarInstruccion(Hilo TCB) {
 		colaExecHilo = append(colaExecHilo, Hilo) // agrego el hilo a la cola de ejecucion
 		mutexColaExecHilo.Unlock()
 
-		slog.Info(" ## (<PID>:%d , <TID>:%d ) Se ejecuta el hilo - Estado: EXEC ##", Hilo.Pid, Hilo.Tid)
-
+		slog.Info("Se ejecuta el hilo - Estado: EXEC", slog.Int("pid", Hilo.Pid), slog.Int("tid", Hilo.Tid))
 		enviarTCBCpu(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
 	}
 }
@@ -263,7 +262,7 @@ func enviarTCBCpu(tcb TCB) error {
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
-		slog.Error("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		slog.Error("Error enviando TCB", slog.String("ip", ip), slog.Int("puerto", puerto), slog.Any("error", err))
 		return err
 	}
 	if resp.StatusCode != http.StatusOK {
@@ -292,11 +291,11 @@ func enviarTCBMemoria(tcb TCB) error {
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
-		slog.Error("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		slog.Error("Error enviando TCB", slog.String("ip", ip), slog.Int("puerto", puerto), slog.Any("error", err)) // err contiene el error que causo que no se envie la tcb
 		return err
 	}
 	if resp.StatusCode != http.StatusOK {
-		slog.Error("error en la respuesta del módulo de cpu: " + fmt.Sprintf("%v", resp.StatusCode))
+		slog.Error("Error en la respuesta del módulo de CPU", slog.Int("status_code", resp.StatusCode))
 		return err
 	}
 	return nil
@@ -340,8 +339,9 @@ func iniciarProceso(path string, size int, prioridad int) error {
 		colaReadyHilo = append(colaReadyHilo, tcb) // agregamos el hilo a la cola de ready
 		mutexColaReadyHilo.Unlock()
 
-		slog.Info("## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
-		slog.Info(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
+		slog.Info("Se crea el proceso - Estado: NEW", slog.Int("pid", pcb.Pid))
+
+		slog.Info("Se crea el hilo - Estado: READY", slog.Int("pid", tcb.Pid), slog.Int("tid", tcb.Tid))
 
 	} else {
 		slog.Warn("El tamaño del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
@@ -391,8 +391,7 @@ func exitProcess(pid int) error {
 			mutexColaExitproceso.Lock()
 			colaExitproceso = append(colaExitproceso, pcb) // agregamos el proceso a la cola de exit
 			mutexColaExitproceso.Unlock()
-
-			slog.Info(" ## finaliza el proceso (<PID>:%d) - Estado: EXIT ##", pcb.Pid)
+			slog.Info("Finaliza el proceso - Estado: EXIT", slog.Int("pid", pcb.Pid))
 
 			// Eliminar todos los hilos del proceso
 			for i := len(colaReadyHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos ready
@@ -405,7 +404,7 @@ func exitProcess(pid int) error {
 					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
 					mutexColaExitHilo.Unlock()
 
-					slog.Info(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					slog.Info(" ## finaliza el hilo - Estado: EXIT ##", slog.Int("pid", colaReadyHilo[i].Pid), slog.Int("tid", colaReadyHilo[i].Tid))
 				}
 			}
 
@@ -418,8 +417,7 @@ func exitProcess(pid int) error {
 					mutexColaExitHilo.Lock()
 					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
 					mutexColaExitHilo.Unlock()
-
-					slog.Info(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					slog.Info(" ## finaliza el hilo - Estado: EXIT ##", slog.Int("pid", colaReadyHilo[i].Pid), slog.Int("tid", colaReadyHilo[i].Tid))
 				}
 			}
 
@@ -433,7 +431,7 @@ func exitProcess(pid int) error {
 					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
 					mutexColaExitHilo.Unlock()
 
-					slog.Info(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					slog.Info(" ## finaliza el hilo - Estado: EXIT ##", slog.Int("pid", colaReadyHilo[i].Pid), slog.Int("tid", colaReadyHilo[i].Tid))
 				}
 			}
 
@@ -474,7 +472,7 @@ func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
-		slog.Error("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		slog.Error("Error enviando TCB", slog.String("ip", ip), slog.Int("puerto", puerto))
 		return err
 	}
 	if resp.StatusCode != http.StatusOK {
@@ -517,16 +515,16 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 	mensaje := Mensaje{Mensaje: mensajeTxt}
 	body, err := json.Marshal(mensaje)
 	if err != nil {
-		log.Printf("error codificando mensaje: %s", err.Error())
+		slog.Error("error codificando mensaje: " + err.Error())
 	}
 
 	url := fmt.Sprintf("http://%s:%d/mensaje", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 	if err != nil {
-		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
+		slog.Error("Error enviando mensaje", slog.String("ip", ip), slog.Int("puerto", puerto))
 	}
 
-	log.Printf("respuesta del servidor: %s", resp.Status)
+	slog.Info("respuesta del servidor: " + resp.Status)
 }
 
 func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
@@ -534,14 +532,13 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 	var mensaje Mensaje
 	err := decoder.Decode(&mensaje)
 	if err != nil {
-		log.Printf("Error al decodificar mensaje: %s\n", err.Error())
+		slog.Error("Error al decodificar mensaje: " + err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Error al decodificar mensaje"))
 		return
 	}
 
-	log.Println("Conexion con Kernel")
-	log.Printf("%+v\n", mensaje)
+	slog.Info("Conexion con Kernel" + fmt.Sprintf("%+v\n", mensaje))
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
