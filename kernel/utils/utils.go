@@ -32,16 +32,43 @@ type TCB struct {
 	Prioridad int
 }
 
-type KernelResponse struct {
+type KernelRequest struct {
 	Size int    `json:"size"`
-	Path string `json:"path"`
 	PCB  PCB    `json:"pcb"`
 }
 
-type IniciarProceso struct {
+type TCBRequestCpu struct {
+	Pid       int `json:"pid"`
+	Tid       int `json:"tid"`
+}
+
+type TCBRequestMemory struct {
+	Pid       int `json:"pid"`
+	Tid       int `json:"tid"`
+	Path 	string `json:"path"`
+}
+
+type IniciarProcesoResponse struct {
 	Path      string `json:"path"`
 	Size      int    `json:"size"`
 	Prioridad int    `json:"prioridad"`
+}
+
+type FinalizarProcesoResponse struct {
+	Pid int `json:"pid"`
+	Tid int `json:"tid"`
+}
+
+type PCBRequest struct {
+	Pid int `json:"pid"`
+	Tid []int `json:"tids"`
+	Mutex []int `json:"mutex"`
+}
+
+type CrearHiloResponse struct {
+	Pid int `json:"pid"`
+	Path string `json:"path"`
+	Prioridad int `json:"prioridad"`	
 }
 
 /*-------------------- COLAS GLOBALES --------------------*/
@@ -64,7 +91,7 @@ var mutexColaExecHilo sync.Mutex
 var mutexColaBlockHilo sync.Mutex
 var mutexColaExitHilo sync.Mutex
 
-var mutexProcesosActivos sync.Mutex
+//var mutexProcesosActivos sync.Mutex
 
 /*-------------------- VAR GLOBALES --------------------*/
 
@@ -141,10 +168,10 @@ func procesoInicial(path string, size int) {
 	pcb := createPCB()
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
 
-	if consultaEspacioAMemoria(size, path, pcb) {
+	if consultaEspacioAMemoria(size, pcb) {
 		tcb := createTCB(pcb.Pid, 0)       // creamos hilo main
 		pcb.Tid = append(pcb.Tid, tcb.Tid) // agregamos el hilo a la listas de hilos del proceso
-		enviarTCBMemoria(tcb)
+		enviarTCBMemoria(tcb, path)
 		PlanificacionProcesoInicial(pcb, tcb)
 	} else {
 		slog.Error("Error creando el proceso inicial")
@@ -152,10 +179,9 @@ func procesoInicial(path string, size int) {
 	}
 }
 
-func consultaEspacioAMemoria(size int, path string, pcb PCB) bool {
-	var memoryRequest KernelResponse
+func consultaEspacioAMemoria(size int, pcb PCB) bool {
+	var memoryRequest KernelRequest
 	memoryRequest.Size = size
-	memoryRequest.Path = path
 	memoryRequest.PCB = pcb
 
 	puerto := globals.ClientConfig.PuertoMemoria
@@ -245,8 +271,10 @@ func ejecutarInstruccion(Hilo TCB) {
 
 func enviarTCBCpu(tcb TCB) error {
 
-	cpuRequest := TCB{}
-	cpuRequest = tcb
+	cpuRequest := TCBRequestCpu{}
+	cpuRequest.Pid = tcb.Pid
+	cpuRequest.Tid = tcb.Tid
+	
 
 	puerto := globals.ClientConfig.PuertoCpu
 	ip := globals.ClientConfig.IpCpu
@@ -272,10 +300,12 @@ func enviarTCBCpu(tcb TCB) error {
 	return nil
 }
 
-func enviarTCBMemoria(tcb TCB) error {
+func enviarTCBMemoria(tcb TCB, path string) error {
 
-	memoryRequest := TCB{}
-	memoryRequest = tcb
+	memoryRequest := TCBRequestMemory{}
+	memoryRequest.Pid = tcb.Pid
+	memoryRequest.Tid = tcb.Tid
+	memoryRequest.Path = path
 
 	puerto := globals.ClientConfig.PuertoMemoria
 	ip := globals.ClientConfig.IpMemoria
@@ -302,7 +332,7 @@ func enviarTCBMemoria(tcb TCB) error {
 }
 
 func CrearProceso(w http.ResponseWriter, r *http.Request) {
-	var proceso IniciarProceso
+	var proceso IniciarProcesoResponse
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&proceso)
 	if err != nil {
@@ -325,11 +355,11 @@ func iniciarProceso(path string, size int, prioridad int) error {
 	pcb := createPCB()
 
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
-	if consultaEspacioAMemoria(size, path, pcb) {
+	if consultaEspacioAMemoria(size, pcb) {
 		nextTid = 0
 		tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
 		pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
-		enviarTCBMemoria(tcb)
+		enviarTCBMemoria(tcb, path)
 
 		mutexColaNewproceso.Lock()
 		colaNewproceso = append(colaNewproceso, pcb) // agregamos el proceso a la cola de new
@@ -354,7 +384,7 @@ func iniciarProceso(path string, size int, prioridad int) error {
 }
 
 func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
-	var hilo TCB
+	var hilo FinalizarProcesoResponse
 	decoder := json.NewDecoder(r.Body)
 
 	err := decoder.Decode(&hilo)
@@ -376,6 +406,8 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func exitProcess(pid int) error {
@@ -455,8 +487,10 @@ func exitProcess(pid int) error {
 
 func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 
-	memoryRequest := PCB{}
-	memoryRequest = pcb
+	memoryRequest := PCBRequest{}
+	memoryRequest.Pid = pcb.Pid
+	memoryRequest.Tid = pcb.Tid
+	memoryRequest.Mutex = pcb.Mutex
 
 	puerto := globals.ClientConfig.PuertoMemoria
 	ip := globals.ClientConfig.IpMemoria
@@ -483,9 +517,56 @@ func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 
 }
 
-func crearHilo(w http.ResponseWriter, r *http.Request) {
+func CrearHilo(w http.ResponseWriter, r *http.Request) {
+	 var hilo CrearHiloResponse
+	 decoder := json.NewDecoder(r.Body)
+	 err := decoder.Decode(&hilo)
+	 if err != nil {
+		 http.Error(w, err.Error(), http.StatusBadRequest)
+		 return
+	 }
+
+	 pid := hilo.Pid
+	 path := hilo.Path
+	 prioridad := hilo.Prioridad
+
+	 err = iniciarHilo(pid, path, prioridad)
+
+	 if err != nil {
+		 http.Error(w, err.Error(), http.StatusInternalServerError)
+		 return
+	 }
+
+	 w.WriteHeader(http.StatusOK)	 
+	
+}
+
+func iniciarHilo(pid int, path string, prioridad int) error {
+	
+	tcb := createTCB(pid, prioridad) // creo hilo
+	enviarTCBMemoria(tcb, path)     // envio hilo a memoria con el path que le corresponde ejecutar
+	pcb := getPCB(pid)            // obtengo el proceso al que pertenece el hilo
+	pcb.Tid = append(pcb.Tid, tcb.Tid) // agrego el hilo a la lista de hilos del proceso
+
+	mutexColaReadyHilo.Lock()
+	colaReadyHilo = append(colaReadyHilo, tcb) // agrego hilo a la cola de ready
+	mutexColaReadyHilo.Unlock()
+
+	slog.Info("Se crea el hilo - Estado: READY", slog.Int("pid", tcb.Pid), slog.Int("tid", tcb.Tid))
+
+	return nil
 
 }
+
+func getPCB(pid int) PCB {
+	for _, pcb := range colaNewproceso {
+		if pcb.Pid == pid {
+			return pcb
+		}
+	}
+	return PCB{}
+}
+
 
 func finalizarHilo(w http.ResponseWriter, r *http.Request) {
 
