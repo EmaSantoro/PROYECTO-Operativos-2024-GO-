@@ -98,10 +98,11 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 type PCB struct { 
    pid int 
    base int
-   limit int
+   limit int 
 }
 
 type TCB struct {
+	pid int
 	tid int
 	AX int
 	BX int
@@ -117,46 +118,46 @@ type TCB struct {
 // Mapa anidado que almacena los contextos de ejecución
 var mapPCBPorTCB = make(map[PCB]map[TCB][]string)
 
-func SetInstructionsFromFileToMap(w http.ResponseWriter, r *http.Request) {
-	// Extraer los parámetros PCB, TCB y PATH del archivo
+// func SetInstructionsFromFileToMap(w http.ResponseWriter, r *http.Request) {
+// 	// Extraer los parámetros PCB, TCB y PATH del archivo
 
-	queryParams := r.URL.Query()
-	path := queryParams.Get("path")
-	var pcb PCB
-	var tcb TCB 
+// 	queryParams := r.URL.Query()
+// 	path := queryParams.Get("path")
+// 	var pcb PCB
+// 	var tcb TCB 
 	
-	// Abrir el archivo de pseudocódigo
-	readFile, err := os.Open(path)
-	if err != nil {
-		http.Error(w, "Error opening file", http.StatusInternalServerError)
-		return
-	}
-	defer readFile.Close()
+// 	// Abrir el archivo de pseudocódigo
+// 	readFile, err := os.Open(path)
+// 	if err != nil {
+// 		http.Error(w, "Error opening file", http.StatusInternalServerError)
+// 		return
+// 	}
+// 	defer readFile.Close()
 
 	
-    time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
+//     time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
-	// Crear un escáner para leer el archivo línea por línea
-	fileScanner := bufio.NewScanner(readFile)
-	fileScanner.Split(bufio.ScanLines)
+// 	// Crear un escáner para leer el archivo línea por línea
+// 	fileScanner := bufio.NewScanner(readFile)
+// 	fileScanner.Split(bufio.ScanLines)
 
-	var instrucciones []string // Almacenar cada instrucción en un slice de strings
-	for fileScanner.Scan() {
-		instrucciones = append(instrucciones, fileScanner.Text()) //esta linea lee los codigos
-	}
+// 	var instrucciones []string // Almacenar cada instrucción en un slice de strings
+// 	for fileScanner.Scan() {
+// 		instrucciones = append(instrucciones, fileScanner.Text()) //esta linea lee los codigos
+// 	}
 
-	// Verificar si el PCb ya existe en el mapa
-	if _, found := mapPCBPorTCB[pcb]; !found {
-		mapPCBPorTCB[pcb] = make(map[TCB][]string)
-	}
+// 	// Verificar si el PCb ya existe en el mapa
+// 	if _, found := mapPCBPorTCB[pcb]; !found {
+// 		mapPCBPorTCB[pcb] = make(map[TCB][]string)
+// 	}
 
-	// Guardar las instrucciones en el mapa correspondiente al PID y TID
-	mapPCBPorTCB[pcb][tcb] = instrucciones
+// 	// Guardar las instrucciones en el mapa correspondiente al PID y TID
+// 	mapPCBPorTCB[pcb][tcb] = instrucciones
 
-	// Responder con éxito
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Instructions loaded successfully"))
-}
+// 	// Responder con éxito
+// 	w.WriteHeader(http.StatusOK)
+// 	w.Write([]byte("Instructions loaded successfully"))
+// }
 
 ///--------------------------------------------GET INSTRUCTION---------------------------------------------
 
@@ -272,8 +273,8 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 	// Extraer los nuevos valores para el PCB y TCB desde el cuerpo de la petición
 	var newContext struct {
 		PCB struct {
-			Base  int `json:"base"`
-			Limit int `json:"limit"`
+		    Base  int `json:"base"`
+		 	Limit int `json:"limit"`
 		}
 		TCB struct {
 			AX int `json:"AX"`
@@ -319,7 +320,7 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 					tcb.GX = newContext.TCB.GX
 					tcb.HX = newContext.TCB.HX
 					tcb.PC = newContext.TCB.PC
-
+				
 			
 					// Responder con éxito
 					w.WriteHeader(http.StatusOK)
@@ -371,7 +372,7 @@ func HayEspacioEnLaMemoria(w http.ResponseWriter, r *http.Request){
 	size, _ := strconv.Atoi(queryParams.Get("size"))
 	path := queryParams.Get("path")
 	var pcb PCB
-	var tcb TCB 
+	var tcb TCB
 
 	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
@@ -431,3 +432,9 @@ func guardarTodoEnElMap(pcb PCB, tcb TCB, path string) error{
 
 }
 
+//1. Primer paso: kernel me tendria que pasar pid, tid, base y limite
+//2. tengo lugar? 
+//2. Segundo paso: yo tendria que sacar del path de mi configuracion el path del archivo
+//3. kernel abre el archivo y me pasa el path. 
+
+//kernel me pasa path,pcb y tamaño 
