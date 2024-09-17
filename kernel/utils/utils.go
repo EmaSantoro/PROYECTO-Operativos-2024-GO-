@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"log/slog"
 	"net/http"
 	"os"
 	"sync"
@@ -107,6 +108,12 @@ func ConfigurarLogger() {
 
 // Iniciar modulo
 func init() {
+	slog.SetLogLoggerLevel(slog.LevelDebug)
+	/*	slog.SetLogLoggerLevel(slog.LevelInfo)
+		slog.SetLogLoggerLevel(slog.LevelWarn)
+		slog.SetLogLoggerLevel(slog.LevelError)
+	SE SETEA EL NIVEL MINIMO DE LOGS A IMPRIMIR POR CONSOLA*/
+
 	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
 
 	if ConfigKernel != nil {
@@ -125,7 +132,7 @@ func init() {
 			// go ejecutarHilosColasMultinivel()
 		}
 	} else {
-		log.Printf("Algoritmo de planificacion no valido")
+		slog.Debug("Algoritmo de planificacion no valido")
 	}
 }
 
@@ -140,8 +147,8 @@ func procesoInicial(path string, size int) {
 		enviarTCBMemoria(tcb)
 		PlanificacionProcesoInicial(pcb, tcb)
 	} else {
-		fmt.Println("El tamaño del proceso inicial es mas grande que la memoria")
-		return // obviamente el primer proceso tiene espacio en memoria salvo que sea mas grande que el tamaño de la memoria
+		slog.Error("Error creando el proceso inicial")
+		return
 	}
 }
 
@@ -157,7 +164,7 @@ func consultaEspacioAMemoria(size int, path string, pcb PCB) bool {
 	body, err := json.Marshal(memoryRequest)
 
 	if err != nil {
-		log.Printf("error codificando %s", err.Error())
+		slog.Error("Fallo el proceso: error codificando " + err.Error())
 		return false
 	}
 
@@ -165,10 +172,11 @@ func consultaEspacioAMemoria(size int, path string, pcb PCB) bool {
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
-		log.Printf("error enviando tamanio del proceso a ip:%s puerto:%d", ip, puerto)
+		slog.Error("error enviando tamanio del proceso", slog.Int("pid", pcb.Pid), slog.String("ip", ip), slog.Int("puerto", puerto))
 		return false
 	}
 	if resp.StatusCode != http.StatusOK {
+		slog.Warn("El tamaño del proceso es más grande que la memoria disponible", slog.Int("pid", pcb.Pid)) //Se hace aca, porque si lo ponemos como un else de la consulta a memoria, ante cualquier error responde esto
 		return false
 	}
 
@@ -205,8 +213,8 @@ func PlanificacionProcesoInicial(pcb PCB, tcb TCB) {
 	colaReadyHilo = append(colaReadyHilo, tcb)
 	mutexColaReadyHilo.Unlock()
 
-	fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
-	fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
+	slog.Info(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
+	slog.Info(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
 }
 
 func ejecutarHilosFIFO() {
@@ -230,7 +238,7 @@ func ejecutarInstruccion(Hilo TCB) {
 		colaExecHilo = append(colaExecHilo, Hilo) // agrego el hilo a la cola de ejecucion
 		mutexColaExecHilo.Unlock()
 
-		fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se ejecuta el hilo - Estado: EXEC ##", Hilo.Pid, Hilo.Tid)
+		slog.Info(" ## (<PID>:%d , <TID>:%d ) Se ejecuta el hilo - Estado: EXEC ##", Hilo.Pid, Hilo.Tid)
 
 		enviarTCBCpu(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
 	}
@@ -247,17 +255,20 @@ func enviarTCBCpu(tcb TCB) error {
 	body, err := json.Marshal(&cpuRequest)
 
 	if err != nil {
-		return fmt.Errorf("error codificando %s", err.Error())
+		slog.Error("error codificando " + err.Error())
+		return err
 	}
 
 	url := fmt.Sprintf("http://%s:%d/recibirTcb", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
-		return fmt.Errorf("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		slog.Error("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		return err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("error en la respuesta del módulo de cpu: %v", resp.StatusCode)
+		slog.Error("error en la respuesta del módulo de cpu:" + fmt.Sprintf("%v", resp.StatusCode))
+		return err
 	}
 	return nil
 }
@@ -273,17 +284,20 @@ func enviarTCBMemoria(tcb TCB) error {
 	body, err := json.Marshal(&memoryRequest)
 
 	if err != nil {
-		return fmt.Errorf("error codificando %s", err.Error())
+		slog.Error("error codificando " + err.Error())
+		return err
 	}
 
 	url := fmt.Sprintf("http://%s:%d/recibirTcb", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
-		return fmt.Errorf("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		slog.Error("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		return err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("error en la respuesta del módulo de cpu: %v", resp.StatusCode)
+		slog.Error("error en la respuesta del módulo de cpu: " + fmt.Sprintf("%v", resp.StatusCode))
+		return err
 	}
 	return nil
 }
@@ -326,11 +340,11 @@ func iniciarProceso(path string, size int, prioridad int) error {
 		colaReadyHilo = append(colaReadyHilo, tcb) // agregamos el hilo a la cola de ready
 		mutexColaReadyHilo.Unlock()
 
-		fmt.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
-		fmt.Printf(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
+		slog.Info("## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
+		slog.Info(" ## (<PID>:%d , <TID>:%d ) Se crea el hilo - Estado: READY ##", tcb.Pid, tcb.Tid)
 
 	} else {
-		fmt.Println("El tamaño del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
+		slog.Warn("El tamaño del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
 		// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
 		<-finProceso
 		iniciarProceso(path, size, prioridad)
@@ -355,7 +369,7 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 	if tid == 0 {
 		err = exitProcess(pid)
 	} else {
-		fmt.Printf("El hilo no es el principal, no se puede ejecutar esta instruccion")
+		slog.Warn("El hilo no es el principal, no se puede ejecutar esta instruccion")
 		return //Ver como hacer para que no finalice el kernel y el hilo continue con su siguiente instruccion
 	}
 	if err != nil {
@@ -378,7 +392,7 @@ func exitProcess(pid int) error {
 			colaExitproceso = append(colaExitproceso, pcb) // agregamos el proceso a la cola de exit
 			mutexColaExitproceso.Unlock()
 
-			fmt.Printf(" ## finaliza el proceso (<PID>:%d) - Estado: EXIT ##", pcb.Pid)
+			slog.Info(" ## finaliza el proceso (<PID>:%d) - Estado: EXIT ##", pcb.Pid)
 
 			// Eliminar todos los hilos del proceso
 			for i := len(colaReadyHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos ready
@@ -391,7 +405,7 @@ func exitProcess(pid int) error {
 					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
 					mutexColaExitHilo.Unlock()
 
-					fmt.Printf(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					slog.Info(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
 				}
 			}
 
@@ -405,7 +419,7 @@ func exitProcess(pid int) error {
 					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
 					mutexColaExitHilo.Unlock()
 
-					fmt.Printf(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					slog.Info(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
 				}
 			}
 
@@ -419,7 +433,7 @@ func exitProcess(pid int) error {
 					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
 					mutexColaExitHilo.Unlock()
 
-					fmt.Printf(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					slog.Info(" ## finaliza el hilo (<PID>:%d , <TID>:%d ) - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
 				}
 			}
 
@@ -452,17 +466,20 @@ func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 	body, err := json.Marshal(&memoryRequest)
 
 	if err != nil {
-		return fmt.Errorf("error codificando %s", err.Error())
+		slog.Error("error codificando" + err.Error())
+		return err
 	}
 
 	url := fmt.Sprintf("http://%s:%d/finalizacionProceso", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
-		return fmt.Errorf("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		slog.Error("error enviando tcb a ip:%s puerto:%d", ip, puerto)
+		return err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("error en la respuesta del módulo de cpu: %v", resp.StatusCode)
+		slog.Error("Error en la respuesta del módulo de CPU", slog.Int("status_code", resp.StatusCode))
+		return err
 	}
 	return nil
 
