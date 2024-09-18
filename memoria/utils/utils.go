@@ -36,6 +36,7 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 }
 
 func init() {
+
 	//ConfigMemoria := IniciarConfiguracion("configsMemoria/config.json")
 	//EnviarMensaje(ConfigMemoria.IpKernel, ConfigMemoria.PuertoKernel, "Hola Kernel, Soy Memoria")
 	//EnviarMensaje(ConfigMemoria.IpFs, ConfigMemoria.PuertoFs, "Hola FS, Soy Memoria")
@@ -173,23 +174,14 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 
     time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
-	// Buscar el PCB correspondiente al PID
 	for pcb, tidMap := range mapPCBPorTCB {
-		if pcb.pid == pid { // Encontramos el PCB que coincide con el PID
-
-			// Buscar el TCB correspondiente al TID dentro de ese PCB
+		if pcb.pid == pid { 
 			for tcb, instrucciones := range tidMap {
-				if tcb.tid == tid { // Encontramos el TCB que coincide con el TID
-
-					// Verificar que el PC esté dentro del rango válido de instrucciones
+				if tcb.tid == tid {
 					if pc >= 0 && pc < len(instrucciones) {
-						// Obtener la instrucción correspondiente al PC
+						
 						instruccion := instrucciones[pc]
 
-						// Simular el retardo configurado en el archivo de configuración
-						time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
-
-						// Construir la respuesta
 						instructionResponse := InstructionResponse{
 							Instruction: instruccion,
 						}
@@ -199,7 +191,6 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 						w.Write([]byte(instruccion)) // Escribir la instrucción
 						return
 					} else {
-						// Si el PC está fuera del rango de instrucciones
 						http.Error(w, "PC out of range", http.StatusBadRequest)
 						fmt.Println("PC fuera del rango de instrucciones")
 						return
@@ -220,22 +211,16 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 //------------------------------------ GET EXECUTION CONTEXT --------------------------------------------- 
 
 func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
-	// Extraer los parámetros PID y TID de la URL
 	queryParams := r.URL.Query()
 	pid, _ := strconv.Atoi(queryParams.Get("pid"))
 	tid, _ := strconv.Atoi(queryParams.Get("tid"))
 
     time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
-	// Buscar el PCB correspondiente al PID
 	for pcb, tidMap := range mapPCBPorTCB {
-		if pcb.pid == pid { // Encontramos el PCB que coincide con el PID
-
-			// Iterar sobre el mapa de TCBs y buscar por `tid`
+		if pcb.pid == pid { 
 			for tcb := range tidMap {
-				if tcb.tid == tid { // Encontramos el TCB que coincide con el TID
-
-					// Construir la respuesta con el contexto completo
+				if tcb.tid == tid { 
 					executionContext := struct {
 						PCB
 						TCB
@@ -250,22 +235,16 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 			}
-
-			// Si no se encuentra el TCB correspondiente
 			http.Error(w, "TID not found", http.StatusNotFound)
 			return
 		}
 	}
-
-	// Si no se encuentra el PCB correspondiente
 	http.Error(w, "PID not found", http.StatusNotFound)
 } 
 
 //-------------------------------- UPDATE EXECUTION CONTEXT-----------------------------------------------
 
-// UpdateExecutionContext: Actualizar el contexto de ejecución para un TID específico
 func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
-	// Extraer los parámetros PID y TID de la URL
 	queryParams := r.URL.Query()
 	pid, _ := strconv.Atoi(queryParams.Get("pid"))
 	tid, _ := strconv.Atoi(queryParams.Get("tid"))
@@ -298,13 +277,11 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 
     time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
-	// Buscar el PCB correspondiente al PID
 	for pcb, tidMap := range mapPCBPorTCB {
-		if pcb.pid == pid { // Encontramos el PCB que coincide con el PID
+		if pcb.pid == pid {
 
-			// Buscar el TCB correspondiente al TID dentro de ese PCB
 			for tcb := range tidMap {
-				if tcb.tid == tid { // Encontramos el TCB que coincide con el TID
+				if tcb.tid == tid { 
 
 					// Actualizar los valores del PCB (Base y Limit)
 					pcb.base = newContext.PCB.Base
@@ -340,33 +317,12 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 }
 
 
-// func HayEspacioEnLaMemoria(w http.ResponseWriter, r *http.Request){
+//-----------------------------------------CREATE PROCESS-------------------------------------------
 
-// 	queryParams := r.URL.Query()
-// 	size, _ := strconv.Atoi(queryParams.Get("size"))
+var mapParticiones[]bool //estado de las particiones ocupada/libre
+var particiones = globals.ClientConfig.Particiones //vector de particiones, aca tengo los tamaños en int
 
-// 	// Verificar si el esquema de particionamiento es FIJAS o VARIABLE
-// 	if globals.ClientConfig.EsquemaMemoria == "FIJAS" {
-// 		// Si es FIJAS, buscar un espacio libre en las particiones fijas
-// 		for _, particion := range globals.ClientConfig.Particiones {
-// 			if particion.Tamanio >= size && particion.Estado == 0 {
-// 				// Si se encuentra un espacio libre, responder con éxito
-// 				w.WriteHeader(http.StatusOK)
-// 				w.Write([]byte("Ok"))
-// 				return
-// 			}
-// 		}
-// 	} else {
-// 		// si es VARIABLE buscar un espacio libre en la memoria
-// 	}
-
-// 	// Si no se encontró espacio libre, responder con error
-// 	http.Error(w, "Memoria sin Almacenamiento", http.StatusConflict)
-// }
-
-//------------------------HAY ESPACIO EN LA MEMORIA-------------------------------------------
-
-func HayEspacioEnLaMemoria(w http.ResponseWriter, r *http.Request){
+func CreateProcess(w http.ResponseWriter, r *http.Request){ 
 
 	queryParams := r.URL.Query()
 	size, _ := strconv.Atoi(queryParams.Get("size"))
@@ -376,27 +332,85 @@ func HayEspacioEnLaMemoria(w http.ResponseWriter, r *http.Request){
 
 	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
-	// Verificar si el esquema de particionamiento es FIJAS o VARIABLE
 	if globals.ClientConfig.EsquemaMemoria == "FIJAS" {
-		// Si es FIJAS, buscar un espacio libre en las particiones fijas
-		for _, particion := range globals.ClientConfig.Particiones {
-			if particion.Tamanio >= size && particion.Estado == 0 {
-				// AGINAR ESPACIO EN LA MEMORIA DE USUARIO (RESERVAR LUGAR)
-			    if err := guardarTodoEnElMap(pcb, tcb, path); err != nil { //GUARDO EN EL MAP
-					http.Error(w, err.Error(), http.StatusInternalServerError)
-					return
-				}
-				w.WriteHeader(http.StatusOK)
-				w.Write([]byte("Ok"))
-				return
-			}
-		}
-	} else {
-		// si es VARIABLE buscar un espacio libre en la memoria
-	}
 
-	// Si no se encontró espacio libre, responder con error
-	http.Error(w, "Memoria sin Almacenamiento", http.StatusConflict)
+		numeroDeParticion := asignarPorAlgoritmo(globals.ClientConfig.AlgoritmoBusqueda, size) //asignar por algoritmo
+
+		if numeroDeParticion == -1 {
+			http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
+			return
+		}
+
+		mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
+
+		if err := guardarTodoEnElMap(pcb, tcb, path); err != nil { //GUARDO EN EL MAP, para guardar en mi memoria de sistema 
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Ok"))
+		return
+	}else {
+		
+	}
+}
+
+func asignarPorAlgoritmo(tipoDeAlgoritmo string, size int) int {
+	switch tipoDeAlgoritmo {
+	case "FIRST":
+		return firstFit(size)
+	case "BEST":
+		return bestFit(size)
+	case "WORST":
+		return worstFit(size)
+	default:
+		fmt.Println("Tipo de algoritmo no reconocido")
+		return -1
+	}
+}
+
+var mapParticiones[]bool //estado de las particiones ocupada/libre
+var particiones = globals.ClientConfig.Particiones //vector de particiones, aca tengo los tamaños en int
+
+func firstFit(processSize int) int {
+    for i, size := range particiones {
+        if !mapParticiones[i] && size >= processSize {
+            return i
+        }
+    }
+    return -1
+}
+
+func bestFit(processSize int) int {
+    bestIndex := -1
+    minDifference := math.MaxInt32
+
+    for i, size := range particiones {
+        if !mapParticiones[i] && size >= processSize {
+            difference := size - processSize
+            if difference < minDifference {
+                minDifference = difference
+                bestIndex = i
+            }
+        }
+    }
+    return bestIndex
+}
+
+func worstFit(processSize int) int {
+    worstIndex := -1
+    maxDifference := -1
+
+    for i, size := range particiones {
+        if !mapParticiones[i] && size >= processSize {
+            difference := size - processSize
+            if difference > maxDifference {
+                maxDifference = difference
+                worstIndex = i
+            }
+        }
+    }
+    return worstIndex
 }
 
 func guardarTodoEnElMap(pcb PCB, tcb TCB, path string) error{
@@ -430,11 +444,32 @@ func guardarTodoEnElMap(pcb PCB, tcb TCB, path string) error{
 
 	return nil
 
+} 
+
+//-----------------------------------------READ MEMORY-------------------------------------------
+func ReadMemory(w http.ResponseWriter, r *http.Request){
+	queryParams := r.URL.Query()
+	address, _ := strconv.Atoi(queryParams.Get("address"))
+
+	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
+
+	if globals.ClientConfig.EsquemaMemoria == "FIJAS"{
+		if address < 0 || address+4 > len(memoriaDeUsuario) {
+			http.Error(w, "Dirección fuera de los límites de la memoria", http.StatusBadRequest)
+			return
+		}
+	
+		// Leer los primeros 4 bytes a partir de la dirección especificada
+		data :=memoriaDeUsuario[address : address+4]
+	
+		// Enviar los 4 bytes como respuesta
+		w.WriteHeader(http.StatusOK)
+		w.Write(data)
+	}
+	else{
+		// Si es VARIABLE read memory 
+	}
+
+
 }
 
-//1. Primer paso: kernel me tendria que pasar pid, tid, base y limite
-//2. tengo lugar? 
-//2. Segundo paso: yo tendria que sacar del path de mi configuracion el path del archivo
-//3. kernel abre el archivo y me pasa el path. 
-
-//kernel me pasa path,pcb y tamaño 
