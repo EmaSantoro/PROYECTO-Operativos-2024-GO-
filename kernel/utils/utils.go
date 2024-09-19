@@ -65,10 +65,10 @@ type CrearHiloResponse struct {
 	Prioridad int `json:"prioridad"`	
 }
 
-type TCBJoin struct {
+type CambioHilos struct {
 	Pid 		 int `json:"pid"`
 	TidActual 	 int `json:"tidActual"`
-	TidAEjecutar int `json:"tidAEjecutar"`
+	TidCambio int `json:"tidAEjecutar"`
 }
 
 
@@ -159,7 +159,7 @@ func init() {
 			// go ejecutarHilosColasMultinivel()
 		}
 	} else {
-		slog.Debug("Algoritmo de planificacion no valido")
+		log.Printf("Algoritmo de planificacion no valido")
 	}
 }
 
@@ -242,8 +242,8 @@ func PlanificacionProcesoInicial(pcb PCB, tcb TCB) {
 	colaReadyHilo = append(colaReadyHilo, tcb)
 	mutexColaReadyHilo.Unlock()
 
-	log.Printf("Se crea el proceso - Estado: NEW", slog.Int("pid", pcb.Pid))
-	log.Printf("Se crea el hilo - Estado: READY", slog.Int("pid", tcb.Pid), slog.Int("tid", tcb.Tid))
+	log.Printf("## (<PID %d> : 0)Se crea el proceso - Estado: NEW",pcb.Pid)
+	log.Printf("## (<PID %d>:<TID %d>) Se crea el Hilo - Estado: READY", tcb.Pid ,tcb.Tid)
 }
 
 func ejecutarHilosFIFO() {
@@ -267,7 +267,7 @@ func ejecutarInstruccion(Hilo TCB) {
 		colaExecHilo = append(colaExecHilo, Hilo) // agrego el hilo a la cola de ejecucion
 		mutexColaExecHilo.Unlock()
 
-		log.Printf("Se ejecuta el hilo - Estado: EXEC", slog.Int("pid", Hilo.Pid), slog.Int("tid", Hilo.Tid))
+		log.Printf("## (<PID %d>:<TID %d>) Se ejecuta el Hilo - Estado: EXEC", Hilo.Pid ,Hilo.Tid)
 		enviarTCBCpu(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
 	}
 }
@@ -328,7 +328,7 @@ func enviarTCBMemoria(tcb TCB, path string) error {
 		return err
 	}
 	if resp.StatusCode != http.StatusOK {
-		slog.Error("Error en la respuesta del módulo de CPU", slog.Int("status_code", resp.StatusCode))
+		slog.Error("Error en la respuesta del modulo de CPU", slog.Int("status_code", resp.StatusCode))
 		return err
 	}
 	return nil
@@ -371,17 +371,17 @@ func iniciarProceso(path string, size int, prioridad int) error {
 		colaReadyHilo = append(colaReadyHilo, tcb) // agregamos el hilo a la cola de ready
 		mutexColaReadyHilo.Unlock()
 
-		log.Printf("Se crea el proceso - Estado: NEW", slog.Int("pid", pcb.Pid))
+		log.Printf("## (<PID>:%d) Se crea el proceso - Estado: NEW", pcb.Pid)
 
-		log.Printf("Se crea el hilo - Estado: READY", slog.Int("pid", tcb.Pid), slog.Int("tid", tcb.Tid))
+		log.Printf("## (<PID:%d>:<TID:%d>) Se crea el Hilo - Estado: READY", tcb.Pid , tcb.Tid)
 
 	} else {
-		slog.Warn("El tamaño del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
+		slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
 		// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
 		<-finProceso
 		iniciarProceso(path, size, prioridad)
 	}
-
+	// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 	return nil
 }
 
@@ -452,6 +452,7 @@ func exitProcess(pid int) error {
 					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
 					mutexColaExitHilo.Unlock()
 					log.Printf(" ## (<PID: %d>:<TID: %d>) finaliza el hilo - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					// FALTA ENVIAR INTERRUPCION A CPU PARA QUE SAQUE EL HILO DE EJECUCION Y META A OTRO NUEVO
 				}
 			}
 
@@ -478,7 +479,7 @@ func exitProcess(pid int) error {
 				// eliminar el PCB del proceso terminado
 				//delete(procesosActivos, pid)
 
-				// Notificar a través del canal
+				// Notificar a traves del canal
 				finProceso <- true
 			}
 		}
@@ -553,6 +554,8 @@ func iniciarHilo(pid int, path string, prioridad int) error {
 
 	log.Printf(" ## (<PID: %d>:<TID: %d>) - Se crea el hilo ", tcb.Pid, tcb.Tid)
 
+	// COMO LE DECIMOS A MEMORIA QUE CONTINUE CON LA PROXIMA INSTRUCCION?
+
 	return nil
 }
 
@@ -564,7 +567,6 @@ func getPCB(pid int) PCB {
 	}
 	return PCB{}
 }
-
 
 func FinalizarHilo(w http.ResponseWriter, r *http.Request) {	//pedir a cpu que nos pase PID Y TID del hilo
 	var hilo TCBRequest
@@ -601,10 +603,9 @@ func exitHilo(pid int, tid int) error{
 			colaExitHilo = append(colaExitHilo, hilo)
 			mutexColaExitHilo.Unlock()
 
-			
 			log.Printf(" ## (<PID: %d>:<TID: %d>) - finaliza el hilo ", hilo.Pid, hilo.Tid)
 			err := enviarHiloFinalizadoAMemoria(hilo)
-			
+
 			if err != nil {
 				log.Printf("Error al enviar hilo finalizado a memoria, pid: %d - tid: %d", hilo.Pid, hilo.Tid)
 				return err
@@ -614,8 +615,63 @@ func exitHilo(pid int, tid int) error{
 				// desbloquear hilos bloqueados por el hilo que finalizo
 				desbloquearHilo(tidBloqueado, pid)
 			}
+			// ENVIAR INTERRUPCION A CPU PORQUE FINALIZO EL HILO
+			return nil
 		}
 	}
+
+	for i, hilo := range colaReadyHilo {
+		if hilo.Pid == pid && hilo.Tid == tid {
+			mutexColaReadyHilo.Lock()
+			colaReadyHilo = append(colaReadyHilo[:i], colaReadyHilo[i+1:]...)
+			mutexColaReadyHilo.Unlock()
+
+			mutexColaExitHilo.Lock()
+			colaExitHilo = append(colaExitHilo, hilo)
+			mutexColaExitHilo.Unlock()
+
+			log.Printf(" ## (<PID: %d>:<TID: %d>) - finaliza el hilo ", hilo.Pid, hilo.Tid)
+			err := enviarHiloFinalizadoAMemoria(hilo)
+
+			if err != nil {
+				log.Printf("Error al enviar hilo finalizado a memoria, pid: %d - tid: %d", hilo.Pid, hilo.Tid)
+				return err
+			}
+
+			for _, tidBloqueado := range hilo.HilosBloqueados {
+				// desbloquear hilos bloqueados por el hilo que finalizo
+				desbloquearHilo(tidBloqueado, pid)
+			}
+			return nil
+		}
+	}
+
+	for i, hilo := range colaBlockHilo {
+		if hilo.Pid == pid && hilo.Tid == tid {
+			mutexColaBlockHilo.Lock()
+			colaBlockHilo = append(colaBlockHilo[:i], colaBlockHilo[i+1:]...)
+			mutexColaBlockHilo.Unlock()
+
+			mutexColaExitHilo.Lock()
+			colaExitHilo = append(colaExitHilo, hilo)
+			mutexColaExitHilo.Unlock()
+
+			log.Printf(" ## (<PID: %d>:<TID: %d>) - finaliza el hilo ", hilo.Pid, hilo.Tid)
+			err := enviarHiloFinalizadoAMemoria(hilo)
+
+			if err != nil {
+				log.Printf("Error al enviar hilo finalizado a memoria, pid: %d - tid: %d", hilo.Pid, hilo.Tid)
+				return err
+			}
+
+			for _, tidBloqueado := range hilo.HilosBloqueados {
+				// desbloquear hilos bloqueados por el hilo que finalizo
+				desbloquearHilo(tidBloqueado, pid)
+			}
+			return nil
+		}
+	}
+	
 
 	pcb := getPCB(pid)
 	pcb.Tid = removeTid(pcb.Tid, tid)
@@ -679,16 +735,33 @@ func desbloquearHilo(tid int, pid int) {
 	}
 }
 
-
-
-
 func CancelarHilo(w http.ResponseWriter, r *http.Request) {
+	var hilosCancel CambioHilos
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&hilosCancel)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
+	pid := hilosCancel.Pid
+	//tid := hilosCancel.TidActual
+	tidEliminar := hilosCancel.TidCambio
+
+	err = exitHilo(pid, tidEliminar)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	//COMO HACEMOS PARA QUE EL HILO QUE INVOCO A LA FUNCION CONTINUE SU EJECUCION
 }
 
 func EntrarHilo(w http.ResponseWriter, r *http.Request) {	//debe ser del mismo proceso 
 	
-	var hilosJoin TCBJoin
+	var hilosJoin CambioHilos
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&hilosJoin)
@@ -699,7 +772,7 @@ func EntrarHilo(w http.ResponseWriter, r *http.Request) {	//debe ser del mismo p
 
 	pid := hilosJoin.Pid
 	tidActual := hilosJoin.TidActual
-	tidAEjecutar := hilosJoin.TidAEjecutar
+	tidAEjecutar := hilosJoin.TidCambio
 	
 	tcbActual := getTcb(pid, tidActual)
 	tcbAEjecutar := getTcb(pid, tidAEjecutar)
@@ -708,7 +781,6 @@ func EntrarHilo(w http.ResponseWriter, r *http.Request) {	//debe ser del mismo p
 	encolarBloqueado(tcbActual, "PTHREAD_JOIN")
 	encolarEjecutar(tcbAEjecutar)
 	//mandar interrupcion a cpu para que saque al hilo actual y ejecute el hilo a ejecutar
-	
 }
 
 func encolarBloqueado(tcb TCB, motivo string) {
@@ -722,7 +794,6 @@ func encolarBloqueado(tcb TCB, motivo string) {
 	mutexColaBlockHilo.Unlock()
 
 	log.Printf("(<PID: %d >:<TID: %d >) - Bloqueado por: %s", tcb.Pid, tcb.Tid, motivo)
-
 }
 
 func getTcb(pid int, tid int) TCB {
