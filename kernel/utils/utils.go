@@ -847,3 +847,7 @@ func LiberarMutex(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func ManejarIo(w http.ResponseWriter, r *http.Request) {
+
+}
+

@@ -34,6 +34,8 @@ func main() {
 	mux.HandleFunc("/bloquearMutex", utils.BloquearMutex)
 	mux.HandleFunc("/liberarMutex", utils.LiberarMutex)
 
+	mux.HandleFunc("/manejarIo", utils.ManejarIo)
+
 	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
 
