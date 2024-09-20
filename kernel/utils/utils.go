@@ -244,8 +244,9 @@ func iniciarProceso(path string, size int, prioridad int) error {
 		slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
 		// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
 		<-finProceso
-		iniciarProceso(path, size, prioridad)
-	}
+		iniciarProceso(path, size, prioridad) // preguntar aca porque si invocamos de nuevo a esta funcion
+	}								 		  //  se le va asignar de nuevo una pcb al proceso que se intento inicializar antes
+	                                          // preguntar logica de cuando hay procesos en cola ready y cuando no		
 	// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 	return nil
 }
@@ -279,12 +280,8 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 
 func exitProcess(pid int) error {
 
-	for _, pcb := range colaNewproceso { // lo que hace range es recoreer la lista de procesos y devuelve la posicion en la que esta y el proceso
-
-		if pcb.Pid == pid { // si coincide el pid del proceso con el pid que se quiere finalizar
-
+			pcb := getPCB(pid)	
 			quitarProcesoNew(pcb) // sacamos el proceso de la cola de new
-
 			encolarProcesoExit(pcb) // agregamos el proceso a la cola de exit
 
 			// Eliminar todos los hilos del proceso
@@ -330,9 +327,9 @@ func exitProcess(pid int) error {
 
 				// Notificar a traves del canal
 				finProceso <- true
+			} else{
+				slog.Error("Error al enviar el proceso finalizado a memoria")
 			}
-		}
-	}
 
 	return nil
 }
@@ -568,8 +565,8 @@ func EntrarHilo(w http.ResponseWriter, r *http.Request) { //debe ser del mismo p
 	quitarExec(tcbActual)
 	encolarBlock(tcbActual, "PTHREAD_JOIN")
 	quitarReady(tcbAEjecutar)
-	encolarExec(tcbAEjecutar)
-
+	encolarExec(tcbAEjecutar) // SE SUPONE QUE ESTO LO HACE EL ALGORITMO DE PLANIFICACION
+	                          // PERO SE TIENE QUE EJECUTAR ESTE HILO Y NO CUALQUIER OTRO
 	//mandar interrupcion a cpu para que saque al hilo actual y ejecute el hilo a ejecutar
 }
 
@@ -817,13 +814,14 @@ func ManejarIo(w http.ResponseWriter, r *http.Request) {
 
 	quitarExec(tcb)
 	encolarBlock(tcb, "IO")
-
+	
 	go func() {
 		// Simulate IO operation
 		time.Sleep(time.Duration(tiempoIO) * time.Millisecond)
 		quitarBlock(tcb)
 		encolarReady(tcb)
 	}()
+	// FALTA ENVIAR INTERRUPCION A CPU PARA QUE SAQUE EL HILO DE EJECUCION Y META A OTRO NUEVO
 
 	w.WriteHeader(http.StatusOK)
 }
