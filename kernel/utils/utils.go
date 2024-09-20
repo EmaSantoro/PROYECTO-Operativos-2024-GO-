@@ -174,7 +174,8 @@ func procesoInicial(path string, size int) {
 		tcb := createTCB(pcb.Pid, 0)       // creamos hilo main
 		pcb.Tid = append(pcb.Tid, tcb.Tid) // agregamos el hilo a la listas de hilos del proceso
 		enviarTCBMemoria(tcb, path)
-		PlanificacionProcesoInicial(pcb, tcb)
+		encolarProcesoNew(pcb)
+		encolarReady(tcb)
 	} else {
 		slog.Error("Error creando el proceso inicial")
 		return
@@ -232,20 +233,6 @@ func createTCB(pid int, prioridad int) TCB {
 	}
 }
 
-func PlanificacionProcesoInicial(pcb PCB, tcb TCB) {
-
-	mutexColaNewproceso.Lock()
-	colaNewproceso = append(colaNewproceso, pcb)
-	mutexColaNewproceso.Unlock()
-
-	mutexColaReadyHilo.Lock()
-	colaReadyHilo = append(colaReadyHilo, tcb)
-	mutexColaReadyHilo.Unlock()
-
-	log.Printf("## (<PID %d> : 0)Se crea el proceso - Estado: NEW",pcb.Pid)
-	log.Printf("## (<PID %d>:<TID %d>) Se crea el Hilo - Estado: READY", tcb.Pid ,tcb.Tid)
-}
-
 func ejecutarHilosFIFO() {
 	var Hilo TCB
 	for {
@@ -259,15 +246,10 @@ func ejecutarHilosFIFO() {
 func ejecutarInstruccion(Hilo TCB) {
 	if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 
-		mutexColaReadyHilo.Lock()
-		colaReadyHilo = colaReadyHilo[1:] // saco el hilo de la cola de ready
-		mutexColaReadyHilo.Unlock()
+		quitarReady(Hilo)
 
-		mutexColaExecHilo.Lock()
-		colaExecHilo = append(colaExecHilo, Hilo) // agrego el hilo a la cola de ejecucion
-		mutexColaExecHilo.Unlock()
+		encolarExec(Hilo)
 
-		log.Printf("## (<PID %d>:<TID %d>) Se ejecuta el Hilo - Estado: EXEC", Hilo.Pid ,Hilo.Tid)
 		enviarTCBCpu(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
 	}
 }
@@ -358,22 +340,15 @@ func iniciarProceso(path string, size int, prioridad int) error {
 
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
 	if consultaEspacioAMemoria(size, pcb) {
+		
 		nextTid = 0
 		tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
 		pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
 		enviarTCBMemoria(tcb, path)
 
-		mutexColaNewproceso.Lock()
-		colaNewproceso = append(colaNewproceso, pcb) // agregamos el proceso a la cola de new
-		mutexColaNewproceso.Unlock()
+		encolarProcesoNew(pcb)
 
-		mutexColaReadyHilo.Lock()
-		colaReadyHilo = append(colaReadyHilo, tcb) // agregamos el hilo a la cola de ready
-		mutexColaReadyHilo.Unlock()
-
-		log.Printf("## (<PID>:%d) Se crea el proceso - Estado: NEW", pcb.Pid)
-
-		log.Printf("## (<PID:%d>:<TID:%d>) Se crea el Hilo - Estado: READY", tcb.Pid , tcb.Tid)
+		encolarReady(tcb)
 
 	} else {
 		slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
@@ -414,59 +389,43 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 
 func exitProcess(pid int) error {
 
-	for i, pcb := range colaNewproceso { // lo que hace range es recoreer la lista de procesos y devuelve la posicion en la que esta y el proceso
+	for _, pcb := range colaNewproceso { // lo que hace range es recoreer la lista de procesos y devuelve la posicion en la que esta y el proceso
 
 		if pcb.Pid == pid { // si coincide el pid del proceso con el pid que se quiere finalizar
 
-			mutexColaNewproceso.Lock()
-			colaNewproceso = append(colaNewproceso[:i], colaNewproceso[i+1:]...) // sacamos el proceso de la cola de new
-			mutexColaNewproceso.Unlock()
+			quitarProcesoNew(pcb) // sacamos el proceso de la cola de new
 
-			mutexColaExitproceso.Lock()
-			colaExitproceso = append(colaExitproceso, pcb) // agregamos el proceso a la cola de exit
-			mutexColaExitproceso.Unlock()
-			log.Printf(" ## (<PID: %d>) finaliza el Proceso - Estado: EXIT ##", colaReadyHilo[i].Pid)
+			encolarProcesoExit(pcb) // agregamos el proceso a la cola de exit
 
 			// Eliminar todos los hilos del proceso
 			for i := len(colaReadyHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos ready
 				if colaReadyHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
-					mutexColaReadyHilo.Lock()
-					colaReadyHilo = append(colaReadyHilo[:i], colaReadyHilo[i+1:]...) // sacamos el hilo de la cola de ready
-					mutexColaReadyHilo.Unlock()
 
-					mutexColaExitHilo.Lock()
-					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
-					mutexColaExitHilo.Unlock()
+					quitarReady(colaReadyHilo[i]) // sacamos el hilo de la cola de ready
 
-					log.Printf(" ## (<PID: %d>:<TID: %d>) finaliza el hilo - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					encolarExit(colaReadyHilo[i]) // agregamos el hilo a la cola de exit
+
 				}
 			}
 
 			for i := len(colaExecHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos en ejecucion
 				if colaExecHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
-					mutexColaExecHilo.Lock()
-					colaExecHilo = append(colaExecHilo[:i], colaExecHilo[i+1:]...) // sacamos el hilo de la cola de ejecucion
-					mutexColaExecHilo.Unlock()
+					
+					quitarExec(colaExecHilo[i]) // sacamos el hilo de la cola de ejecucion
 
-					mutexColaExitHilo.Lock()
-					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
-					mutexColaExitHilo.Unlock()
-					log.Printf(" ## (<PID: %d>:<TID: %d>) finaliza el hilo - Estado: EXIT ##", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
+					encolarExit(colaReadyHilo[i])
+				
 					// FALTA ENVIAR INTERRUPCION A CPU PARA QUE SAQUE EL HILO DE EJECUCION Y META A OTRO NUEVO
 				}
 			}
 
 			for i := len(colaBlockHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos bloqueados
 				if colaBlockHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
-					mutexColaBlockHilo.Lock()
-					colaBlockHilo = append(colaBlockHilo[:i], colaBlockHilo[i+1:]...) // sacamos el hilo de la cola de bloqueados
-					mutexColaBlockHilo.Unlock()
+					
+					quitarBlock(colaBlockHilo[i]) // sacamos el hilo de la cola de bloqueados
 
-					mutexColaExitHilo.Lock()
-					colaExitHilo = append(colaExitHilo, colaReadyHilo[i]) // agregamos el hilo a la cola de exit
-					mutexColaExitHilo.Unlock()
+					encolarExit(colaReadyHilo[i])
 
-					log.Printf(" ## (<PID: %d>:<TID: %d>) - finaliza el hilo ", colaReadyHilo[i].Pid, colaReadyHilo[i].Tid)
 				}
 			}
 
@@ -547,13 +506,7 @@ func iniciarHilo(pid int, path string, prioridad int) error {
 	enviarTCBMemoria(tcb, path)     // envio hilo a memoria con el path que le corresponde ejecutar
 	pcb := getPCB(pid)            // obtengo el proceso al que pertenece el hilo
 	pcb.Tid = append(pcb.Tid, tcb.Tid) // agrego el hilo a la lista de hilos del proceso
-
-	mutexColaReadyHilo.Lock()
-	colaReadyHilo = append(colaReadyHilo, tcb) // agrego hilo a la cola de ready
-	mutexColaReadyHilo.Unlock()
-
-	log.Printf(" ## (<PID: %d>:<TID: %d>) - Se crea el hilo ", tcb.Pid, tcb.Tid)
-
+	encolarReady(tcb) // agrego el hilo a la cola de ready
 	// COMO LE DECIMOS A MEMORIA QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 
 	return nil
@@ -593,88 +546,29 @@ func FinalizarHilo(w http.ResponseWriter, r *http.Request) {	//pedir a cpu que n
 
 func exitHilo(pid int, tid int) error{
 
-	for i, hilo := range colaExecHilo {
-		if hilo.Pid == pid && hilo.Tid == tid {
-			mutexColaExecHilo.Lock()
-			colaExecHilo = append(colaExecHilo[:i], colaExecHilo[i+1:]...)
-			mutexColaExecHilo.Unlock()
-
-			mutexColaExitHilo.Lock()
-			colaExitHilo = append(colaExitHilo, hilo)
-			mutexColaExitHilo.Unlock()
-
-			log.Printf(" ## (<PID: %d>:<TID: %d>) - finaliza el hilo ", hilo.Pid, hilo.Tid)
-			err := enviarHiloFinalizadoAMemoria(hilo)
-
-			if err != nil {
-				log.Printf("Error al enviar hilo finalizado a memoria, pid: %d - tid: %d", hilo.Pid, hilo.Tid)
-				return err
-			}
-
-			for _, tidBloqueado := range hilo.HilosBloqueados {
-				// desbloquear hilos bloqueados por el hilo que finalizo
-				desbloquearHilo(tidBloqueado, pid)
-			}
-			// ENVIAR INTERRUPCION A CPU PORQUE FINALIZO EL HILO
-			return nil
-		}
-	}
-
-	for i, hilo := range colaReadyHilo {
-		if hilo.Pid == pid && hilo.Tid == tid {
-			mutexColaReadyHilo.Lock()
-			colaReadyHilo = append(colaReadyHilo[:i], colaReadyHilo[i+1:]...)
-			mutexColaReadyHilo.Unlock()
-
-			mutexColaExitHilo.Lock()
-			colaExitHilo = append(colaExitHilo, hilo)
-			mutexColaExitHilo.Unlock()
-
-			log.Printf(" ## (<PID: %d>:<TID: %d>) - finaliza el hilo ", hilo.Pid, hilo.Tid)
-			err := enviarHiloFinalizadoAMemoria(hilo)
-
-			if err != nil {
-				log.Printf("Error al enviar hilo finalizado a memoria, pid: %d - tid: %d", hilo.Pid, hilo.Tid)
-				return err
-			}
-
-			for _, tidBloqueado := range hilo.HilosBloqueados {
-				// desbloquear hilos bloqueados por el hilo que finalizo
-				desbloquearHilo(tidBloqueado, pid)
-			}
-			return nil
-		}
-	}
-
-	for i, hilo := range colaBlockHilo {
-		if hilo.Pid == pid && hilo.Tid == tid {
-			mutexColaBlockHilo.Lock()
-			colaBlockHilo = append(colaBlockHilo[:i], colaBlockHilo[i+1:]...)
-			mutexColaBlockHilo.Unlock()
-
-			mutexColaExitHilo.Lock()
-			colaExitHilo = append(colaExitHilo, hilo)
-			mutexColaExitHilo.Unlock()
-
-			log.Printf(" ## (<PID: %d>:<TID: %d>) - finaliza el hilo ", hilo.Pid, hilo.Tid)
-			err := enviarHiloFinalizadoAMemoria(hilo)
-
-			if err != nil {
-				log.Printf("Error al enviar hilo finalizado a memoria, pid: %d - tid: %d", hilo.Pid, hilo.Tid)
-				return err
-			}
-
-			for _, tidBloqueado := range hilo.HilosBloqueados {
-				// desbloquear hilos bloqueados por el hilo que finalizo
-				desbloquearHilo(tidBloqueado, pid)
-			}
-			return nil
-		}
-	}
-	
-
+	hilo := getTcb(pid, tid)
 	pcb := getPCB(pid)
 	pcb.Tid = removeTid(pcb.Tid, tid)
+			
+			quitarExec(hilo) // NO ES QUE LO QUITA DE LAS TRES COLAS SINO QUE SE FIJA EN CUAL ESTA Y LO QUITA DE ESA
+
+			quitarReady(hilo)
+			
+			quitarBlock(hilo)
+
+			encolarExit(hilo)
+
+			for _, tidBloqueado := range hilo.HilosBloqueados {
+				// desbloquear hilos bloqueados por el hilo que finalizo
+				desbloquearHilo(tidBloqueado, pid)
+			}
+
+			err := enviarHiloFinalizadoAMemoria(hilo)
+
+			if err != nil {
+				log.Printf("Error al enviar hilo finalizado a memoria, pid: %d - tid: %d", hilo.Pid, hilo.Tid)
+				return err
+			}
 
 	return nil
 }
@@ -720,15 +614,11 @@ func enviarHiloFinalizadoAMemoria(hilo TCB) error {
 }
 
 func desbloquearHilo(tid int, pid int) {
-	for i, hilo := range colaBlockHilo {
+	for _, hilo := range colaBlockHilo {
 		if hilo.Tid == tid && hilo.Pid == pid {
-			mutexColaBlockHilo.Lock()
-			colaBlockHilo = append(colaBlockHilo[:i], colaBlockHilo[i+1:]...)
-			mutexColaBlockHilo.Unlock()
+			quitarBlock(hilo)
 
-			mutexColaReadyHilo.Lock()
-			colaReadyHilo = append(colaReadyHilo, hilo)
-			mutexColaReadyHilo.Unlock()
+			encolarReady(hilo)
 
 			log.Printf(" ## (<PID: %d>:<TID: %d>) - Pasa de Block a Ready ##", hilo.Pid, hilo.Tid)
 		}
@@ -778,22 +668,13 @@ func EntrarHilo(w http.ResponseWriter, r *http.Request) {	//debe ser del mismo p
 	tcbAEjecutar := getTcb(pid, tidAEjecutar)
 
 	tcbAEjecutar.HilosBloqueados = append(tcbAEjecutar.HilosBloqueados, tidActual)
-	encolarBloqueado(tcbActual, "PTHREAD_JOIN")
-	encolarEjecutar(tcbAEjecutar)
+
+	quitarExec(tcbActual)
+	encolarBlock(tcbActual, "PTHREAD_JOIN")
+	quitarReady(tcbAEjecutar)
+	encolarExec(tcbAEjecutar)
+	
 	//mandar interrupcion a cpu para que saque al hilo actual y ejecute el hilo a ejecutar
-}
-
-func encolarBloqueado(tcb TCB, motivo string) {
-
-	mutexColaExecHilo.Lock()
-	colaExecHilo = colaExecHilo[1:] // saco el hilo de la cola de ejecucion
-	mutexColaExecHilo.Unlock()
-
-	mutexColaBlockHilo.Lock()
-	colaBlockHilo = append(colaBlockHilo, tcb) // agrego el hilo a la cola de bloqueados
-	mutexColaBlockHilo.Unlock()
-
-	log.Printf("(<PID: %d >:<TID: %d >) - Bloqueado por: %s", tcb.Pid, tcb.Tid, motivo)
 }
 
 func getTcb(pid int, tid int) TCB {
@@ -815,26 +696,6 @@ func getTcb(pid int, tid int) TCB {
 	return TCB{}
 }
 
-func encolarEjecutar(tcb TCB) {
-
-	mutexColaReadyHilo.Lock()
-	colaReadyHilo = deleteTcb(colaReadyHilo, tcb)
-	mutexColaReadyHilo.Unlock()
-
-	mutexColaExecHilo.Lock()
-	colaExecHilo = append(colaExecHilo, tcb)
-	mutexColaExecHilo.Unlock()
-}
-
-func deleteTcb(tcb []TCB, tcbDelete TCB) []TCB {
-	for i, t := range tcb {
-		if t.Pid == tcbDelete.Pid && t.Tid == tcbDelete.Tid {
-			return append(tcb[:i], tcb[i+1:]...)
-		}
-	}
-	return tcb
-}
-
 func CrearMutex(w http.ResponseWriter, r *http.Request) {
 
 }
@@ -850,4 +711,99 @@ func LiberarMutex(w http.ResponseWriter, r *http.Request) {
 func ManejarIo(w http.ResponseWriter, r *http.Request) {
 
 }
+
+func DumpMemory(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func encolarProcesoNew(pcb PCB) {
+	mutexColaNewproceso.Lock()
+	colaNewproceso = append(colaNewproceso, pcb)
+	mutexColaNewproceso.Unlock()
+
+	log.Printf("## (<PID %d> : 0)Se crea el proceso - Estado: NEW",pcb.Pid)
+}
+func encolarProcesoExit(pcb PCB) {
+
+	mutexColaExitproceso.Lock()
+	colaExitproceso = append(colaExitproceso, pcb)
+	mutexColaExitproceso.Unlock()
+
+	log.Printf(" ## (<PID: %d>) finaliza el Proceso - Estado: EXIT ##", pcb.Pid)
+}
+
+func quitarProcesoNew(pcb PCB) {
+	mutexColaNewproceso.Lock()
+	for i, p := range colaNewproceso {
+		if p.Pid == pcb.Pid {
+			colaNewproceso = append(colaNewproceso[:i], colaNewproceso[i+1:]...)
+		}
+	}
+	mutexColaNewproceso.Unlock()
+}
+
+func encolarReady(tcb TCB) {
+
+	mutexColaReadyHilo.Lock()
+	colaReadyHilo = append(colaReadyHilo, tcb)
+	mutexColaReadyHilo.Unlock()
+
+	log.Printf("## (<PID %d>:<TID %d>) Se crea el Hilo - Estado: READY", tcb.Pid ,tcb.Tid)
+}
+
+func encolarExec(tcb TCB) {
+	mutexColaExecHilo.Lock()
+	colaExecHilo = append(colaExecHilo, tcb)
+	mutexColaExecHilo.Unlock()
+
+	log.Printf("## (<PID %d>:<TID %d>) Se ejecuta el Hilo - Estado: EXEC", tcb.Pid ,tcb.Tid)
+}
+
+func encolarBlock(tcb TCB, motivo string) {
+	mutexColaBlockHilo.Lock()
+	colaBlockHilo = append(colaBlockHilo, tcb)
+	mutexColaBlockHilo.Unlock()
+
+	log.Printf("(<PID: %d >:<TID: %d >) - Bloqueado por: %s", tcb.Pid, tcb.Tid, motivo)
+}
+
+func encolarExit(tcb TCB) {
+	mutexColaExitHilo.Lock()
+	colaExitHilo = append(colaExitHilo, tcb)
+	mutexColaExitHilo.Unlock()
+
+	log.Printf(" ## (<PID: %d>:<TID: %d>) finaliza el hilo - Estado: EXIT ##", tcb.Pid, tcb.Tid)
+}
+
+func quitarReady(tcb TCB) {
+	mutexColaReadyHilo.Lock()
+	for i, t := range colaReadyHilo {
+		if t.Pid == tcb.Pid && t.Tid == tcb.Tid {
+			colaReadyHilo = append(colaReadyHilo[:i], colaReadyHilo[i+1:]...)
+		}
+	}
+	mutexColaReadyHilo.Unlock()
+}
+
+func quitarExec(tcb TCB) {
+	mutexColaExecHilo.Lock()
+	for i, t := range colaExecHilo {
+		if t.Pid == tcb.Pid && t.Tid == tcb.Tid {
+			colaExecHilo = append(colaExecHilo[:i], colaExecHilo[i+1:]...)
+		}
+	}
+	mutexColaExecHilo.Unlock()
+}
+
+func quitarBlock(tcb TCB) {
+	mutexColaBlockHilo.Lock()
+	for i, t := range colaBlockHilo {
+		if t.Pid == tcb.Pid && t.Tid == tcb.Tid {
+			colaBlockHilo = append(colaBlockHilo[:i], colaBlockHilo[i+1:]...)
+		}
+	}
+	mutexColaBlockHilo.Unlock()
+}
+
+
 
