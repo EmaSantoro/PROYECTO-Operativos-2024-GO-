@@ -36,6 +36,8 @@ func main() {
 
 	mux.HandleFunc("/manejarIo", utils.ManejarIo)
 
+	mux.HandleFunc("/dumpMemory", utils.DumpMemory)
+
 	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
 
