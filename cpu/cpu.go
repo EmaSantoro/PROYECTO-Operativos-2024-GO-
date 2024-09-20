@@ -23,6 +23,7 @@ func main() {
 	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
 	//mux.HandleFunc("/paquete", utils.RecibirPaquete)
 	mux.HandleFunc("/recibirTcb", utils.RecibirPIDyTID)
+	//mux.HandleFunc("/interrupcion", utils.Interruption)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
 
 }

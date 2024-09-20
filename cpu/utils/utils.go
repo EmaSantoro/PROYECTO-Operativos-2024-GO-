@@ -17,11 +17,10 @@ import (
 type Mensaje struct {
 	Mensaje string `json:"mensaje"`
 }
-
 type PCB struct {
 	pid   int
-	base  int
-	limit int
+	base  uint32
+	limit uint32
 }
 
 type TCB struct {
@@ -41,15 +40,42 @@ type contextoEjecucion struct {
 	pcb PCB
 	tcb TCB
 }
-
+type DecodedInstruction struct {
+	instruction string
+	parameters  []string
+}
 type BodyContexto struct {
 	Pcb PCB `json:"pcb"`
 	Tcb TCB `json:"tcb"`
 }
-
+type ProcessCreateBody struct {
+	Path     string `json:"path"`
+	Size     string `json:"size"`
+	Priority string `json:"prioridad"`
+}
 type KernelExeReq struct {
-	pid int `json:"pid"` // ver cuales son los keys usados en Kernel
-	tid int `json:"tid"`
+	Pid int `json:"pid"` // ver cuales son los keys usados en Kernel
+	Tid int `json:"tid"`
+}
+type IOReq struct {
+	Tiempo int `json:"tiempo"`
+}
+
+type IniciarProcesoBody struct {
+	Path      string `json:"path"`
+	Size      int    `json:"size"`
+	Prioridad int    `json:"prioridad"`
+}
+
+type CrearHiloBody struct {
+	Pid       int    `json:"pid"`
+	Path      string `json:"path"`
+	Prioridad int    `json:"prioridad"`
+}
+type EfectoHiloBody struct {
+	Pid       int `json:"pid"`
+	TidActual int `json:"tidActual"`
+	TidCambio int `json:"tidAEjecutar"`
 }
 
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -151,17 +177,35 @@ func PedirPaquete() {
 	log.Printf("contexto del servidor: %s", resp.Status)
 }
 
-func InstructionCycle() {
+func InstructionCycle(contexto *contextoEjecucion) {
 
-	/*
-		for (!exit flag || !interruption flag){
-			//Fetch
-		//decode
-		//execute
-		//check interrupt
+	for {
+
+		intructionLine, err := Fetch(contexto.pcb.pid, contexto.tcb.tid, &contexto.tcb.PC)
+		if err != nil {
+			log.Printf("Error al buscar intruccion en el pc %d. ERROR : %v", contexto.tcb.PC, err)
+			break
 		}
-	*/
+		instruction, err2 := Decode(intructionLine)
+		if err2 != nil {
+			log.Printf("Error en etapa Decode. ERROR : %v", err2)
+			break
+		}
+		errExe, syscall := Execute(contexto, instruction)
+		if errExe != nil {
+			log.Printf("Error al ejecutar %v. ERROR: %v", intructionLine, errExe)
+			break // es correcto que al tener un error al ejecutar la intruccion termine el ciclo
+		}
+		log.Printf("## TID: %d - Ejecutando: %s - Parametos : %v", contexto.tcb.tid, instruction.instruction, instruction.parameters)
 
+		if syscall {
+			log.Printf("Se termina el ciclo por syscall")
+			//se debe hacer antes de chequear las interrupciones
+			break
+		}
+
+	}
+	// pasar el control al kernel y comunicar razon de la intrerrupcion que etsara en el error
 }
 func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 	var contextoDeEjecucion contextoEjecucion
@@ -195,7 +239,7 @@ type InstructionResponse struct {
 	Instruction string `json:"instruction"`
 }
 
-func Fetch(pid int, tid int, PC *int) ([]string, error) {
+func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 
 	pc := *PC
 	url := fmt.Sprintf("http://%s:%d//obtenerContextoDeEjecucion?pid=%d&tid=%d&pc=%d", globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, pid, tid, pc)
@@ -221,68 +265,86 @@ func Fetch(pid int, tid int, PC *int) ([]string, error) {
 
 	log.Printf("PID: %d TID: %d - FETCH - Program Counter: %d", pid, tid, pc)
 
-	*PC = pc + 1
+	*PC = pc + 1 //esta bien colocarlo de esta manera ????
 
 	return instructions, nil
 
 }
 
-func Decode(instructionLine []string) (string, error) {
+func Decode(instructionLine []string) (DecodedInstruction, error) {
+	var instructionDecoded DecodedInstruction
 	if len(instructionLine) == 0 {
 		err := fmt.Errorf("null intruction")
-		return "nil", err
+		return instructionDecoded, err
 	}
-	instruction := instructionLine[0]
 
-	return instruction, nil
+	instructionDecoded.instruction = instructionLine[0]
+	instructionDecoded.parameters = instructionLine[1:]
+	return instructionDecoded, nil
 }
 
-func Execute(ContextoDeEjecucion *TCB, intruction string, line []string) error {
+func Execute(ContextoDeEjecucion *contextoEjecucion, intruction DecodedInstruction) (error, bool) {
+	var syscall bool
+	tcb := &ContextoDeEjecucion.tcb
 	var err error
-	switch intruction {
+	instructionName := intruction.instruction
+	var parameters []string = intruction.parameters
+	switch instructionName {
 	case "SET":
-		err = Set(ContextoDeEjecucion, line[2], line[1])
+		err = Set(tcb, parameters[1], parameters[0])
 	case "READ_MEM":
 		//funcion
 	case "WRITE_MEM":
 		//funcion
 	case "SUM":
-		err = Sumar(ContextoDeEjecucion, line[1], line[2])
+		err = Sumar(tcb, parameters[0], parameters[1])
 	case "SUB":
-		err = Restar(ContextoDeEjecucion, line[1], line[2])
+		err = Restar(tcb, parameters[0], parameters[1])
 	case "JNZ":
-		err = JNZ(ContextoDeEjecucion, line[1], line[2])
+		err = JNZ(tcb, parameters[0], parameters[1])
 	case "LOG":
-		err = Log(ContextoDeEjecucion, line[1])
+		err = Log(tcb, parameters[0])
+
 	case "DUMP_MEMORY":
-		//funcion
+		syscall = true
+		err = DumpMemory(ContextoDeEjecucion)
 	case "IO":
-		//funcion
+		syscall = true
+		err = IO(ContextoDeEjecucion, parameters[0])
 	case "PROCESS_CREATE":
-		//funcion
+		syscall = true
+		err = CreateProcess(ContextoDeEjecucion, parameters[0], parameters[1], parameters[2])
 	case "THREAD_CREATE":
-		//funcion
+		syscall = true
+		err = CreateThead(ContextoDeEjecucion, parameters[0], parameters[1])
 	case "THREAD_JOIN":
-		//funcion
+		syscall = true
+		err = JoinThead(ContextoDeEjecucion, parameters[0])
 	case "THREAD_CANCEL":
-		//funcion
+		syscall = true
+		err = CancelThead(ContextoDeEjecucion, parameters[0])
 	case "MUTEX_CREATE":
+		syscall = true
 		//funcion
 	case "MUTEX_LOCK":
+		syscall = true
 		//funcion
 	case "MUTEX_UNLOCK":
 		//funcion
 	case "THREAD_EXIT":
-		//funcion
+		syscall = true
+		err = ThreadExit(ContextoDeEjecucion)
 	case "PROCESS_EXIT":
-		//funcion
+		syscall = true
+		err = ProcessExit(ContextoDeEjecucion)
 	default:
-		log.Printf("Instruccion no valida %s", intruction)
+		log.Printf("Instruccion no valida %s", instructionName)
 	}
 	if err != nil {
-		return err
+		log.Printf("Error al ejecutar la instruccion : %v", err)
+		return err, syscall
 	}
-	return nil
+	return nil, syscall
 }
 
 func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
@@ -297,7 +359,7 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("Cpu recibe TID : %d PID:%d del Kernel", processAndThreadIDs.pid, processAndThreadIDs.tid)
+	log.Printf("Cpu recibe TID : %d PID:%d del Kernel", processAndThreadIDs.Pid, processAndThreadIDs.Tid)
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 
@@ -400,8 +462,8 @@ func GetRegister(registrosCPU *TCB, registro string) (*uint32, error) {
 	}
 }
 
-func TranslateAdress(direccionLogica uint32, base int, limite int) (int, error) {
-	direccionFisica := int(direccionLogica) + base
+func TranslateAdress(direccionLogica uint32, base uint32, limite uint32) (uint32, error) {
+	direccionFisica := direccionLogica + base
 
 	if direccionFisica > limite {
 		err := fmt.Errorf("Segmentation Fault")
@@ -472,6 +534,251 @@ func Log(registrosCPU *TCB, registro string) error {
 		return err
 	}
 	log.Printf("EL registro %s contiene el valor %d", registro, *register)
+	return nil
+
+}
+
+func DumpMemory(contexto *contextoEjecucion) error {
+
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	errM := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, nil, "vaciarMemoria")
+	if errM != nil {
+		return errM
+	}
+	return nil
+
+}
+
+func AcualizarContextoDeEjecucion(contexto *contextoEjecucion) error {
+	var contextoDeEjecucion BodyContexto
+	contextoDeEjecucion.Pcb = contexto.pcb
+	contextoDeEjecucion.Tcb = contexto.tcb
+	body, err := json.Marshal(contextoDeEjecucion)
+	if err != nil {
+		log.Printf("Error al codificar el contexto")
+		return err
+	}
+	errM := EnviarAModulo(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, bytes.NewBuffer(body), "actualizarContextoDeEjecucion")
+	if errM != nil {
+		return errM
+	}
+	return nil
+
+}
+
+func IO(contexto *contextoEjecucion, tiempo string) error {
+
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	tiempoReq, errI := strconv.Atoi(tiempo)
+	if errI != nil {
+		return errI
+	}
+	body, err := json.Marshal(IOReq{
+		Tiempo: tiempoReq,
+	})
+	if err != nil {
+		log.Printf("Error al codificar el mernsaje")
+		return err
+	}
+	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
+	if err != nil {
+		return err
+	}
+
+	return nil
+
+}
+
+func EnviarAModulo(ipModulo string, puertoModulo int, body io.Reader, endPoint string) error {
+
+	url := fmt.Sprintf("http://%s:%d/%s", ipModulo, puertoModulo, endPoint)
+	resp, err := http.Post(url, "application/json", body)
+	if err != nil {
+		log.Printf("error enviando mensaje al End point %s - IP:%s - Puerto:%d", endPoint, ipModulo, puertoModulo)
+		return err
+	}
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("Error al recibir la respuesta del End point %s - IP:%s - Puerto:%d", endPoint, ipModulo, puertoModulo)
+		err := fmt.Errorf("%s", resp.Status)
+		return err
+	}
+	return nil
+}
+
+func CreateProcess(contexto *contextoEjecucion, archivoInstruct string, tamArch string, prioridadTID string) error {
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	tamArchReal, err := strconv.Atoi(tamArch)
+	if err != nil {
+		return err
+	}
+	priorityReal, err2 := strconv.Atoi(prioridadTID)
+	if err2 != nil {
+		return err
+	}
+
+	body, err := json.Marshal(IniciarProcesoBody{
+		Path:      archivoInstruct,
+		Size:      tamArchReal,
+		Prioridad: priorityReal,
+	})
+
+	if err != nil {
+		log.Printf("Error al codificar estructura de creacion de proceso")
+		return err
+	}
+	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
+	if err != nil {
+		log.Printf("Error syscall IO : %v", err)
+		return err
+	}
+
+	return nil
+}
+
+func CreateThead(contexto *contextoEjecucion, archivoInstruct string, prioridadTID string) error {
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	priorityReal, err2 := strconv.Atoi(prioridadTID)
+	if err2 != nil {
+		return err
+	}
+
+	body, err := json.Marshal(CrearHiloBody{
+		Path:      archivoInstruct,
+		Pid:       contexto.pcb.pid,
+		Prioridad: priorityReal,
+	})
+
+	if err != nil {
+		log.Printf("Error al codificar estructura de creacion de hilo")
+		return err
+	}
+	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "crearHilo")
+	if err != nil {
+		log.Printf("Error syscall THREAD_CREATE : %v", err)
+		return err
+	}
+
+	return nil
+}
+
+func JoinThead(contexto *contextoEjecucion, tid string) error {
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	tidParse, err := strconv.Atoi(tid)
+	if err != nil {
+		return err
+	}
+
+	body, err := json.Marshal(EfectoHiloBody{
+		Pid:       contexto.pcb.pid,
+		TidActual: contexto.tcb.tid,
+		TidCambio: tidParse,
+	})
+
+	if err != nil {
+		log.Printf("Error al codificar estructura de cambio de hilo")
+		return err
+	}
+	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "unirseAHilo")
+	if err != nil {
+		log.Printf("Error syscall THREAD_JOIN : %v", err)
+		return err
+	}
+
+	return nil
+}
+
+func CancelThead(contexto *contextoEjecucion, tid string) error {
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	tidParse, err := strconv.Atoi(tid)
+	if err != nil {
+		return err
+	}
+
+	body, err := json.Marshal(EfectoHiloBody{
+		Pid:       contexto.pcb.pid,
+		TidActual: contexto.tcb.tid,
+		TidCambio: tidParse,
+	})
+
+	if err != nil {
+		log.Printf("Error al codificar estructura de cancelacion de hilo")
+		return err
+	}
+	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "cancelarHilo")
+	if err != nil {
+		log.Printf("Error syscall THREAD_CANCEL : %v", err)
+		return err
+	}
+
+	return nil
+}
+
+func ThreadExit(contexto *contextoEjecucion) error {
+
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	errM := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, nil, "exirThread")
+	if errM != nil {
+		return errM
+	}
+	return nil
+
+}
+
+func ProcessExit(contexto *contextoEjecucion) error {
+
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	errM := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, nil, "exirProcess")
+	if errM != nil {
+		return errM
+	}
 	return nil
 
 }
