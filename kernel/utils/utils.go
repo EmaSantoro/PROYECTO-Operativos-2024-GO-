@@ -97,6 +97,7 @@ type MutexRequest struct {
 /*-------------------- COLAS GLOBALES --------------------*/
 
 var colaNewproceso []PCB
+var colaProcesosInicializados []PCB
 var colaExitproceso []PCB
 
 var colaReadyHilo []TCB
@@ -189,13 +190,13 @@ func init() {
 func procesoInicial(path string, size int) {
 	//CREAMOS PCB
 	pcb := createPCB()
+	encolarProcesoNew(pcb)
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
 
 	if consultaEspacioAMemoria(size, pcb) {
 		tcb := createTCB(pcb.Pid, 0)       // creamos hilo main
 		pcb.Tid = append(pcb.Tid, tcb.Tid) // agregamos el hilo a la listas de hilos del proceso
 		enviarTCBMemoria(tcb, path)
-		encolarProcesoNew(pcb)
 		encolarReady(tcb)
 	} else {
 		slog.Error("Error creando el proceso inicial")
@@ -247,33 +248,39 @@ func iniciarProceso(path string, size int, prioridad int) error {
 
 	//CREAMOS PCB
 	pcb := createPCB()
+	encolarProcesoNew(pcb)
 
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
-	if consultaEspacioAMemoria(size, pcb) {
+	if esElPrimerProcesoEnNew(pcb){
+			if consultaEspacioAMemoria(size, pcb) {
 
-		nextTid = 0
-		tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
-		pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
-		enviarTCBMemoria(tcb, path)
+				nextTid = 0
+				tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
+				pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
+				enviarTCBMemoria(tcb, path)
 
-		encolarProcesoNew(pcb)
+				
+				// encolar proceso en ready
+				encolarReady(tcb)
 
-		encolarReady(tcb)
+			} else {
 
-	} else {
+				slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
+				// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
+				nextPid-- // decrementamos el pid para que el proximo proceso tenga el pid correcto
 
-		slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
-		// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
-		nextPid-- // decrementamos el pid para que el proximo proceso tenga el pid correcto
-
-		<-finProceso                          // se bloquea hasta que finalice un proceso
-		iniciarProceso(path, size, prioridad) // preguntar logica de cuando hay procesos en cola ready y cuando no
-	}
-
+				<-finProceso                          // se bloquea hasta que finalice un proceso
+				iniciarProceso(path, size, prioridad) // preguntar logica de cuando hay procesos en cola ready y cuando no
+			}
+		} else{
+			//  espera a que sea el primer proceso de la cola de new para tratar inicializarlo
+		}
 	// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 	return nil
 }
-
+func esElPrimerProcesoEnNew(pcb PCB) bool{
+		return colaNewproceso[0].Pid == pcb.Pid		
+}
 func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 	var hilo TCBRequest
 	decoder := json.NewDecoder(r.Body)
