@@ -1,17 +1,17 @@
 package utils
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
-	"bufio"
-	"math"
 
 	"github.com/sisoputnfrba/tp-golang/memoria/globals"
 )
@@ -94,25 +94,11 @@ func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-type PCB struct { 
-   pid int 
-   base int
-   limit int 
+type PCB struct {  //NO ES LA MISMA PCB QUE TIENE KERNEL DIGAMOS ES UNA PROPIA DE MEMORIA
+	pid   int
+	base uint32
+	limit uint32
 }
-
-// type TCB struct {
-// 	pid int
-// 	tid int
-// 	AX int
-// 	BX int
-// 	CX int
-// 	DX int 
-// 	EX int 
-// 	FX int
-// 	GX int
-// 	HX int
-// 	PC int 
-// } 
 
 // // Mapa anidado que almacena los contextos de ejecución
 // var mapPCBPorTCB = make(map[PCB]map[TCB][]string)
@@ -120,23 +106,23 @@ type PCB struct {
 ///--------------------------------------------GET INSTRUCTION---------------------------------------------
 
 type InstructionResponse struct {
-   Instruction string `json:"instruction"`
+	Instruction string `json:"instruction"`
 }
 
 func GetInstruction(w http.ResponseWriter, r *http.Request) {
-    queryParams := r.URL.Query() 
+	queryParams := r.URL.Query()
 	pid, _ := strconv.Atoi(queryParams.Get("pid")) // pid
 	tid, _ := strconv.Atoi(queryParams.Get("tid")) // tid
-	pc, _ := strconv.Atoi(queryParams.Get("pc")) // pc 
+	pc, _ := strconv.Atoi(queryParams.Get("pc"))   // pc
 
-    time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
+	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
 	for pcb, tidMap := range mapPCBPorTCB {
-		if pcb.pid == pid { 
+		if pcb.pid == pid {
 			for tcb, instrucciones := range tidMap {
 				if tcb.tid == tid {
 					if pc >= 0 && pc < len(instrucciones) {
-						
+
 						instruccion := instrucciones[pc]
 
 						instructionResponse := InstructionResponse{
@@ -163,24 +149,24 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("No se encontró el PID")
 }
 
-//------------------------------------ GET EXECUTION CONTEXT --------------------------------------------- 
+//------------------------------------ GET EXECUTION CONTEXT ---------------------------------------------
 
 func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
 	pid, _ := strconv.Atoi(queryParams.Get("pid"))
 	tid, _ := strconv.Atoi(queryParams.Get("tid"))
 
-    time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
+	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
 	for pcb, tidMap := range mapPCBPorTCB {
-		if pcb.pid == pid { 
+		if pcb.pid == pid {
 			for tcb := range tidMap {
-				if tcb.tid == tid { 
+				if tcb.tid == tid {
 					executionContext := struct {
 						PCB
 						estructuraHilo
 					}{
-						PCB: pcb,
+						PCB:            pcb,
 						estructuraHilo: tcb,
 					}
 
@@ -194,7 +180,7 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	http.Error(w, "PID not found", http.StatusNotFound)
-} 
+}
 
 //-------------------------------- UPDATE EXECUTION CONTEXT-----------------------------------------------
 
@@ -206,19 +192,19 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 	// Extraer los nuevos valores para el PCB y TCB desde el cuerpo de la petición
 	var newContext struct {
 		PCB struct {
-		    Base  int `json:"base"`
-		 	Limit int `json:"limit"`
+			base  uint32 `json:"base"`
+			limit uint32 `json:"limit"`
 		}
 		estructuraHilo struct {
-			AX int `json:"AX"`
-			BX int `json:"BX"`
-			CX int `json:"CX"`
-			DX int `json:"DX"`
-			EX int `json:"EX"`
-			FX int `json:"FX"`
-			GX int `json:"GX"`
-			HX int `json:"HX"`
-			PC int `json:"PC"`
+			AX uint32 `json:"AX"`
+			BX uint32 `json:"BX"`
+			CX uint32 `json:"CX"`
+			DX uint32 `json:"DX"`
+			EX uint32 `json:"EX"`
+			FX uint32 `json:"FX"`
+			GX uint32 `json:"GX"`
+			HX uint32 `json:"HX"`
+			PC uint32 `json:"PC"`
 		}
 	}
 
@@ -229,17 +215,16 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
+	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
 	for pcb, tidMap := range mapPCBPorTCB {
 		if pcb.pid == pid {
-
 			for tcb := range tidMap {
-				if tcb.tid == tid { 
+				if tcb.tid == tid {
 
 					// Actualizar los valores del PCB (Base y Limit)
-					pcb.base = newContext.PCB.Base
-					pcb.limit = newContext.PCB.Limit
+					pcb.base = newContext.PCB.base
+					pcb.limit = newContext.PCB.limit
 
 					// Actualizar los registros del TCB
 					tcb.AX = uint32(newContext.estructuraHilo.AX)
@@ -254,8 +239,8 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 
 					//CREO QUE NO SE ESTA ACTUALIZANDO EL MAPA ANIDADO
 					tidMap[tcb] = tidMap[tcb]
-                    mapPCBPorTCB[pcb] = tidMap
-				
+					mapPCBPorTCB[pcb] = tidMap
+
 					w.WriteHeader(http.StatusOK)
 					w.Write([]byte("Execution context updated successfully"))
 					return
@@ -270,20 +255,29 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 
 //-----------------------------------------CREATE PROCESS-------------------------------------------
 
-var mapParticiones[]bool //estado de las particiones ocupada/libre
+// Mapa anidado que almacena los contextos de ejecución
+var mapPCBPorTCB = make(map[PCB]map[estructuraHilo][]string) //ESTE ES EL PRINCIPAL DIGAMOS 
+var mapParticiones []bool                          //estado de las particiones ocupada/libre
 var particiones = globals.ClientConfig.Particiones //vector de particiones, aca tengo los tamaños en int
-type Process struct{
+type Process struct {
 	size int `json:"size"`
-	pcb PCB `json:"pcb"`
+	pid  int `json:"pcb"`
 }
 
-func CreateProcess(w http.ResponseWriter, r *http.Request){  //recibe la pcb y el size 
+
+func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y el size
 	var process Process
 	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
 	if err := json.NewDecoder(r.Body).Decode(&process); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
+	}
+
+	pcb := PCB{ //creo la estructura necesaria
+		pid: process.pid,
+		base: 0,
+		limit: 0,
 	}
 
 	if globals.ClientConfig.EsquemaMemoria == "FIJAS" {
@@ -295,23 +289,32 @@ func CreateProcess(w http.ResponseWriter, r *http.Request){  //recibe la pcb y e
 			return
 		}
 
+		//BASE
+		pcb.base = 0
+        for i := 0; i < numeroDeParticion; i++ {
+            pcb.base += globals.ClientConfig.Particiones[i] //tengo que ver tema int y uint32
+        }
+
+		//LIMIT
+		pcb.limit = pcb.base + globals.ClientConfig.Particiones[numeroDeParticion] - 1
+
 		mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
 
-		if err := guardarPCBenMapConRespectivaParticion(process.pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+		if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
+			http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION 
 			return
 		}
 
-		//ME FALTAIRA GUARDAR EN EL MAP ANIDADO LA PCB Y VER LO DE LA BASE Y LIMITE  	
+		if err := guardarPCBEnElMap(pcb); err != nil { //ACA ESTOY GUARDANDO LA PCB EN MI MAP PRINCIPAL EL MAS IMPORTANTE DE TODOS
+			http.Error(w, err.Error(), http.StatusInternalServerError) 
+			return
+		}
 
-		// if err := guardarTodoEnElMap(pcb, tcb, path); err != nil { //GUARDO EN EL MAP
-		// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-		// 	return
-		// }
+
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Ok"))
 		return
-	}else {
+	} else {
 		//PARTICION DINAMICA
 	}
 }
@@ -319,7 +322,16 @@ func CreateProcess(w http.ResponseWriter, r *http.Request){  //recibe la pcb y e
 var mapPCBPorParticion = make(map[PCB]int)
 
 func guardarPCBenMapConRespectivaParticion(pcb PCB, numeroDeParticion int) error {
-    mapPCBPorParticion[pcb] = numeroDeParticion
+	mapPCBPorParticion[pcb] = numeroDeParticion
+	return nil
+}
+
+func guardarPCBEnElMap(pcb PCB)error{
+    
+    if _, found := mapPCBPorTCB[pcb]; !found {
+        mapPCBPorTCB[pcb] = make(map[estructuraHilo][]string)
+    }
+
     return nil
 }
 
@@ -341,48 +353,48 @@ func asignarPorAlgoritmo(tipoDeAlgoritmo string, size int) int {
 // var particiones = globals.ClientConfig.Particiones //vector de particiones, aca tengo los tamaños en int
 
 func firstFit(processSize int) int {
-    for i, size := range particiones {
-        if !mapParticiones[i] && size >= processSize {
-            return i
-        }
-    }
-    return -1
+	for i, size := range particiones {
+		if !mapParticiones[i] && size >= processSize {
+			return i
+		}
+	}
+	return -1
 }
 
 func bestFit(processSize int) int {
-    bestIndex := -1
-    minDifference := math.MaxInt32
+	bestIndex := -1
+	minDifference := math.MaxInt32
 
-    for i, size := range particiones {
-        if !mapParticiones[i] && size >= processSize {
-            difference := size - processSize
-            if difference < minDifference {
-                minDifference = difference
-                bestIndex = i
-            }
-        }
-    }
-    return bestIndex
+	for i, size := range particiones {
+		if !mapParticiones[i] && size >= processSize {
+			difference := size - processSize
+			if difference < minDifference {
+				minDifference = difference
+				bestIndex = i
+			}
+		}
+	}
+	return bestIndex
 }
 
 func worstFit(processSize int) int {
-    worstIndex := -1
-    maxDifference := -1
+	worstIndex := -1
+	maxDifference := -1
 
-    for i, size := range particiones {
-        if !mapParticiones[i] && size >= processSize {
-            difference := size - processSize
-            if difference > maxDifference {
-                maxDifference = difference
-                worstIndex = i
-            }
-        }
-    }
-    return worstIndex
+	for i, size := range particiones {
+		if !mapParticiones[i] && size >= processSize {
+			difference := size - processSize
+			if difference > maxDifference {
+				maxDifference = difference
+				worstIndex = i
+			}
+		}
+	}
+	return worstIndex
 }
 
 // func guardarTodoEnElMap(pcb PCB, tcb TCB, path string) error{
-	
+
 // 	// Abro el archivo de pseudocódigo
 // 	readFile, err := os.Open(path)
 // 	if err != nil {
@@ -390,7 +402,7 @@ func worstFit(processSize int) int {
 // 		return err
 // 	}
 // 	defer readFile.Close()
-	
+
 // 	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
 // 	fileScanner := bufio.NewScanner(readFile)
@@ -411,60 +423,60 @@ func worstFit(processSize int) int {
 
 // 	return nil
 
-// } 
+// }
 
 //--------------------------------TERMINATE PROCESS---------------------------------------------
 
 func TerminateProcess(w http.ResponseWriter, r *http.Request) {
-    queryParams := r.URL.Query()
-    pid, _ := strconv.Atoi(queryParams.Get("pid"))
+	queryParams := r.URL.Query()
+	pid, _ := strconv.Atoi(queryParams.Get("pid"))
 
-    if globals.ClientConfig.EsquemaMemoria == "FIJAS" { //PARA FIJAS
-        var numeroDeParticion int
-        encontrado := false
-        for pcb, particion := range mapPCBPorParticion {
-            if pcb.pid == pid {
-                numeroDeParticion = particion
-                encontrado = true
-                break
-            }
-        }
+	if globals.ClientConfig.EsquemaMemoria == "FIJAS" { //PARA FIJAS
+		var numeroDeParticion int
+		encontrado := false
+		for pcb, particion := range mapPCBPorParticion {
+			if pcb.pid == pid {
+				numeroDeParticion = particion
+				encontrado = true
+				break
+			}
+		}
 
-        if !encontrado {
-            http.Error(w, "PID no encontrado", http.StatusNotFound)
-            return
-        }
+		if !encontrado {
+			http.Error(w, "PID no encontrado", http.StatusNotFound)
+			return
+		}
 
-        mapParticiones[numeroDeParticion] = false // libero el map booleano que indicaba si la particion esta libre o no
+		mapParticiones[numeroDeParticion] = false // libero el map booleano que indicaba si la particion esta libre o no
 
-        delete(mapPCBPorParticion, PCB{pid: pid}) // elimino la estructura del pcb en el map de particiones
-
-        w.WriteHeader(http.StatusOK)
-        w.Write([]byte("Proceso finalizado exitosamente"))
-    }
-	//FALTA PARA LA PARTICION DINAMICA 
+		delete(mapPCBPorParticion, PCB{pid: pid}) // elimino la estructura del pcb en el map de particiones
+		delete(mapPCBPorTCB, PCB{pid: pid})      // elimino el pcb del map anidado
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Proceso finalizado exitosamente"))
+	}
+	//FALTA PARA LA PARTICION DINAMICA
 }
 
 //-----------------------------------------CREATE THREAD--------------------------------------------
 
 type Thread struct {
-	Pid int `json:"pid"`
-	Tid int `json:"tid"`
-	Path string `json:"path"`   
+	Pid  int    `json:"pid"`
+	Tid  int    `json:"tid"`
+	Path string `json:"path"`
 }
 
-type estructuraHilo struct{
-	pid int 
+type estructuraHilo struct {
+	pid int
 	tid int
-	AX uint32
-	BX uint32
-	CX uint32
-	DX uint32
-	EX uint32
-	FX uint32
-	GX uint32
-	HX uint32
-	PC uint32
+	AX  uint32
+	BX  uint32
+	CX  uint32
+	DX  uint32
+	EX  uint32
+	FX  uint32
+	GX  uint32
+	HX  uint32
+	PC  uint32
 }
 
 func CreateThread(w http.ResponseWriter, r *http.Request) {
@@ -475,35 +487,33 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	TCB := estructuraHilo{ //creo la estructura necesaria 
-        pid: thread.Pid,
-        tid: thread.Tid,
-        AX:  0,
-        BX:  0,
-        CX:  0,
-        DX:  0,
-        EX:  0,
-        FX:  0,
-        GX:  0,
-        HX:  0,
-        PC:  0,
-    }
-	
+	TCB := estructuraHilo{ //creo la estructura necesaria
+		pid: thread.Pid,
+		tid: thread.Tid,
+		AX:  0,
+		BX:  0,
+		CX:  0,
+		DX:  0,
+		EX:  0,
+		FX:  0,
+		GX:  0,
+		HX:  0,
+		PC:  0,
+	}
+
 	if err := guardarTodoEnElMap(thread.Pid, TCB, thread.Path); err != nil { //GUARDO EN EL MAP
-       http.Error(w, err.Error(), http.StatusInternalServerError)
-	   return
-    }
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Ok"))
 	return
 }
 
-// Mapa anidado que almacena los contextos de ejecución
-var mapPCBPorTCB = make(map[PCB]map[estructuraHilo][]string)
 
-func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error{
-	
+func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
+
 	// Abro el archivo de pseudocódigo
 	readFile, err := os.Open(path)
 	if err != nil {
@@ -511,7 +521,7 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error{
 		return err
 	}
 	defer readFile.Close()
-	
+
 	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
 	fileScanner := bufio.NewScanner(readFile)
@@ -522,35 +532,33 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error{
 		instrucciones = append(instrucciones, fileScanner.Text()) //esta linea lee los codigos
 	}
 
-    var pcbEncontrado PCB //para encontrar el pcb y poder entrar al mapa anidado 
-    for pcb := range mapPCBPorTCB {
-        if pcb.pid == pid {
-            pcbEncontrado = pcb
-            break
-        }
-    }
-
-	if _, found := mapPCBPorTCB[pcbEncontrado]; !found {
-	mapPCBPorTCB[pcbEncontrado] = make(map[estructuraHilo][]string)
+	var pcbEncontrado PCB //para encontrar el pcb y poder entrar al mapa anidado
+	for pcb := range mapPCBPorTCB {
+		if pcb.pid == pid {
+			pcbEncontrado = pcb
+			break
+		}
 	}
 
-    mapPCBPorTCB[pcbEncontrado][TCB] = instrucciones
-    
+	if _, found := mapPCBPorTCB[pcbEncontrado]; !found {
+		mapPCBPorTCB[pcbEncontrado] = make(map[estructuraHilo][]string)
+	}
+
+	mapPCBPorTCB[pcbEncontrado][TCB] = instrucciones
 
 	return nil
 
-} 
-
+}
 
 //---------------------------------------TERMINATE THREAD--------------------------------------------
 
-type Req struct{
+type Req struct {
 	Pid int `json:"pid"`
 	Tid int `json:"tid"`
 }
 
 func TerminateThread(w http.ResponseWriter, r *http.Request) {
-	
+
 	var req Req
 	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
@@ -567,7 +575,7 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 	if tcbMap, found := mapPCBPorTCB[PCB{pid: req.Pid}]; found {
 		delete(tcbMap, estructuraHilo{pid: req.Pid, tid: req.Tid})
 		if len(tcbMap) == 0 {
-			delete(mapPCBPorTCB, PCB{pid: req.Pid}) //por si llega a quedar vacio 
+			delete(mapPCBPorTCB, PCB{pid: req.Pid}) //por si llega a quedar vacio
 		}
 	}
 
@@ -575,19 +583,17 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("OK"))
 }
 
-
-
 //-----------------------------------------READ MEMORY-------------------------------------------
 
 // type MemoryRequest struct{
 // 	PID int `json:"pid"`
 // 	Address uint32 `json:"address"`
-// } 
+// }
 
 // func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
 //     var memReq MemoryRequest
 //     time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
-    
+
 //     if err := json.NewDecoder(r.Body).Decode(&memReq); err != nil {
 //         http.Error(w, err.Error(), http.StatusBadRequest)
 //         return
@@ -612,5 +618,3 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 // func sendDataToCPU()
 
 //-----------------------------------------------------------------------------------------------------
-
-
