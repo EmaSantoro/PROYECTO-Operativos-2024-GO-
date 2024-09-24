@@ -109,13 +109,12 @@ var colaExitHilo []TCB
 
 var mutexColaNewproceso sync.Mutex
 var mutexColaExitproceso sync.Mutex
+var mutexColaProcesosInicializados sync.Mutex
 
 var mutexColaReadyHilo sync.Mutex
 var mutexColaExecHilo sync.Mutex
 var mutexColaBlockHilo sync.Mutex
 var mutexColaExitHilo sync.Mutex
-
-//var mutexProcesosActivos sync.Mutex
 
 /*-------------------- VAR GLOBALES --------------------*/
 
@@ -127,9 +126,6 @@ var (
 /*---------------------- CANALES ----------------------*/
 
 var finProceso = make(chan bool)
-
-//var procesosActivos = make(map[int]PCB) // mapa que gestiona los procesos activos y se puede acceder a travez de una clave
-// en este caso seria por el pid
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -160,18 +156,35 @@ func ConfigurarLogger() {
 // INICIAR MODULO
 
 func init() {
-	slog.SetLogLoggerLevel(slog.LevelDebug)
+	
 	/*	slog.SetLogLoggerLevel(slog.LevelInfo)
 		slog.SetLogLoggerLevel(slog.LevelWarn)
 		slog.SetLogLoggerLevel(slog.LevelError)
 	SE SETEA EL NIVEL MINIMO DE LOGS A IMPRIMIR POR CONSOLA*/
-
+	
+	
 	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
 
+	
+	
 	if ConfigKernel != nil {
+
+		switch ConfigKernel.LogLevel {
+		case "INFO":
+			slog.SetLogLoggerLevel(slog.LevelInfo)
+		case "WARN":
+			slog.SetLogLoggerLevel(slog.LevelWarn)
+		case "ERROR":
+			slog.SetLogLoggerLevel(slog.LevelError)
+		case "DEBUG":
+			slog.SetLogLoggerLevel(slog.LevelDebug)
+		default:
+			slog.SetLogLoggerLevel(slog.LevelDebug)
+		}
 
 		//Cuando levanto kernel se inicia un proceso ppal y luego se ejecutan syscalls?
 		procesoInicial("procesoInicial", 0)
+
 
 		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
 			go ejecutarHilosFIFO()
@@ -188,6 +201,7 @@ func init() {
 /*---------- FUNCIONES PROCESOS ----------*/
 
 func procesoInicial(path string, size int) {
+	
 	//CREAMOS PCB
 	pcb := createPCB()
 	encolarProcesoNew(pcb)
@@ -198,6 +212,8 @@ func procesoInicial(path string, size int) {
 		pcb.Tid = append(pcb.Tid, tcb.Tid) // agregamos el hilo a la listas de hilos del proceso
 		enviarTCBMemoria(tcb, path)
 		encolarReady(tcb)
+		quitarProcesoNew(pcb)
+		encolarProcesoInicializado(pcb)
 	} else {
 		slog.Error("Error creando el proceso inicial")
 		return
@@ -215,7 +231,7 @@ func createPCB() PCB {
 }
 
 func getPCB(pid int) PCB {
-	for _, pcb := range colaNewproceso {
+	for _, pcb := range colaProcesosInicializados {
 		if pcb.Pid == pid {
 			return pcb
 		}
@@ -224,6 +240,7 @@ func getPCB(pid int) PCB {
 }
 
 func CrearProceso(w http.ResponseWriter, r *http.Request) {
+
 	var proceso IniciarProcesoResponse
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&proceso)
@@ -239,48 +256,52 @@ func CrearProceso(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <PROCESS_CREATE> ##", pidActual, tidActual)
 
-	go iniciarProceso(path, size, prioridad) // go routine para que no bloquee el hilo principal en caso de que no haya espacio en memoria para iniciar proceso. CONSULTAR!!
+	iniciarProceso(path, size, prioridad) 
 
 	w.WriteHeader(http.StatusOK)
 }
 
-func iniciarProceso(path string, size int, prioridad int) error {
+func iniciarProceso(path string, size int, prioridad int)  {
 
-	//CREAMOS PCB
+	
 	pcb := createPCB()
 	encolarProcesoNew(pcb)
+	go inicializarProceso(path, size, prioridad, pcb)
+	 
+		
+	// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
+}
 
-	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
-	if esElPrimerProcesoEnNew(pcb){
+func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
+
+// Verificar si se puede enviar a memoria, si hay espacio para el proceso
+	for{
+		if esElPrimerProcesoEnNew(pcb){
 			if consultaEspacioAMemoria(size, pcb) {
 
 				nextTid = 0
 				tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
 				pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
 				enviarTCBMemoria(tcb, path)
-
-				
-				// encolar proceso en ready
+				quitarProcesoNew(pcb)
+				encolarProcesoInicializado(pcb)
 				encolarReady(tcb)
-
+				break
+				
 			} else {
 
 				slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
 				// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
-				nextPid-- // decrementamos el pid para que el proximo proceso tenga el pid correcto
-
 				<-finProceso                          // se bloquea hasta que finalice un proceso
-				iniciarProceso(path, size, prioridad) // preguntar logica de cuando hay procesos en cola ready y cuando no
+				
 			}
-		} else{
-			//  espera a que sea el primer proceso de la cola de new para tratar inicializarlo
 		}
-	// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
-	return nil
+	}
 }
 func esElPrimerProcesoEnNew(pcb PCB) bool{
 		return colaNewproceso[0].Pid == pcb.Pid		
 }
+
 func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 	var hilo TCBRequest
 	decoder := json.NewDecoder(r.Body)
@@ -299,7 +320,7 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 		err = exitProcess(pid)
 	} else {
 		slog.Warn("El hilo no es el principal, no se puede ejecutar esta instruccion")
-		return //Ver como hacer para que no finalice el kernel y el hilo continue con su siguiente instruccion
+		return // COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 	}
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -312,16 +333,15 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 func exitProcess(pid int) error {
 
 	pcb := getPCB(pid)
-	quitarProcesoNew(pcb)   // sacamos el proceso de la cola de new
-	encolarProcesoExit(pcb) // agregamos el proceso a la cola de exit
+	quitarProcesoInicializado(pcb)   
+	encolarProcesoExit(pcb) 
 
 	// Eliminar todos los hilos del proceso
 	for i := len(colaReadyHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos ready
 		if colaReadyHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
 
-			quitarReady(colaReadyHilo[i]) // sacamos el hilo de la cola de ready
-
-			encolarExit(colaReadyHilo[i]) // agregamos el hilo a la cola de exit
+			quitarReady(colaReadyHilo[i]) 
+			encolarExit(colaReadyHilo[i]) 
 
 		}
 	}
@@ -329,8 +349,7 @@ func exitProcess(pid int) error {
 	for i := len(colaExecHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos en ejecucion
 		if colaExecHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
 
-			quitarExec(colaExecHilo[i]) // sacamos el hilo de la cola de ejecucion
-
+			quitarExec(colaExecHilo[i]) 
 			encolarExit(colaReadyHilo[i])
 
 			// FALTA ENVIAR INTERRUPCION A CPU PARA QUE SAQUE EL HILO DE EJECUCION Y META A OTRO NUEVO
@@ -340,8 +359,7 @@ func exitProcess(pid int) error {
 	for i := len(colaBlockHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos bloqueados
 		if colaBlockHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
 
-			quitarBlock(colaBlockHilo[i]) // sacamos el hilo de la cola de bloqueados
-
+			quitarBlock(colaBlockHilo[i]) 
 			encolarExit(colaReadyHilo[i])
 
 		}
@@ -350,12 +368,6 @@ func exitProcess(pid int) error {
 	resp := enviarProcesoFinalizadoAMemoria(pcb)
 
 	if resp == nil {
-		//mutexProcesosActivos.Lock()
-		//defer mutexProcesosActivos.Unlock()
-
-		// eliminar el PCB del proceso terminado
-		//delete(procesosActivos, pid)
-
 		// Notificar a traves del canal
 		finProceso <- true
 	} else {
@@ -438,7 +450,27 @@ func encolarProcesoExit(pcb PCB) {
 	mutexColaExitproceso.Unlock()
 
 	log.Printf(" ## (<PID: %d>) finaliza el Proceso - Estado: EXIT ##", pcb.Pid)
+
 }
+
+func encolarProcesoInicializado(pcb PCB) {
+
+	mutexColaProcesosInicializados.Lock()
+	colaProcesosInicializados = append(colaProcesosInicializados, pcb)
+	mutexColaProcesosInicializados.Unlock()
+
+}
+
+func quitarProcesoInicializado(pcb PCB) {
+	mutexColaProcesosInicializados.Lock()
+	for i, p := range colaProcesosInicializados {
+		if p.Pid == pcb.Pid {
+			colaProcesosInicializados = append(colaProcesosInicializados[:i], colaProcesosInicializados[i+1:]...)
+		}
+	}
+	mutexColaProcesosInicializados.Unlock()
+}
+
 
 func quitarProcesoNew(pcb PCB) {
 	mutexColaNewproceso.Lock()
@@ -449,6 +481,7 @@ func quitarProcesoNew(pcb PCB) {
 	}
 	mutexColaNewproceso.Unlock()
 }
+
 
 /*---------- FUNCIONES HILOS ----------*/
 
@@ -519,11 +552,11 @@ func CrearHilo(w http.ResponseWriter, r *http.Request) {
 
 func iniciarHilo(pid int, path string, prioridad int) error {
 
-	tcb := createTCB(pid, prioridad)   // creo hilo
-	enviarTCBMemoria(tcb, path)        // envio hilo a memoria con el path que le corresponde ejecutar
-	pcb := getPCB(pid)                 // obtengo el proceso al que pertenece el hilo
-	pcb.Tid = append(pcb.Tid, tcb.Tid) // agrego el hilo a la lista de hilos del proceso
-	encolarReady(tcb)                  // agrego el hilo a la cola de ready
+	tcb := createTCB(pid, prioridad)   
+	enviarTCBMemoria(tcb, path)        
+	pcb := getPCB(pid)                 
+	pcb.Tid = append(pcb.Tid, tcb.Tid) 
+	encolarReady(tcb)                  
 	// COMO LE DECIMOS A MEMORIA QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 
 	return nil
@@ -612,11 +645,15 @@ func exitHilo(pid int, tid int) error {
 	pcb := getPCB(pid)
 	pcb.Tid = removeTid(pcb.Tid, tid)
 
-	quitarExec(hilo) // NO ES QUE LO QUITA DE LAS TRES COLAS SINO QUE SE FIJA EN CUAL ESTA Y LO QUITA DE ESA
-
-	quitarReady(hilo)
-
-	quitarBlock(hilo)
+	switch {
+	case isInExec(hilo):
+		quitarExec(hilo)
+		// FALTA ENVIAR INTERRUPCION A CPU PARA QUE SAQUE EL HILO DE EJECUCION 
+	case isInReady(hilo):
+		quitarReady(hilo)
+	case isInBlock(hilo):
+		quitarBlock(hilo)
+	}
 
 	encolarExit(hilo)
 
@@ -637,6 +674,33 @@ func exitHilo(pid int, tid int) error {
 	}
 
 	return nil
+}
+
+func isInExec(hilo TCB) bool {
+	for _, tcb := range colaExecHilo {
+		if tcb.Pid == hilo.Pid && tcb.Tid == hilo.Tid {
+			return true
+		}
+	}
+	return false
+}
+
+func isInReady(hilo TCB) bool {
+	for _, tcb := range colaReadyHilo {
+		if tcb.Pid == hilo.Pid && tcb.Tid == hilo.Tid {
+			return true
+		}
+	}
+	return false
+}
+
+func isInBlock(hilo TCB) bool {
+	for _, tcb := range colaBlockHilo {
+		if tcb.Pid == hilo.Pid && tcb.Tid == hilo.Tid {
+			return true
+		}
+	}
+	return false
 }
 
 func tieneMutexAsignado(pcb PCB, hilo TCB) bool {
@@ -674,7 +738,7 @@ func joinHilo(pid int, tidActual int, tidAEjecutar int) error {
 	return nil
 }
 
-// Hilos algoritmos planificacion
+/*---------- FUNCIONES HILOS ALGORITMOS PLANIFICACION ----------*/
 func ejecutarHilosFIFO() {
 	var Hilo TCB
 	for {
@@ -696,7 +760,9 @@ func ejecutarInstruccion(Hilo TCB) {
 	}
 }
 
-// Funciones de envio de TCB
+
+/*---------- FUNCIONES HILOS ENVIO DE TCB ----------*/
+
 func enviarTCBCpu(tcb TCB) error {
 
 	cpuRequest := TCBRequest{}
@@ -789,7 +855,8 @@ func enviarHiloFinalizadoAMemoria(hilo TCB) error {
 	return nil
 }
 
-// Funciones de estados de hilos
+
+/*---------- FUNCIONES DE ESTADOS DE HILOS ----------*/
 func desbloquearHilosJoin(tid int, pid int) {
 	for _, hilo := range colaBlockHilo {
 		if hilo.Tid == tid && hilo.Pid == pid {
@@ -865,7 +932,8 @@ func quitarBlock(tcb TCB) {
 	mutexColaBlockHilo.Unlock()
 }
 
-// SYSCALL IO
+
+/*---------- FUNCION SYSCALL IO Y DUMP MEMORY ----------*/
 
 func ManejarIo(w http.ResponseWriter, r *http.Request) {
 	var ioSyscall IOsyscall
@@ -903,7 +971,72 @@ func ManejarIo(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// MUTEX
+func DumpMemory(w http.ResponseWriter, r *http.Request) {
+	var hilo TCBRequest
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&hilo)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	tid := hilo.Tid
+	pid := hilo.Pid
+
+	tcb := getTCB(pid, tid)
+	
+
+	quitarExec(tcb)
+	encolarBlock(tcb, "DUMP_MEMORY")
+	// ENVIAR INTERRUPCION A CPU
+	err = enviarDumpMemoryAMemoria(tcb)
+
+	if err == nil {
+		quitarBlock(tcb)
+		encolarReady(tcb)
+	} else {
+		exitProcess(pid)
+	}
+	
+	w.WriteHeader(http.StatusOK)
+
+}
+
+func enviarDumpMemoryAMemoria(tcb TCB) error {
+	
+	memoryRequest := TCBRequest{}
+	memoryRequest.Pid = tcb.Pid
+	memoryRequest.Tid = tcb.Tid
+
+	puerto := globals.ClientConfig.PuertoMemoria
+	ip := globals.ClientConfig.IpMemoria
+
+	body, err := json.Marshal(&memoryRequest)
+
+	if err != nil {
+		slog.Error("error codificando" + err.Error())
+		return err
+	}
+
+	url := fmt.Sprintf("http://%s:%d/dumpMemory", ip, puerto)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+
+	if err != nil {
+		slog.Error("Error enviando TCB para dump memory. ip: %s - puerto: %d", ip, puerto)
+		return err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("Error en la respuesta del modulo de CPU. status_code: %d", resp.StatusCode)
+		return err
+	}
+	return nil
+}
+
+
+
+/*---------- FUNCIONES SYSCALL MUTEX ----------*/
+
 func CrearMutex(w http.ResponseWriter, r *http.Request) {
 	var mutex MutexRequest
 	decoder := json.NewDecoder(r.Body)
@@ -1013,7 +1146,7 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 			}
 		} else {
 			slog.Warn("El mutex no existe")
-			// preguntar que hace (puede ser que continue el hilo con su proxima instruccion)
+			// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 		}
 	}
 	return nil
@@ -1037,7 +1170,6 @@ func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 					lockMutex(proceso, hiloDesbloqueado, mutexNombre)
 				}
 
-				// Update the mutex in the proceso.Mutex slice
 				for i, m := range proceso.Mutex {
 					if m.Nombre == mutexNombre {
 						proceso.Mutex[i] = mutex
@@ -1047,12 +1179,12 @@ func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 
 			} else {
 				slog.Warn("El hilo solicitante no tiene asignado al mutex")
-				// que el hilo que ejecuto la instruccion continue con su proxima instruccion
+				// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 			}
 
 		} else {
 			slog.Warn("El mutex no existe")
-			// preguntar que hace (puede ser que continue el hilo con su proxima instruccion)
+			// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 		}
 	}
 	return nil
@@ -1066,9 +1198,4 @@ func mutexCreate(nombreMutex string) Mutex {
 		HiloUsando:     -1, // -1 Indica que no hay ningun hilo usando el mutex
 		colaBloqueados: []TCB{},
 	}
-}
-
-// DUMP MEMORY
-func DumpMemory(w http.ResponseWriter, r *http.Request) {
-
 }
