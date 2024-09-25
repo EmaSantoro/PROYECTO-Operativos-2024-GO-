@@ -134,18 +134,18 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 						w.Write([]byte(instruccion)) // Escribo la instrucción no se cual usar
 						return
 					} else {
-						http.Error(w, "PC out of range", http.StatusBadRequest)
+						http.Error(w, "PC fuera del rango de instrucciones", http.StatusBadRequest)
 						fmt.Println("PC fuera del rango de instrucciones")
 						return
 					}
 				}
 			}
-			http.Error(w, "TID not found", http.StatusNotFound)
+			http.Error(w, "No se encontro el TID", http.StatusNotFound)
 			fmt.Println("No se encontró el TID")
 			return
 		}
 	}
-	http.Error(w, "PID not found", http.StatusNotFound)
+	http.Error(w, "No se encontro el PID", http.StatusNotFound)
 	fmt.Println("No se encontró el PID")
 }
 
@@ -175,21 +175,20 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 			}
-			http.Error(w, "TID not found", http.StatusNotFound)
+			http.Error(w, "No se encontro el TID", http.StatusNotFound)
 			return
 		}
 	}
-	http.Error(w, "PID not found", http.StatusNotFound)
+	http.Error(w, "No se encontro el PID", http.StatusNotFound)
 }
 
 //-------------------------------- UPDATE EXECUTION CONTEXT-----------------------------------------------
 
 func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
-	pid, _ := strconv.Atoi(queryParams.Get("pid"))
-	tid, _ := strconv.Atoi(queryParams.Get("tid"))
+	pid, _ := strconv.Atoi(queryParams.Get("pid")) //esto me parece que no va
+	tid, _ := strconv.Atoi(queryParams.Get("tid")) //esto tampoco 
 
-	// Extraer los nuevos valores para el PCB y TCB desde el cuerpo de la petición
 	var newContext struct {
 		PCB struct {
 			base  uint32 `json:"base"`
@@ -208,7 +207,6 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Decodificar el JSON del cuerpo de la petición
 	err := json.NewDecoder(r.Body).Decode(&newContext)
 	if err != nil {
 		http.Error(w, "Invalid request payload", http.StatusBadRequest)
@@ -290,13 +288,17 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		}
 
 		//BASE
+		var baseEnInt int
 		pcb.base = 0
         for i := 0; i < numeroDeParticion; i++ {
-            pcb.base += globals.ClientConfig.Particiones[i] //tengo que ver tema int y uint32
+            baseEnInt += globals.ClientConfig.Particiones[i] //tengo que ver tema int y uint32
+			pcb.base = uint32(baseEnInt)
         }
 
 		//LIMIT
-		pcb.limit = pcb.base + globals.ClientConfig.Particiones[numeroDeParticion] - 1
+		var limitEnInt int
+		limitEnInt = baseEnInt + globals.ClientConfig.Particiones[numeroDeParticion] - 1
+		pcb.limit = uint32(limitEnInt)
 
 		mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
 
@@ -568,7 +570,7 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if _, exists := mapPCBPorTCB[PCB{pid: req.Pid}]; !exists {
-		http.Error(w, "Process not found", http.StatusNotFound)
+		http.Error(w, "No se pudo encontrar el proceso", http.StatusNotFound)
 		return
 	}
 
@@ -618,3 +620,19 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 // func sendDataToCPU()
 
 //-----------------------------------------------------------------------------------------------------
+
+// func EnviarAModulo(ipModulo string, puertoModulo int, body io.Reader, endPoint string) error {
+
+// 	url := fmt.Sprintf("http://%s:%d/%s", ipModulo, puertoModulo, endPoint)
+// 	resp, err := http.Post(url, "application/json", body)
+// 	if err != nil {
+// 		log.Printf("error enviando mensaje al End point %s - IP:%s - Puerto:%d", endPoint, ipModulo, puertoModulo)
+// 		return err
+// 	}
+// 	if resp.StatusCode != http.StatusOK {
+// 		log.Printf("Error al recibir la respuesta del End point %s - IP:%s - Puerto:%d", endPoint, ipModulo, puertoModulo)
+// 		err := fmt.Errorf("%s", resp.Status)
+// 		return err
+// 	}
+// 	return nil
+// }
