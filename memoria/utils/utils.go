@@ -129,6 +129,9 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 							Instruction: instruccion,
 						}
 
+						// Log de obtención de instrucción
+                        log.Printf("## Obtener instrucción - (PID:TID) - (%d:%d) - Instrucción: %s", pid, tid, instruccion)
+
 						// Envio la respuesta en formato JSON
 						json.NewEncoder(w).Encode(instructionResponse)
 						w.Write([]byte(instruccion)) // Escribo la instrucción no se cual usar
@@ -312,6 +315,9 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 			return
 		}
 
+		// Log de creación de proceso
+        log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.pid, process.size)
+
 
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Ok"))
@@ -453,6 +459,10 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 
 		delete(mapPCBPorParticion, PCB{pid: pid}) // elimino la estructura del pcb en el map de particiones
 		delete(mapPCBPorTCB, PCB{pid: pid})      // elimino el pcb del map anidado
+
+		// Log de destrucción de proceso
+        log.Printf("## Proceso Destruido - PID: %d - Tamaño: %d", pid, globals.ClientConfig.Particiones[numeroDeParticion])
+
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Proceso finalizado exitosamente"))
 	}
@@ -507,6 +517,9 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	// Log de creación de hilo
+    log.Printf("## Hilo Creado - (PID:TID) - (%d:%d)", thread.Pid, thread.Tid)
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Ok"))
@@ -581,6 +594,9 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// Log de destrucción de hilo
+    log.Printf("## Hilo Destruido - (PID:TID) - (%d:%d)", req.Pid, req.Tid)
+
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("OK"))
 }
@@ -635,4 +651,18 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 // 		return err
 // 	}
 // 	return nil
+// }
+
+//-------------------------------DUMP MEMORY------------------------------------------------
+
+// func DumpMemory(w http.ResponseWriter, r *http.Request) {
+// 	queryParams := r.URL.Query()
+// 	pid, _ := strconv.Atoi(queryParams.Get("pid"))
+// 	tid, _ := strconv.Atoi(queryParams.Get("tid"))
+
+// 	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
+
+// 	for pcb, tidMap := range mapPCBPorTCB {
+
+	
 // }
