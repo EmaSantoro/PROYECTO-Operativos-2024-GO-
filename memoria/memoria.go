@@ -9,7 +9,7 @@ import (
 	"github.com/sisoputnfrba/tp-golang/memoria/utils"
 )
 
-var MemoriaUsuario []byte
+// var MemoriaUsuario []byte
 
 func main() {
 	utils.ConfigurarLogger()
@@ -21,8 +21,8 @@ func main() {
 	}
 
 	puerto := globals.ClientConfig.Puerto
-	tamMemoria := globals.ClientConfig.Tamanio_Memoria 
-    MemoriaUsuario = make([]byte, tamMemoria) //inicializar tamaño de la memoria
+	//tamMemoria := globals.ClientConfig.Tamanio_Memoria 
+    globals.MemoriaUsuario = make([]byte, globals.ClientConfig.Tamanio_Memoria ) //inicializar tamaño de la memoria
 
 	// funciones que va a manejar el servidor (Kernel , cpu y filesystem)
 	//mux.HandleFunc("Endpoint", Funcion a la que responde)

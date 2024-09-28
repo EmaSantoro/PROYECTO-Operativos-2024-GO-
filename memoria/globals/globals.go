@@ -24,4 +24,6 @@ type Config struct {
 
 var ClientConfig *Config
 
+var MemoriaUsuario[]byte
+
 

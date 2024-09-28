@@ -12,6 +12,7 @@ import (
 	"os"
 	"strconv"
 	"time"
+	"sync"
 
 	"github.com/sisoputnfrba/tp-golang/memoria/globals"
 )
@@ -38,6 +39,7 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 
 func init() {
 
+	
 	//ConfigMemoria := IniciarConfiguracion("configsMemoria/config.json")
 	//EnviarMensaje(ConfigMemoria.IpKernel, ConfigMemoria.PuertoKernel, "Hola Kernel, Soy Memoria")
 	//EnviarMensaje(ConfigMemoria.IpFs, ConfigMemoria.PuertoFs, "Hola FS, Soy Memoria")
@@ -561,7 +563,7 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 
 	var pcbEncontrado PCB //para encontrar el pcb y poder entrar al mapa anidado
 	for pcb := range mapPCBPorTCB {
-		if pcb.pid == pid {
+		if pcb.Pid == pid {
 			pcbEncontrado = pcb
 			break
 		}
@@ -615,37 +617,107 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 
 //-----------------------------------------READ MEMORY-------------------------------------------
 
-// type MemoryRequest struct{
-// 	PID int `json:"pid"`
-// 	Address uint32 `json:"address"`
-// }
+type MemoryRequest struct {
+	PID     int    `json:"pid"`
+	TID    int    `json:"tid,omitempty"` 
+	Address uint32  `json:"address"` //direccion de memoria a leer
+	Size    int    `json:"size,omitempty"` //tamaño de la memoria a leer
+	Data    []byte `json:"data,omitempty"` //datos a escribir o leer y los devuelvo 
+	Port    int    `json:"port,omitempty"` //puerto 
+}
 
-// func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
-//     var memReq MemoryRequest
-//     time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
+func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
+    var memReq MemoryRequest
+    time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
 
-//     if err := json.NewDecoder(r.Body).Decode(&memReq); err != nil {
-//         http.Error(w, err.Error(), http.StatusBadRequest)
-//         return
-//     }
+    if err := json.NewDecoder(r.Body).Decode(&memReq); err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
 
-//     data, err := ReadMemory(memReq.PID, memReq.Address)
-//     if err != nil {
-//         http.Error(w, err.Error(), http.StatusInternalServerError)
-//         return
-//     }
+    data, err := ReadMemory(memReq.PID, memReq.TID, memReq.Address, memReq.Size)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-//     if memReq.Type == "CPU" {
-//         if err := sendDataToCPU(data); err != nil {
-//             http.Error(w, "Error al enviar los datos a la CPU", http.StatusInternalServerError)
-//             return
-//         }
-//     }
-// }
+    if err := sendDataToCPU(data); err != nil {
+        http.Error(w, "Error al enviar los datos a la CPU", http.StatusInternalServerError)
+        return
+    }
+}
 
-// func ReadMemory()
+var mu sync.Mutex
 
-// func sendDataToCPU()
+func ReadMemory(PID int, TID int, address uint32, size int) ([]byte, error) { //size capaz sacarlo y poner directamente 4 
+    mu.Lock()
+    defer mu.Unlock()
+
+    if _, exists := mapPCBPorTCB[PCB{Pid: PID}]; !exists {
+        return nil, fmt.Errorf("no se encontró el PID")
+    }
+
+    var pcbEncontrado PCB //LO HAGO PARA PODER ENTRAR AL MAPA ANIDADO Y AGARRAR LA PCB DE ESE PID
+    encontrado := false
+
+    for pcb := range mapPCBPorTCB {
+        if pcb.Pid == PID {
+            pcbEncontrado = pcb
+            encontrado = true
+            break
+        }
+    }
+
+    tcbMap, found := mapPCBPorTCB[pcbEncontrado]
+    if !found {
+        return nil, fmt.Errorf("no se encontró el TID para el PID: %d", PID)
+    }
+
+    encontrado = false
+    for tcb := range tcbMap {
+        if tcb.Tid == TID {
+            encontrado = true
+            break
+        }
+    }
+
+    if !encontrado {
+        return nil, fmt.Errorf("no se encontró el TID: %d para el PID: %d", TID, PID)
+    }
+
+    if address < pcbEncontrado.Base || address+4 > pcbEncontrado.Limit {
+        return nil, fmt.Errorf("Dirección fuera de rango")
+    }
+
+    data := make([]byte, 4)
+    copy(data, globals.MemoriaUsuario[address:address+uint32(size)])
+
+    return data, nil
+}
+
+func sendDataToCPU(content []byte) error {
+
+	CPUurl := fmt.Sprintf("http://%s:%d/receiveDataFromMemory", globals.ClientConfig.IpCpu, globals.ClientConfig.PuertoCpu)
+	ContentResponseTest, err := json.Marshal(content)
+	if err != nil {
+		log.Fatalf("Error al serializar el Input: %v", err)
+	}
+
+	resp, err := http.Post(CPUurl, "application/json", bytes.NewBuffer(ContentResponseTest))
+	if err != nil {
+		log.Fatalf("Error al enviar la solicitud al módulo de memoria: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("Error en la respuesta del módulo de memoria: %v", resp.StatusCode)
+	}
+	
+
+	return nil
+}
+
+
 
 //-----------------------------------------------------------------------------------------------------
 
