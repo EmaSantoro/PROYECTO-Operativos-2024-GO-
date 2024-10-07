@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -41,9 +42,11 @@ type contextoEjecucion struct {
 	tcb TCB
 }
 type DecodedInstruction struct {
-	instruction string
+	instruction FuncInctruction
 	parameters  []string
 }
+type FuncInctruction func(*contextoEjecucion, []string) error
+
 type BodyContexto struct {
 	Pcb PCB `json:"pcb"`
 	Tcb TCB `json:"tcb"`
@@ -191,18 +194,12 @@ func InstructionCycle(contexto *contextoEjecucion) {
 			log.Printf("Error en etapa Decode. ERROR : %v", err2)
 			break
 		}
-		errExe, syscall := Execute(contexto, instruction)
+		errExe := Execute(contexto, instruction)
 		if errExe != nil {
 			log.Printf("Error al ejecutar %v. ERROR: %v", intructionLine, errExe)
 			break // es correcto que al tener un error al ejecutar la intruccion termine el ciclo
 		}
-		log.Printf("## TID: %d - Ejecutando: %s - Parametos : %v", contexto.tcb.tid, instruction.instruction, instruction.parameters)
-
-		if syscall {
-			log.Printf("Se termina el ciclo por syscall")
-			//se debe hacer antes de chequear las interrupciones
-			break
-		}
+		log.Printf("## TID: %d - Ejecutando: %s - Parametos : %v", contexto.tcb.tid, intructionLine[0], instruction.parameters)
 
 	}
 	// pasar el control al kernel y comunicar razon de la intrerrupcion que etsara en el error
@@ -272,79 +269,51 @@ func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 }
 
 func Decode(instructionLine []string) (DecodedInstruction, error) {
+	var SetInstructions map[string]FuncInctruction = map[string]FuncInctruction{
+		"SET":            Set,
+		"SUM":            Sumar,
+		"SUB":            Restar,
+		"JNZ":            JNZ,
+		"LOG":            Log,
+		"DUMP_MEMORY":    DumpMemory,
+		"IO":             IO,
+		"PROCESS_CREATE": CreateProcess,
+		"THREAD_CREATE":  CreateThead,
+		"THREAD_JOIN":    JoinThead,
+		"THREAD_CANCEL":  CancelThead,
+		"THREAD_EXIT":    ThreadExit,
+		"PROCESS_EXIT":   ProcessExit}
+
 	var instructionDecoded DecodedInstruction
 	if len(instructionLine) == 0 {
 		err := fmt.Errorf("null intruction")
 		return instructionDecoded, err
 	}
-
-	instructionDecoded.instruction = instructionLine[0]
+	functionInstruction, ok := SetInstructions[instructionLine[0]]
+	if !ok {
+		err := fmt.Errorf("La instruccion %s no existe", instructionLine[0])
+		return instructionDecoded, err
+	}
+	instructionDecoded.instruction = functionInstruction
 	instructionDecoded.parameters = instructionLine[1:]
+
 	return instructionDecoded, nil
 }
 
-func Execute(ContextoDeEjecucion *contextoEjecucion, intruction DecodedInstruction) (error, bool) {
-	var syscall bool
-	tcb := &ContextoDeEjecucion.tcb
-	var err error
-	instructionName := intruction.instruction
-	var parameters []string = intruction.parameters
-	switch instructionName {
-	case "SET":
-		err = Set(tcb, parameters[1], parameters[0])
-	case "READ_MEM":
-		//funcion
-	case "WRITE_MEM":
-		//funcion
-	case "SUM":
-		err = Sumar(tcb, parameters[0], parameters[1])
-	case "SUB":
-		err = Restar(tcb, parameters[0], parameters[1])
-	case "JNZ":
-		err = JNZ(tcb, parameters[0], parameters[1])
-	case "LOG":
-		err = Log(tcb, parameters[0])
+func Execute(ContextoDeEjecucion *contextoEjecucion, intruction DecodedInstruction) error {
 
-	case "DUMP_MEMORY":
-		syscall = true
-		err = DumpMemory(ContextoDeEjecucion)
-	case "IO":
-		syscall = true
-		err = IO(ContextoDeEjecucion, parameters[0])
-	case "PROCESS_CREATE":
-		syscall = true
-		err = CreateProcess(ContextoDeEjecucion, parameters[0], parameters[1], parameters[2])
-	case "THREAD_CREATE":
-		syscall = true
-		err = CreateThead(ContextoDeEjecucion, parameters[0], parameters[1])
-	case "THREAD_JOIN":
-		syscall = true
-		err = JoinThead(ContextoDeEjecucion, parameters[0])
-	case "THREAD_CANCEL":
-		syscall = true
-		err = CancelThead(ContextoDeEjecucion, parameters[0])
-	case "MUTEX_CREATE":
-		syscall = true
-		//funcion
-	case "MUTEX_LOCK":
-		syscall = true
-		//funcion
-	case "MUTEX_UNLOCK":
-		//funcion
-	case "THREAD_EXIT":
-		syscall = true
-		err = ThreadExit(ContextoDeEjecucion)
-	case "PROCESS_EXIT":
-		syscall = true
-		err = ProcessExit(ContextoDeEjecucion)
-	default:
-		log.Printf("Instruccion no valida %s", instructionName)
-	}
+	//var syscall bool
+	instructionFunc := intruction.instruction
+	var parameters []string = intruction.parameters
+
+	err := instructionFunc(ContextoDeEjecucion, parameters)
+
 	if err != nil {
 		log.Printf("Error al ejecutar la instruccion : %v", err)
-		return err, syscall
+		return err
 	}
-	return nil, syscall
+	return nil
+
 }
 
 func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
@@ -368,98 +337,82 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 
 }
 
-//interface{} permite manejar tipos de datos desconocidos
-
-func Set(registrosCPU *TCB, valor string, registro string) error {
-
-	//ver si el registro en la instruccion existe
-	/*
-		registers := reflect.ValueOf(registrosCPU)
-
-		campoRef := registers.Elem().FieldByName(registro)
-
-		if !campoRef.IsValid() {
-			err := fmt.Errorf("SET error :registro %s no existente en la estructura", registro)
-			return err
-		}
-		//pasar el string a unit36 ver si debe tomarse un tipo generico
-		if campoRef.CanSet() {
-			err := fmt.Errorf("SET error: cannot set %v", campoRef)
-			return err
-		}
-	*/
-
-	register, errR := GetRegister(registrosCPU, registro)
-	if errR != nil {
-		return errR
+// se suponen que todos los registros mantendran el tipo uint32
+func ObtenerValorCampo(estructura reflect.Value, nombreCampo string) (uint32, error) {
+	campoRef := estructura.Elem().FieldByName(nombreCampo)
+	if !campoRef.IsValid() {
+		err := fmt.Errorf("No se encuentra el campo %s en la estructura", nombreCampo)
+		return 0, err
 	}
+	//estamos suponiendo que jamas se podrá tener un numero de otro tipo que no sea unit32
+	return (uint32(campoRef.Int())), nil
 
-	valorParse, err := strconv.ParseUint(valor, 10, 32)
-	if err != nil {
-		log.Printf("SET error: Error al convertir valor %s al del tipo del registro %s", valor, registro)
+}
+func ModificarValorCampo(estructura reflect.Value, nombreCampo string, nuevoValor uint32) error {
+	//solo se aceptaran valores de tipo uint32
+	campoRef := estructura.Elem().FieldByName(nombreCampo)
+	if !campoRef.IsValid() {
+		err := fmt.Errorf("No se encuentra el campo %s en la estructura", nombreCampo)
 		return err
 	}
-	*register = uint32(valorParse)
+	if !campoRef.CanSet() {
+		err := fmt.Errorf("No se puede setear el valor del campo %s", nombreCampo)
+		return err
+	}
+	campoRef.SetUint(uint64(nuevoValor))
+	return nil
+}
 
+func Set(registrosCPU *contextoEjecucion, parameters []string) error {
+
+	valor := parameters[1]
+	registro := parameters[0]
+	registers := reflect.ValueOf(registrosCPU.tcb)
+	valorUint, err := strconv.ParseUint(valor, 10, 32)
+	if err != nil {
+		return err
+	}
+	err2 := ModificarValorCampo(registers, registro, uint32(valorUint))
+	if err2 != nil {
+		return err2
+	}
+
+	/*
+		register, errR := GetRegister(registrosCPU, registro)
+		if errR != nil {
+			return errR
+		}
+
+		valorParse, err := strconv.ParseUint(valor, 10, 32)
+		if err != nil {
+			log.Printf("SET error: Error al convertir valor %s al del tipo del registro %s", valor, registro)
+			return err
+		}
+		*register = uint32(valorParse)
+
+		return nil
+	*/
 	return nil
 
 }
+func Read_Memory(context *contextoEjecucion, parameters []string) error {
 
-/*
-	func ConvertStringToUint32(cadena string) (uint32, error) {
-		valorParse64, err := strconv.ParseUint(cadena, 10, 32)
-
-		if err != nil {
-			return 0, err
-		}
-
-		valorParse32 := uint32(valorParse64)
-		return valorParse32, nil
-	}
-*/
-func Read_Memory(context *contextoEjecucion, registroDireccion string, registroDato string) error {
-
-	register, err := GetRegister(&context.tcb, registroDireccion)
+	//registroDato := parameters[0]
+	registroDireccion := parameters[1]
+	registers := reflect.ValueOf(context.tcb)
+	// obtnego el registro del destino del dato
+	direccionLogica, err := ObtenerValorCampo(registers, registroDireccion)
 	if err != nil {
 		return err
 	}
-	direccionLogica := register
-
-	direccionFisica, errT := TranslateAdress(*direccionLogica, context.pcb.base, context.pcb.limit)
+	direccionFisica, errT := TranslateAdress(direccionLogica, context.pcb.base, context.pcb.limit)
 	if errT != nil {
-		return err // ver su solo esto basta o si hay que aca terminar el programa
+		return errT
 	}
 	log.Printf("Leer memoria con direccion fisica %d", direccionFisica)
 	//leer en memoria
 	return nil
 
-}
-
-func GetRegister(registrosCPU *TCB, registro string) (*uint32, error) {
-
-	switch registro {
-	case "AX":
-		return &registrosCPU.AX, nil
-	case "BX":
-		return &registrosCPU.BX, nil
-	case "CX":
-		return &registrosCPU.CX, nil
-	case "DX":
-		return &registrosCPU.DX, nil
-	case "EX":
-		return &registrosCPU.EX, nil
-	case "FX":
-		return &registrosCPU.FX, nil
-	case "GX":
-		return &registrosCPU.GX, nil
-	case "HX":
-		return &registrosCPU.HX, nil
-	case "PC":
-		return &registrosCPU.PC, nil
-	default:
-		err := fmt.Errorf("Registro %s no existente en la estructura", registro)
-		return nil, err
-	}
 }
 
 func TranslateAdress(direccionLogica uint32, base uint32, limite uint32) (uint32, error) {
@@ -473,46 +426,71 @@ func TranslateAdress(direccionLogica uint32, base uint32, limite uint32) (uint32
 	return direccionFisica, nil
 }
 
-func Sumar(registrosCPU *TCB, registroDestino string, registroOrigen string) error {
-	originRegister, finalRegister, err := obtenerOperandos(registrosCPU, registroDestino, registroOrigen)
+func Sumar(registrosCPU *contextoEjecucion, parameters []string) error {
+	registroDestino := parameters[0]
+	registroOrigen := parameters[1]
+	registers := reflect.ValueOf(registrosCPU.tcb)
+	originRegister, finalRegister, err := obtenerOperandos(registers, registroDestino, registroOrigen)
 
 	if err != nil {
 		return err
 	}
 
-	*finalRegister += *originRegister
-	return nil
-}
-
-func Restar(registrosCPU *TCB, registroDestino string, registroOrigen string) error {
-	originRegister, finalRegister, err := obtenerOperandos(registrosCPU, registroDestino, registroOrigen)
-
-	if err != nil {
-		return err
-	}
-
-	*finalRegister = *finalRegister - *originRegister
-	return nil
-}
-
-func obtenerOperandos(registrosCPU *TCB, registroDestino string, registroOrigen string) (*uint32, *uint32, error) {
-
-	originRegister, errR := GetRegister(registrosCPU, registroOrigen)
-	if errR != nil {
-		return nil, nil, errR
-	}
-
-	register, err2 := GetRegister(registrosCPU, registroDestino)
+	resta := finalRegister + originRegister
+	err2 := ModificarValorCampo(registers, registroDestino, resta)
 	if err2 != nil {
-		return nil, nil, err2
+		return err2
 	}
-
-	return originRegister, register, nil
+	return nil
 }
 
-func JNZ(registrosCPU *TCB, registro string, instruccion string) error {
+func Restar(registrosCPU *contextoEjecucion, parameters []string) error {
+	registroDestino := parameters[0]
+	registroOrigen := parameters[1]
+	registers := reflect.ValueOf(registrosCPU.tcb)
+	originRegister, finalRegister, err := obtenerOperandos(registers, registroDestino, registroOrigen)
 
-	register, err := GetRegister(registrosCPU, registro)
+	if err != nil {
+		return err
+	}
+
+	resta := finalRegister - originRegister
+	err2 := ModificarValorCampo(registers, registroDestino, resta)
+	if err2 != nil {
+		return err2
+	}
+	return nil
+}
+
+func obtenerOperandos(registers reflect.Value, registroDestino string, registroOrigen string) (uint32, uint32, error) {
+	/*
+		originRegister, errR := GetRegister(registrosCPU, registroOrigen)
+		if errR != nil {
+			return nil, nil, errR
+		}
+
+		register, err2 := GetRegister(registrosCPU, registroDestino)
+		if err2 != nil {
+			return nil, nil, err2
+		}
+	*/
+	// obtnego el registro del destino del dato
+	valorOrigen, errOrigen := ObtenerValorCampo(registers, registroOrigen)
+	if errOrigen != nil {
+		return 0, 0, errOrigen
+	}
+	valorDestino, errDestino := ObtenerValorCampo(registers, registroDestino)
+	if errDestino != nil {
+		return 0, 0, errDestino
+	}
+	return valorOrigen, valorDestino, nil
+}
+
+func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
+	instruccion := parameters[1]
+	registro := parameters[0]
+	registers := reflect.ValueOf(registrosCPU.tcb)
+	register, err := ObtenerValorCampo(registers, registro)
 	if err != nil {
 		return err
 	}
@@ -520,25 +498,26 @@ func JNZ(registrosCPU *TCB, registro string, instruccion string) error {
 	if errI != nil {
 		return errI
 	}
-	if *register != 0 {
-		registrosCPU.PC = uint32(instruction)
+	if register != 0 {
+		ModificarValorCampo(registers, registro, uint32(instruction))
 	}
 	return nil
 
 }
 
-func Log(registrosCPU *TCB, registro string) error {
-
-	register, err := GetRegister(registrosCPU, registro)
+func Log(registrosCPU *contextoEjecucion, parameters []string) error {
+	registro := parameters[0]
+	registers := reflect.ValueOf(registrosCPU.tcb)
+	register, err := ObtenerValorCampo(registers, registro)
 	if err != nil {
 		return err
 	}
-	log.Printf("EL registro %s contiene el valor %d", registro, *register)
+	log.Printf("EL registro %s contiene el valor %d", registro, register)
 	return nil
 
 }
 
-func DumpMemory(contexto *contextoEjecucion) error {
+func DumpMemory(contexto *contextoEjecucion, parameters []string) error {
 
 	err := AcualizarContextoDeEjecucion(contexto)
 
@@ -572,8 +551,8 @@ func AcualizarContextoDeEjecucion(contexto *contextoEjecucion) error {
 
 }
 
-func IO(contexto *contextoEjecucion, tiempo string) error {
-
+func IO(contexto *contextoEjecucion, parameters []string) error {
+	tiempo := parameters[0]
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
@@ -617,7 +596,10 @@ func EnviarAModulo(ipModulo string, puertoModulo int, body io.Reader, endPoint s
 	return nil
 }
 
-func CreateProcess(contexto *contextoEjecucion, archivoInstruct string, tamArch string, prioridadTID string) error {
+func CreateProcess(contexto *contextoEjecucion, parameters []string) error {
+	archivoInstruct := parameters[0]
+	tamArch := parameters[1]
+	prioridadTID := parameters[2]
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
@@ -653,7 +635,9 @@ func CreateProcess(contexto *contextoEjecucion, archivoInstruct string, tamArch 
 	return nil
 }
 
-func CreateThead(contexto *contextoEjecucion, archivoInstruct string, prioridadTID string) error {
+func CreateThead(contexto *contextoEjecucion, parameters []string) error {
+	archivoInstruct := parameters[0]
+	prioridadTID := parameters[1]
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
@@ -685,7 +669,8 @@ func CreateThead(contexto *contextoEjecucion, archivoInstruct string, prioridadT
 	return nil
 }
 
-func JoinThead(contexto *contextoEjecucion, tid string) error {
+func JoinThead(contexto *contextoEjecucion, parameters []string) error {
+	tid := parameters[0]
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
@@ -717,7 +702,8 @@ func JoinThead(contexto *contextoEjecucion, tid string) error {
 	return nil
 }
 
-func CancelThead(contexto *contextoEjecucion, tid string) error {
+func CancelThead(contexto *contextoEjecucion, parameters []string) error {
+	tid := parameters[0]
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
@@ -749,7 +735,7 @@ func CancelThead(contexto *contextoEjecucion, tid string) error {
 	return nil
 }
 
-func ThreadExit(contexto *contextoEjecucion) error {
+func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 
 	err := AcualizarContextoDeEjecucion(contexto)
 
@@ -766,7 +752,7 @@ func ThreadExit(contexto *contextoEjecucion) error {
 
 }
 
-func ProcessExit(contexto *contextoEjecucion) error {
+func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
 
 	err := AcualizarContextoDeEjecucion(contexto)
 
@@ -782,3 +768,85 @@ func ProcessExit(contexto *contextoEjecucion) error {
 	return nil
 
 }
+
+/*
+func GetRegister(registrosCPU *TCB, registro string) (*uint32, error) {
+
+	switch registro {
+	case "AX":
+		return &registrosCPU.AX, nil
+	case "BX":
+		return &registrosCPU.BX, nil
+	case "CX":
+		return &registrosCPU.CX, nil
+	case "DX":
+		return &registrosCPU.DX, nil
+	case "EX":
+		return &registrosCPU.EX, nil
+	case "FX":
+		return &registrosCPU.FX, nil
+	case "GX":
+		return &registrosCPU.GX, nil
+	case "HX":
+		return &registrosCPU.HX, nil
+	case "PC":
+		return &registrosCPU.PC, nil
+	default:
+		err := fmt.Errorf("Registro %s no existente en la estructura", registro)
+		return nil, err
+	}
+}
+*/
+
+/*
+	switch instructionName {
+	case "SET":
+		err = Set(tcb, parameters[1], parameters[0])
+	case "READ_MEM":
+		//funcion
+	case "WRITE_MEM":
+		//funcion
+	case "SUM":
+		err = Sumar(tcb, parameters[0], parameters[1])
+	case "SUB":
+		err = Restar(tcb, parameters[0], parameters[1])
+	case "JNZ":
+		err = JNZ(tcb, parameters[0], parameters[1])
+	case "LOG":
+		err = Log(tcb, parameters[0])
+	case "DUMP_MEMORY":
+		syscall = true
+		err = DumpMemory(ContextoDeEjecucion)
+	case "IO":
+		syscall = true
+		err = IO(ContextoDeEjecucion, parameters[0])
+	case "PROCESS_CREATE":
+		syscall = true
+		err = CreateProcess(ContextoDeEjecucion, parameters[0], parameters[1], parameters[2])
+	case "THREAD_CREATE":
+		syscall = true
+		err = CreateThead(ContextoDeEjecucion, parameters[0], parameters[1])
+	case "THREAD_JOIN":
+		syscall = true
+		err = JoinThead(ContextoDeEjecucion, parameters[0])
+	case "THREAD_CANCEL":
+		syscall = true
+		err = CancelThead(ContextoDeEjecucion, parameters[0])
+	case "MUTEX_CREATE":
+		syscall = true
+		//funcion
+	case "MUTEX_LOCK":
+		syscall = true
+		//funcion
+	case "MUTEX_UNLOCK":
+		//funcion
+	case "THREAD_EXIT":
+		syscall = true
+		err = ThreadExit(ContextoDeEjecucion)
+	case "PROCESS_EXIT":
+		syscall = true
+		err = ProcessExit(ContextoDeEjecucion)
+	default:
+		log.Printf("Instruccion no valida %s", instructionName)
+	}
+*/
