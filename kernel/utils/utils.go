@@ -352,11 +352,11 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	return nil
 }
 
-func moverHilosACola(cola []TCB, pid int, quitarViejaCola func(TCB), encolarNuevaCola func(TCB)) {
+func moverHilosACola(colaOld []TCB, pid int, quitarColaOld func(TCB), encolarNuevaCola func(TCB)) {
 	for {
-		hilo, resp := buscarPorPid(cola, pid) // obtiene hilo de la cola correspondiente
-		if resp == nil {                      // si encuentra un hilo
-			quitarViejaCola(hilo)  // lo saca de la cola
+		hilo, resp := buscarPorPid(colaOld, pid) // obtiene hilo de la cola correspondiente
+		if resp == nil {                         // si encuentra un hilo
+			quitarColaOld(hilo)    // lo saca de la cola
 			encolarNuevaCola(hilo) // lo encola en en la nueva cola
 		}
 		if resp != nil { // si no encuentra un hilo
