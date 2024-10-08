@@ -156,17 +156,14 @@ func ConfigurarLogger() {
 // INICIAR MODULO
 
 func init() {
-	
+
 	/*	slog.SetLogLoggerLevel(slog.LevelInfo)
 		slog.SetLogLoggerLevel(slog.LevelWarn)
 		slog.SetLogLoggerLevel(slog.LevelError)
 	SE SETEA EL NIVEL MINIMO DE LOGS A IMPRIMIR POR CONSOLA*/
-	
-	
+
 	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
 
-	
-	
 	if ConfigKernel != nil {
 
 		switch ConfigKernel.LogLevel {
@@ -185,7 +182,6 @@ func init() {
 		//Cuando levanto kernel se inicia un proceso ppal y luego se ejecutan syscalls?
 		procesoInicial("procesoInicial", 0)
 
-
 		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
 			go ejecutarHilosFIFO()
 		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
@@ -201,7 +197,7 @@ func init() {
 /*---------- FUNCIONES PROCESOS ----------*/
 
 func procesoInicial(path string, size int) {
-	
+
 	//CREAMOS PCB
 	pcb := createPCB()
 	encolarProcesoNew(pcb)
@@ -256,27 +252,25 @@ func CrearProceso(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <PROCESS_CREATE> ##", pidActual, tidActual)
 
-	iniciarProceso(path, size, prioridad) 
+	iniciarProceso(path, size, prioridad)
 
 	w.WriteHeader(http.StatusOK)
 }
 
-func iniciarProceso(path string, size int, prioridad int)  {
+func iniciarProceso(path string, size int, prioridad int) {
 
-	
 	pcb := createPCB()
 	encolarProcesoNew(pcb)
 	go inicializarProceso(path, size, prioridad, pcb)
-	 
-		
+
 	// COMO LE AVISAMOS A CPU QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 }
 
 func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 
-// Verificar si se puede enviar a memoria, si hay espacio para el proceso
-	for{
-		if esElPrimerProcesoEnNew(pcb){
+	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
+	for {
+		if esElPrimerProcesoEnNew(pcb) {
 			if consultaEspacioAMemoria(size, pcb) {
 
 				nextTid = 0
@@ -287,19 +281,19 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 				encolarProcesoInicializado(pcb)
 				encolarReady(tcb)
 				break
-				
+
 			} else {
 
 				slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
 				// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
-				<-finProceso                          // se bloquea hasta que finalice un proceso
-				
+				<-finProceso // se bloquea hasta que finalice un proceso
+
 			}
 		}
 	}
 }
-func esElPrimerProcesoEnNew(pcb PCB) bool{
-		return colaNewproceso[0].Pid == pcb.Pid		
+func esElPrimerProcesoEnNew(pcb PCB) bool {
+	return colaNewproceso[0].Pid == pcb.Pid
 }
 
 func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
@@ -330,18 +324,20 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+//func eliminarHiloDeCola( colaReadyHilo []TCB, pid int) error {} //intentamos eliminar la logica repetida cuando elimina los hilos de proceso y en quitar/encolar
+
 func exitProcess(pid int) error {
 
 	pcb := getPCB(pid)
-	quitarProcesoInicializado(pcb)   
-	encolarProcesoExit(pcb) 
+	quitarProcesoInicializado(pcb)
+	encolarProcesoExit(pcb)
 
 	// Eliminar todos los hilos del proceso
 	for i := len(colaReadyHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos ready
 		if colaReadyHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
 
-			quitarReady(colaReadyHilo[i]) 
-			encolarExit(colaReadyHilo[i]) 
+			quitarReady(colaReadyHilo[i])
+			encolarExit(colaReadyHilo[i])
 
 		}
 	}
@@ -349,7 +345,7 @@ func exitProcess(pid int) error {
 	for i := len(colaExecHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos en ejecucion
 		if colaExecHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
 
-			quitarExec(colaExecHilo[i]) 
+			quitarExec(colaExecHilo[i])
 			encolarExit(colaReadyHilo[i])
 
 			// FALTA ENVIAR INTERRUPCION A CPU PARA QUE SAQUE EL HILO DE EJECUCION Y META A OTRO NUEVO
@@ -359,7 +355,7 @@ func exitProcess(pid int) error {
 	for i := len(colaBlockHilo) - 1; i >= 0; i-- { // recorremos la lista de hilos bloqueados
 		if colaBlockHilo[i].Pid == pid { // si el pid del hilo coincide con el pid del proceso
 
-			quitarBlock(colaBlockHilo[i]) 
+			quitarBlock(colaBlockHilo[i])
 			encolarExit(colaReadyHilo[i])
 
 		}
@@ -471,7 +467,6 @@ func quitarProcesoInicializado(pcb PCB) {
 	mutexColaProcesosInicializados.Unlock()
 }
 
-
 func quitarProcesoNew(pcb PCB) {
 	mutexColaNewproceso.Lock()
 	for i, p := range colaNewproceso {
@@ -481,7 +476,6 @@ func quitarProcesoNew(pcb PCB) {
 	}
 	mutexColaNewproceso.Unlock()
 }
-
 
 /*---------- FUNCIONES HILOS ----------*/
 
@@ -552,11 +546,11 @@ func CrearHilo(w http.ResponseWriter, r *http.Request) {
 
 func iniciarHilo(pid int, path string, prioridad int) error {
 
-	tcb := createTCB(pid, prioridad)   
-	enviarTCBMemoria(tcb, path)        
-	pcb := getPCB(pid)                 
-	pcb.Tid = append(pcb.Tid, tcb.Tid) 
-	encolarReady(tcb)                  
+	tcb := createTCB(pid, prioridad)
+	enviarTCBMemoria(tcb, path)
+	pcb := getPCB(pid)
+	pcb.Tid = append(pcb.Tid, tcb.Tid)
+	encolarReady(tcb)
 	// COMO LE DECIMOS A MEMORIA QUE CONTINUE CON LA PROXIMA INSTRUCCION?
 
 	return nil
@@ -648,7 +642,7 @@ func exitHilo(pid int, tid int) error {
 	switch {
 	case isInExec(hilo):
 		quitarExec(hilo)
-		// FALTA ENVIAR INTERRUPCION A CPU PARA QUE SAQUE EL HILO DE EJECUCION 
+		// FALTA ENVIAR INTERRUPCION A CPU PARA QUE SAQUE EL HILO DE EJECUCION
 	case isInReady(hilo):
 		quitarReady(hilo)
 	case isInBlock(hilo):
@@ -760,7 +754,6 @@ func ejecutarInstruccion(Hilo TCB) {
 	}
 }
 
-
 /*---------- FUNCIONES HILOS ENVIO DE TCB ----------*/
 
 func enviarTCBCpu(tcb TCB) error {
@@ -855,7 +848,6 @@ func enviarHiloFinalizadoAMemoria(hilo TCB) error {
 	return nil
 }
 
-
 /*---------- FUNCIONES DE ESTADOS DE HILOS ----------*/
 func desbloquearHilosJoin(tid int, pid int) {
 	for _, hilo := range colaBlockHilo {
@@ -932,7 +924,6 @@ func quitarBlock(tcb TCB) {
 	mutexColaBlockHilo.Unlock()
 }
 
-
 /*---------- FUNCION SYSCALL IO Y DUMP MEMORY ----------*/
 
 func ManejarIo(w http.ResponseWriter, r *http.Request) {
@@ -984,7 +975,6 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	pid := hilo.Pid
 
 	tcb := getTCB(pid, tid)
-	
 
 	quitarExec(tcb)
 	encolarBlock(tcb, "DUMP_MEMORY")
@@ -997,13 +987,13 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	} else {
 		exitProcess(pid)
 	}
-	
+
 	w.WriteHeader(http.StatusOK)
 
 }
 
 func enviarDumpMemoryAMemoria(tcb TCB) error {
-	
+
 	memoryRequest := TCBRequest{}
 	memoryRequest.Pid = tcb.Pid
 	memoryRequest.Tid = tcb.Tid
@@ -1032,8 +1022,6 @@ func enviarDumpMemoryAMemoria(tcb TCB) error {
 	}
 	return nil
 }
-
-
 
 /*---------- FUNCIONES SYSCALL MUTEX ----------*/
 
