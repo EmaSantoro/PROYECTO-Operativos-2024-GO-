@@ -331,19 +331,19 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	encolarProcesoExit(pcb)
 
 	hilo, resp := buscarPorPid(colaReadyHilo, pid) //obtiene hilo de la cola ready
-	if resp == nil {                                    // si encuentra un hilo
+	if resp == nil {                               // si encuentra un hilo
 		quitarReady(hilo)
 		encolarExit(hilo)
 	}
 
 	hilo, resp = buscarPorPid(colaExecHilo, pid) //obtiene hilo de la cola exec
-	if resp == nil {                                  // si encuentra un hilo
+	if resp == nil {                             // si encuentra un hilo
 		quitarExec(hilo)
 		encolarExit(hilo)
 	}
 
-	hilo, resp = buscarPorPid(colaBlockHilo,pid); //obtiene hilo de la cola block
-	if resp == nil {                                   // si encuentra un hilo
+	hilo, resp = buscarPorPid(colaBlockHilo, pid) //obtiene hilo de la cola block
+	if resp == nil {                              // si encuentra un hilo
 		quitarBlock(hilo)
 		encolarExit(hilo)
 	}
@@ -659,17 +659,17 @@ func exitHilo(pid int, tid int) error {
 }
 
 func isInExec(hilo TCB) bool {
-	_,err := buscarPorPidYTid(colaExecHilo,hilo.Pid,hilo.Tid )
+	_, err := buscarPorPidYTid(colaExecHilo, hilo.Pid, hilo.Tid)
 	return err == nil
 }
 
 func isInReady(hilo TCB) bool {
-	_,err := buscarPorPidYTid(colaReadyHilo,hilo.Pid,hilo.Tid )
+	_, err := buscarPorPidYTid(colaReadyHilo, hilo.Pid, hilo.Tid)
 	return err == nil
 }
 
 func isInBlock(hilo TCB) bool {
-	_,err := buscarPorPidYTid(colaBlockHilo,hilo.Pid,hilo.Tid )
+	_, err := buscarPorPidYTid(colaBlockHilo, hilo.Pid, hilo.Tid)
 	return err == nil
 }
 
@@ -721,21 +721,21 @@ func ejecutarHilosFIFO() {
 }
 
 func ejecutarInstruccion(Hilo TCB) {
-		quitarReady(Hilo)
-		encolarExec(Hilo)
-		enviarTCBCpu(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
+	quitarReady(Hilo)
+	encolarExec(Hilo)
+	enviarTCBCpu(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
 }
 
-//PRIORIDADES
-func ejecutarHilosPrioridades(){
+// PRIORIDADES
+func ejecutarHilosPrioridades() {
 	for {
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccion(Hilo)
-			
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1{
+
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
 			Hilo := obtenerHiloMayorPrioridad()
-			if (Hilo.Prioridad < colaExecHilo[0].Prioridad){
+			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
 			}
@@ -744,7 +744,7 @@ func ejecutarHilosPrioridades(){
 }
 
 func obtenerHiloMayorPrioridad() TCB {
-	
+
 	mutexColaReadyHilo.Lock()
 
 	var hiloMayorPrioridad TCB
@@ -754,23 +754,23 @@ func obtenerHiloMayorPrioridad() TCB {
 			hiloMayorPrioridad = hilo
 		}
 	}
-	
+
 	mutexColaReadyHilo.Unlock()
-	
+
 	return hiloMayorPrioridad
 }
 
 // Multicolas
-func ejecutarHilosColasMultinivel(quantum int){
+func ejecutarHilosColasMultinivel(quantum int) {
 	for {
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccionRR(Hilo, quantum)
-			
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1{
+
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
 			Hilo := obtenerHiloMayorPrioridad()
 
-			if (Hilo.Prioridad > colaExecHilo[0].Prioridad) {
+			if Hilo.Prioridad > colaExecHilo[0].Prioridad {
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
 			}
@@ -781,10 +781,15 @@ func ejecutarHilosColasMultinivel(quantum int){
 func ejecutarInstruccionRR(Hilo TCB, quantum int) {
 	quitarReady(Hilo)
 	encolarExec(Hilo)
-	enviarTCBCpu(Hilo) 
+	enviarTCBCpu(Hilo)
 	timer := time.NewTimer(time.Duration(quantum) * time.Millisecond)
-	start := time.Now()
-	
+
+	select {
+	case <-timer.C:
+		// Quantum expired
+		quitarExec(Hilo) //deberia guardar el contexto del hilo para retomarlo de nuevo luego.
+		encolarReady(Hilo)
+	}
 }
 
 /*---------- FUNCIONES HILOS ENVIO DE TCB ----------*/
