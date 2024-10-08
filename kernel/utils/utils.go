@@ -127,6 +127,8 @@ var (
 
 var finProceso = make(chan bool)
 
+var nuevoProcesoEnCola = make(chan bool)
+
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
 
@@ -729,16 +731,18 @@ func ejecutarInstruccion(Hilo TCB) {
 // PRIORIDADES
 func ejecutarHilosPrioridades() {
 	for {
+	estadoProcesoEnCola := <- nuevoProcesoEnCola // no se hace <-nuevoprocesoEnCola ya que los canales son bloqueantes y no queremos que la planificacion se bloquee
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccion(Hilo)
-
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
+			
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && estadoProcesoEnCola == true{
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
 			}
+			nuevoProcesoEnCola <- false
 		}
 	}
 }
@@ -763,18 +767,20 @@ func obtenerHiloMayorPrioridad() TCB {
 // Multicolas
 func ejecutarHilosColasMultinivel(quantum int) {
 	for {
+		estadoProcesoEnCola := <- nuevoProcesoEnCola 
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccionRR(Hilo, quantum)
-
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
-			Hilo := obtenerHiloMayorPrioridad()
-
-			if Hilo.Prioridad > colaExecHilo[0].Prioridad {
-				quitarExec(colaExecHilo[0])
-				encolarReady(colaExecHilo[0])
+			
+			} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && estadoProcesoEnCola == true{
+				Hilo := obtenerHiloMayorPrioridad()
+				if (Hilo.Prioridad < colaExecHilo[0].Prioridad){
+					quitarExec(colaExecHilo[0])
+					encolarReady(colaExecHilo[0])
+				}	
+				
 			}
-		}
+		nuevoProcesoEnCola <- false
 	}
 }
 
@@ -784,12 +790,13 @@ func ejecutarInstruccionRR(Hilo TCB, quantum int) {
 	enviarTCBCpu(Hilo)
 	timer := time.NewTimer(time.Duration(quantum) * time.Millisecond)
 
-	select {
-	case <-timer.C:
-		// Quantum expired
-		quitarExec(Hilo) //deberia guardar el contexto del hilo para retomarlo de nuevo luego.
-		encolarReady(Hilo)
-	}
+    // Canal que espera la señal del timer
+    go func() {
+        <-timer.C // Bloquea hasta que el timer expire
+		//deberia guardar el contexto del hilo para retomarlo de nuevo luego.
+		quitarExec(Hilo) 
+		encolarReady(Hilo) 
+    }()
 }
 
 /*---------- FUNCIONES HILOS ENVIO DE TCB ----------*/
@@ -900,6 +907,8 @@ func desbloquearHilosJoin(tid int, pid int) {
 
 func encolarReady(tcb TCB) {
 
+	nuevoProcesoEnCola <- true
+	
 	mutexColaReadyHilo.Lock()
 	colaReadyHilo = append(colaReadyHilo, tcb)
 	mutexColaReadyHilo.Unlock()
