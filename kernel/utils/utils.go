@@ -331,26 +331,38 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	pcb := getPCB(pid)
 	quitarProcesoInicializado(pcb)
 	encolarProcesoExit(pcb)
-
-	hilo, resp := buscarPorPid(colaReadyHilo, pid) //obtiene hilo de la cola ready
-	if resp == nil {                               // si encuentra un hilo
-		quitarReady(hilo)
-		encolarExit(hilo)
+	// de momento funciona, voy a buscar para ver si hay una forma mas linda pq usar el for como un do while se ve feo
+	for {
+		hilo, resp := buscarPorPid(colaReadyHilo, pid) // obtiene hilo de la cola ready
+		if resp == nil {                               // si encuentra un hilo
+			quitarReady(hilo) //lo saca de la cola
+			encolarExit(hilo) //lo encola en exit
+		} else { // si no encuentra un hilo
+			break // sale del bucle si no se encuentra el hilo
+		}
 	}
 
-	hilo, resp = buscarPorPid(colaExecHilo, pid) //obtiene hilo de la cola exec
-	if resp == nil {                             // si encuentra un hilo
-		quitarExec(hilo)
-		encolarExit(hilo)
+	for {
+		hilo, resp := buscarPorPid(colaExecHilo, pid) // obtiene hilo de la cola exec
+		if resp == nil {                              // si encuentra un hilo
+			quitarExec(hilo)  //lo saca de la cola
+			encolarExit(hilo) //lo encola en exit
+		} else { // si no encuentra un hilo
+			break // sale del bucle si no se encuentra el hilo
+		}
 	}
 
-	hilo, resp = buscarPorPid(colaBlockHilo, pid) //obtiene hilo de la cola block
-	if resp == nil {                              // si encuentra un hilo
-		quitarBlock(hilo)
-		encolarExit(hilo)
+	for {
+		hilo, resp := buscarPorPid(colaBlockHilo, pid) // obtiene hilo de la cola block
+		if resp == nil {                               // si encuentra un hilo
+			quitarBlock(hilo) //lo saca de la cola
+			encolarExit(hilo) //lo encola en exit
+		} else { // si no encuentra un hilo
+			break // sale del bucle si no se encuentra el hilo
+		}
 	}
 
-	resp = enviarProcesoFinalizadoAMemoria(pcb)
+	resp := enviarProcesoFinalizadoAMemoria(pcb)
 
 	if resp == nil {
 		// Notificar a traves del canal
@@ -731,12 +743,12 @@ func ejecutarInstruccion(Hilo TCB) {
 // PRIORIDADES
 func ejecutarHilosPrioridades() {
 	for {
-	verificarPrioridad := <- nuevoHiloEnCola // no se hace <-nuevoHiloEnCola ya que los canales son bloqueantes y no queremos que la planificacion se bloquee
+		verificarPrioridad := <-nuevoHiloEnCola // no se hace <-nuevoHiloEnCola ya que los canales son bloqueantes y no queremos que la planificacion se bloquee
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccion(Hilo)
-			
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && verificarPrioridad{
+
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && verificarPrioridad {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				quitarExec(colaExecHilo[0])
@@ -767,19 +779,19 @@ func obtenerHiloMayorPrioridad() TCB {
 // Multicolas
 func ejecutarHilosColasMultinivel(quantum int) {
 	for {
-		verificarPrioridad := <- nuevoHiloEnCola 
+		verificarPrioridad := <-nuevoHiloEnCola
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccionRR(Hilo, quantum)
-			
-			} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && verificarPrioridad{
-				Hilo := obtenerHiloMayorPrioridad()
-				if (Hilo.Prioridad < colaExecHilo[0].Prioridad){
-					quitarExec(colaExecHilo[0])
-					encolarReady(colaExecHilo[0])
-				}	
-				
+
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && verificarPrioridad {
+			Hilo := obtenerHiloMayorPrioridad()
+			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
+				quitarExec(colaExecHilo[0])
+				encolarReady(colaExecHilo[0])
 			}
+
+		}
 		nuevoHiloEnCola <- false
 	}
 }
@@ -790,13 +802,13 @@ func ejecutarInstruccionRR(Hilo TCB, quantum int) {
 	enviarTCBCpu(Hilo)
 	timer := time.NewTimer(time.Duration(quantum) * time.Millisecond)
 
-    // Canal que espera la señal del timer
-    go func() {
-        <-timer.C // Bloquea hasta que el timer expire
+	// Canal que espera la señal del timer
+	go func() {
+		<-timer.C // Bloquea hasta que el timer expire
 		//deberia guardar el contexto del hilo para retomarlo de nuevo luego.
-		quitarExec(Hilo) 
-		encolarReady(Hilo) 
-    }()
+		quitarExec(Hilo)
+		encolarReady(Hilo)
+	}()
 }
 
 /*---------- FUNCIONES HILOS ENVIO DE TCB ----------*/
@@ -908,7 +920,7 @@ func desbloquearHilosJoin(tid int, pid int) {
 func encolarReady(tcb TCB) {
 
 	nuevoHiloEnCola <- true
-	
+
 	mutexColaReadyHilo.Lock()
 	colaReadyHilo = append(colaReadyHilo, tcb)
 	mutexColaReadyHilo.Unlock()
