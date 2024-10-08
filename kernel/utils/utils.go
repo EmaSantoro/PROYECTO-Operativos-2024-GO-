@@ -127,7 +127,7 @@ var (
 
 var finProceso = make(chan bool)
 
-var nuevoProcesoEnCola = make(chan bool)
+var nuevoHiloEnCola = make(chan bool)
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -189,7 +189,7 @@ func init() {
 		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
 			go ejecutarHilosPrioridades()
 		} else if ConfigKernel.AlgoritmoPlanificacion == "COLASMULTINIVEL" {
-			go ejecutarHilosColasMultinivel(ConfigKernel.quantum)
+			go ejecutarHilosColasMultinivel(ConfigKernel.Quantum)
 		}
 	} else {
 		log.Printf("Algoritmo de planificacion no valido")
@@ -731,18 +731,18 @@ func ejecutarInstruccion(Hilo TCB) {
 // PRIORIDADES
 func ejecutarHilosPrioridades() {
 	for {
-	estadoProcesoEnCola := <- nuevoProcesoEnCola // no se hace <-nuevoprocesoEnCola ya que los canales son bloqueantes y no queremos que la planificacion se bloquee
+	verificarPrioridad := <- nuevoHiloEnCola // no se hace <-nuevoHiloEnCola ya que los canales son bloqueantes y no queremos que la planificacion se bloquee
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccion(Hilo)
 			
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && estadoProcesoEnCola == true{
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && verificarPrioridad{
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
 			}
-			nuevoProcesoEnCola <- false
+			nuevoHiloEnCola <- false
 		}
 	}
 }
@@ -767,12 +767,12 @@ func obtenerHiloMayorPrioridad() TCB {
 // Multicolas
 func ejecutarHilosColasMultinivel(quantum int) {
 	for {
-		estadoProcesoEnCola := <- nuevoProcesoEnCola 
+		verificarPrioridad := <- nuevoHiloEnCola 
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccionRR(Hilo, quantum)
 			
-			} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && estadoProcesoEnCola == true{
+			} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && verificarPrioridad{
 				Hilo := obtenerHiloMayorPrioridad()
 				if (Hilo.Prioridad < colaExecHilo[0].Prioridad){
 					quitarExec(colaExecHilo[0])
@@ -780,7 +780,7 @@ func ejecutarHilosColasMultinivel(quantum int) {
 				}	
 				
 			}
-		nuevoProcesoEnCola <- false
+		nuevoHiloEnCola <- false
 	}
 }
 
@@ -907,7 +907,7 @@ func desbloquearHilosJoin(tid int, pid int) {
 
 func encolarReady(tcb TCB) {
 
-	nuevoProcesoEnCola <- true
+	nuevoHiloEnCola <- true
 	
 	mutexColaReadyHilo.Lock()
 	colaReadyHilo = append(colaReadyHilo, tcb)
