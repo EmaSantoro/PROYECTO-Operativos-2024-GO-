@@ -332,35 +332,12 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	quitarProcesoInicializado(pcb)
 	encolarProcesoExit(pcb)
 	// de momento funciona, voy a buscar para ver si hay una forma mas linda pq usar el for como un do while se ve feo
-	for {
-		hilo, resp := buscarPorPid(colaReadyHilo, pid) // obtiene hilo de la cola ready
-		if resp == nil {                               // si encuentra un hilo
-			quitarReady(hilo) //lo saca de la cola
-			encolarExit(hilo) //lo encola en exit
-		} else { // si no encuentra un hilo
-			break // sale del bucle si no se encuentra el hilo
-		}
-	}
 
-	for {
-		hilo, resp := buscarPorPid(colaExecHilo, pid) // obtiene hilo de la cola exec
-		if resp == nil {                              // si encuentra un hilo
-			quitarExec(hilo)  //lo saca de la cola
-			encolarExit(hilo) //lo encola en exit
-		} else { // si no encuentra un hilo
-			break // sale del bucle si no se encuentra el hilo
-		}
-	}
+	moverHilosACola(colaReadyHilo, pid, quitarReady, encolarExit)
 
-	for {
-		hilo, resp := buscarPorPid(colaBlockHilo, pid) // obtiene hilo de la cola block
-		if resp == nil {                               // si encuentra un hilo
-			quitarBlock(hilo) //lo saca de la cola
-			encolarExit(hilo) //lo encola en exit
-		} else { // si no encuentra un hilo
-			break // sale del bucle si no se encuentra el hilo
-		}
-	}
+	moverHilosACola(colaExecHilo, pid, quitarExec, encolarExit)
+
+	moverHilosACola(colaBlockHilo, pid, quitarBlock, encolarExit)
 
 	resp := enviarProcesoFinalizadoAMemoria(pcb)
 
@@ -373,6 +350,19 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	}
 
 	return nil
+}
+
+func moverHilosACola(cola []TCB, pid int, quitarViejaCola func(TCB), encolarNuevaCola func(TCB)) {
+	for {
+		hilo, resp := buscarPorPid(cola, pid) // obtiene hilo de la cola correspondiente
+		if resp == nil {                      // si encuentra un hilo
+			quitarViejaCola(hilo)  // lo saca de la cola
+			encolarNuevaCola(hilo) // lo encola en en la nueva cola
+		}
+		if resp != nil { // si no encuentra un hilo
+			break // sale del bucle si no se encuentra el hilo
+		}
+	}
 }
 
 func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
