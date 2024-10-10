@@ -19,26 +19,25 @@ func main() {
 
 	puerto := globals.ClientConfig.Puerto
 
-	mux := http.NewServeMux()
+	//mux := http.NewServeMux()
 
-	mux.HandleFunc("/crearProceso", utils.CrearProceso)
-	mux.HandleFunc("/finalizarProceso", utils.FinalizarProceso)
+	http.HandleFunc("POST /crearProceso", utils.CrearProceso)
+	http.HandleFunc("DELETE /finalizarProceso", utils.FinalizarProceso)
 
-	mux.HandleFunc("/crearHilo", utils.CrearHilo)
-	mux.HandleFunc("/finalizarHilo", utils.FinalizarHilo)
-	mux.HandleFunc("/cancelarHilo",  utils.CancelarHilo)
-	mux.HandleFunc("/unirseAHilo", utils.EntrarHilo)
-	
+	http.HandleFunc("POST /crearHilo", utils.CrearHilo)
+	http.HandleFunc("DELETE /finalizarHilo", utils.FinalizarHilo)
+	http.HandleFunc("DELETE /cancelarHilo", utils.CancelarHilo)
+	http.HandleFunc("POST /unirseAHilo", utils.EntrarHilo)
 
-	mux.HandleFunc("/crearMutex", utils.CrearMutex)
-	mux.HandleFunc("/bloquearMutex", utils.BloquearMutex)
-	mux.HandleFunc("/liberarMutex", utils.LiberarMutex)
+	http.HandleFunc("POST /crearMutex", utils.CrearMutex)
+	http.HandleFunc("POST /bloquearMutex", utils.BloquearMutex)
+	http.HandleFunc("POST /liberarMutex", utils.LiberarMutex)
 
-	mux.HandleFunc("/manejarIo", utils.ManejarIo)
+	http.HandleFunc("POST /manejarIo", utils.ManejarIo)
 
-	mux.HandleFunc("/dumpMemory", utils.DumpMemory)
+	http.HandleFunc("POST /dumpMemory", utils.DumpMemory)
 
 	//Escuchar (bloqueante)
-	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
+	http.ListenAndServe(":"+strconv.Itoa(puerto), nil)
 
 }
