@@ -11,7 +11,6 @@ import (
 
 func main() {
 	utils.ConfigurarLogger()
-
 	globals.ClientConfig = utils.IniciarConfiguracion("configsKERNEL/config.json")
 
 	if globals.ClientConfig == nil {
@@ -20,10 +19,26 @@ func main() {
 
 	puerto := globals.ClientConfig.Puerto
 
-	//utils.EnviarPaqueteACPU()
-
 	mux := http.NewServeMux()
-	mux.HandleFunc("/mensaje", utils.RecibirMensaje) // buscar que es mux xd
+
+	mux.HandleFunc("/crearProceso", utils.CrearProceso)
+	mux.HandleFunc("/finalizarProceso", utils.FinalizarProceso)
+
+	mux.HandleFunc("/crearHilo", utils.CrearHilo)
+	mux.HandleFunc("/finalizarHilo", utils.FinalizarHilo)
+	mux.HandleFunc("/cancelarHilo",  utils.CancelarHilo)
+	mux.HandleFunc("/unirseAHilo", utils.EntrarHilo)
+	
+
+	mux.HandleFunc("/crearMutex", utils.CrearMutex)
+	mux.HandleFunc("/bloquearMutex", utils.BloquearMutex)
+	mux.HandleFunc("/liberarMutex", utils.LiberarMutex)
+
+	mux.HandleFunc("/manejarIo", utils.ManejarIo)
+
+	mux.HandleFunc("/dumpMemory", utils.DumpMemory)
+
+	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
 
 }
