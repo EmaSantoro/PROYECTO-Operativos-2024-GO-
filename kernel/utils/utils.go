@@ -22,8 +22,8 @@ type Mensaje struct {
 }
 
 type Interrupcion struct {
-	Pid int `json:"pid"`
-	Tid int `json:"tid"`
+	Pid          int  `json:"pid"`
+	Tid          int  `json:"tid"`
 	Interrupcion bool `json:"interrupcion"`
 }
 
@@ -133,7 +133,7 @@ var (
 
 var finProceso = make(chan bool)
 
-var nuevoHiloEnCola = make(chan bool)
+//var nuevoHiloEnCola = make(chan bool)
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -209,7 +209,6 @@ func procesoInicial(path string, size int) {
 	//CREAMOS PCB
 	pcb := createPCB()
 	encolarProcesoNew(pcb)
-	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
 
 	if consultaEspacioAMemoria(size, pcb) {
 		tcb := createTCB(pcb.Pid, 0)       // creamos hilo main
@@ -299,6 +298,7 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 		}
 	}
 }
+
 func esElPrimerProcesoEnNew(pcb PCB) bool {
 	return colaNewproceso[0].Pid == pcb.Pid
 }
@@ -335,7 +335,7 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	pcb := getPCB(pid)
 	quitarProcesoInicializado(pcb)
 	encolarProcesoExit(pcb)
-	
+
 	for _, tcb := range colaReadyHilo {
 		if tcb.Pid == pid {
 			exitHilo(pid, tcb.Tid)
@@ -346,7 +346,7 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 		if tcb.Pid == pid {
 			enviarInterrupcion(tcb.Pid, tcb.Tid)
 			exitHilo(pid, tcb.Tid)
-			
+
 		}
 	}
 
@@ -368,19 +368,6 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 
 	return nil
 }
-
-/*func moverHilosACola(colaOld []TCB, pid int, quitarColaOld func(TCB), encolarNuevaCola func(TCB)) {
-	for {
-		hilo, resp := buscarPorPid(colaOld, pid) // obtiene hilo de la cola correspondiente
-		if resp == nil {                         // si encuentra un hilo
-			quitarColaOld(hilo)    // lo saca de la cola
-			encolarNuevaCola(hilo) // lo encola en en la nueva cola
-		}
-		if resp != nil { // si no encuentra un hilo
-			break // sale del bucle si no se encuentra el hilo
-		}
-	}
-}*/
 
 func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 
@@ -445,7 +432,7 @@ func encolarProcesoNew(pcb PCB) {
 	colaNewproceso = append(colaNewproceso, pcb)
 	mutexColaNewproceso.Unlock()
 
-	log.Printf("## (<PID %d> : 0)Se crea el proceso - Estado: NEW", pcb.Pid)
+	log.Printf("## (<PID %d>) Se crea el proceso - Estado: NEW", pcb.Pid)
 }
 
 func encolarProcesoExit(pcb PCB) {
@@ -718,13 +705,11 @@ func joinHilo(pid int, tidActual int, tidAEjecutar int) error {
 	enviarInterrupcion(tcbActual.Pid, tcbActual.Tid)
 	quitarExec(tcbActual)
 	encolarBlock(tcbActual, "PTHREAD_JOIN")
-	
 
 	quitarReady(tcbAEjecutar)
 	encolarExec(tcbAEjecutar)
 	enviarTCBCpu(tcbAEjecutar) // SE SUPONE QUE ESTO LO HACE EL ALGORITMO DE PLANIFICACION
 	// PERO SE TIENE QUE EJECUTAR ESTE HILO Y NO CUALQUIER OTRO
-	
 
 	return nil
 }
@@ -750,20 +735,20 @@ func ejecutarInstruccion(Hilo TCB) {
 // PRIORIDADES
 func ejecutarHilosPrioridades() {
 	for {
-		verificarPrioridad := <-nuevoHiloEnCola // no se hace <-nuevoHiloEnCola ya que los canales son bloqueantes y no queremos que la planificacion se bloquee
+		//verificarPrioridad := <-nuevoHiloEnCola // no se hace <-nuevoHiloEnCola ya que los canales son bloqueantes y no queremos que la planificacion se bloquee
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccion(Hilo)
 
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && verificarPrioridad {
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 /*&& verificarPrioridad*/ {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
-				
+
 			}
-			nuevoHiloEnCola <- false
+			//nuevoHiloEnCola <- false
 		}
 	}
 }
@@ -788,27 +773,27 @@ func obtenerHiloMayorPrioridad() TCB {
 // Multicolas
 func ejecutarHilosColasMultinivel(quantum int) {
 	for {
-		verificarPrioridad := <-nuevoHiloEnCola
+		//verificarPrioridad := <-nuevoHiloEnCola
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccionRR(Hilo, quantum)
 
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && verificarPrioridad {
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 /*&& verificarPrioridad*/ {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
-				
+
 			}
 
 		}
-		nuevoHiloEnCola <- false
+		//nuevoHiloEnCola <- false
 	}
 }
 
 func ejecutarInstruccionRR(Hilo TCB, quantum int) {
-	
+
 	quitarReady(Hilo)
 	encolarExec(Hilo)
 	enviarTCBCpu(Hilo)
@@ -934,7 +919,7 @@ func desbloquearHilosJoin(tid int, pid int) {
 
 func encolarReady(tcb TCB) {
 
-	nuevoHiloEnCola <- true
+	//nuevoHiloEnCola <- true
 
 	mutexColaReadyHilo.Lock()
 	colaReadyHilo = append(colaReadyHilo, tcb)
@@ -1044,7 +1029,6 @@ func ManejarIo(w http.ResponseWriter, r *http.Request) {
 		encolarReady(tcb)
 	}()
 
-
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -1064,7 +1048,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	enviarInterrupcion(tcb.Pid, tcb.Tid)
 	quitarExec(tcb)
 	encolarBlock(tcb, "DUMP_MEMORY")
-	
+
 	err = enviarDumpMemoryAMemoria(tcb)
 
 	if err == nil {
@@ -1252,12 +1236,12 @@ func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 
 			} else {
 				slog.Warn("El hilo solicitante no tiene asignado al mutex")
-				
+
 			}
 
 		} else {
 			slog.Warn("El mutex no existe")
-			
+
 		}
 	}
 	return nil
