@@ -13,12 +13,17 @@ type Config struct {
 	PuertoFs          int         `json:"port_filesystem"`    // Puerto del filesystem
 	EsquemaMemoria    string      `json:"esquema_memoria"`    // Esquema de particiones de memoria a utilizar
 	AlgoritmoBusqueda string      `json:"algoritmo_busqueda"` // Algoritmo de busqueda de huecos en memoria
-	Particiones       []Particion `json:"particiones"`        // Lista ordenada con las particiones a generar en el algoritmo Particiones fijas
+	Particiones       []int       `json:"particiones"`        // Lista ordenada con las particiones a generar en el algoritmo Particiones fijas
 	Log_Level         string      `json:"log_level"`          // Nivel de loggeo
 }
 
-type Particion struct {
-	Tamanio int `json:"tamanio"` // Tamaño de la particion
-}
+// type Particion struct {
+// 	Tamanio int `json:"tamanio"` // Tamaño de la particion
+// 	//Estado int `json:"estado"` // Estado de la particion //
+// }
 
 var ClientConfig *Config
+
+var MemoriaUsuario[]byte
+
+
