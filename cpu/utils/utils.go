@@ -26,6 +26,11 @@ var flagSegmentationFault bool
 
 //DEFINICION DE TIPOS
 
+type InstructionReq struct {
+	Pid int    `json:"pid"`
+	Tid int    `json:"tid"`
+	Pc  uint32 `json:"pc"`
+}
 type InstructionResponse struct {
 	Instruction string `json:"instruction"`
 }
@@ -155,8 +160,8 @@ func ConfigurarLogger() {
 // FUNCIONES PRINCIPALES
 func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 
-	decoder := json.NewDecoder(r.Body)
 	var processAndThreadIDs KernelExeReq
+	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&processAndThreadIDs)
 	if err != nil {
 		log.Printf("Error al decodificar el pedido del Kernel: %s\n", err.Error())
@@ -165,7 +170,8 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("Cpu recibe TID : %d PID:%d del Kernel", processAndThreadIDs.Pid, processAndThreadIDs.Tid)
+	log.Printf("Cpu recibe TID : %d PID:%d del Kernel", processAndThreadIDs.Tid, processAndThreadIDs.Pid)
+
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 
@@ -175,14 +181,28 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 }
 func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 	var contextoDeEjecucion contextoEjecucion
-	log.Printf("PCB : %d TID : %d - Solicita Contexto de Ejecucion", pid, tid)
-	url := fmt.Sprintf("http://%s:%d//obtenerContextoDeEjecucion?pid=%d&tid=%d", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, pid, tid)
-	response, err := http.Get(url)
+	var reqContext KernelExeReq
+	reqContext.Pid = pid
+	reqContext.Tid = tid
+	reqContextBody, err := json.Marshal(reqContext)
+
 	if err != nil {
-		log.Fatalf("error al enviar la solicitud al módulo de memoria: %v", err)
+		log.Printf("Error al codificar el mensaje de solicitud de contexto de ejecucion")
 		return
 	}
-	defer response.Body.Close()
+
+	log.Printf("PCB : %d TID : %d - Solicita Contexto de Ejecucion", pid, tid)
+
+	url := fmt.Sprintf("http://%s:%d/obtenerContextoDeEjecucion", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
+
+	// Analizar la URL base
+
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(reqContextBody))
+	if err != nil {
+		log.Printf("error al enviar la solicitud al módulo de memoria: %v", err)
+		return
+	}
+	//defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
 		err := fmt.Errorf("error en la respuesta del módulo de memoria: %v", response.StatusCode)
@@ -262,14 +282,23 @@ func RealizarInterrupcion(contexto *contextoEjecucion) error {
 
 func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 
-	pc := *PC
-	url := fmt.Sprintf("http://%s:%d//obtenerContextoDeEjecucion?pid=%d&tid=%d&pc=%d", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, pid, tid, pc)
-	response, err := http.Get(url)
+	var reqInstruccion InstructionReq
+
+	reqInstruccion.Pid = pid
+	reqInstruccion.Tid = tid
+	reqInstruccion.Pc = *PC
+
+	reqInstruccionBody, err := json.Marshal(reqInstruccion)
+
+	url := fmt.Sprintf("http://%s:%d/obtenerInstruccion", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
+
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(reqInstruccionBody))
+
 	if err != nil {
 		log.Fatalf("error al enviar la solicitud al módulo de memoria: %v", err)
 		return nil, err
 	}
-	defer response.Body.Close()
+	//defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
 		err := fmt.Errorf("error en la respuesta del módulo de memoria: %v", response.StatusCode)
@@ -284,9 +313,9 @@ func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 	}
 	instructions := strings.Split(instructionResponse.Instruction, " ") //la instruccion recibida esta separada por comas, y se tomara cada una de las partes y pondra en vector de strings
 
-	log.Printf("PID: %d TID: %d - FETCH - Program Counter: %d", pid, tid, pc)
+	log.Printf("PID: %d TID: %d - FETCH - Program Counter: %d", pid, tid, reqInstruccion.Pc)
 
-	*PC = pc + 1 //esta bien colocarlo de esta manera ????
+	*PC = *PC + 1 //esta bien colocarlo de esta manera ????
 
 	return instructions, nil
 

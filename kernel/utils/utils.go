@@ -16,11 +16,6 @@ import (
 )
 
 /*---------------------- ESTRUCTURAS ----------------------*/
-
-type Mensaje struct {
-	Mensaje string `json:"mensaje"`
-}
-
 type Interrupcion struct {
 	Pid          int  `json:"pid"`
 	Tid          int  `json:"tid"`
@@ -47,41 +42,6 @@ type Mutex struct {
 	colaBloqueados []TCB
 }
 
-type KernelRequest struct {
-	Size int `json:"size"`
-	Pid  int `json:"pid"`
-}
-
-type TCBRequestMemory struct {
-	Pid  int    `json:"pid"`
-	Tid  int    `json:"tid"`
-	Path string `json:"path"`
-}
-
-type IniciarProcesoResponse struct {
-	Path      string `json:"path"`
-	Size      int    `json:"size"`
-	Prioridad int    `json:"prioridad"`
-	PidActual int    `json:"pidActual"`
-	TidActual int    `json:"tidActual"`
-}
-
-type TCBRequest struct {
-	Pid int `json:"pid"`
-	Tid int `json:"tid"`
-}
-
-type PCBRequest struct {
-	Pid int `json:"pid"`
-}
-
-type CrearHiloResponse struct {
-	Pid       int    `json:"pid"`
-	Tid       int    `json:"tid"` // del hilo que ejecuto la funcion
-	Path      string `json:"path"`
-	Prioridad int    `json:"prioridad"`
-}
-
 type CambioHilos struct {
 	Pid       int `json:"pid"`
 	TidActual int `json:"tidActual"`
@@ -94,11 +54,49 @@ type IOsyscall struct {
 	Tid      int `json:"tid"`
 }
 
+//Request
+type KernelRequest struct {
+	Size int `json:"size"`
+	Pid  int `json:"pid"`
+}
+
+type TCBRequestMemory struct {
+	Pid  int    `json:"pid"`
+	Tid  int    `json:"tid"`
+	Path string `json:"path"`
+}
+
+type TCBRequest struct {
+	Pid int `json:"pid"`
+	Tid int `json:"tid"`
+}
+
+type PCBRequest struct {
+	Pid int `json:"pid"`
+}
+
 type MutexRequest struct {
 	Pid   int    `json:"pid"`
 	Tid   int    `json:"tid"`
 	Mutex string `json:"mutex"`
 }
+
+//Response
+type IniciarProcesoResponse struct {
+	Path      string `json:"path"`
+	Size      int    `json:"size"`
+	Prioridad int    `json:"prioridad"`
+	PidActual int    `json:"pidActual"`
+	TidActual int    `json:"tidActual"`
+}
+
+type CrearHiloResponse struct {
+	Pid       int    `json:"pid"`
+	Tid       int    `json:"tid"` // del hilo que ejecuto la funcion
+	Path      string `json:"path"`
+	Prioridad int    `json:"prioridad"`
+}
+
 
 /*-------------------- COLAS GLOBALES --------------------*/
 
@@ -111,6 +109,7 @@ var colaExecHilo []TCB
 var colaBlockHilo []TCB
 var colaExitHilo []TCB
 
+
 /*-------------------- MUTEX GLOBALES --------------------*/
 
 var mutexColaNewproceso sync.Mutex
@@ -122,12 +121,15 @@ var mutexColaExecHilo sync.Mutex
 var mutexColaBlockHilo sync.Mutex
 var mutexColaExitHilo sync.Mutex
 
+
 /*-------------------- VAR GLOBALES --------------------*/
 
 var (
 	nextPid = 1
 	nextTid = 0
 )
+
+var ConfigKernel *globals.Config
 
 /*---------------------- CANALES ----------------------*/
 
@@ -170,7 +172,7 @@ func init() {
 		slog.SetLogLoggerLevel(slog.LevelError)
 	SE SETEA EL NIVEL MINIMO DE LOGS A IMPRIMIR POR CONSOLA*/
 
-	ConfigKernel := IniciarConfiguracion("configsKERNEL/config.json")
+	ConfigKernel = IniciarConfiguracion("configsKERNEL/config.json")
 
 	if ConfigKernel != nil {
 
@@ -187,7 +189,6 @@ func init() {
 			slog.SetLogLoggerLevel(slog.LevelDebug)
 		}
 
-		//Cuando levanto kernel se inicia un proceso ppal y luego se ejecutan syscalls?
 		procesoInicial("procesoInicial", 0)
 
 		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
@@ -373,8 +374,8 @@ func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 
 	memoryRequest := PCBRequest{Pid: pcb.Pid}
 
-	puerto := globals.ClientConfig.PuertoMemoria
-	ip := globals.ClientConfig.IpMemoria
+	puerto := ConfigKernel.PuertoMemoria
+	ip := ConfigKernel.IpMemoria
 
 	body, err := json.Marshal(&memoryRequest)
 
@@ -402,8 +403,8 @@ func consultaEspacioAMemoria(size int, pcb PCB) bool {
 	memoryRequest.Size = size
 	memoryRequest.Pid = pcb.Pid
 
-	puerto := globals.ClientConfig.PuertoMemoria
-	ip := globals.ClientConfig.IpMemoria
+	puerto := ConfigKernel.PuertoMemoria
+	ip := ConfigKernel.IpMemoria
 
 	body, err := json.Marshal(memoryRequest)
 
@@ -412,7 +413,7 @@ func consultaEspacioAMemoria(size int, pcb PCB) bool {
 		return false
 	}
 
-	url := fmt.Sprintf("http://%s:%d/hayEspacioEnLaMemoria", ip, puerto)
+	url := fmt.Sprintf("http://%s:%d/createProcess", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
@@ -818,8 +819,8 @@ func enviarTCBCpu(tcb TCB) error {
 	cpuRequest.Pid = tcb.Pid
 	cpuRequest.Tid = tcb.Tid
 
-	puerto := globals.ClientConfig.PuertoCpu
-	ip := globals.ClientConfig.IpCpu
+	puerto := ConfigKernel.PuertoCpu
+	ip := ConfigKernel.IpCpu
 
 	body, err := json.Marshal(&cpuRequest)
 
@@ -849,8 +850,8 @@ func enviarTCBMemoria(tcb TCB, path string) error {
 	memoryRequest.Tid = tcb.Tid
 	memoryRequest.Path = path
 
-	puerto := globals.ClientConfig.PuertoMemoria
-	ip := globals.ClientConfig.IpMemoria
+	puerto := ConfigKernel.PuertoMemoria
+	ip := ConfigKernel.IpMemoria
 
 	body, err := json.Marshal(&memoryRequest)
 
@@ -879,8 +880,8 @@ func enviarHiloFinalizadoAMemoria(hilo TCB) error {
 	memoryRequest.Pid = hilo.Pid
 	memoryRequest.Tid = hilo.Tid
 
-	puerto := globals.ClientConfig.PuertoMemoria
-	ip := globals.ClientConfig.IpMemoria
+	puerto := ConfigKernel.PuertoMemoria
+	ip := ConfigKernel.IpMemoria
 
 	body, err := json.Marshal(&memoryRequest)
 
@@ -1068,8 +1069,8 @@ func enviarDumpMemoryAMemoria(tcb TCB) error {
 	memoryRequest.Pid = tcb.Pid
 	memoryRequest.Tid = tcb.Tid
 
-	puerto := globals.ClientConfig.PuertoMemoria
-	ip := globals.ClientConfig.IpMemoria
+	puerto := ConfigKernel.PuertoMemoria
+	ip := ConfigKernel.IpMemoria
 
 	body, err := json.Marshal(&memoryRequest)
 
@@ -1264,8 +1265,8 @@ func enviarInterrupcion(pid int, tid int) {
 	cpuRequest.Tid = tid
 	cpuRequest.Interrupcion = true
 
-	puerto := globals.ClientConfig.PuertoCpu
-	ip := globals.ClientConfig.IpCpu
+	puerto := ConfigKernel.PuertoCpu
+	ip := ConfigKernel.IpCpu
 
 	body, err := json.Marshal(&cpuRequest)
 

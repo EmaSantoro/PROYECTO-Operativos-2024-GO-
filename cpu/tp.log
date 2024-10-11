@@ -93,3 +93,118 @@
 2024/09/06 12:43:10 {Mensaje:Hola CPU, Soy Kernel}
 2024/09/06 16:36:47 Conexion con CPU
 2024/09/06 16:36:47 {Mensaje:Hola CPU, Soy Kernel}
+2024/10/11 19:11:59 Cpu recibe TID : 1 PID:0 del Kernel
+2024/10/11 19:11:59 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:11:59 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:11:59 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:11:59 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 19:18:48 Cpu recibe TID : 1 PID:0 del Kernel
+2024/10/11 19:18:48 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:18:48 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:18:48 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:18:48 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 19:20:24 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:20:24 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:20:24 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:20:24 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:20:24 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 19:21:22 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:21:22 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:21:22 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:21:22 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:21:22 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 19:23:17 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:23:17 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:23:17 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:23:17 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:23:17 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 19:39:41 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:39:41 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:39:41 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:39:41 error en la respuesta del módulo de memoria: 405
+2024/10/11 19:39:41 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 405
+2024/10/11 19:48:30 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:48:30 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:48:30 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:48:30 error en la respuesta del módulo de memoria: 405
+2024/10/11 19:48:30 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 405
+2024/10/11 19:49:09 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:49:09 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:49:09 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:49:09 error en la respuesta del módulo de memoria: 405
+2024/10/11 19:49:09 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 405
+2024/10/11 19:51:15 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:51:15 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:51:15 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:51:15 error en la respuesta del módulo de memoria: 405
+2024/10/11 19:51:15 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 405
+2024/10/11 19:52:53 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:52:53 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:52:53 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:52:53 error en la respuesta del módulo de memoria: 405
+2024/10/11 19:52:53 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 405
+2024/10/11 19:54:29 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:54:29 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:54:29 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:54:29 error en la respuesta del módulo de memoria: 405
+2024/10/11 19:54:29 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 405
+2024/10/11 19:56:15 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:56:15 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:56:15 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:56:15 error en la respuesta del módulo de memoria: 405
+2024/10/11 19:56:15 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 405
+2024/10/11 19:58:37 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 19:58:37 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 19:58:37 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:58:37 error en la respuesta del módulo de memoria: 404
+2024/10/11 19:58:37 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:10:38 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:10:38 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:10:38 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:10:38 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:10:38 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:11:47 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:11:47 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:11:47 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:11:47 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:11:47 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:23:51 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:23:51 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:23:51 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:23:51 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:23:51 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:28:24 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:28:24 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:28:24 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:28:24 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:28:24 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:29:32 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:29:32 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:29:32 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:29:32 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:29:32 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:30:47 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:30:47 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:30:47 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:30:47 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:30:47 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:31:25 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:31:25 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:31:25 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:31:25 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:31:25 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:31:46 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:31:46 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:31:46 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:31:46 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:31:46 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:49:24 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:49:24 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:49:25 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:49:26 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:49:26 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 20:54:48 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 20:54:48 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 20:54:49 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:54:50 error en la respuesta del módulo de memoria: 404
+2024/10/11 20:54:50 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
