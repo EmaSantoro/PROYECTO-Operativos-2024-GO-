@@ -302,3 +302,37 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/11 20:54:49 Entre a get instruction
 2024/10/11 20:54:50 me llego: 0
 2024/10/11 20:54:50 tengo guardado: map[]
+2024/10/11 21:08:48 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:08:48 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:08:49 Entre a get instruction
+2024/10/11 21:08:50 me llego: 0
+2024/10/11 21:08:50 tengo guardado: map[]
+2024/10/11 21:13:09 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:13:09 entre a crear thread
+2024/10/11 21:13:10 cree el hilo PID:1 TID:0
+2024/10/11 21:13:10 Error: PATH procesoInicial opening file
+2024/10/11 21:13:10 ERROR AL GUARDAR
+2024/10/11 21:13:10 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:13:11 Entre a get instruction
+2024/10/11 21:13:12 me llego: 0
+2024/10/11 21:13:12 tengo guardado: map[]
+2024/10/11 21:18:08 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:18:08 entre a crear thread
+2024/10/11 21:18:09 cree el hilo PID:1 TID:0
+2024/10/11 21:18:09 procesoInicial
+2024/10/11 21:18:09 Error: PATH procesoInicial opening file
+2024/10/11 21:18:09 ERROR AL GUARDAR
+2024/10/11 21:18:09 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:18:11 Entre a get instruction
+2024/10/11 21:18:12 me llego: 0
+2024/10/11 21:18:12 tengo guardado: map[]
+2024/10/11 21:18:47 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:18:47 entre a crear thread
+2024/10/11 21:18:48 cree el hilo PID:1 TID:0
+2024/10/11 21:18:48 procesoInicial
+2024/10/11 21:18:48 Error: PATH procesoInicial opening file
+2024/10/11 21:18:48 ERROR AL GUARDAR
+2024/10/11 21:18:48 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:18:49 Entre a get instruction
+2024/10/11 21:18:50 me llego: 0
+2024/10/11 21:18:50 tengo guardado: map[]

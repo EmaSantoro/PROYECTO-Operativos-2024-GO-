@@ -860,7 +860,7 @@ func enviarTCBMemoria(tcb TCB, path string) error {
 		return err
 	}
 
-	url := fmt.Sprintf("http://%s:%d/recibirTcb", ip, puerto)
+	url := fmt.Sprintf("http://%s:%d/createThread", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {

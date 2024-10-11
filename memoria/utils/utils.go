@@ -132,7 +132,7 @@ func ConfigurarLogger() {
 // INICIAR MODULO
 func init() {
 
-	MemoriaConfig = IniciarConfiguracion("configsMemoria/config.json")
+	MemoriaConfig = IniciarConfiguracion("memoria/configsMemoria/config.json")
 
 	if MemoriaConfig != nil {
 		particiones = MemoriaConfig.Particiones
@@ -165,11 +165,11 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	}
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
-	
+
 	for pcb, tidMap := range mapPCBPorTCB {
 		if pcb.Pid == instructionReq.Pid {
-			log.Printf("me llego: %d",instructionReq.Tid)
-			log.Printf("tengo guardado: %d",tidMap)
+			log.Printf("me llego: %d", instructionReq.Tid)
+			log.Printf("tengo guardado: %d", tidMap)
 			for tcb, instrucciones := range tidMap {
 				if tcb.Tid == instructionReq.Tid {
 					if instructionReq.Pc >= 0 && instructionReq.Pc < len(instrucciones) {
@@ -223,7 +223,6 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 	log.Printf("PCB : %d TID : %d - me llegaron estos valores", solicitud.Pid, solicitud.Tid)
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
-
 
 	for pcb, tidMap := range mapPCBPorTCB {
 		if pcb.Pid == solicitud.Pid {
@@ -321,7 +320,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		Base:  0,
 		Limit: 0,
 	}
-	
+
 	if esquemaMemoria == "FIJAS" {
 		mapParticiones = make([]bool, len(particiones))
 		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size) //asigno por algoritmo
@@ -329,7 +328,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 			http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
 			return
 		}
-		
+
 		//BASE
 		var baseEnInt int
 		pcb.Base = 0
@@ -340,7 +339,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		//LIMIT
 		limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
 		pcb.Limit = uint32(limitEnInt)
-		mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
+		mapParticiones[numeroDeParticion] = true                                              //marcar particion como ocupada
 		if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
 			http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
 			return
@@ -683,10 +682,19 @@ func consolidarParticiones(numeroDeParticion int) {
 //-----------------------------------------CREATE THREAD--------------------------------------------
 
 func CreateThread(w http.ResponseWriter, r *http.Request) {
+	log.Printf("entre a crear thread")
 	var thread Thread
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
-	
-	if err := json.NewDecoder(r.Body).Decode(&thread); err != nil {
+
+	// if err := json.NewDecoder(r.Body).Decode(&thread); err != nil {
+	// 	http.Error(w, err.Error(), http.StatusBadRequest)
+	// 	return
+	// }
+
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&thread)
+
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -704,8 +712,9 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 		HX:  0,
 		PC:  0,
 	}
-
+	log.Printf("cree el hilo PID:%d TID:%d", thread.Pid, thread.Tid)
 	if err := guardarTodoEnElMap(thread.Pid, TCB, thread.Path); err != nil { //GUARDO EN EL MAP
+		log.Printf("ERROR AL GUARDAR")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -719,7 +728,7 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 }
 
 func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
-
+	log.Printf("%s", path)
 	// Abro el archivo de pseudocódigo
 	readFile, err := os.Open(path)
 	if err != nil {
@@ -727,7 +736,7 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 		return err
 	}
 	defer readFile.Close()
-
+	log.Printf("Abri el archivo")
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	fileScanner := bufio.NewScanner(readFile)
@@ -737,7 +746,7 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 	for fileScanner.Scan() {
 		instrucciones = append(instrucciones, fileScanner.Text()) //esta linea lee los codigos
 	}
-
+	log.Printf("escaneo")
 	var pcbEncontrado PCB //para encontrar el pcb y poder entrar al mapa anidado
 	for pcb := range mapPCBPorTCB {
 		if pcb.Pid == pid {
@@ -745,13 +754,13 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 			break
 		}
 	}
-
+	log.Printf("busco pcb")
 	if _, found := mapPCBPorTCB[pcbEncontrado]; !found {
 		mapPCBPorTCB[pcbEncontrado] = make(map[estructuraHilo][]string)
 	}
-
+	log.Printf("hago el map")
 	mapPCBPorTCB[pcbEncontrado][TCB] = instrucciones
-
+	log.Printf("fin")
 	return nil
 
 }

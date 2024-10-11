@@ -158,3 +158,8 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/11 20:31:46 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
 2024/10/11 20:49:24 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
 2024/10/11 20:54:48 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:08:48 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:13:10 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:18:09 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:18:48 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:37:29 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC

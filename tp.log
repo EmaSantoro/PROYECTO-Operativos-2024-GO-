@@ -75,3 +75,31 @@
 2024/09/06 11:30:10 open configsMemoria/config.json: The system cannot find the path specified.
 2024/09/06 11:30:19 open configsCPU/config.json: The system cannot find the path specified.
 2024/09/06 16:34:40 open configsMemoria/config.json: The system cannot find the path specified.
+2024/10/11 21:21:10 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:22:18 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:24:45 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:24:55 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:26:01 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:27:40 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:27:49 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:29:09 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:29:58 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:30:05 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:32:42 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:32:49 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:32:52 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:35:52 open configsMemoria/config.json: no such file or directory
+2024/10/11 21:37:27 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:37:27 entre a crear thread
+2024/10/11 21:37:28 cree el hilo PID:1 TID:0
+2024/10/11 21:37:28 procesoInicial
+2024/10/11 21:37:28 Abri el archivo
+2024/10/11 21:37:29 escaneo
+2024/10/11 21:37:29 busco pcb
+2024/10/11 21:37:29 hago el map
+2024/10/11 21:37:29 fin
+2024/10/11 21:37:29 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 21:37:29 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:37:30 Entre a get instruction
+2024/10/11 21:37:31 me llego: 0
+2024/10/11 21:37:31 tengo guardado: map[]

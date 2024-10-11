@@ -208,3 +208,28 @@
 2024/10/11 20:54:49 error en la respuesta del módulo de memoria: 404
 2024/10/11 20:54:50 error en la respuesta del módulo de memoria: 404
 2024/10/11 20:54:50 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 21:08:48 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 21:08:48 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 21:08:49 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:08:50 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:08:50 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 21:13:10 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 21:13:10 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 21:13:11 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:13:12 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:13:12 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 21:18:09 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 21:18:09 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 21:18:10 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:18:12 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:18:12 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 21:18:48 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 21:18:48 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 21:18:49 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:18:50 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:18:50 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 21:37:29 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 21:37:29 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 21:37:30 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:37:31 error en la respuesta del módulo de memoria: 404
+2024/10/11 21:37:31 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404

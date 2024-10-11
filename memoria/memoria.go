@@ -14,7 +14,7 @@ import (
 func main() {
 	utils.ConfigurarLogger()
 
-	globals.ClientConfig = utils.IniciarConfiguracion("configsMemoria/config.json")
+	globals.ClientConfig = utils.IniciarConfiguracion("memoria/configsMemoria/config.json")
 
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")
