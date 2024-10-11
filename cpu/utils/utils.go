@@ -17,6 +17,7 @@ import (
 )
 
 // var globales
+var ConfigsCpu *globals.Config
 var mutexInterrupt sync.Mutex
 var nuevaInterrupcion Interrupt
 var memoryData sync.WaitGroup
@@ -33,15 +34,18 @@ type Interrupcion struct {
 	Tid          int  `json:"tid"`
 	Interrupcion bool `json:"interrupcion"`
 }
+
+/*
 type KernelInterrupcion struct { // ver con KERNEL
-	Pid    int    `json:"pid"`
-	Tid    int    `json:"tid"`
-	Motivo string `json:"motivo"`
-}
+
+		Pid    int    `json:"pid"`
+		Tid    int    `json:"tid"`
+		Motivo string `json:"motivo"`
+	}
+*/
 type Interrupt struct {
 	Pid               int
 	Tid               int
-	Motivo            string
 	flagInterrucption bool
 }
 type MemoryRequest struct {
@@ -52,9 +56,7 @@ type MemoryRequest struct {
 	Data    []byte `json:"data,omitempty"` //datos a escribir o leer y los devuelvo
 	Port    int    `json:"port,omitempty"` //puerto
 }
-type Mensaje struct {
-	Mensaje string `json:"mensaje"`
-}
+
 type PCB struct {
 	pid   int
 	base  uint32
@@ -136,9 +138,9 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 }
 
 func init() {
-	ConfigsCpu := IniciarConfiguracion("configsCPU/config.json")
+	ConfigsCpu = IniciarConfiguracion("configsCPU/config.json")
 	//EnviarMensaje(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, "Hola Kernel, Soy CPU")
-	EnviarMensaje(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, "Hola Memoria, Soy CPU")
+	//EnviarMensaje(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, "Hola Memoria, Soy CPU")
 }
 
 func ConfigurarLogger() {
@@ -148,74 +150,6 @@ func ConfigurarLogger() {
 	}
 	mw := io.MultiWriter(os.Stdout, logFile)
 	log.SetOutput(mw)
-}
-
-func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-	var mensaje Mensaje
-	err := decoder.Decode(&mensaje)
-	if err != nil {
-		log.Printf("Error al decodificar mensaje: %s\n", err.Error())
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Error al decodificar mensaje"))
-		return
-	}
-
-	log.Println("Conexion con CPU")
-	log.Printf("%+v\n", mensaje)
-
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
-}
-
-func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
-	mensaje := Mensaje{Mensaje: mensajeTxt}
-	body, err := json.Marshal(mensaje)
-	if err != nil {
-		log.Printf("error codificando mensaje: %s", err.Error())
-	}
-
-	url := fmt.Sprintf("http://%s:%d/mensaje", ip, puerto)
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
-	if err != nil {
-		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
-	}
-	log.Printf("contexto del servidor: %s", resp.Status)
-}
-
-func RecibirPaquete(w http.ResponseWriter, r *http.Request) {
-	log.Printf("entrando a func paquete")
-
-	/*if r.Method != http.MethodGet {
-		http.Error(w, "Método erroneo", http.StatusMethodNotAllowed) //detecta metodo de protocolo https
-		log.Printf("error codificando mensaje: %s", err.Error())
-		return
-	}
-	*/
-	var paquete globals.Paquete
-	log.Printf("creando paquete")
-	if err := json.NewDecoder(r.Body).Decode(&paquete); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	log.Printf("ID:" + paquete.ID + "\n")
-	log.Printf("Mensaje:" + paquete.Mensaje + "\n")
-	log.Printf("Rune: " + string(paquete.Array) + "\n")
-	log.Printf("Tamanio: %d\n", paquete.Size)
-
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
-}
-func PedirPaquete() {
-	ip := globals.ClientConfig.IpKernel
-	puerto := globals.ClientConfig.PuertoKernel
-
-	mensaje := "HOLA"
-	body, _ := json.Marshal(mensaje)
-	url := fmt.Sprintf("http://%s:%d/enviarPaqueteACPU", ip, puerto)
-	resp, _ := http.Post(url, "application/json", bytes.NewBuffer(body))
-	log.Printf("contexto del servidor: %s", resp.Status)
 }
 
 // FUNCIONES PRINCIPALES
@@ -242,7 +176,7 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 	var contextoDeEjecucion contextoEjecucion
 	log.Printf("PCB : %d TID : %d - Solicita Contexto de Ejecucion", pid, tid)
-	url := fmt.Sprintf("http://%s:%d//obtenerContextoDeEjecucion?pid=%d&tid=%d", globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, pid, tid)
+	url := fmt.Sprintf("http://%s:%d//obtenerContextoDeEjecucion?pid=%d&tid=%d", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, pid, tid)
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatalf("error al enviar la solicitud al módulo de memoria: %v", err)
@@ -287,9 +221,9 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		}
 		log.Printf("## TID: %d - Ejecutando: %s - Parametos : %v", contexto.tcb.tid, intructionLine[0], instruction.parameters)
 
-		flag, motivo := CheckInterrupt(*contexto)
+		flag := CheckInterrupt(*contexto)
 		if flag {
-			err := RealizarInterrupcion(contexto, motivo) //necesito ok de la interrucpion
+			err := RealizarInterrupcion(contexto)
 			if err == nil {
 				break
 			}
@@ -300,26 +234,28 @@ func InstructionCycle(contexto *contextoEjecucion) {
 
 }
 
-func RealizarInterrupcion(contexto *contextoEjecucion, motivo string) error {
+func RealizarInterrupcion(contexto *contextoEjecucion) error {
 	err := AcualizarContextoDeEjecucion(contexto)
 	if err == nil {
 		log.Printf("Error al actualizar contexto de ejecucion para la interrupcion")
 		return err
 	}
-	var kernelInt KernelInterrupcion
-	kernelInt.Motivo = motivo
-	kernelInt.Pid = contexto.pcb.pid
-	kernelInt.Tid = contexto.tcb.tid
-	body, err2 := json.Marshal(kernelInt)
+	/*
+		var kernelInt KernelInterrupcion
+		kernelInt.Motivo = motivo
+		kernelInt.Pid = contexto.pcb.pid
+		kernelInt.Tid = contexto.tcb.tid
+		body, err2 := json.Marshal(kernelInt)
 
-	if err2 != nil {
-		log.Printf("Error al codificar el mensaje de la interrupcion")
-		return err2
-	}
-	err3 := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "/interrupcion") // ver con kernel
-	if err3 != nil {
-		return err3
-	}
+		if err2 != nil {
+			log.Printf("Error al codificar el mensaje de la interrupcion")
+			return err2
+		}
+		err3 := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "/interrupcion") // ver con kernel
+		if err3 != nil {
+			return err3
+		}
+	*/
 	return nil
 
 }
@@ -327,7 +263,7 @@ func RealizarInterrupcion(contexto *contextoEjecucion, motivo string) error {
 func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 
 	pc := *PC
-	url := fmt.Sprintf("http://%s:%d//obtenerContextoDeEjecucion?pid=%d&tid=%d&pc=%d", globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, pid, tid, pc)
+	url := fmt.Sprintf("http://%s:%d//obtenerContextoDeEjecucion?pid=%d&tid=%d&pc=%d", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, pid, tid, pc)
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatalf("error al enviar la solicitud al módulo de memoria: %v", err)
@@ -407,18 +343,18 @@ func Execute(ContextoDeEjecucion *contextoEjecucion, intruction DecodedInstructi
 
 }
 
-func CheckInterrupt(contexto contextoEjecucion) (bool, string) {
+func CheckInterrupt(contexto contextoEjecucion) bool {
 	if flagSegmentationFault {
 		flagSegmentationFault = false
-		return true, "SegmentationFault"
+		return true
 	}
 	mutexInterrupt.Lock()
 	if nuevaInterrupcion.flagInterrucption && contexto.pcb.pid == nuevaInterrupcion.Pid && contexto.tcb.tid == nuevaInterrupcion.Tid {
 		nuevaInterrupcion.flagInterrucption = false
-		return true, nuevaInterrupcion.Motivo
+		return true
 	}
 	mutexInterrupt.Unlock()
-	return false, ""
+	return false
 
 }
 
@@ -482,7 +418,7 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	if err2 != nil {
 		return err2
 	}
-	err3 := EnviarAModulo(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, bytes.NewBuffer(body), "/ReadMemoryHandler")
+	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/ReadMemoryHandler")
 	if err3 != nil {
 		return err3
 	}
@@ -549,7 +485,7 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 		return err5
 	}
 
-	err3 := EnviarAModulo(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, bytes.NewBuffer(body), "/writememory")
+	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/writememory")
 
 	if err3 != nil {
 		return err3
@@ -675,7 +611,7 @@ func DumpMemory(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-	errM := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, nil, "vaciarMemoria")
+	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "vaciarMemoria")
 	if errM != nil {
 		return errM
 	}
@@ -703,7 +639,7 @@ func IO(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al codificar el mernsaje")
 		return err
 	}
-	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
 	if err != nil {
 		return err
 	}
@@ -742,7 +678,7 @@ func CreateProcess(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al codificar estructura de creacion de proceso")
 		return err
 	}
-	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
 	if err != nil {
 		log.Printf("Error syscall IO : %v", err)
 		return err
@@ -776,7 +712,7 @@ func CreateThead(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al codificar estructura de creacion de hilo")
 		return err
 	}
-	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "crearHilo")
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "crearHilo")
 	if err != nil {
 		log.Printf("Error syscall THREAD_CREATE : %v", err)
 		return err
@@ -809,7 +745,7 @@ func JoinThead(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al codificar estructura de cambio de hilo")
 		return err
 	}
-	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "unirseAHilo")
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "unirseAHilo")
 	if err != nil {
 		log.Printf("Error syscall THREAD_JOIN : %v", err)
 		return err
@@ -842,7 +778,7 @@ func CancelThead(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al codificar estructura de cancelacion de hilo")
 		return err
 	}
-	err = EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "cancelarHilo")
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "cancelarHilo")
 	if err != nil {
 		log.Printf("Error syscall THREAD_CANCEL : %v", err)
 		return err
@@ -860,7 +796,7 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-	errM := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, nil, "exirThread")
+	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "exirThread")
 	if errM != nil {
 		return errM
 	}
@@ -877,7 +813,7 @@ func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-	errM := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, nil, "exitProcess")
+	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "exitProcess")
 	if errM != nil {
 		return errM
 	}
@@ -897,7 +833,7 @@ func AcualizarContextoDeEjecucion(contexto *contextoEjecucion) error {
 		log.Printf("Error al codificar el contexto")
 		return err
 	}
-	errM := EnviarAModulo(globals.ClientConfig.IpMemoria, globals.ClientConfig.PuertoMemoria, bytes.NewBuffer(body), "actualizarContextoDeEjecucion")
+	errM := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "actualizarContextoDeEjecucion")
 	if errM != nil {
 		return errM
 	}
