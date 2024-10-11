@@ -38,8 +38,6 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 }
 
 func init() {
-
-	
 	//ConfigMemoria := IniciarConfiguracion("configsMemoria/config.json")
 	//EnviarMensaje(ConfigMemoria.IpKernel, ConfigMemoria.PuertoKernel, "Hola Kernel, Soy Memoria")
 	//EnviarMensaje(ConfigMemoria.IpFs, ConfigMemoria.PuertoFs, "Hola FS, Soy Memoria")
@@ -175,6 +173,9 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 						estructuraHilo: tcb,
 					}
 
+					// Log de obtener contexto de ejecucion 
+					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", pid, tid)
+
 					w.Header().Set("Content-Type", "application/json")
 					json.NewEncoder(w).Encode(executionContext)
 					return
@@ -185,6 +186,8 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	http.Error(w, "No se encontro el PID", http.StatusNotFound)
+
+
 }
 
 //-------------------------------- UPDATE EXECUTION CONTEXT-----------------------------------------------
@@ -224,24 +227,13 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// err := json.NewDecoder(r.Body).Decode(&newContext)
-	// if err != nil {
-	// 	http.Error(w, "Invalid request payload", http.StatusBadRequest)
-	// 	return
-	// }
-
-	// time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
-
 	for pcb, tidMap := range mapPCBPorTCB {
 		if pcb.Pid == actualizadoContexto.PCB.Pid {
 			for tcb := range tidMap {
 				if tcb.Tid == actualizadoContexto.estructuraHilo.Tid {
 
-					// Actualizar los valores del PCB (Base y Limit)
 					pcb.Base = actualizadoContexto.PCB.Base
 					pcb.Limit = actualizadoContexto.PCB.Limit
-
-					// Actualizar los registros del TCB
 					tcb.AX = uint32(actualizadoContexto.estructuraHilo.AX)
 					tcb.BX = uint32(actualizadoContexto.estructuraHilo.BX)
 					tcb.CX = uint32(actualizadoContexto.estructuraHilo.CX)
@@ -256,16 +248,19 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 					tidMap[tcb] = tidMap[tcb]
 					mapPCBPorTCB[pcb] = tidMap
 
+					// Log de obtener contexto de ejecucion 
+					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", actualizadoContexto.PCB.Pid, actualizadoContexto.estructuraHilo.Tid)
+
 					w.WriteHeader(http.StatusOK)
-					w.Write([]byte("Execution context updated successfully"))
+					w.Write([]byte("contexto de ejecucion ha sido actualizado"))
 					return
 				}
 			}
-			http.Error(w, "TID not found", http.StatusNotFound)
+			http.Error(w, "TID no ha sido encontrado", http.StatusNotFound)
 			return
 		}
 	}
-	http.Error(w, "PID not found", http.StatusNotFound)
+	http.Error(w, "PID no ha sido encontrado", http.StatusNotFound)
 }
 
 //-----------------------------------------CREATE PROCESS-------------------------------------------
@@ -278,7 +273,6 @@ type Process struct {
 	Size int `json:"size"`
 	Pid  int `json:"pcb"`
 }
-
 
 func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y el size
 	var process Process
@@ -309,8 +303,8 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		pcb.Base = 0
         for i := 0; i < numeroDeParticion; i++ {
             baseEnInt += globals.ClientConfig.Particiones[i] //tengo que ver tema int y uint32
-			pcb.Base = uint32(baseEnInt)
         }
+		pcb.Base = uint32(baseEnInt) 
 
 		//LIMIT
 		var limitEnInt int
@@ -336,10 +330,129 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Ok"))
 		return
-	} else {
-		//PARTICION DINAMICA
+	} else if globals.ClientConfig.EsquemaMemoria == "DINAMICAS" {
+
+		numeroDeParticion := asignarPorAlgoritmo(globals.ClientConfig.AlgoritmoBusqueda, process.Size)
+
+		//SI NO HAY PARTICION DISPONIBLE 
+		if numeroDeParticion == -1 {
+			if espacioLibreSuficiente(process.Size){ //funcion que me devuelve true o false si hay espacio suficiente sumando todas las particiones libres 
+				compactarLasParticiones() //compacto las particiones libres
+				numeroDeParticion = asignarPorAlgoritmo(globals.ClientConfig.AlgoritmoBusqueda, process.Size)
+			} else { 
+			http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
+			return
+		    }
+		}
+
+		//SI HAY PARTICION DISPONIBLE PARA EL TAMAÑO DEL PROCESO 
+		if particiones[numeroDeParticion] > process.Size{
+			subdividirParticion(numeroDeParticion, process.Size) //subdivir la particion en dos (una ocupada y otra libre) 
+		}   
+		
+		//BASE
+		var baseEnInt int
+		pcb.Base = 0
+        for i := 0; i < numeroDeParticion; i++ {
+            baseEnInt += globals.ClientConfig.Particiones[i] //tengo que ver tema int y uint32
+        }
+		pcb.Base = uint32(baseEnInt) 
+
+		//LIMIT
+		var limitEnInt int
+		limitEnInt = baseEnInt + globals.ClientConfig.Particiones[numeroDeParticion] - 1
+		pcb.Limit = uint32(limitEnInt)
+
+		// mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
+
+		if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
+			http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION 
+			return
+		}
+
+		if err := guardarPCBEnElMap(pcb); err != nil { //ACA ESTOY GUARDANDO LA PCB EN MI MAP PRINCIPAL EL MAS IMPORTANTE DE TODOS
+			http.Error(w, err.Error(), http.StatusInternalServerError) 
+			return
+		}
+
+		// Log de creación de proceso
+        log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
+
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Ok"))
+		return
 	}
 }
+
+//------------------------------FUNCIONES PARA MEMORIA DINAMICA---------------------------------------------------
+
+//SUMATORIA DE PARTICIONES LIBRES 
+func espacioLibreSuficiente(Size int) bool{ 
+	espacioLibre := 0
+	for i, ocupada := range mapParticiones{ //recorreria mi map de particiones de booleanos, entonces agarro libres las que tienen 0 
+		if !ocupada{ //si la particion esta en 0 
+			espacioLibre += particiones[i] //la voy a sumar 
+		}
+	}
+	if espacioLibre >= Size{
+		return true
+	}
+	return false
+} 
+
+//COMPACTAR LAS PARTICIONES QUE ESTAN LIBRES 	
+func compactarLasParticiones(){
+	nuevaParticion := 0
+	i := 0
+	mapeoOriginalANuevo := make(map[int]int) 
+
+	for i < len(particiones) { //la idea es recorrer todas las particiones 
+		if !mapParticiones[i] { // Si la partición está libre, la sumamos al total y la eliminamos
+			nuevaParticion += particiones[i] //aca guardo el tamaño para mi nueva particion que va a ser la compacta 
+			particiones = append(particiones[:i], particiones[i+1:]...) // se saca la partición
+			mapParticiones = append(mapParticiones[:i], mapParticiones[i+1:]...) // actualizar el map de estados
+		} else {
+			mapeoOriginalANuevo[i] = len(particiones) 
+			i++ // si llega a estar ocupada la particion, paso a la siguiente 
+		}
+	}
+	
+	particiones = append(particiones, nuevaParticion)
+	mapParticiones = append(mapParticiones, false) // La nueva partición estará libre
+
+	actualizarPCBxParticionNueva(mapeoOriginalANuevo) //actualizo el mapa de pcb por particion
+}
+
+func actualizarPCBxParticionNueva(mapeoOriginalANuevo map[int]int) {
+
+	nuevoMapPCBPorParticion := make(map[PCB]int)
+
+	for pcb, particionOriginal := range mapPCBPorParticion {
+		if nuevaParticion, ok := mapeoOriginalANuevo[particionOriginal]; ok {
+			nuevoMapPCBPorParticion[pcb] = nuevaParticion
+		} else {
+			nuevoMapPCBPorParticion[pcb] = particionOriginal
+		}
+	}
+
+	mapPCBPorParticion = nuevoMapPCBPorParticion
+}
+
+func subdividirParticion(numeroDeParticion, processSize int) {
+
+	originalTam := particiones[numeroDeParticion] //ej: 500 y mi proceso es 100, enntonces en originalTam sera 500
+
+	particiones[numeroDeParticion] = processSize // cambio el tamaño de esa particion que antes era de 500 por ahora 100 
+	mapParticiones[numeroDeParticion] = true // la marco como una particion ocupada
+
+	espacioRestante := originalTam - processSize //me sobraron 400 de espacio que no se uso, entonces creo una nueva particion que esta va a estar libre
+	if espacioRestante > 0 {
+		particiones = append(particiones, espacioRestante) //agrego la nueva particion al vector de particiones 
+		mapParticiones = append(mapParticiones, false) // y esta nueva particion va a estar libre para ser la proxima a usar 
+	}
+}
+
+//--------------------------------------------------------------------
 
 var mapPCBPorParticion = make(map[PCB]int)
 
@@ -349,11 +462,9 @@ func guardarPCBenMapConRespectivaParticion(pcb PCB, numeroDeParticion int) error
 }
 
 func guardarPCBEnElMap(pcb PCB)error{
-    
     if _, found := mapPCBPorTCB[pcb]; !found {
         mapPCBPorTCB[pcb] = make(map[estructuraHilo][]string)
     }
-
     return nil
 }
 
@@ -479,8 +590,71 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Proceso finalizado exitosamente"))
+	} else if globals.ClientConfig.EsquemaMemoria == "DINAMICAS"{
+
+		var numeroDeParticion int
+		encontrado := false
+		for pcb, particion := range mapPCBPorParticion {
+			if pcb.Pid == pid {
+				numeroDeParticion = particion
+				encontrado = true
+				break
+			}
+		}
+		if !encontrado {
+			http.Error(w, "PID no encontrado", http.StatusNotFound)
+			return
+		}
+		mapParticiones[numeroDeParticion] = false 
+
+		consolidarParticiones(numeroDeParticion) //consolido las particiones libres 
+
+		delete(mapPCBPorParticion, PCB{Pid: pid})
+		delete(mapPCBPorTCB, PCB{Pid: pid})
+
+		// Log de destrucción de proceso
+        log.Printf("## Proceso Destruido - PID: %d - Tamaño: %d", pid, globals.ClientConfig.Particiones[numeroDeParticion])
+
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Proceso finalizado exitosamente"))
 	}
-	//FALTA PARA LA PARTICION DINAMICA
+}
+
+func consolidarParticiones(numeroDeParticion int) {
+	mapeoOriginalANuevo := make(map[int]int) 
+
+	//IZQUIERDA 
+	for numeroDeParticion > 0 && !mapParticiones[numeroDeParticion-1] {
+		particiones[numeroDeParticion-1] += particiones[numeroDeParticion]  // Sumar tamaño de la partición actual a la anterior
+		particiones = append(particiones[:numeroDeParticion], particiones[numeroDeParticion+1:]...) // Eliminar partición actual
+		mapParticiones = append(mapParticiones[:numeroDeParticion], mapParticiones[numeroDeParticion+1:]...)
+		
+		for pcb, particion := range mapPCBPorParticion {
+			if particion == numeroDeParticion {
+				mapPCBPorParticion[pcb] = numeroDeParticion - 1 
+			} else if particion > numeroDeParticion {
+				mapeoOriginalANuevo[particion] = particion - 1 
+			}
+		}
+		numeroDeParticion-- 
+	}
+
+	//DERECHA 
+	for numeroDeParticion < len(particiones)-1 && !mapParticiones[numeroDeParticion+1] {
+		particiones[numeroDeParticion] += particiones[numeroDeParticion+1]  
+		particiones = append(particiones[:numeroDeParticion+1], particiones[numeroDeParticion+2:]...) 
+		mapParticiones = append(mapParticiones[:numeroDeParticion+1], mapParticiones[numeroDeParticion+2:]...)
+
+		for pcb, particion := range mapPCBPorParticion {
+			if particion == numeroDeParticion+1 {
+				mapPCBPorParticion[pcb] = numeroDeParticion 
+			} else if particion > numeroDeParticion+1 {
+				mapeoOriginalANuevo[particion] = particion - 1
+			}
+		}
+	}
+
+	actualizarPCBxParticionNueva(mapeoOriginalANuevo)
 }
 
 //-----------------------------------------CREATE THREAD--------------------------------------------
@@ -635,7 +809,7 @@ func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    data, err := ReadMemory(memReq.PID, memReq.TID, memReq.Address, memReq.Size)
+    data, err := ReadMemory(memReq.PID, memReq.TID, memReq.Address) //, memReq.Size )
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -649,7 +823,11 @@ func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
 
 var mu sync.Mutex
 
-func ReadMemory(PID int, TID int, address uint32, size int) ([]byte, error) { //size capaz sacarlo y poner directamente 4 
+// tener en cuenta lo de que si me dan para leer y en vez de leer 4 voy a llegar a leer 2 porque se me termino la particion
+// tener en cuenta lo de que si me dan para leer desde 4 y leo hasta el 8 pero mi particion termina en 12. 
+// tengo que leer y escribir pero en mi slice de memoria, las particiones corte el limite y base lo voy a utilizar para calcular todo lo anterior 
+
+func ReadMemory(PID int, TID int, address uint32)([]byte, error) { //size capaz sacarlo y poner directamente 4 
     mu.Lock()
     defer mu.Unlock()
 
@@ -685,12 +863,27 @@ func ReadMemory(PID int, TID int, address uint32, size int) ([]byte, error) { //
         return nil, fmt.Errorf("no se encontró el TID: %d para el PID: %d", TID, PID)
     }
 
-    if address < pcbEncontrado.Base || address+4 > pcbEncontrado.Limit {
+	//primero tengo que ver si la direccion que me dieron esta dentro del rango de la particion del pid 
+    if address < pcbEncontrado.Base || address > pcbEncontrado.Limit {
         return nil, fmt.Errorf("Dirección fuera de rango")
     }
 
-    data := make([]byte, 4)
-    copy(data, globals.MemoriaUsuario[address:address+uint32(size)])
+	solocuatro := uint32(4)
+
+	//si se me esta por terminar la particion y no llegue a cuatro 
+	if address+solocuatro > pcbEncontrado.Limit { 
+		solocuatro = pcbEncontrado.Limit - address
+	}
+ 
+	// Leer los bytes en la memoria 
+	data := make([]byte, solocuatro)
+	copy(data, globals.MemoriaUsuario[address:address+solocuatro])
+ 
+	//completo con ceros si no se llego a leer 4 bytes
+	if len(data) < 4 {
+		padding := make([]byte, 4-len(data)) //creo un slice con los numeros que va a tener la cantidad de bytes que me faltan para llegar a 4 
+		data = append(data, padding...) //asi cada data tiene 4 bytes 
+	}
 
     return data, nil
 }
@@ -713,11 +906,85 @@ func sendDataToCPU(content []byte) error {
 		log.Fatalf("Error en la respuesta del módulo de memoria: %v", resp.StatusCode)
 	}
 	
-
 	return nil
 }
 
+//----------------------------------------------WRITE MEMORY-------------------------------------------------
 
+// primero me tiene que llegar el pid y el tid, la direccion de memoria y los datos a escribir 
+// el pid el tid la direccion de memoria en la cual voy a comenzar a escribir los datos que me llegan, 
+// Y los datos me llegan en un string, y eso lo voy a convertir a un slice de bytes y lo voy a escribir en la memoria 
+// otra vez fundamentalmente escribir sobre la memoria "grande" 
+
+func WriteMemoryHandler(w http.ResponseWriter, r *http.Request) {
+	var memReq MemoryRequest
+	time.Sleep(time.Duration(globals.ClientConfig.Delay_Respuesta) * time.Millisecond)
+	
+	if err := json.NewDecoder(r.Body).Decode(&memReq); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if err := WriteMemory(memReq.PID, memReq.TID, memReq.Address, memReq.Data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+}
+
+func WriteMemory(PID int, TID int, address uint32, data []byte) error{
+	
+	mu.Lock()
+	defer mu.Unlock()
+
+	if _, exists := mapPCBPorTCB[PCB{Pid: PID}]; !exists {
+        return fmt.Errorf("no se encontró el PID")
+    }
+
+    var pcbEncontrado PCB //LO HAGO PARA PODER ENTRAR AL MAPA ANIDADO Y AGARRAR LA PCB DE ESE PID
+    encontrado := false
+
+    for pcb := range mapPCBPorTCB {
+        if pcb.Pid == PID {
+            pcbEncontrado = pcb
+            encontrado = true
+            break
+        }
+    }
+
+    tcbMap, found := mapPCBPorTCB[pcbEncontrado]
+    if !found {
+        return fmt.Errorf("no se encontró el TID para el PID: %d", PID)
+    }
+
+    encontrado = false
+    for tcb := range tcbMap {
+        if tcb.Tid == TID {
+            encontrado = true
+            break
+        }
+    }
+
+    if !encontrado {
+        return fmt.Errorf("no se encontró el TID: %d para el PID: %d", TID, PID)
+    }
+
+	//primero tengo que ver si la direccion que me dieron esta dentro del rango de la particion del pid 
+    if address < pcbEncontrado.Base || address > pcbEncontrado.Limit {
+		return fmt.Errorf("dirección fuera de rango para el PID: %d", PID)
+    }
+
+    espaciodisponible := pcbEncontrado.Limit - address // Espacio disponible desde la dirección hasta el límite
+
+	if espaciodisponible >= 4 {
+		copy(globals.MemoriaUsuario[address:address+4], data[:4])
+	}else{
+		copy(globals.MemoriaUsuario[address:address+espaciodisponible], data[:espaciodisponible])
+	}
+	
+    return nil
+} 
 
 //-----------------------------------------------------------------------------------------------------
 
