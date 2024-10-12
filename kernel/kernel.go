@@ -11,7 +11,6 @@ import (
 
 func main() {
 	utils.ConfigurarLogger()
-
 	globals.ClientConfig = utils.IniciarConfiguracion("configsKERNEL/config.json")
 
 	if globals.ClientConfig == nil {
@@ -20,10 +19,25 @@ func main() {
 
 	puerto := globals.ClientConfig.Puerto
 
-	//utils.EnviarPaqueteACPU()
+	//mux := http.NewServeMux()
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/mensaje", utils.RecibirMensaje) // buscar que es mux xd
-	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
+	http.HandleFunc("POST /crearProceso", utils.CrearProceso)
+	http.HandleFunc("POST /finalizarProceso", utils.FinalizarProceso)
+
+	http.HandleFunc("POST /crearHilo", utils.CrearHilo)
+	http.HandleFunc("DELETE /finalizarHilo", utils.FinalizarHilo)
+	http.HandleFunc("DELETE /cancelarHilo", utils.CancelarHilo)
+	http.HandleFunc("POST /unirseAHilo", utils.EntrarHilo)
+
+	http.HandleFunc("POST /crearMutex", utils.CrearMutex)
+	http.HandleFunc("POST /bloquearMutex", utils.BloquearMutex)
+	http.HandleFunc("POST /liberarMutex", utils.LiberarMutex)
+
+	http.HandleFunc("POST /manejarIo", utils.ManejarIo)
+
+	http.HandleFunc("POST /dumpMemory", utils.DumpMemory)
+
+	//Escuchar (bloqueante)
+	http.ListenAndServe(":"+strconv.Itoa(puerto), nil)
 
 }

@@ -136,3 +136,296 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/09/06 05:17:42 error enviando mensaje a ip:127.0.0.1 puerto:8004
 2024/09/06 05:18:55 respuesta del servidor: 200 OK
 2024/09/06 11:32:37 respuesta del servidor: 200 OK
+2024/10/11 19:11:59 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:20:24 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:21:22 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:23:17 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:39:41 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:48:30 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:49:09 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:51:15 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:52:53 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:54:29 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:56:15 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 19:58:37 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:10:38 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:11:47 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:23:51 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:28:24 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:29:32 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:30:47 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:31:25 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:31:46 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:49:24 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 20:54:48 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:08:48 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:13:10 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:18:09 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:18:48 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 21:37:29 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:06:17 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:14:46 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:16:31 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:17:13 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:19:43 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:23:45 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:23:47 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/11 23:24:37 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:29:27 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:32:02 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:34:36 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:39:13 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:40:49 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:45:16 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:55:05 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/11 23:57:52 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:10:17 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:14:04 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:15:23 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:16:41 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:26:06 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:44:01 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:44:03 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/12 00:54:12 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:54:15 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/12 00:55:58 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:56:00 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/12 00:57:31 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 00:57:33 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/12 01:01:16 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 01:01:20 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/12 01:04:00 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 01:04:04 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/12 01:07:26 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 01:11:55 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 01:20:42 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 01:24:36 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 01:26:10 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 01:29:00 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 01:31:15 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:07:26 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:11:46 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:23:06 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:29:09 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:32:04 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:36:28 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:36:28 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": dial tcp 127.0.0.1:8004: connect: connection refused"
+2024/10/12 16:37:01 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:43:34 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:45:32 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:49:09 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:51:00 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 17:09:26 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 17:10:41 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 17:12:14 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 17:45:29 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 17:48:59 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 17:49:08 Entra a exit process
+2024/10/12 17:49:08 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 17:49:08  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 17:49:08  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 17:49:08 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 17:57:26 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 17:57:35 Entra a exit process
+2024/10/12 17:57:35 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 17:57:35  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 17:57:35  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 17:57:35 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:02:46 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:02:55 Entra a exit process
+2024/10/12 18:02:55 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:02:55  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:02:55 Envia interrupcion de finalizacion 
+2024/10/12 18:02:55  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:02:55 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:05:21 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:05:30 Entra a exit process
+2024/10/12 18:05:30 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:05:30  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:05:30 Envia interrupcion de finalizacion 
+2024/10/12 18:05:30  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:05:30 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:09:10 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:09:19 Entra a exit process
+2024/10/12 18:09:19 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:09:19  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:09:19 Envia interrupcion de finalizacion 
+2024/10/12 18:09:19  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:09:19 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:10:19 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:10:28 Entra a exit process
+2024/10/12 18:10:28 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:10:28  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:10:28 Envia interrupcion de finalizacion 
+2024/10/12 18:10:28  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:10:28 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:12:18 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:12:28 Entra a exit process
+2024/10/12 18:12:28 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:12:28  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:12:28 Envia interrupcion de finalizacion 
+2024/10/12 18:12:28  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:12:28 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:12:32 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:12:49 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/12 18:13:02 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:13:11 Entra a exit process
+2024/10/12 18:13:11 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:13:11  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:13:11 Envia interrupcion de finalizacion 
+2024/10/12 18:13:11  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:13:11 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:17:51 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:18:00 Entra a exit process
+2024/10/12 18:18:00 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:18:00  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:18:00 Quitado y encolao el proceso
+2024/10/12 18:18:00 Envia interrupcion de finalizacion 
+2024/10/12 18:18:00  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:18:00 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:19:11 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:19:20 Entra a exit process
+2024/10/12 18:19:20 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:19:20  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:19:20 Quitado y encolao el proceso
+2024/10/12 18:19:20 Envia interrupcion de finalizacion 
+2024/10/12 18:19:20  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:19:20 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:21:24 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:21:33 Entra a exit process
+2024/10/12 18:21:33 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:21:33  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:21:33 Quitado y encolao el proceso
+2024/10/12 18:21:33 Envia interrupcion de finalizacion 
+2024/10/12 18:21:33  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:21:33 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:29:04 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:29:13 Entra a exit process
+2024/10/12 18:29:13 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:29:13  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:29:13 Quitado y encolao el proceso
+2024/10/12 18:29:13 Envia interrupcion de finalizacion 
+2024/10/12 18:29:13  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:29:13 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:33:19 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:33:29 Entra a exit process
+2024/10/12 18:33:29 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:33:29  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:33:29 Quitado y encolao el proceso
+2024/10/12 18:33:29 Envia interrupcion de finalizacion 
+2024/10/12 18:33:29  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:33:29 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:36:19 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:36:28 Entra a exit process
+2024/10/12 18:36:28 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:36:28  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:36:28 Quitado y encolao el proceso
+2024/10/12 18:36:28 ExitHilo ejecutado exitosamente desde cola de ready
+2024/10/12 18:36:28 Envia interrupcion de finalizacion 
+2024/10/12 18:36:28  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:36:28 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:37:52 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:38:01 Entra a exit process
+2024/10/12 18:38:01 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:38:01  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:38:01 Quitado y encolao el proceso
+2024/10/12 18:38:01 Envia interrupcion de finalizacion 
+2024/10/12 18:38:01  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:38:01 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:39:39 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:39:48 Entra a exit process
+2024/10/12 18:39:48 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:39:48  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:39:48 Quitado y encolao el proceso
+2024/10/12 18:39:48 Envia interrupcion de finalizacion 
+2024/10/12 18:39:48 ENtra a exitHilo
+2024/10/12 18:39:48  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:39:48 Hilo encolado en exit
+2024/10/12 18:39:48 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:40:58 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:41:07 Entra a exit process
+2024/10/12 18:41:07 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:41:07  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:41:07 Quitado y encolao el proceso
+2024/10/12 18:41:07 Envia interrupcion de finalizacion 
+2024/10/12 18:41:07 ENtra a exitHilo
+2024/10/12 18:41:07  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:41:07 Hilo encolado en exit
+2024/10/12 18:41:07 Enviar hulo finalizado a memoria 
+2024/10/12 18:41:07 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:42:44 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:42:53 Entra a exit process
+2024/10/12 18:42:53 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:42:53  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:42:53 Quitado y encolao el proceso
+2024/10/12 18:42:53 Envia interrupcion de finalizacion 
+2024/10/12 18:42:53 ENtra a exitHilo
+2024/10/12 18:42:53  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:42:53 Hilo encolado en exit
+2024/10/12 18:42:53 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:44:17 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:44:27 Entra a exit process
+2024/10/12 18:44:27 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:44:27  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:44:27 Quitado y encolao el proceso
+2024/10/12 18:44:27 Envia interrupcion de finalizacion 
+2024/10/12 18:44:27 ENtra a exitHilo
+2024/10/12 18:44:27  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:44:27 Hilo encolado en exit
+2024/10/12 18:44:27 Entra a envio hilo finalizado a memoria 
+2024/10/12 18:44:27 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:45:31 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:45:40 Entra a exit process
+2024/10/12 18:45:40 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:45:40  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:45:40 Quitado y encolao el proceso
+2024/10/12 18:45:40 Envia interrupcion de finalizacion 
+2024/10/12 18:45:40 ENtra a exitHilo
+2024/10/12 18:45:40  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:45:40 Hilo encolado en exit
+2024/10/12 18:45:40 Entra a envio hilo finalizado a memoria 
+2024/10/12 18:45:40 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:47:25 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:47:34 Entra a exit process
+2024/10/12 18:47:34 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:47:34  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:47:34 Quitado y encolao el proceso
+2024/10/12 18:47:34 Envia interrupcion de finalizacion 
+2024/10/12 18:47:34 ENtra a exitHilo
+2024/10/12 18:47:34  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:47:34 Hilo encolado en exit
+2024/10/12 18:47:34 Entra a envio hilo finalizado a memoria 
+2024/10/12 18:47:34 Codificando mensaje
+2024/10/12 18:47:34 Envio mensaje 
+2024/10/12 18:47:34 analizo repuesta de envio a memoria
+2024/10/12 18:47:34 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:49:27 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:49:36 Entra a exit process
+2024/10/12 18:49:36 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:49:36  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:49:36 Quitado y encolao el proceso
+2024/10/12 18:49:36 Envia interrupcion de finalizacion 
+2024/10/12 18:49:36 ENtra a exitHilo
+2024/10/12 18:49:36  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:49:36 Hilo encolado en exit
+2024/10/12 18:49:36 Entra a envio hilo finalizado a memoria 
+2024/10/12 18:49:36 Codificando mensaje
+2024/10/12 18:49:36 Envio mensaje 
+2024/10/12 18:49:36 analizo repuesta de envio a memoria
+2024/10/12 18:49:36 Error en la respuesta del modulo de Memoria. status_code: 404
+2024/10/12 18:49:36 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/12 18:50:47 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 18:50:56 Entra a exit process
+2024/10/12 18:50:56 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/12 18:50:56  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/12 18:50:56 Quitado y encolao el proceso
+2024/10/12 18:50:56 Envia interrupcion de finalizacion 
+2024/10/12 18:50:56 ENtra a exitHilo
+2024/10/12 18:50:56  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/12 18:50:56 Hilo encolado en exit
+2024/10/12 18:50:56 Entra a envio hilo finalizado a memoria 
+2024/10/12 18:50:56 Codificando mensaje
+2024/10/12 18:50:57 Envio mensaje 
+2024/10/12 18:50:57 analizo repuesta de envio a memoria
+2024/10/12 18:50:57 Error en la respuesta del modulo de Memoria. status_code: 404
+2024/10/12 18:50:57 Error en la respuesta del modulo de CPU. status_code: 404

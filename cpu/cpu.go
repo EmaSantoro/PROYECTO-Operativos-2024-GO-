@@ -19,10 +19,13 @@ func main() {
 	}
 	puerto := globals.ClientConfig.Puerto
 
-
 	mux := http.NewServeMux()
-	mux.HandleFunc("/mensaje", utils.RecibirMensaje)
+
 	//mux.HandleFunc("/paquete", utils.RecibirPaquete)
+	mux.HandleFunc("/recibirTcb", utils.RecibirPIDyTID)
+	//mux.HandleFunc("/interrupcion", utils.Interruption)
+	mux.HandleFunc("/receiveDataFromMemor", utils.RecieveDataFromMemory)
+	mux.HandleFunc("/interrupcion", utils.RecieveInterruption)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), mux)
-	
+
 }

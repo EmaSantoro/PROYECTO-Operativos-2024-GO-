@@ -165,3 +165,174 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/09/06 16:36:30 {Mensaje:Hola Memoria, Soy CPU}
 2024/09/06 16:36:47 Conexion con Memoria
 2024/09/06 16:36:47 {Mensaje:Hola Memoria, Soy Kernel}
+2024/10/11 19:39:41 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 19:48:30 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 19:49:09 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 19:51:15 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 19:52:53 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 19:54:29 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 19:56:15 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 19:58:37 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 19:58:37 Entre a get instruction
+2024/10/11 20:10:38 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:10:38 Entre a get instruction
+2024/10/11 20:11:47 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:11:47 Entre a get instruction
+2024/10/11 20:23:51 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:23:51 Entre a get instruction
+2024/10/11 20:28:24 0
+2024/10/11 20:28:24 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:28:24 Entre a get instruction
+2024/10/11 20:29:32 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:29:32 Entre a get instruction
+2024/10/11 20:30:47 1
+2024/10/11 20:30:47 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:30:47 Entre a get instruction
+2024/10/11 20:31:25 1
+2024/10/11 20:31:25 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:31:25 Entre a get instruction
+2024/10/11 20:31:46 
+2024/10/11 20:31:46 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:31:46 Entre a get instruction
+2024/10/11 20:34:40 FIJAS
+2024/10/11 20:34:40 http: panic serving 127.0.0.1:37494: runtime error: index out of range [0] with length 0
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x7175e0?, 0xc00001a288?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.firstFit(...)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:517
+github.com/sisoputnfrba/tp-golang/memoria/utils.asignarPorAlgoritmo({0xc0000146a0?, 0x0?}, 0x2?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:501 +0x17c
+github.com/sisoputnfrba/tp-golang/memoria/utils.CreateProcess({0x7c11d0, 0xc0000a60e0}, 0xc0000ae3c0)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:325 +0x20a
+net/http.HandlerFunc.ServeHTTP(0x9a4240?, {0x7c11d0?, 0xc0000a60e0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c11d0, 0xc0000a60e0}, 0xc0000ae3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7bfd98?}, {0x7c11d0?, 0xc0000a60e0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b0120, {0x7c1728, 0xc00007f200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/11 20:40:07 FIJAS
+2024/10/11 20:40:07 http: panic serving 127.0.0.1:48388: runtime error: index out of range [0] with length 0
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x7175e0?, 0xc00001a288?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.firstFit(...)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:517
+github.com/sisoputnfrba/tp-golang/memoria/utils.asignarPorAlgoritmo({0xc0000146a0?, 0x0?}, 0x2?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:501 +0x17c
+github.com/sisoputnfrba/tp-golang/memoria/utils.CreateProcess({0x7c1230, 0xc0000a60e0}, 0xc0000ae3c0)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:325 +0x226
+net/http.HandlerFunc.ServeHTTP(0x9a4240?, {0x7c1230?, 0xc0000a60e0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c1230, 0xc0000a60e0}, 0xc0000ae3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7bfdf8?}, {0x7c1230?, 0xc0000a60e0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b0120, {0x7c1788, 0xc00007f200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/11 20:40:52 FIJAS
+2024/10/11 20:40:52 http: panic serving 127.0.0.1:57726: runtime error: index out of range [0] with length 0
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x7175e0?, 0xc00001a288?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.firstFit(...)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:517
+github.com/sisoputnfrba/tp-golang/memoria/utils.asignarPorAlgoritmo({0xc0000146a0?, 0x0?}, 0x2?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:501 +0x17c
+github.com/sisoputnfrba/tp-golang/memoria/utils.CreateProcess({0x7c1230, 0xc0000a60e0}, 0xc0000ae3c0)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:325 +0x226
+net/http.HandlerFunc.ServeHTTP(0x9a4240?, {0x7c1230?, 0xc0000a60e0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c1230, 0xc0000a60e0}, 0xc0000ae3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7bfdf8?}, {0x7c1230?, 0xc0000a60e0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b0120, {0x7c1788, 0xc00007f200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/11 20:47:23 FIJAS
+2024/10/11 20:47:23 Entrando a first fit
+2024/10/11 20:47:23 http: panic serving 127.0.0.1:46752: runtime error: index out of range [0] with length 0
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x7175e0?, 0xc00001a288?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+github.com/sisoputnfrba/tp-golang/memoria/utils.firstFit(0x0)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:520 +0xc5
+github.com/sisoputnfrba/tp-golang/memoria/utils.asignarPorAlgoritmo({0xc0000146a0?, 0x0?}, 0x2?)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:502 +0x65
+github.com/sisoputnfrba/tp-golang/memoria/utils.CreateProcess({0x7c1270, 0xc0000ae0e0}, 0xc0000b63c0)
+	/home/utnso/Documents/SIstemas_Operativos/tp-2024-2c-Operativo2/memoria/utils/utils.go:326 +0x226
+net/http.HandlerFunc.ServeHTTP(0x9a4240?, {0x7c1270?, 0xc0000ae0e0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c1270, 0xc0000ae0e0}, 0xc0000b63c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7bfe38?}, {0x7c1270?, 0xc0000ae0e0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b8120, {0x7c17c8, 0xc00007f200})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/11 20:49:24 FIJAS
+2024/10/11 20:49:24 Entrando a first fit
+2024/10/11 20:49:24 [false false false false false false false]
+2024/10/11 20:49:24 asignado por algoritmo
+2024/10/11 20:49:24 base
+2024/10/11 20:49:24 limite
+2024/10/11 20:49:24 map
+2024/10/11 20:49:24 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 20:49:24 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:49:25 Entre a get instruction
+2024/10/11 20:54:48 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 20:54:48 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 20:54:49 Entre a get instruction
+2024/10/11 20:54:50 me llego: 0
+2024/10/11 20:54:50 tengo guardado: map[]
+2024/10/11 21:08:48 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:08:48 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:08:49 Entre a get instruction
+2024/10/11 21:08:50 me llego: 0
+2024/10/11 21:08:50 tengo guardado: map[]
+2024/10/11 21:13:09 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:13:09 entre a crear thread
+2024/10/11 21:13:10 cree el hilo PID:1 TID:0
+2024/10/11 21:13:10 Error: PATH procesoInicial opening file
+2024/10/11 21:13:10 ERROR AL GUARDAR
+2024/10/11 21:13:10 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:13:11 Entre a get instruction
+2024/10/11 21:13:12 me llego: 0
+2024/10/11 21:13:12 tengo guardado: map[]
+2024/10/11 21:18:08 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:18:08 entre a crear thread
+2024/10/11 21:18:09 cree el hilo PID:1 TID:0
+2024/10/11 21:18:09 procesoInicial
+2024/10/11 21:18:09 Error: PATH procesoInicial opening file
+2024/10/11 21:18:09 ERROR AL GUARDAR
+2024/10/11 21:18:09 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:18:11 Entre a get instruction
+2024/10/11 21:18:12 me llego: 0
+2024/10/11 21:18:12 tengo guardado: map[]
+2024/10/11 21:18:47 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 21:18:47 entre a crear thread
+2024/10/11 21:18:48 cree el hilo PID:1 TID:0
+2024/10/11 21:18:48 procesoInicial
+2024/10/11 21:18:48 Error: PATH procesoInicial opening file
+2024/10/11 21:18:48 ERROR AL GUARDAR
+2024/10/11 21:18:48 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 21:18:49 Entre a get instruction
+2024/10/11 21:18:50 me llego: 0
+2024/10/11 21:18:50 tengo guardado: map[]
