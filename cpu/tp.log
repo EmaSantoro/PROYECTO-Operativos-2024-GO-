@@ -233,3 +233,690 @@
 2024/10/11 21:37:30 error en la respuesta del módulo de memoria: 404
 2024/10/11 21:37:31 error en la respuesta del módulo de memoria: 404
 2024/10/11 21:37:31 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:06:17 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:06:17 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:06:18 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:06:19 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:06:19 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:14:46 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:14:46 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:14:47 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:14:48 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:14:48 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:16:31 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:16:31 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:16:32 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:16:33 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:16:33 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:17:13 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:17:13 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:17:14 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:17:15 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:17:15 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:19:43 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:19:43 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:19:44 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:19:45 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:19:45 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:23:45 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:23:45 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:23:46 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:23:47 PID: 0 TID: 0 - FETCH - Program Counter: 0
+2024/10/11 23:23:47 http: panic serving 127.0.0.1:54304: reflect: call of reflect.Value.Elem on struct Value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6dd000?, 0xc0000123f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+reflect.Value.Elem({0x7219a0?, 0xc00002b788?, 0xc000005188?})
+	/usr/local/go/src/reflect/value.go:1262 +0x194
+github.com/sisoputnfrba/tp-golang/cpu/utils.ModificarValorCampo({0x7219a0?, 0xc00002b788?, 0xc00002b798?}, {0xc0000147cc, 0x2}, 0x1)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:899 +0x30
+github.com/sisoputnfrba/tp-golang/cpu/utils.Set(0x6e0480?, {0xc00008ddb0?, 0xc0000147c8?, 0x3?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:400 +0x10e
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc00008dda0?, {0x7682e0?, {0xc00008ddb0?, 0x0?, 0x0?}})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:365 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc00001c400)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:238 +0x99
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c1b90, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:179 +0x394
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c1b90?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c1b90, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c0758?}, {0x7c1b90?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c20e8, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/11 23:24:37 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:24:37 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:24:38 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:24:39 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:24:39 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:29:27 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:29:27 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:29:28 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:29:29 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:29:29 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:32:02 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:32:02 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:32:03 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:32:04 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:32:04 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:34:36 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:34:36 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:34:37 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/11 23:34:38 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:34:38 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:39:13 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:39:13 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:39:14 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/11 23:39:15 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:39:15 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:40:49 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:40:49 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:40:50 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/11 23:40:51 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:40:51 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:45:16 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:45:16 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:45:17 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/11 23:45:17 Intruccion Solicitada de Pid 0 y TID 0 y PC 0
+2024/10/11 23:45:18 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:45:18 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:55:05 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:55:05 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:55:06 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/11 23:55:06 Intruccion Solicitada de Pid 0 y TID 0 y PC 0
+2024/10/11 23:55:07 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:55:07 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/11 23:57:52 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/11 23:57:52 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/11 23:57:53 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/11 23:57:53 Intruccion Solicitada de Pid 0 y TID 0 y PC 0
+2024/10/11 23:57:54 error en la respuesta del módulo de memoria: 404
+2024/10/11 23:57:54 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/12 00:10:17 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:10:17 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:10:18 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:10:18 Intruccion Solicitada de Pid 0 y TID 0 y PC 0
+2024/10/12 00:10:19 error en la respuesta del módulo de memoria: 404
+2024/10/12 00:10:19 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/12 00:14:04 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:14:04 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:14:05 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:14:05 Intruccion Solicitada de Pid 0 y TID 0 y PC 0
+2024/10/12 00:14:06 error en la respuesta del módulo de memoria: 404
+2024/10/12 00:14:06 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/12 00:15:23 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:15:23 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:15:25 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:15:25 Intruccion Solicitada de Pid 0 y TID 0 y PC 0
+2024/10/12 00:15:26 error en la respuesta del módulo de memoria: 404
+2024/10/12 00:15:26 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/12 00:16:41 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:16:41 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:16:42 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:16:42 Intruccion Solicitada de Pid 0 y TID 0 y PC 0
+2024/10/12 00:16:43 error en la respuesta del módulo de memoria: 404
+2024/10/12 00:16:43 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/12 00:26:06 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:26:06 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:26:07 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:26:07 Intruccion Solicitada de Pid 0 y TID 0 y PC 0
+2024/10/12 00:26:08 error en la respuesta del módulo de memoria: 404
+2024/10/12 00:26:08 Error al buscar intruccion en el pc 0. ERROR : error en la respuesta del módulo de memoria: 404
+2024/10/12 00:44:01 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:44:01 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:44:02 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:44:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 00:44:03 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 00:44:03 http: panic serving 127.0.0.1:41816: reflect: call of reflect.Value.Elem on struct Value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6dd000?, 0xc0000123f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+reflect.Value.Elem({0x7219a0?, 0xc00002b750?, 0xc000005188?})
+	/usr/local/go/src/reflect/value.go:1262 +0x194
+github.com/sisoputnfrba/tp-golang/cpu/utils.ModificarValorCampo({0x7219a0?, 0xc00002b750?, 0xc00002b760?}, {0xc000014a5c, 0x2}, 0x1)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:901 +0x30
+github.com/sisoputnfrba/tp-golang/cpu/utils.Set(0x6e0480?, {0xc0000f4070?, 0xc000014a58?, 0x3?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:402 +0x10e
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc0000f4060?, {0x768320?, {0xc0000f4070?, 0xc00002b9c0?, 0x7bf320?}})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:367 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc00001c400)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:240 +0x1ce
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c1bf0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:179 +0x394
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c1bf0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c1bf0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c07b8?}, {0x7c1bf0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c2148, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 00:54:12 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:54:12 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:54:13 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:54:13 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 00:54:15 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 00:54:15 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 00:54:15 http: panic serving 127.0.0.1:38958: reflect: call of reflect.Value.Elem on struct Value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6de000?, 0xc000012408?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+reflect.Value.Elem({0x7229a0?, 0xc00002b728?, 0x4131c5?})
+	/usr/local/go/src/reflect/value.go:1262 +0x194
+github.com/sisoputnfrba/tp-golang/cpu/utils.ModificarValorCampo({0x7229a0?, 0xc00002b728?, 0x0?}, {0xc000014a5c, 0x2}, 0x1)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:902 +0x30
+github.com/sisoputnfrba/tp-golang/cpu/utils.Set(0xc000012240?, {0xc0000ec070?, 0xc000014a58?, 0x3?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:403 +0x10e
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc00007c2a0?, {0x769360?, {0xc0000ec070?, 0xc00002b9b8?, 0xc00007c2a0?}})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:368 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc00001c400)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:241 +0x2f2
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2c50, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:179 +0x394
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2c50?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2c50, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1818?}, {0x7c2c50?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c31a8, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 00:55:58 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:55:58 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:55:59 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:55:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 00:56:00 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 00:56:00 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 00:56:00 Antes de modificar el valor 
+2024/10/12 00:56:00 http: panic serving 127.0.0.1:47382: reflect: call of reflect.Value.Elem on struct Value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6de000?, 0xc000012408?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+reflect.Value.Elem({0x7229a0?, 0xc00002b6f8?, 0x0?})
+	/usr/local/go/src/reflect/value.go:1262 +0x194
+github.com/sisoputnfrba/tp-golang/cpu/utils.ModificarValorCampo({0x7229a0?, 0xc00002b6f8?, 0x2?}, {0xc000014a5c, 0x2}, 0x1)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:903 +0x30
+github.com/sisoputnfrba/tp-golang/cpu/utils.Set(0xc000012240?, {0xc0000f4070?, 0xc000014a58?, 0x3?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:404 +0x17d
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc00008c2a0?, {0x769380?, {0xc0000f4070?, 0xc00002b9b8?, 0xc00008c2a0?}})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:368 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc00001c400)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:241 +0x2f2
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2c90, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:179 +0x394
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2c90?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2c90, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1858?}, {0x7c2c90?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c31e8, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 00:57:31 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 00:57:31 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 00:57:32 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 00:57:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 00:57:33 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 00:57:33 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 00:57:33 Antes de modificar el valor 
+2024/10/12 00:57:33 http: panic serving 127.0.0.1:35878: reflect: call of reflect.Value.Elem on struct Value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6de000?, 0xc000012408?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+reflect.Value.Elem({0x7229a0?, 0xc00002b6f8?, 0xc000012240?})
+	/usr/local/go/src/reflect/value.go:1262 +0x194
+github.com/sisoputnfrba/tp-golang/cpu/utils.ModificarValorCampo({0x7229a0?, 0xc00002b6f8?, 0x2?}, {0xc000014a5c, 0x2}, 0x1)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:903 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.Set(0xc000012240?, {0xc0000ec070?, 0xc000014a58?, 0x3?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:404 +0x17d
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc00007c2a0?, {0x769380?, {0xc0000ec070?, 0xc00002b9b8?, 0xc00007c2a0?}})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:368 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc00001c400)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:241 +0x2f2
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2cb0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:179 +0x394
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2cb0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2cb0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1878?}, {0x7c2cb0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3208, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 01:01:16 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:01:16 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:01:17 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:01:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:01:18 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:01:18 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:01:18 Antes de modificar el valor 
+2024/10/12 01:01:18 Registro obtenido
+2024/10/12 01:01:18 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:01:18 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:01:19 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:01:19 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:01:19 Antes de modificar el valor 
+2024/10/12 01:01:19 Registro obtenido
+2024/10/12 01:01:19 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:01:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:01:20 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:01:20 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:01:20 http: panic serving 127.0.0.1:50106: reflect: call of reflect.Value.Elem on struct Value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6de000?, 0xc000012528?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+reflect.Value.Elem({0x7229a0?, 0xc00002b720?, 0x0?})
+	/usr/local/go/src/reflect/value.go:1262 +0x194
+github.com/sisoputnfrba/tp-golang/cpu/utils.ObtenerValorCampo({0x7229a0?, 0xc00002b720?, 0xc1ba9078309e3d7a?}, {0xc000014b0c, 0x2})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:893 +0x2b
+github.com/sisoputnfrba/tp-golang/cpu/utils.JNZ(0xc000012240?, {0xc0000ec490?, 0xc000014b08?, 0x3?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:612 +0xed
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc00007c2a0?, {0x769350?, {0xc0000ec490?, 0xc00002b9b8?, 0x0?}})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:368 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc00001c400)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:241 +0x2f2
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2cb0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:179 +0x394
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2cb0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2cb0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1878?}, {0x7c2cb0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3208, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 01:04:00 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:04:00 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:04:01 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:04:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:04:02 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:04:02 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:04:02 Antes de modificar el valor 
+2024/10/12 01:04:02 Registro obtenido
+2024/10/12 01:04:02 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:04:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:04:03 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:04:03 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:04:03 Antes de modificar el valor 
+2024/10/12 01:04:03 Registro obtenido
+2024/10/12 01:04:03 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:04:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:04:04 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:04:04 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:04:04 http: panic serving 127.0.0.1:47762: reflect: call of reflect.Value.Int on uint32 Value
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6de000?, 0xc000012528?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+reflect.Value.Int(...)
+	/usr/local/go/src/reflect/value.go:1462
+github.com/sisoputnfrba/tp-golang/cpu/utils.ObtenerValorCampo({0x6c4b60?, 0xc00001c410?, 0x6cea20?}, {0xc000014b0c, 0x2})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:899 +0x129
+github.com/sisoputnfrba/tp-golang/cpu/utils.JNZ(0xc000012240?, {0xc0000f4490?, 0xc000014b08?, 0x3?})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:612 +0xb9
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc00008c2a0?, {0x769350?, {0xc0000f4490?, 0xc00002b9b8?, 0x0?}})
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:368 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc00001c400)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:241 +0x2f2
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2cb0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:179 +0x394
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2cb0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2cb0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1878?}, {0x7c2cb0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3208, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 01:07:26 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:07:26 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:07:27 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:07:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:07:28 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:07:28 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:07:28 Antes de modificar el valor 
+2024/10/12 01:07:28 Registro obtenido
+2024/10/12 01:07:28 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:07:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:07:29 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:07:29 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:07:29 Antes de modificar el valor 
+2024/10/12 01:07:29 Registro obtenido
+2024/10/12 01:07:29 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:07:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:07:30 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:07:30 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:07:30 Registro obtenido
+2024/10/12 01:07:30 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 01:07:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 01:07:31 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 01:07:31 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 01:07:31 Registro obtenido
+2024/10/12 01:07:31 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 01:07:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 01:07:32 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 01:07:32 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 01:07:32 Registro obtenido
+2024/10/12 01:07:32 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 01:07:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 01:07:33 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 01:07:33 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 01:07:33 EL registro AX contiene el valor 4
+2024/10/12 01:07:33 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 01:07:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 01:07:34 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 01:07:34 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 01:07:35 Error al recibir la respuesta del End point actualizarContextoDeEjecucion - IP:127.0.0.1 - Puerto:8002
+2024/10/12 01:07:35 Error al actualziar contexto de ejecucion
+2024/10/12 01:07:35 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 01:07:35 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 01:07:35 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 01:07:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 01:07:36 error en la respuesta del módulo de memoria: 400
+2024/10/12 01:07:36 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 01:11:55 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:11:55 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:11:56 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:11:56 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:11:57 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:11:57 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:11:57 Antes de modificar el valor 
+2024/10/12 01:11:57 Registro obtenido
+2024/10/12 01:11:57 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:11:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:11:58 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:11:58 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:11:58 Antes de modificar el valor 
+2024/10/12 01:11:58 Registro obtenido
+2024/10/12 01:11:58 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:11:58 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:11:59 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:11:59 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:11:59 Registro obtenido
+2024/10/12 01:11:59 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 01:11:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 01:12:00 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 01:12:00 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 01:12:00 Registro obtenido
+2024/10/12 01:12:00 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 01:12:00 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 01:12:01 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 01:12:01 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 01:12:01 Registro obtenido
+2024/10/12 01:12:01 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 01:12:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 01:12:02 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 01:12:02 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 01:12:02 EL registro AX contiene el valor 4
+2024/10/12 01:12:02 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 01:12:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 01:12:03 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 01:12:03 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 01:12:04 Error al recibir la respuesta del End point actualizarContextoDeEjecucion - IP:127.0.0.1 - Puerto:8002
+2024/10/12 01:12:04 Error al actualziar contexto de ejecucion
+2024/10/12 01:12:04 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 01:12:04 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 01:12:04 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 01:12:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 01:12:05 error en la respuesta del módulo de memoria: 400
+2024/10/12 01:12:05 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 01:20:42 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:20:42 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:20:43 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:20:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:20:44 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:20:44 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:20:44 Antes de modificar el valor 
+2024/10/12 01:20:44 Registro obtenido
+2024/10/12 01:20:44 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:20:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:20:45 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:20:45 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:20:45 Antes de modificar el valor 
+2024/10/12 01:20:45 Registro obtenido
+2024/10/12 01:20:45 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:20:45 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:20:46 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:20:46 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:20:46 Registro obtenido
+2024/10/12 01:20:46 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 01:20:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 01:20:47 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 01:20:47 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 01:20:47 Registro obtenido
+2024/10/12 01:20:47 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 01:20:47 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 01:20:48 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 01:20:48 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 01:20:48 Registro obtenido
+2024/10/12 01:20:48 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 01:20:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 01:20:49 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 01:20:49 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 01:20:49 EL registro AX contiene el valor 4
+2024/10/12 01:20:49 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 01:20:49 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 01:20:50 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 01:20:50 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 01:20:51 Error al recibir la respuesta del End point actualizarContextoDeEjecucion - IP:127.0.0.1 - Puerto:8002
+2024/10/12 01:20:51 Error al actualziar contexto de ejecucion
+2024/10/12 01:20:51 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 01:20:51 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 01:20:51 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 01:20:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 01:20:52 error en la respuesta del módulo de memoria: 400
+2024/10/12 01:20:52 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 01:24:36 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:24:36 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:24:37 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:24:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:24:38 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:24:38 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:24:38 Antes de modificar el valor 
+2024/10/12 01:24:38 Registro obtenido
+2024/10/12 01:24:38 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:24:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:24:39 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:24:39 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:24:39 Antes de modificar el valor 
+2024/10/12 01:24:39 Registro obtenido
+2024/10/12 01:24:39 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:24:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:24:40 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:24:40 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:24:40 Registro obtenido
+2024/10/12 01:24:40 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 01:24:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 01:24:41 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 01:24:41 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 01:24:41 Registro obtenido
+2024/10/12 01:24:41 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 01:24:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 01:24:42 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 01:24:42 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 01:24:42 Registro obtenido
+2024/10/12 01:24:42 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 01:24:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 01:24:43 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 01:24:43 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 01:24:43 EL registro AX contiene el valor 4
+2024/10/12 01:24:43 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 01:24:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 01:24:44 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 01:24:44 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 01:24:45 Error al recibir la respuesta del End point actualizarContextoDeEjecucion - IP:127.0.0.1 - Puerto:8002
+2024/10/12 01:24:45 Error al actualziar contexto de ejecucion
+2024/10/12 01:24:45 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 01:24:45 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 01:24:45 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 01:24:45 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 01:24:46 error en la respuesta del módulo de memoria: 400
+2024/10/12 01:24:46 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 01:26:10 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:26:10 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:26:11 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:26:11 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:26:12 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:26:12 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:26:12 Antes de modificar el valor 
+2024/10/12 01:26:12 Registro obtenido
+2024/10/12 01:26:12 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:26:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:26:13 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:26:13 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:26:13 Antes de modificar el valor 
+2024/10/12 01:26:13 Registro obtenido
+2024/10/12 01:26:13 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:26:13 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:26:14 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:26:14 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:26:14 Registro obtenido
+2024/10/12 01:26:14 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 01:26:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 01:26:15 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 01:26:15 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 01:26:15 Registro obtenido
+2024/10/12 01:26:15 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 01:26:15 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 01:26:16 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 01:26:16 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 01:26:16 Registro obtenido
+2024/10/12 01:26:16 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 01:26:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 01:26:17 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 01:26:17 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 01:26:17 EL registro AX contiene el valor 4
+2024/10/12 01:26:17 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 01:26:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 01:26:18 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 01:26:18 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 01:26:19 Error al recibir la respuesta del End point actualizarContextoDeEjecucion - IP:127.0.0.1 - Puerto:8002
+2024/10/12 01:26:19 Error al actualziar contexto de ejecucion
+2024/10/12 01:26:19 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 01:26:19 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 01:26:19 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 01:26:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 01:26:20 error en la respuesta del módulo de memoria: 400
+2024/10/12 01:26:20 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 01:29:00 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:29:00 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:29:01 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:29:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:29:02 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:29:02 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:29:02 Antes de modificar el valor 
+2024/10/12 01:29:02 Registro obtenido
+2024/10/12 01:29:02 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:29:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:29:03 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:29:03 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:29:03 Antes de modificar el valor 
+2024/10/12 01:29:03 Registro obtenido
+2024/10/12 01:29:03 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:29:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:29:04 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:29:04 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:29:04 Registro obtenido
+2024/10/12 01:29:04 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 01:29:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 01:29:05 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 01:29:05 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 01:29:05 Registro obtenido
+2024/10/12 01:29:05 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 01:29:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 01:29:06 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 01:29:06 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 01:29:06 Registro obtenido
+2024/10/12 01:29:06 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 01:29:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 01:29:07 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 01:29:07 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 01:29:07 EL registro AX contiene el valor 4
+2024/10/12 01:29:07 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 01:29:07 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 01:29:08 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 01:29:08 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 01:29:09 Error al recibir la respuesta del End point actualizarContextoDeEjecucion - IP:127.0.0.1 - Puerto:8002
+2024/10/12 01:29:09 Error al actualziar contexto de ejecucion
+2024/10/12 01:29:09 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 01:29:09 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 01:29:09 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 01:29:09 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 01:29:10 error en la respuesta del módulo de memoria: 400
+2024/10/12 01:29:10 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 01:31:15 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 01:31:15 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 01:31:16 PCB : 0 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 01:31:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 01:31:17 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 01:31:17 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 01:31:17 Antes de modificar el valor 
+2024/10/12 01:31:17 Registro obtenido
+2024/10/12 01:31:17 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 01:31:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 01:31:18 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 01:31:18 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 01:31:18 Antes de modificar el valor 
+2024/10/12 01:31:18 Registro obtenido
+2024/10/12 01:31:18 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 01:31:18 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 01:31:19 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 01:31:19 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 01:31:19 Registro obtenido
+2024/10/12 01:31:19 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 01:31:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 01:31:20 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 01:31:20 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 01:31:20 Registro obtenido
+2024/10/12 01:31:20 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 01:31:20 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 01:31:21 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 01:31:21 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 01:31:21 Registro obtenido
+2024/10/12 01:31:21 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 01:31:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 01:31:22 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 01:31:22 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 01:31:22 EL registro AX contiene el valor 4
+2024/10/12 01:31:22 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 01:31:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 01:31:23 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 01:31:23 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 01:31:23 Finalizar proceos PID : %d1
+2024/10/12 01:31:24 Error al recibir la respuesta del End point actualizarContextoDeEjecucion - IP:127.0.0.1 - Puerto:8002
+2024/10/12 01:31:24 Error al actualziar contexto de ejecucion
+2024/10/12 01:31:24 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 01:31:24 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 01:31:24 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 01:31:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 01:31:25 error en la respuesta del módulo de memoria: 400
+2024/10/12 01:31:25 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400

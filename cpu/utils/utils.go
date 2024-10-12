@@ -27,9 +27,9 @@ var flagSegmentationFault bool
 //DEFINICION DE TIPOS
 
 type InstructionReq struct {
-	Pid int    `json:"pid"`
-	Tid int    `json:"tid"`
-	Pc  uint32 `json:"pc"`
+	Pid int `json:"pid"`
+	Tid int `json:"tid"`
+	Pc  int `json:"pc"`
 }
 type InstructionResponse struct {
 	Instruction string `json:"instruction"`
@@ -209,22 +209,24 @@ func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 		log.Println(err)
 		return
 	}
+
 	var contexto BodyContexto
 	errorDecode := json.NewDecoder(response.Body).Decode(&contexto)
 	if errorDecode != nil {
 		log.Println("Error al decodificar el contexto de ejecucion", errorDecode)
 		return
 	}
-	log.Printf("PCB : %d TID : %d - Solicitud Contexto de Ejecucion Exitosa", pid, tid)
+	log.Printf("PCB : %d TID : %d - Solicitud Contexto de Ejecucion Exitosa", context.pcb.pid, context.tcb.tid)
 	contextoDeEjecucion.pcb = contexto.Pcb
 	contextoDeEjecucion.tcb = contexto.Tcb
+	//contextoDeEjecucion.pcb.pid = 1
 	return contextoDeEjecucion
 }
 
 func InstructionCycle(contexto *contextoEjecucion) {
 
 	for {
-
+		log.Printf("Intruccion Solicitada de Pid %d y TID %d y PC %d", contexto.pcb.pid, contexto.tcb.tid, contexto.tcb.PC)
 		intructionLine, err := Fetch(contexto.pcb.pid, contexto.tcb.tid, &contexto.tcb.PC)
 		if err != nil {
 			log.Printf("Error al buscar intruccion en el pc %d. ERROR : %v", contexto.tcb.PC, err)
@@ -235,6 +237,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 			log.Printf("Error en etapa Decode. ERROR : %v", err2)
 			break
 		}
+		log.Printf("La instruccion fue decodificada : INSTUCCION = %s, PARAMETROS = %v", intructionLine[0], instruction.parameters)
 		errExe := Execute(contexto, instruction)
 		if errExe != nil {
 			log.Printf("Error al ejecutar %v. ERROR: %v", intructionLine, errExe)
@@ -286,7 +289,7 @@ func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 
 	reqInstruccion.Pid = pid
 	reqInstruccion.Tid = tid
-	reqInstruccion.Pc = *PC
+	reqInstruccion.Pc = int(*PC)
 
 	reqInstruccionBody, err := json.Marshal(reqInstruccion)
 
@@ -392,11 +395,13 @@ func Set(registrosCPU *contextoEjecucion, parameters []string) error {
 
 	valor := parameters[1]
 	registro := parameters[0]
-	registers := reflect.ValueOf(registrosCPU.tcb)
+
+	registers := reflect.ValueOf(&registrosCPU.tcb)
 	valorUint, err := strconv.ParseUint(valor, 10, 32)
 	if err != nil {
 		return err
 	}
+	log.Printf("Antes de modificar el valor ")
 	err2 := ModificarValorCampo(registers, registro, uint32(valorUint))
 	if err2 != nil {
 		return err2
@@ -424,7 +429,7 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 
 	//registroDato := parameters[0]
 	registroDireccion := parameters[1]
-	registers := reflect.ValueOf(context.tcb)
+	registers := reflect.ValueOf(&context.tcb)
 	// obtnego el registro del destino del dato
 	direccionLogica, err := ObtenerValorCampo(registers, registroDireccion)
 	if err != nil {
@@ -486,7 +491,7 @@ func RecieveDataFromMemory(w http.ResponseWriter, r *http.Request) {
 func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	//obtengo el dato
 	registroDato := parameters[1]
-	registers := reflect.ValueOf(context.tcb)
+	registers := reflect.ValueOf(&context.tcb)
 	dato, err := ObtenerValorCampo(registers, registroDato)
 	if err != nil {
 		return err
@@ -543,7 +548,7 @@ func TranslateAdress(direccionLogica uint32, base uint32, limite uint32) (uint32
 func Sumar(registrosCPU *contextoEjecucion, parameters []string) error {
 	registroDestino := parameters[0]
 	registroOrigen := parameters[1]
-	registers := reflect.ValueOf(registrosCPU.tcb)
+	registers := reflect.ValueOf(&registrosCPU.tcb)
 	originRegister, finalRegister, err := obtenerOperandos(registers, registroDestino, registroOrigen)
 
 	if err != nil {
@@ -561,7 +566,7 @@ func Sumar(registrosCPU *contextoEjecucion, parameters []string) error {
 func Restar(registrosCPU *contextoEjecucion, parameters []string) error {
 	registroDestino := parameters[0]
 	registroOrigen := parameters[1]
-	registers := reflect.ValueOf(registrosCPU.tcb)
+	registers := reflect.ValueOf(&registrosCPU.tcb)
 	originRegister, finalRegister, err := obtenerOperandos(registers, registroDestino, registroOrigen)
 
 	if err != nil {
@@ -603,7 +608,7 @@ func obtenerOperandos(registers reflect.Value, registroDestino string, registroO
 func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
 	instruccion := parameters[1]
 	registro := parameters[0]
-	registers := reflect.ValueOf(registrosCPU.tcb)
+	registers := reflect.ValueOf(&registrosCPU.tcb)
 	register, err := ObtenerValorCampo(registers, registro)
 	if err != nil {
 		return err
@@ -621,7 +626,7 @@ func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
 
 func Log(registrosCPU *contextoEjecucion, parameters []string) error {
 	registro := parameters[0]
-	registers := reflect.ValueOf(registrosCPU.tcb)
+	registers := reflect.ValueOf(&registrosCPU.tcb)
 	register, err := ObtenerValorCampo(registers, registro)
 	if err != nil {
 		return err
@@ -834,18 +839,19 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 }
 
 func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
-
+	log.Print("Finalizar proceos PID : %d", contexto.pcb.pid)
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
 		log.Printf("Error al actualziar contexto de ejecucion")
 		return err
 	}
-
+	log.Printf("Enviando a kernel syscall")
 	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "exitProcess")
 	if errM != nil {
 		return errM
 	}
+	log.Printf("Syscall se ejecuto correctamente")
 	return nil
 
 }
@@ -891,12 +897,13 @@ func ObtenerValorCampo(estructura reflect.Value, nombreCampo string) (uint32, er
 		return 0, err
 	}
 	//estamos suponiendo que jamas se podrá tener un numero de otro tipo que no sea unit32
-	return (uint32(campoRef.Int())), nil
+	return (uint32(campoRef.Uint())), nil
 
 }
 func ModificarValorCampo(estructura reflect.Value, nombreCampo string, nuevoValor uint32) error {
 	//solo se aceptaran valores de tipo uint32
 	campoRef := estructura.Elem().FieldByName(nombreCampo)
+	log.Printf("Registro obtenido")
 	if !campoRef.IsValid() {
 		err := fmt.Errorf("No se encuentra el campo %s en la estructura", nombreCampo)
 		return err

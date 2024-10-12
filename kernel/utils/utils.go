@@ -54,7 +54,7 @@ type IOsyscall struct {
 	Tid      int `json:"tid"`
 }
 
-//Request
+// Request
 type KernelRequest struct {
 	Size int `json:"size"`
 	Pid  int `json:"pid"`
@@ -81,7 +81,7 @@ type MutexRequest struct {
 	Mutex string `json:"mutex"`
 }
 
-//Response
+// Response
 type IniciarProcesoResponse struct {
 	Path      string `json:"path"`
 	Size      int    `json:"size"`
@@ -97,7 +97,6 @@ type CrearHiloResponse struct {
 	Prioridad int    `json:"prioridad"`
 }
 
-
 /*-------------------- COLAS GLOBALES --------------------*/
 
 var colaNewproceso []PCB
@@ -109,7 +108,6 @@ var colaExecHilo []TCB
 var colaBlockHilo []TCB
 var colaExitHilo []TCB
 
-
 /*-------------------- MUTEX GLOBALES --------------------*/
 
 var mutexColaNewproceso sync.Mutex
@@ -120,7 +118,6 @@ var mutexColaReadyHilo sync.Mutex
 var mutexColaExecHilo sync.Mutex
 var mutexColaBlockHilo sync.Mutex
 var mutexColaExitHilo sync.Mutex
-
 
 /*-------------------- VAR GLOBALES --------------------*/
 
@@ -402,7 +399,7 @@ func consultaEspacioAMemoria(size int, pcb PCB) bool {
 	var memoryRequest KernelRequest
 	memoryRequest.Size = size
 	memoryRequest.Pid = pcb.Pid
-
+	log.Printf("PID enviada a memoria : %d", pcb.Pid)
 	puerto := ConfigKernel.PuertoMemoria
 	ip := ConfigKernel.IpMemoria
 

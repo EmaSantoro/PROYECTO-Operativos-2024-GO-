@@ -103,3 +103,946 @@
 2024/10/11 21:37:30 Entre a get instruction
 2024/10/11 21:37:31 me llego: 0
 2024/10/11 21:37:31 tengo guardado: map[]
+2024/10/11 23:06:15 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:06:15 entre a crear thread
+2024/10/11 23:06:16 cree el hilo PID:1 TID:0
+2024/10/11 23:06:16 procesoInicial
+2024/10/11 23:06:16 Abri el archivo
+2024/10/11 23:06:17 escaneo
+2024/10/11 23:06:17 busco pcb
+2024/10/11 23:06:17 hago el map
+2024/10/11 23:06:17 fin
+2024/10/11 23:06:17 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:06:17 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:06:18 Entre a get instruction
+2024/10/11 23:06:19 me llego: 0
+2024/10/11 23:06:19 tengo guardado: map[]
+2024/10/11 23:14:44 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:14:44 entre a crear thread
+2024/10/11 23:14:45 cree el hilo PID:1 TID:0
+2024/10/11 23:14:45 procesoInicial
+2024/10/11 23:14:45 Abri el archivo
+2024/10/11 23:14:46 escaneo
+2024/10/11 23:14:46 busco pcb
+2024/10/11 23:14:46 hago el map
+2024/10/11 23:14:46 fin
+2024/10/11 23:14:46 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:14:46 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:14:47 Entre a get instruction
+2024/10/11 23:14:48 me llego: 0
+2024/10/11 23:14:48 tengo guardado: map[]
+2024/10/11 23:16:29 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:16:29 entre a crear thread
+2024/10/11 23:16:30 cree el hilo PID:1 TID:0
+2024/10/11 23:16:30 procesoInicial
+2024/10/11 23:16:30 Abri el archivo
+2024/10/11 23:16:31 escaneo
+2024/10/11 23:16:31 busco pcb
+2024/10/11 23:16:31 hago el map
+2024/10/11 23:16:31 fin
+2024/10/11 23:16:31 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:16:31 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:16:32 Entre a get instruction
+2024/10/11 23:16:33 me llego: 0
+2024/10/11 23:16:33 tengo guardado: map[]
+2024/10/11 23:17:11 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:17:11 entre a crear thread
+2024/10/11 23:17:12 cree el hilo PID:1 TID:0
+2024/10/11 23:17:12 procesoInicial
+2024/10/11 23:17:12 Abri el archivo
+2024/10/11 23:17:13 escaneo
+2024/10/11 23:17:13 busco pcb
+2024/10/11 23:17:13 hago el map
+2024/10/11 23:17:13 fin
+2024/10/11 23:17:13 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:17:13 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:17:14 Entre a get instruction
+2024/10/11 23:17:15 tengo guardado: map[]
+2024/10/11 23:17:15 me llego: 0
+2024/10/11 23:17:15 tengo guardado: map[]
+2024/10/11 23:19:41 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:19:41 entre a crear thread
+2024/10/11 23:19:42 cree el hilo PID:1 TID:0
+2024/10/11 23:19:42 procesoInicial
+2024/10/11 23:19:42 Abri el archivo
+2024/10/11 23:19:43 escaneo
+2024/10/11 23:19:43 busco pcb
+2024/10/11 23:19:43 hago el map
+2024/10/11 23:19:43 fin
+2024/10/11 23:19:43 Lo que se guardo en map: map[{0 0 0}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]] {0 0 511}:map[]]
+2024/10/11 23:19:43 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:19:43 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:19:44 Entre a get instruction
+2024/10/11 23:19:45 tengo guardado: map[]
+2024/10/11 23:19:45 me llego: 0
+2024/10/11 23:19:45 tengo guardado: map[]
+2024/10/11 23:23:43 Pid: 0
+2024/10/11 23:23:43 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:23:43 entre a crear thread
+2024/10/11 23:23:44 cree el hilo PID:1 TID:0
+2024/10/11 23:23:44 procesoInicial
+2024/10/11 23:23:44 Abri el archivo
+2024/10/11 23:23:45 escaneo
+2024/10/11 23:23:45 busco pcb
+2024/10/11 23:23:45 hago el map
+2024/10/11 23:23:45 fin
+2024/10/11 23:23:45 Lo que se guardo en map: map[{0 0 0}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]] {0 0 511}:map[]]
+2024/10/11 23:23:45 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:23:45 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:23:46 Entre a get instruction
+2024/10/11 23:23:47 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/11 23:23:47 me llego: 0
+2024/10/11 23:23:47 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/11 23:23:47 ## Obtener instrucción - (PID:TID) - (0:0) - Instrucción: SET AX 1
+2024/10/11 23:24:35 Pid: 0
+2024/10/11 23:24:35 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:24:35 entre a crear thread
+2024/10/11 23:24:36 cree el hilo PID:1 TID:0
+2024/10/11 23:24:36 procesoInicial
+2024/10/11 23:24:36 Abri el archivo
+2024/10/11 23:24:37 escaneo
+2024/10/11 23:24:37 busco pcb
+2024/10/11 23:24:37 hago el map
+2024/10/11 23:24:37 fin
+2024/10/11 23:24:37 Lo que se guardo en map: map[{0 0 0}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]] {0 0 511}:map[]]
+2024/10/11 23:24:37 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:24:37 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:24:38 Entre a get instruction
+2024/10/11 23:24:39 tengo guardado: map[]
+2024/10/11 23:24:39 me llego: 0
+2024/10/11 23:24:39 tengo guardado: map[]
+2024/10/11 23:29:25 Pid: 0
+2024/10/11 23:29:25 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:29:25 entre a crear thread
+2024/10/11 23:29:26 cree el hilo PID:1 TID:0
+2024/10/11 23:29:26 procesoInicial
+2024/10/11 23:29:26 Abri el archivo
+2024/10/11 23:29:27 escaneo
+2024/10/11 23:29:27 busco pcb
+2024/10/11 23:29:27 hago el map
+2024/10/11 23:29:27 fin
+2024/10/11 23:29:27 Lo que se guardo en map: map[{0 0 0}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]] {0 0 511}:map[]]
+2024/10/11 23:29:27 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:29:27 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:29:28 Entre a get instruction
+2024/10/11 23:29:29 tengo guardado: map[]
+2024/10/11 23:29:29 me llego: 0
+2024/10/11 23:29:29 tengo guardado: map[]
+2024/10/11 23:32:00 Pid: 0
+2024/10/11 23:32:00 ## Proceso Creado - PID: 0 - Tamaño: 0
+2024/10/11 23:32:00 entre a crear thread
+2024/10/11 23:32:01 cree el hilo PID:1 TID:0
+2024/10/11 23:32:01 procesoInicial
+2024/10/11 23:32:01 Abri el archivo
+2024/10/11 23:32:02 escaneo
+2024/10/11 23:32:02 busco pcb
+2024/10/11 23:32:02 hago el map
+2024/10/11 23:32:02 fin
+2024/10/11 23:32:02 Lo que se guardo en map: map[{0 0 0}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]] {0 0 511}:map[]]
+2024/10/11 23:32:02 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:32:02 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:32:03 Entre a get instruction
+2024/10/11 23:32:04 tengo guardado: map[]
+2024/10/11 23:32:04 me llego: 0
+2024/10/11 23:32:04 tengo guardado: map[]
+2024/10/11 23:34:34 Pid: 1
+2024/10/11 23:34:34 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/11 23:34:34 entre a crear thread
+2024/10/11 23:34:35 cree el hilo PID:1 TID:0
+2024/10/11 23:34:35 procesoInicial
+2024/10/11 23:34:35 Abri el archivo
+2024/10/11 23:34:36 escaneo
+2024/10/11 23:34:36 busco pcb
+2024/10/11 23:34:36 hago el map
+2024/10/11 23:34:36 fin
+2024/10/11 23:34:36 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/11 23:34:36 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:34:36 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:34:37 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/11 23:34:37 Entre a get instruction
+2024/10/11 23:34:38 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/11 23:39:11 Pid: 1
+2024/10/11 23:39:11 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/11 23:39:11 entre a crear thread
+2024/10/11 23:39:12 cree el hilo PID:1 TID:0
+2024/10/11 23:39:12 procesoInicial
+2024/10/11 23:39:12 Abri el archivo
+2024/10/11 23:39:13 escaneo
+2024/10/11 23:39:13 busco pcb
+2024/10/11 23:39:13 hago el map
+2024/10/11 23:39:13 fin
+2024/10/11 23:39:13 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/11 23:39:13 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:39:13 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:39:14 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/11 23:39:14 Entre a get instruction
+2024/10/11 23:39:15 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/11 23:40:47 Pid: 1
+2024/10/11 23:40:47 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/11 23:40:47 entre a crear thread
+2024/10/11 23:40:48 cree el hilo PID:1 TID:0
+2024/10/11 23:40:48 procesoInicial
+2024/10/11 23:40:48 Abri el archivo
+2024/10/11 23:40:49 escaneo
+2024/10/11 23:40:49 busco pcb
+2024/10/11 23:40:49 hago el map
+2024/10/11 23:40:49 fin
+2024/10/11 23:40:49 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/11 23:40:49 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:40:49 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:40:50 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/11 23:40:50 Entre a get instruction
+2024/10/11 23:40:51 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/11 23:40:51 IntructionReq.Pid 0
+2024/10/11 23:45:14 Pid: 1
+2024/10/11 23:45:14 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/11 23:45:14 entre a crear thread
+2024/10/11 23:45:15 cree el hilo PID:1 TID:0
+2024/10/11 23:45:15 procesoInicial
+2024/10/11 23:45:15 Abri el archivo
+2024/10/11 23:45:16 escaneo
+2024/10/11 23:45:16 busco pcb
+2024/10/11 23:45:16 hago el map
+2024/10/11 23:45:16 fin
+2024/10/11 23:45:16 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/11 23:45:16 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:45:16 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:45:17 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/11 23:45:17 Entre a get instruction
+2024/10/11 23:45:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/11 23:45:18 IntructionReq.Pid 0
+2024/10/11 23:55:03 Pid: 1
+2024/10/11 23:55:03 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/11 23:55:03 entre a crear thread
+2024/10/11 23:55:04 cree el hilo PID:1 TID:0
+2024/10/11 23:55:04 procesoInicial
+2024/10/11 23:55:04 Abri el archivo
+2024/10/11 23:55:05 escaneo
+2024/10/11 23:55:05 busco pcb
+2024/10/11 23:55:05 hago el map
+2024/10/11 23:55:05 fin
+2024/10/11 23:55:05 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/11 23:55:05 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:55:05 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:55:06 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/11 23:55:06 Entre a get instruction
+2024/10/11 23:55:07 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/11 23:55:07 IntructionReq.Pid 0
+2024/10/11 23:57:50 Pid: 1
+2024/10/11 23:57:50 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/11 23:57:50 entre a crear thread
+2024/10/11 23:57:51 cree el hilo PID:1 TID:0
+2024/10/11 23:57:51 procesoInicial
+2024/10/11 23:57:51 Abri el archivo
+2024/10/11 23:57:52 escaneo
+2024/10/11 23:57:52 busco pcb
+2024/10/11 23:57:52 hago el map
+2024/10/11 23:57:52 fin
+2024/10/11 23:57:52 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/11 23:57:52 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/11 23:57:52 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/11 23:57:53 Envio pid 1 y tid 0
+2024/10/11 23:57:53 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/11 23:57:53 Entre a get instruction
+2024/10/11 23:57:54 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/11 23:57:54 IntructionReq.Pid 0
+2024/10/12 00:10:15 Pid: 1
+2024/10/12 00:10:15 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:10:15 entre a crear thread
+2024/10/12 00:10:16 cree el hilo PID:1 TID:0
+2024/10/12 00:10:16 procesoInicial
+2024/10/12 00:10:16 Abri el archivo
+2024/10/12 00:10:17 escaneo
+2024/10/12 00:10:17 busco pcb
+2024/10/12 00:10:17 hago el map
+2024/10/12 00:10:17 fin
+2024/10/12 00:10:17 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:10:17 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:10:17 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:10:18 Entre a get instruction
+2024/10/12 00:10:19 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:10:19 IntructionReq.Pid 0
+2024/10/12 00:14:02 Pid: 1
+2024/10/12 00:14:02 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:14:02 entre a crear thread
+2024/10/12 00:14:03 cree el hilo PID:1 TID:0
+2024/10/12 00:14:03 procesoInicial
+2024/10/12 00:14:03 Abri el archivo
+2024/10/12 00:14:04 escaneo
+2024/10/12 00:14:04 busco pcb
+2024/10/12 00:14:04 hago el map
+2024/10/12 00:14:04 fin
+2024/10/12 00:14:04 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:14:04 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:14:04 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:14:05 Pid 1 y tid 0 enontradas
+2024/10/12 00:14:05 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 00:14:05 Entre a get instruction
+2024/10/12 00:14:06 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:14:06 IntructionReq.Pid 0
+2024/10/12 00:15:21 Pid: 1
+2024/10/12 00:15:21 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:15:21 entre a crear thread
+2024/10/12 00:15:22 cree el hilo PID:1 TID:0
+2024/10/12 00:15:22 procesoInicial
+2024/10/12 00:15:22 Abri el archivo
+2024/10/12 00:15:23 escaneo
+2024/10/12 00:15:23 busco pcb
+2024/10/12 00:15:23 hago el map
+2024/10/12 00:15:23 fin
+2024/10/12 00:15:23 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:15:23 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:15:23 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:15:25 Pid 1 y tid 0 enontradas
+2024/10/12 00:15:25 Respuetsa [123 34 112 99 98 34 58 123 34 80 105 100 34 58 49 44 34 66 97 115 101 34 58 48 44 34 76 105 109 105 116 34 58 53 49 49 125 44 34 116 99 98 34 58 123 34 80 105 100 34 58 49 44 34 84 105 100 34 58 48 44 34 65 88 34 58 48 44 34 66 88 34 58 48 44 34 67 88 34 58 48 44 34 68 88 34 58 48 44 34 69 88 34 58 48 44 34 70 88 34 58 48 44 34 71 88 34 58 48 44 34 72 88 34 58 48 44 34 80 67 34 58 48 125 125]
+2024/10/12 00:15:25 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 00:15:25 Entre a get instruction
+2024/10/12 00:15:26 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:15:26 IntructionReq.Pid 0
+2024/10/12 00:16:39 Pid: 1
+2024/10/12 00:16:39 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:16:39 entre a crear thread
+2024/10/12 00:16:40 cree el hilo PID:1 TID:0
+2024/10/12 00:16:40 procesoInicial
+2024/10/12 00:16:40 Abri el archivo
+2024/10/12 00:16:41 escaneo
+2024/10/12 00:16:41 busco pcb
+2024/10/12 00:16:41 hago el map
+2024/10/12 00:16:41 fin
+2024/10/12 00:16:41 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:16:41 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:16:41 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:16:42 Pid 1 y tid 0 enontradas
+2024/10/12 00:16:42 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 00:16:42 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 00:16:42 Entre a get instruction
+2024/10/12 00:16:43 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:16:43 IntructionReq.Pid 0
+2024/10/12 00:26:04 Pid: 1
+2024/10/12 00:26:04 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:26:04 entre a crear thread
+2024/10/12 00:26:05 cree el hilo PID:1 TID:0
+2024/10/12 00:26:05 procesoInicial
+2024/10/12 00:26:05 Abri el archivo
+2024/10/12 00:26:06 escaneo
+2024/10/12 00:26:06 busco pcb
+2024/10/12 00:26:06 hago el map
+2024/10/12 00:26:06 fin
+2024/10/12 00:26:06 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:26:06 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:26:06 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:26:07 Pid 1 y tid 0 enontradas
+2024/10/12 00:26:07 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 00:26:07 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 00:26:07 Entre a get instruction
+2024/10/12 00:26:08 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:26:08 IntructionReq.Pid 0
+2024/10/12 00:43:59 Pid: 1
+2024/10/12 00:43:59 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:43:59 entre a crear thread
+2024/10/12 00:44:00 cree el hilo PID:1 TID:0
+2024/10/12 00:44:00 procesoInicial
+2024/10/12 00:44:00 Abri el archivo
+2024/10/12 00:44:01 escaneo
+2024/10/12 00:44:01 busco pcb
+2024/10/12 00:44:01 hago el map
+2024/10/12 00:44:01 fin
+2024/10/12 00:44:01 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:44:01 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:44:01 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:44:02 Pid 1 y tid 0 enontradas
+2024/10/12 00:44:02 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 00:44:02 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 00:44:02 Entre a get instruction
+2024/10/12 00:44:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:44:03 IntructionReq.Pid 1
+2024/10/12 00:44:03 me llego: 0
+2024/10/12 00:44:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:44:03 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 00:54:10 Pid: 1
+2024/10/12 00:54:10 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:54:10 entre a crear thread
+2024/10/12 00:54:11 cree el hilo PID:1 TID:0
+2024/10/12 00:54:11 procesoInicial
+2024/10/12 00:54:11 Abri el archivo
+2024/10/12 00:54:12 escaneo
+2024/10/12 00:54:12 busco pcb
+2024/10/12 00:54:12 hago el map
+2024/10/12 00:54:12 fin
+2024/10/12 00:54:12 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:54:12 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:54:12 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:54:13 Pid 1 y tid 0 enontradas
+2024/10/12 00:54:13 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 00:54:13 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 00:54:13 Entre a get instruction
+2024/10/12 00:54:15 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:54:15 IntructionReq.Pid 1
+2024/10/12 00:54:15 me llego: 0
+2024/10/12 00:54:15 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:54:15 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 00:55:56 Pid: 1
+2024/10/12 00:55:56 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:55:56 entre a crear thread
+2024/10/12 00:55:57 cree el hilo PID:1 TID:0
+2024/10/12 00:55:57 procesoInicial
+2024/10/12 00:55:57 Abri el archivo
+2024/10/12 00:55:58 escaneo
+2024/10/12 00:55:58 busco pcb
+2024/10/12 00:55:58 hago el map
+2024/10/12 00:55:58 fin
+2024/10/12 00:55:58 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:55:58 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:55:58 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:55:59 Pid 1 y tid 0 enontradas
+2024/10/12 00:55:59 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 00:55:59 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 00:55:59 Entre a get instruction
+2024/10/12 00:56:00 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:56:00 IntructionReq.Pid 1
+2024/10/12 00:56:00 me llego: 0
+2024/10/12 00:56:00 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:56:00 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 00:57:29 Pid: 1
+2024/10/12 00:57:29 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 00:57:29 entre a crear thread
+2024/10/12 00:57:30 cree el hilo PID:1 TID:0
+2024/10/12 00:57:30 procesoInicial
+2024/10/12 00:57:30 Abri el archivo
+2024/10/12 00:57:31 escaneo
+2024/10/12 00:57:31 busco pcb
+2024/10/12 00:57:31 hago el map
+2024/10/12 00:57:31 fin
+2024/10/12 00:57:31 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 00:57:31 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 00:57:31 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 00:57:32 Pid 1 y tid 0 enontradas
+2024/10/12 00:57:32 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 00:57:32 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 00:57:32 Entre a get instruction
+2024/10/12 00:57:33 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:57:33 IntructionReq.Pid 1
+2024/10/12 00:57:33 me llego: 0
+2024/10/12 00:57:33 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 00:57:33 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:01:14 Pid: 1
+2024/10/12 01:01:14 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:01:14 entre a crear thread
+2024/10/12 01:01:15 cree el hilo PID:1 TID:0
+2024/10/12 01:01:15 procesoInicial
+2024/10/12 01:01:15 Abri el archivo
+2024/10/12 01:01:16 escaneo
+2024/10/12 01:01:16 busco pcb
+2024/10/12 01:01:16 hago el map
+2024/10/12 01:01:16 fin
+2024/10/12 01:01:16 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:01:16 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:01:16 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:01:17 Pid 1 y tid 0 enontradas
+2024/10/12 01:01:17 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:01:17 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:01:17 Entre a get instruction
+2024/10/12 01:01:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:01:18 IntructionReq.Pid 1
+2024/10/12 01:01:18 me llego: 0
+2024/10/12 01:01:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:01:18 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:01:18 Entre a get instruction
+2024/10/12 01:01:19 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:01:19 IntructionReq.Pid 1
+2024/10/12 01:01:19 me llego: 0
+2024/10/12 01:01:19 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:01:19 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:01:19 Entre a get instruction
+2024/10/12 01:01:20 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:01:20 IntructionReq.Pid 1
+2024/10/12 01:01:20 me llego: 0
+2024/10/12 01:01:20 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:01:20 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:03:58 Pid: 1
+2024/10/12 01:03:58 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:03:58 entre a crear thread
+2024/10/12 01:03:59 cree el hilo PID:1 TID:0
+2024/10/12 01:03:59 procesoInicial
+2024/10/12 01:03:59 Abri el archivo
+2024/10/12 01:04:00 escaneo
+2024/10/12 01:04:00 busco pcb
+2024/10/12 01:04:00 hago el map
+2024/10/12 01:04:00 fin
+2024/10/12 01:04:00 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:04:00 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:04:00 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:04:01 Pid 1 y tid 0 enontradas
+2024/10/12 01:04:01 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:04:01 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:04:01 Entre a get instruction
+2024/10/12 01:04:02 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:04:02 IntructionReq.Pid 1
+2024/10/12 01:04:02 me llego: 0
+2024/10/12 01:04:02 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:04:02 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:04:02 Entre a get instruction
+2024/10/12 01:04:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:04:03 IntructionReq.Pid 1
+2024/10/12 01:04:03 me llego: 0
+2024/10/12 01:04:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:04:03 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:04:03 Entre a get instruction
+2024/10/12 01:04:04 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:04:04 IntructionReq.Pid 1
+2024/10/12 01:04:04 me llego: 0
+2024/10/12 01:04:04 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:04:04 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:07:24 Pid: 1
+2024/10/12 01:07:24 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:07:24 entre a crear thread
+2024/10/12 01:07:25 cree el hilo PID:1 TID:0
+2024/10/12 01:07:25 procesoInicial
+2024/10/12 01:07:25 Abri el archivo
+2024/10/12 01:07:26 escaneo
+2024/10/12 01:07:26 busco pcb
+2024/10/12 01:07:26 hago el map
+2024/10/12 01:07:26 fin
+2024/10/12 01:07:26 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:07:26 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:07:26 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:07:27 Pid 1 y tid 0 enontradas
+2024/10/12 01:07:27 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:07:27 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:07:27 Entre a get instruction
+2024/10/12 01:07:28 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:28 IntructionReq.Pid 1
+2024/10/12 01:07:28 me llego: 0
+2024/10/12 01:07:28 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:28 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:07:28 Entre a get instruction
+2024/10/12 01:07:29 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:29 IntructionReq.Pid 1
+2024/10/12 01:07:29 me llego: 0
+2024/10/12 01:07:29 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:29 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:07:29 Entre a get instruction
+2024/10/12 01:07:30 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:30 IntructionReq.Pid 1
+2024/10/12 01:07:30 me llego: 0
+2024/10/12 01:07:30 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:30 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:07:30 Entre a get instruction
+2024/10/12 01:07:31 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:31 IntructionReq.Pid 1
+2024/10/12 01:07:31 me llego: 0
+2024/10/12 01:07:31 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:31 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/12 01:07:31 Entre a get instruction
+2024/10/12 01:07:32 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:32 IntructionReq.Pid 1
+2024/10/12 01:07:32 me llego: 0
+2024/10/12 01:07:32 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:32 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUB AX BX
+2024/10/12 01:07:32 Entre a get instruction
+2024/10/12 01:07:33 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:33 IntructionReq.Pid 1
+2024/10/12 01:07:33 me llego: 0
+2024/10/12 01:07:33 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:33 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: LOG AX
+2024/10/12 01:07:33 Entre a get instruction
+2024/10/12 01:07:34 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:34 IntructionReq.Pid 1
+2024/10/12 01:07:34 me llego: 0
+2024/10/12 01:07:34 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:34 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/12 01:07:35 Entre a get instruction
+2024/10/12 01:07:36 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:07:36 IntructionReq.Pid 1
+2024/10/12 01:07:36 me llego: 0
+2024/10/12 01:07:36 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:11:53 Pid: 1
+2024/10/12 01:11:53 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:11:53 entre a crear thread
+2024/10/12 01:11:54 cree el hilo PID:1 TID:0
+2024/10/12 01:11:54 procesoInicial
+2024/10/12 01:11:54 Abri el archivo
+2024/10/12 01:11:55 escaneo
+2024/10/12 01:11:55 busco pcb
+2024/10/12 01:11:55 hago el map
+2024/10/12 01:11:55 fin
+2024/10/12 01:11:55 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:11:55 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:11:55 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:11:56 Pid 1 y tid 0 enontradas
+2024/10/12 01:11:56 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:11:56 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:11:56 Entre a get instruction
+2024/10/12 01:11:57 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:11:57 IntructionReq.Pid 1
+2024/10/12 01:11:57 me llego: 0
+2024/10/12 01:11:57 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:11:57 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:11:57 Entre a get instruction
+2024/10/12 01:11:58 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:11:58 IntructionReq.Pid 1
+2024/10/12 01:11:58 me llego: 0
+2024/10/12 01:11:58 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:11:58 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:11:58 Entre a get instruction
+2024/10/12 01:11:59 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:11:59 IntructionReq.Pid 1
+2024/10/12 01:11:59 me llego: 0
+2024/10/12 01:11:59 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:11:59 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:11:59 Entre a get instruction
+2024/10/12 01:12:00 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:00 IntructionReq.Pid 1
+2024/10/12 01:12:00 me llego: 0
+2024/10/12 01:12:00 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:00 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/12 01:12:00 Entre a get instruction
+2024/10/12 01:12:01 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:01 IntructionReq.Pid 1
+2024/10/12 01:12:01 me llego: 0
+2024/10/12 01:12:01 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:01 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUB AX BX
+2024/10/12 01:12:01 Entre a get instruction
+2024/10/12 01:12:02 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:02 IntructionReq.Pid 1
+2024/10/12 01:12:02 me llego: 0
+2024/10/12 01:12:02 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:02 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: LOG AX
+2024/10/12 01:12:02 Entre a get instruction
+2024/10/12 01:12:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:03 IntructionReq.Pid 1
+2024/10/12 01:12:03 me llego: 0
+2024/10/12 01:12:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:03 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/12 01:12:04 Entre a get instruction
+2024/10/12 01:12:05 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:12:05 IntructionReq.Pid 1
+2024/10/12 01:12:05 me llego: 0
+2024/10/12 01:12:05 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:40 Pid: 1
+2024/10/12 01:20:40 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:20:40 entre a crear thread
+2024/10/12 01:20:41 cree el hilo PID:1 TID:0
+2024/10/12 01:20:41 procesoInicial
+2024/10/12 01:20:41 Abri el archivo
+2024/10/12 01:20:42 escaneo
+2024/10/12 01:20:42 busco pcb
+2024/10/12 01:20:42 hago el map
+2024/10/12 01:20:42 fin
+2024/10/12 01:20:42 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:20:42 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:20:42 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:20:43 Pid 1 y tid 0 enontradas
+2024/10/12 01:20:43 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:20:43 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:20:43 Entre a get instruction
+2024/10/12 01:20:44 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:44 IntructionReq.Pid 1
+2024/10/12 01:20:44 me llego: 0
+2024/10/12 01:20:44 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:44 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:20:44 Entre a get instruction
+2024/10/12 01:20:45 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:45 IntructionReq.Pid 1
+2024/10/12 01:20:45 me llego: 0
+2024/10/12 01:20:45 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:45 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:20:45 Entre a get instruction
+2024/10/12 01:20:46 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:46 IntructionReq.Pid 1
+2024/10/12 01:20:46 me llego: 0
+2024/10/12 01:20:46 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:46 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:20:46 Entre a get instruction
+2024/10/12 01:20:47 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:47 IntructionReq.Pid 1
+2024/10/12 01:20:47 me llego: 0
+2024/10/12 01:20:47 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:47 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/12 01:20:47 Entre a get instruction
+2024/10/12 01:20:48 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:48 IntructionReq.Pid 1
+2024/10/12 01:20:48 me llego: 0
+2024/10/12 01:20:48 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:48 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUB AX BX
+2024/10/12 01:20:48 Entre a get instruction
+2024/10/12 01:20:49 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:49 IntructionReq.Pid 1
+2024/10/12 01:20:49 me llego: 0
+2024/10/12 01:20:49 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:49 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: LOG AX
+2024/10/12 01:20:49 Entre a get instruction
+2024/10/12 01:20:50 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:50 IntructionReq.Pid 1
+2024/10/12 01:20:50 me llego: 0
+2024/10/12 01:20:50 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:50 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/12 01:20:50 Entra a actualziar contexto
+2024/10/12 01:20:51 Entre a get instruction
+2024/10/12 01:20:52 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:20:52 IntructionReq.Pid 1
+2024/10/12 01:20:52 me llego: 0
+2024/10/12 01:20:52 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:34 Pid: 1
+2024/10/12 01:24:34 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:24:34 entre a crear thread
+2024/10/12 01:24:35 cree el hilo PID:1 TID:0
+2024/10/12 01:24:35 procesoInicial
+2024/10/12 01:24:35 Abri el archivo
+2024/10/12 01:24:36 escaneo
+2024/10/12 01:24:36 busco pcb
+2024/10/12 01:24:36 hago el map
+2024/10/12 01:24:36 fin
+2024/10/12 01:24:36 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:24:36 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:24:36 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:24:37 Pid 1 y tid 0 enontradas
+2024/10/12 01:24:37 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:24:37 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:24:37 Entre a get instruction
+2024/10/12 01:24:38 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:38 IntructionReq.Pid 1
+2024/10/12 01:24:38 me llego: 0
+2024/10/12 01:24:38 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:38 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:24:38 Entre a get instruction
+2024/10/12 01:24:39 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:39 IntructionReq.Pid 1
+2024/10/12 01:24:39 me llego: 0
+2024/10/12 01:24:39 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:39 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:24:39 Entre a get instruction
+2024/10/12 01:24:40 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:40 IntructionReq.Pid 1
+2024/10/12 01:24:40 me llego: 0
+2024/10/12 01:24:40 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:40 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:24:40 Entre a get instruction
+2024/10/12 01:24:41 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:41 IntructionReq.Pid 1
+2024/10/12 01:24:41 me llego: 0
+2024/10/12 01:24:41 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:41 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/12 01:24:41 Entre a get instruction
+2024/10/12 01:24:42 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:42 IntructionReq.Pid 1
+2024/10/12 01:24:42 me llego: 0
+2024/10/12 01:24:42 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:42 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUB AX BX
+2024/10/12 01:24:42 Entre a get instruction
+2024/10/12 01:24:43 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:43 IntructionReq.Pid 1
+2024/10/12 01:24:43 me llego: 0
+2024/10/12 01:24:43 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:43 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: LOG AX
+2024/10/12 01:24:43 Entre a get instruction
+2024/10/12 01:24:44 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:44 IntructionReq.Pid 1
+2024/10/12 01:24:44 me llego: 0
+2024/10/12 01:24:44 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:44 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/12 01:24:44 Entra a actualziar contexto
+2024/10/12 01:24:45 Respuesta codificara
+2024/10/12 01:24:45 Entre a get instruction
+2024/10/12 01:24:46 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:24:46 IntructionReq.Pid 1
+2024/10/12 01:24:46 me llego: 0
+2024/10/12 01:24:46 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:08 Pid: 1
+2024/10/12 01:26:08 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:26:08 entre a crear thread
+2024/10/12 01:26:09 cree el hilo PID:1 TID:0
+2024/10/12 01:26:09 procesoInicial
+2024/10/12 01:26:09 Abri el archivo
+2024/10/12 01:26:10 escaneo
+2024/10/12 01:26:10 busco pcb
+2024/10/12 01:26:10 hago el map
+2024/10/12 01:26:10 fin
+2024/10/12 01:26:10 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:26:10 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:26:10 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:26:11 Pid 1 y tid 0 enontradas
+2024/10/12 01:26:11 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:26:11 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:26:11 Entre a get instruction
+2024/10/12 01:26:12 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:12 IntructionReq.Pid 1
+2024/10/12 01:26:12 me llego: 0
+2024/10/12 01:26:12 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:12 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:26:12 Entre a get instruction
+2024/10/12 01:26:13 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:13 IntructionReq.Pid 1
+2024/10/12 01:26:13 me llego: 0
+2024/10/12 01:26:13 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:13 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:26:13 Entre a get instruction
+2024/10/12 01:26:14 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:14 IntructionReq.Pid 1
+2024/10/12 01:26:14 me llego: 0
+2024/10/12 01:26:14 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:14 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:26:14 Entre a get instruction
+2024/10/12 01:26:15 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:15 IntructionReq.Pid 1
+2024/10/12 01:26:15 me llego: 0
+2024/10/12 01:26:15 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:15 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/12 01:26:15 Entre a get instruction
+2024/10/12 01:26:16 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:16 IntructionReq.Pid 1
+2024/10/12 01:26:16 me llego: 0
+2024/10/12 01:26:16 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:16 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUB AX BX
+2024/10/12 01:26:16 Entre a get instruction
+2024/10/12 01:26:17 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:17 IntructionReq.Pid 1
+2024/10/12 01:26:17 me llego: 0
+2024/10/12 01:26:17 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:17 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: LOG AX
+2024/10/12 01:26:17 Entre a get instruction
+2024/10/12 01:26:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:18 IntructionReq.Pid 1
+2024/10/12 01:26:18 me llego: 0
+2024/10/12 01:26:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:18 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/12 01:26:18 Entra a actualziar contexto
+2024/10/12 01:26:19 Respuesta codificara
+2024/10/12 01:26:19 MAP PCB x TCB = map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:26:19 Entre a get instruction
+2024/10/12 01:26:20 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:26:20 IntructionReq.Pid 1
+2024/10/12 01:26:20 me llego: 0
+2024/10/12 01:26:20 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:28:58 Pid: 1
+2024/10/12 01:28:58 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:28:58 entre a crear thread
+2024/10/12 01:28:59 cree el hilo PID:1 TID:0
+2024/10/12 01:28:59 procesoInicial
+2024/10/12 01:28:59 Abri el archivo
+2024/10/12 01:29:00 escaneo
+2024/10/12 01:29:00 busco pcb
+2024/10/12 01:29:00 hago el map
+2024/10/12 01:29:00 fin
+2024/10/12 01:29:00 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:29:00 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:29:00 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:29:01 Pid 1 y tid 0 enontradas
+2024/10/12 01:29:01 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:29:01 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:29:01 Entre a get instruction
+2024/10/12 01:29:02 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:02 IntructionReq.Pid 1
+2024/10/12 01:29:02 me llego: 0
+2024/10/12 01:29:02 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:02 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:29:02 Entre a get instruction
+2024/10/12 01:29:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:03 IntructionReq.Pid 1
+2024/10/12 01:29:03 me llego: 0
+2024/10/12 01:29:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:03 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:29:03 Entre a get instruction
+2024/10/12 01:29:04 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:04 IntructionReq.Pid 1
+2024/10/12 01:29:04 me llego: 0
+2024/10/12 01:29:04 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:04 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:29:04 Entre a get instruction
+2024/10/12 01:29:05 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:05 IntructionReq.Pid 1
+2024/10/12 01:29:05 me llego: 0
+2024/10/12 01:29:05 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:05 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/12 01:29:05 Entre a get instruction
+2024/10/12 01:29:06 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:06 IntructionReq.Pid 1
+2024/10/12 01:29:06 me llego: 0
+2024/10/12 01:29:06 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:06 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUB AX BX
+2024/10/12 01:29:06 Entre a get instruction
+2024/10/12 01:29:07 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:07 IntructionReq.Pid 1
+2024/10/12 01:29:07 me llego: 0
+2024/10/12 01:29:07 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:07 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: LOG AX
+2024/10/12 01:29:07 Entre a get instruction
+2024/10/12 01:29:08 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:08 IntructionReq.Pid 1
+2024/10/12 01:29:08 me llego: 0
+2024/10/12 01:29:08 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:08 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/12 01:29:08 Entra a actualziar contexto
+2024/10/12 01:29:09 Respuesta codificara PID = 0 , TID = 0
+2024/10/12 01:29:09 MAP PCB x TCB = map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:29:09 Entre a get instruction
+2024/10/12 01:29:10 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:29:10 IntructionReq.Pid 1
+2024/10/12 01:29:10 me llego: 0
+2024/10/12 01:29:10 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:13 Pid: 1
+2024/10/12 01:31:13 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/12 01:31:13 entre a crear thread
+2024/10/12 01:31:14 cree el hilo PID:1 TID:0
+2024/10/12 01:31:14 procesoInicial
+2024/10/12 01:31:14 Abri el archivo
+2024/10/12 01:31:15 escaneo
+2024/10/12 01:31:15 busco pcb
+2024/10/12 01:31:15 hago el map
+2024/10/12 01:31:15 fin
+2024/10/12 01:31:15 Lo que se guardo en map: map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:31:15 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/12 01:31:15 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/12 01:31:16 Pid 1 y tid 0 enontradas
+2024/10/12 01:31:16 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/12 01:31:16 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/12 01:31:16 Entre a get instruction
+2024/10/12 01:31:17 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:17 IntructionReq.Pid 1
+2024/10/12 01:31:17 me llego: 0
+2024/10/12 01:31:17 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:17 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 1
+2024/10/12 01:31:17 Entre a get instruction
+2024/10/12 01:31:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:18 IntructionReq.Pid 1
+2024/10/12 01:31:18 me llego: 0
+2024/10/12 01:31:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:18 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 1
+2024/10/12 01:31:18 Entre a get instruction
+2024/10/12 01:31:19 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:19 IntructionReq.Pid 1
+2024/10/12 01:31:19 me llego: 0
+2024/10/12 01:31:19 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:19 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ AX 4
+2024/10/12 01:31:19 Entre a get instruction
+2024/10/12 01:31:20 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:20 IntructionReq.Pid 1
+2024/10/12 01:31:20 me llego: 0
+2024/10/12 01:31:20 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:20 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/12 01:31:20 Entre a get instruction
+2024/10/12 01:31:21 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:21 IntructionReq.Pid 1
+2024/10/12 01:31:21 me llego: 0
+2024/10/12 01:31:21 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:21 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUB AX BX
+2024/10/12 01:31:21 Entre a get instruction
+2024/10/12 01:31:22 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:22 IntructionReq.Pid 1
+2024/10/12 01:31:22 me llego: 0
+2024/10/12 01:31:22 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:22 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: LOG AX
+2024/10/12 01:31:22 Entre a get instruction
+2024/10/12 01:31:23 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:23 IntructionReq.Pid 1
+2024/10/12 01:31:23 me llego: 0
+2024/10/12 01:31:23 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:23 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/12 01:31:23 Entra a actualziar contexto
+2024/10/12 01:31:24 Respuesta codificara PID = 0 , TID = 0
+2024/10/12 01:31:24 MAP PCB x TCB = map[{1 0 511}:map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]]
+2024/10/12 01:31:24 Entre a get instruction
+2024/10/12 01:31:25 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]
+2024/10/12 01:31:25 IntructionReq.Pid 1
+2024/10/12 01:31:25 me llego: 0
+2024/10/12 01:31:25 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[SET AX 1 SET BX 1 JNZ AX 4 SUM AX BX SUB AX BX LOG AX PROCESS_EXIT]]

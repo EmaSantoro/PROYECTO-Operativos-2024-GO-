@@ -54,7 +54,7 @@ type NewContext struct {
 
 type Process struct {
 	Size int `json:"size"`
-	Pid  int `json:"pcb"`
+	Pid  int `json:"pid"`
 }
 
 type Thread struct {
@@ -167,10 +167,13 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	for pcb, tidMap := range mapPCBPorTCB {
+		log.Printf("tengo guardado: %v", tidMap)
+		log.Printf("IntructionReq.Pid %d", instructionReq.Pid)
 		if pcb.Pid == instructionReq.Pid {
 			log.Printf("me llego: %d", instructionReq.Tid)
-			log.Printf("tengo guardado: %d", tidMap)
+			log.Printf("tengo guardado: %v", tidMap)
 			for tcb, instrucciones := range tidMap {
+
 				if tcb.Tid == instructionReq.Tid {
 					if instructionReq.Pc >= 0 && instructionReq.Pc < len(instrucciones) {
 
@@ -203,7 +206,11 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("No se encontró el PID")
 }
 
-//------------------------------------ GET EXECUTION CONTEXT ---------------------------------------------
+// ------------------------------------ GET EXECUTION CONTEXT ---------------------------------------------
+type GetExecutionContextResponse struct {
+	Pcb PCB            `json:"pcb"`
+	Tcb estructuraHilo `json:"tcb"`
+}
 
 func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 
@@ -223,24 +230,37 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 	log.Printf("PCB : %d TID : %d - me llegaron estos valores", solicitud.Pid, solicitud.Tid)
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
-
+	var respuesta GetExecutionContextResponse
 	for pcb, tidMap := range mapPCBPorTCB {
 		if pcb.Pid == solicitud.Pid {
 			for tcb := range tidMap {
 				if tcb.Tid == solicitud.Tid {
-					executionContext := struct {
+					respuesta.Pcb = pcb
+					respuesta.Tcb = tcb
+					log.Printf("Pid %d y tid %d enontradas", pcb.Pid, tcb.Tid)
+					respuestaJson, err := json.Marshal(respuesta)
+					if err != nil {
+						http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
+					}
+					log.Printf("Respuetsa %v", respuesta)
+					w.WriteHeader(http.StatusOK)
+					w.Write(respuestaJson)
+					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", solicitud.Pid, solicitud.Tid)
+					/*executionContext := struct {
 						PCB
 						estructuraHilo
 					}{
 						PCB:            pcb,
 						estructuraHilo: tcb,
 					}
+					log.Printf("Envio pid %d y tid %d", pcb.Pid, tcb.Tid)
 
 					// Log de obtener contexto de ejecucion
 					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", solicitud.Pid, solicitud.Tid)
 
 					w.Header().Set("Content-Type", "application/json")
 					json.NewEncoder(w).Encode(executionContext)
+					*/
 					return
 				}
 			}
@@ -257,7 +277,7 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 	// queryParams := r.URL.Query()
 	// pid, _ := strconv.Atoi(queryParams.Get("pid")) //esto me parece que no va
 	// tid, _ := strconv.Atoi(queryParams.Get("tid")) //esto tampoco
-
+	log.Printf("Entra a actualziar contexto")
 	var actualizadoContexto NewContext
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
@@ -266,10 +286,13 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
+	log.Printf("Respuesta codificara PID = %d , TID = %d", actualizadoContexto.PCB.Pid, actualizadoContexto.estructuraHilo.Tid)
+	log.Printf("MAP PCB x TCB = %v", mapPCBPorTCB)
 	for pcb, tidMap := range mapPCBPorTCB {
 		if pcb.Pid == actualizadoContexto.PCB.Pid {
+			log.Printf("PID actualizar : %d", pcb.Pid)
 			for tcb := range tidMap {
+				log.Printf("TID actualizar : %d", tcb.Tid)
 				if tcb.Tid == actualizadoContexto.estructuraHilo.Tid {
 
 					pcb.Base = actualizadoContexto.PCB.Base
@@ -314,7 +337,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
+	log.Printf("Pid: %d", process.Pid)
 	pcb := PCB{ //creo la estructura necesaria
 		Pid:   process.Pid,
 		Base:  0,
@@ -718,7 +741,7 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
+	log.Printf("Lo que se guardo en map: %v", mapPCBPorTCB)
 	// Log de creación de hilo
 	log.Printf("## Hilo Creado - (PID:TID) - (%d:%d)", thread.Pid, thread.Tid)
 
