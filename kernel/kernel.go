@@ -22,7 +22,7 @@ func main() {
 	//mux := http.NewServeMux()
 
 	http.HandleFunc("POST /crearProceso", utils.CrearProceso)
-	http.HandleFunc("DELETE /finalizarProceso", utils.FinalizarProceso)
+	http.HandleFunc("POST /finalizarProceso", utils.FinalizarProceso)
 
 	http.HandleFunc("POST /crearHilo", utils.CrearHilo)
 	http.HandleFunc("DELETE /finalizarHilo", utils.FinalizarHilo)

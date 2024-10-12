@@ -252,6 +252,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 				break
 			}
 			log.Printf("Error al ejecutar la interrupcion %v", err)
+			break
 		}
 
 	}
@@ -261,7 +262,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 func RealizarInterrupcion(contexto *contextoEjecucion) error {
 	err := AcualizarContextoDeEjecucion(contexto)
 	if err == nil {
-		log.Printf("Error al actualizar contexto de ejecucion para la interrupcion")
+		log.Panicf("Error al actualizar contexto de ejecucion para la interrupcion")
 		return err
 	}
 	/*
@@ -847,9 +848,17 @@ func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al actualziar contexto de ejecucion")
 		return err
 	}
+	var process KernelExeReq
+	process.Pid = contexto.pcb.Pid
+	process.Tid = contexto.tcb.Tid
+	encodedeProcess, err2 := json.Marshal(process)
+	if err2 != nil {
+		return err2
+	}
 	log.Printf("Enviando a kernel syscall")
-	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "exitProcess")
+	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(encodedeProcess), "finalizarProceso")
 	if errM != nil {
+		log.Printf("ERROR AQUIIIIIII")
 		return errM
 	}
 	log.Printf("Syscall se ejecuto correctamente")
@@ -921,7 +930,7 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	var interrupction Interrupcion // ver si esta bien con el tipo que envia memoria
 	err := decoder.Decode(&interrupction)
 	if err != nil {
-		log.Printf("Error al decodificar el pedido del Kerel: %s\n", err.Error())
+		log.Printf("Error al decodificar el pedido del Kernel: %s\n", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Error al decodificar mensaje"))
 		return
@@ -934,6 +943,7 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	nuevaInterrupcion.Pid = interrupction.Pid
 	nuevaInterrupcion.Tid = interrupction.Tid
 	mutexInterrupt.Unlock()
+	log.Printf("Recive bien interrupcion")
 }
 
 /*ng)

@@ -1079,3 +1079,2014 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/12 16:37:10 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
 2024/10/12 16:37:11 error en la respuesta del módulo de memoria: 400
 2024/10/12 16:37:11 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 16:43:34 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 16:43:34 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 16:43:35 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 16:43:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 16:43:36 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 16:43:36 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 16:43:36 Antes de modificar el valor 
+2024/10/12 16:43:36 Registro obtenido
+2024/10/12 16:43:36 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 16:43:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 16:43:37 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 16:43:37 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 16:43:37 Antes de modificar el valor 
+2024/10/12 16:43:37 Registro obtenido
+2024/10/12 16:43:37 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 16:43:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 16:43:38 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 16:43:38 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 16:43:38 Registro obtenido
+2024/10/12 16:43:38 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 16:43:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 16:43:39 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 16:43:39 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 16:43:39 Registro obtenido
+2024/10/12 16:43:39 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 16:43:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 16:43:40 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 16:43:40 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 16:43:40 Registro obtenido
+2024/10/12 16:43:40 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 16:43:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 16:43:41 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 16:43:41 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 16:43:41 EL registro AX contiene el valor 4
+2024/10/12 16:43:41 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 16:43:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 16:43:42 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 16:43:42 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 16:43:42 Finalizar proceos PID : %d1
+2024/10/12 16:43:43 Enviando a kernel syscall
+2024/10/12 16:43:43 Error al recibir la respuesta del End point exitProcess - IP:127.0.0.1 - Puerto:8001
+2024/10/12 16:43:43 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 16:43:43 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 16:43:43 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 16:43:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 16:43:44 error en la respuesta del módulo de memoria: 400
+2024/10/12 16:43:44 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 16:45:32 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 16:45:32 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 16:45:33 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 16:45:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 16:45:34 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 16:45:34 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 16:45:34 Antes de modificar el valor 
+2024/10/12 16:45:34 Registro obtenido
+2024/10/12 16:45:34 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 16:45:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 16:45:35 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 16:45:35 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 16:45:35 Antes de modificar el valor 
+2024/10/12 16:45:35 Registro obtenido
+2024/10/12 16:45:35 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 16:45:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 16:45:36 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 16:45:36 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 16:45:36 Registro obtenido
+2024/10/12 16:45:36 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 16:45:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 16:45:37 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 16:45:37 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 16:45:37 Registro obtenido
+2024/10/12 16:45:37 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 16:45:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 16:45:38 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 16:45:38 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 16:45:38 Registro obtenido
+2024/10/12 16:45:38 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 16:45:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 16:45:39 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 16:45:39 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 16:45:39 EL registro AX contiene el valor 4
+2024/10/12 16:45:39 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 16:45:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 16:45:40 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 16:45:40 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 16:45:40 Finalizar proceos PID : %d1
+2024/10/12 16:45:41 Enviando a kernel syscall
+2024/10/12 16:45:41 Error al recibir la respuesta del End point exitProcess - IP:127.0.0.1 - Puerto:8001
+2024/10/12 16:45:41 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 16:45:41 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 16:45:41 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 16:45:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 16:45:42 error en la respuesta del módulo de memoria: 400
+2024/10/12 16:45:42 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 16:49:09 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 16:49:09 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 16:49:10 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 16:49:10 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 16:49:11 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 16:49:11 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 16:49:11 Antes de modificar el valor 
+2024/10/12 16:49:11 Registro obtenido
+2024/10/12 16:49:11 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 16:49:11 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 16:49:12 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 16:49:12 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 16:49:12 Antes de modificar el valor 
+2024/10/12 16:49:12 Registro obtenido
+2024/10/12 16:49:12 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 16:49:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 16:49:13 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 16:49:13 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 16:49:13 Registro obtenido
+2024/10/12 16:49:13 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 16:49:13 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 16:49:14 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 16:49:14 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 16:49:14 Registro obtenido
+2024/10/12 16:49:14 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 16:49:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 16:49:15 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 16:49:15 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 16:49:15 Registro obtenido
+2024/10/12 16:49:15 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 16:49:15 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 16:49:16 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 16:49:16 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 16:49:16 EL registro AX contiene el valor 4
+2024/10/12 16:49:16 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 16:49:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 16:49:17 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 16:49:17 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 16:49:17 Finalizar proceos PID : %d1
+2024/10/12 16:49:18 Enviando a kernel syscall
+2024/10/12 16:49:18 Error al recibir la respuesta del End point exitProcess - IP:127.0.0.1 - Puerto:8001
+2024/10/12 16:49:18 Error al ejecutar la instruccion : 404 Not Found
+2024/10/12 16:49:18 Error al ejecutar [PROCESS_EXIT]. ERROR: 404 Not Found
+2024/10/12 16:49:18 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 16:49:18 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 16:49:19 error en la respuesta del módulo de memoria: 400
+2024/10/12 16:49:19 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 16:51:00 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 16:51:00 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 16:51:01 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 16:51:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 16:51:02 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 16:51:02 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 16:51:02 Antes de modificar el valor 
+2024/10/12 16:51:02 Registro obtenido
+2024/10/12 16:51:02 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 16:51:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 16:51:03 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 16:51:03 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 16:51:03 Antes de modificar el valor 
+2024/10/12 16:51:03 Registro obtenido
+2024/10/12 16:51:03 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 16:51:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 16:51:04 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 16:51:04 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 16:51:04 Registro obtenido
+2024/10/12 16:51:04 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 16:51:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 16:51:05 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 16:51:05 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 16:51:05 Registro obtenido
+2024/10/12 16:51:05 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 16:51:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 16:51:06 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 16:51:06 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 16:51:06 Registro obtenido
+2024/10/12 16:51:06 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 16:51:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 16:51:07 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 16:51:07 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 16:51:07 EL registro AX contiene el valor 4
+2024/10/12 16:51:07 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 16:51:07 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 16:51:08 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 16:51:08 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 16:51:08 Finalizar proceos PID : %d1
+2024/10/12 16:51:09 Enviando a kernel syscall
+2024/10/12 16:51:09 Error al recibir la respuesta del End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 16:51:09 Error al ejecutar la instruccion : 405 Method Not Allowed
+2024/10/12 16:51:09 Error al ejecutar [PROCESS_EXIT]. ERROR: 405 Method Not Allowed
+2024/10/12 16:51:09 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 16:51:09 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 16:51:10 error en la respuesta del módulo de memoria: 400
+2024/10/12 16:51:10 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 17:09:26 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 17:09:26 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 17:09:27 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 17:09:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 17:09:28 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 17:09:28 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 17:09:28 Antes de modificar el valor 
+2024/10/12 17:09:28 Registro obtenido
+2024/10/12 17:09:28 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 17:09:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 17:09:29 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 17:09:29 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 17:09:29 Antes de modificar el valor 
+2024/10/12 17:09:29 Registro obtenido
+2024/10/12 17:09:29 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 17:09:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 17:09:30 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 17:09:30 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 17:09:30 Registro obtenido
+2024/10/12 17:09:30 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 17:09:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 17:09:31 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 17:09:31 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 17:09:31 Registro obtenido
+2024/10/12 17:09:31 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 17:09:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 17:09:32 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 17:09:32 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 17:09:32 Registro obtenido
+2024/10/12 17:09:32 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 17:09:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 17:09:33 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 17:09:33 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 17:09:33 EL registro AX contiene el valor 4
+2024/10/12 17:09:33 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 17:09:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 17:09:34 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 17:09:34 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 17:09:34 Finalizar proceos PID : %d1
+2024/10/12 17:09:35 Enviando a kernel syscall
+2024/10/12 17:09:35 Error al recibir la respuesta del End point /finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 17:09:35 Error al ejecutar la instruccion : 405 Method Not Allowed
+2024/10/12 17:09:35 Error al ejecutar [PROCESS_EXIT]. ERROR: 405 Method Not Allowed
+2024/10/12 17:09:35 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 17:09:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 17:09:36 error en la respuesta del módulo de memoria: 400
+2024/10/12 17:09:36 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 17:10:41 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 17:10:41 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 17:10:42 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 17:10:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 17:10:43 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 17:10:43 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 17:10:43 Antes de modificar el valor 
+2024/10/12 17:10:43 Registro obtenido
+2024/10/12 17:10:43 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 17:10:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 17:10:44 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 17:10:44 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 17:10:44 Antes de modificar el valor 
+2024/10/12 17:10:44 Registro obtenido
+2024/10/12 17:10:44 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 17:10:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 17:10:45 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 17:10:45 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 17:10:45 Registro obtenido
+2024/10/12 17:10:45 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 17:10:45 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 17:10:46 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 17:10:46 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 17:10:46 Registro obtenido
+2024/10/12 17:10:46 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 17:10:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 17:10:47 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 17:10:47 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 17:10:47 Registro obtenido
+2024/10/12 17:10:47 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 17:10:47 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 17:10:48 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 17:10:48 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 17:10:48 EL registro AX contiene el valor 4
+2024/10/12 17:10:48 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 17:10:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 17:10:49 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 17:10:49 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 17:10:49 Finalizar proceos PID : %d1
+2024/10/12 17:10:50 Enviando a kernel syscall
+2024/10/12 17:10:50 Error al recibir la respuesta del End point /finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 17:10:50 Error al ejecutar la instruccion : 405 Method Not Allowed
+2024/10/12 17:10:50 Error al ejecutar [PROCESS_EXIT]. ERROR: 405 Method Not Allowed
+2024/10/12 17:10:50 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 17:10:50 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 17:10:51 error en la respuesta del módulo de memoria: 400
+2024/10/12 17:10:51 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 17:12:14 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 17:12:14 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 17:12:15 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 17:12:15 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 17:12:16 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 17:12:16 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 17:12:16 Antes de modificar el valor 
+2024/10/12 17:12:16 Registro obtenido
+2024/10/12 17:12:16 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 17:12:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 17:12:17 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 17:12:17 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 17:12:17 Antes de modificar el valor 
+2024/10/12 17:12:17 Registro obtenido
+2024/10/12 17:12:17 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 17:12:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 17:12:18 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 17:12:18 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 17:12:18 Registro obtenido
+2024/10/12 17:12:18 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 17:12:18 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 17:12:19 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 17:12:19 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 17:12:19 Registro obtenido
+2024/10/12 17:12:19 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 17:12:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 17:12:20 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 17:12:20 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 17:12:20 Registro obtenido
+2024/10/12 17:12:20 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 17:12:20 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 17:12:21 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 17:12:21 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 17:12:21 EL registro AX contiene el valor 4
+2024/10/12 17:12:21 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 17:12:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 17:12:22 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 17:12:22 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 17:12:22 Finalizar proceos PID : %d1
+2024/10/12 17:12:23 Enviando a kernel syscall
+2024/10/12 17:12:23 Error al recibir la respuesta del End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 17:12:23 Error al ejecutar la instruccion : 405 Method Not Allowed
+2024/10/12 17:12:23 Error al ejecutar [PROCESS_EXIT]. ERROR: 405 Method Not Allowed
+2024/10/12 17:12:23 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 17:12:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 17:12:24 error en la respuesta del módulo de memoria: 400
+2024/10/12 17:12:24 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 17:45:29 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 17:45:29 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 17:45:30 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 17:45:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 17:45:31 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 17:45:31 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 17:45:31 Antes de modificar el valor 
+2024/10/12 17:45:31 Registro obtenido
+2024/10/12 17:45:31 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 17:45:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 17:45:32 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 17:45:32 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 17:45:32 Antes de modificar el valor 
+2024/10/12 17:45:32 Registro obtenido
+2024/10/12 17:45:32 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 17:45:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 17:45:33 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 17:45:33 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 17:45:33 Registro obtenido
+2024/10/12 17:45:33 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 17:45:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 17:45:34 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 17:45:34 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 17:45:34 Registro obtenido
+2024/10/12 17:45:34 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 17:45:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 17:45:35 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 17:45:35 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 17:45:35 Registro obtenido
+2024/10/12 17:45:35 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 17:45:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 17:45:36 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 17:45:36 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 17:45:36 EL registro AX contiene el valor 4
+2024/10/12 17:45:36 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 17:45:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 17:45:37 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 17:45:37 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 17:45:37 Finalizar proceos PID : %d1
+2024/10/12 17:45:38 Enviando a kernel syscall
+2024/10/12 17:45:38 Error al recibir la respuesta del End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 17:45:38 Error al ejecutar la instruccion : 405 Method Not Allowed
+2024/10/12 17:45:38 Error al ejecutar [PROCESS_EXIT]. ERROR: 405 Method Not Allowed
+2024/10/12 17:45:38 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 17:45:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/12 17:45:39 error en la respuesta del módulo de memoria: 400
+2024/10/12 17:45:39 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/12 17:48:59 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 17:48:59 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 17:49:00 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 17:49:00 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 17:49:01 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 17:49:01 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 17:49:01 Antes de modificar el valor 
+2024/10/12 17:49:01 Registro obtenido
+2024/10/12 17:49:01 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 17:49:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 17:49:02 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 17:49:02 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 17:49:02 Antes de modificar el valor 
+2024/10/12 17:49:02 Registro obtenido
+2024/10/12 17:49:02 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 17:49:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 17:49:03 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 17:49:03 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 17:49:03 Registro obtenido
+2024/10/12 17:49:03 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 17:49:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 17:49:04 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 17:49:04 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 17:49:04 Registro obtenido
+2024/10/12 17:49:04 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 17:49:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 17:49:05 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 17:49:05 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 17:49:05 Registro obtenido
+2024/10/12 17:49:05 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 17:49:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 17:49:06 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 17:49:06 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 17:49:06 EL registro AX contiene el valor 4
+2024/10/12 17:49:06 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 17:49:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 17:49:07 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 17:49:07 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 17:49:07 Finalizar proceos PID : %d1
+2024/10/12 17:49:08 Enviando a kernel syscall
+2024/10/12 17:49:08 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 17:49:08 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 17:49:08 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 17:49:08 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 17:49:09 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 17:49:09 http: panic serving 127.0.0.1:53420: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a8?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2db0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2db0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2db0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1978?}, {0x7c2db0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3308, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 17:57:26 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 17:57:26 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 17:57:27 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 17:57:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 17:57:28 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 17:57:28 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 17:57:28 Antes de modificar el valor 
+2024/10/12 17:57:28 Registro obtenido
+2024/10/12 17:57:28 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 17:57:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 17:57:29 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 17:57:29 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 17:57:29 Antes de modificar el valor 
+2024/10/12 17:57:29 Registro obtenido
+2024/10/12 17:57:29 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 17:57:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 17:57:30 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 17:57:30 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 17:57:30 Registro obtenido
+2024/10/12 17:57:30 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 17:57:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 17:57:31 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 17:57:31 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 17:57:31 Registro obtenido
+2024/10/12 17:57:31 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 17:57:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 17:57:32 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 17:57:32 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 17:57:32 Registro obtenido
+2024/10/12 17:57:32 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 17:57:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 17:57:33 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 17:57:33 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 17:57:33 EL registro AX contiene el valor 4
+2024/10/12 17:57:33 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 17:57:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 17:57:34 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 17:57:34 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 17:57:34 Finalizar proceos PID : %d1
+2024/10/12 17:57:35 Enviando a kernel syscall
+2024/10/12 17:57:35 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 17:57:35 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 17:57:35 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 17:57:35 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 17:57:36 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 17:57:36 http: panic serving 127.0.0.1:42684: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a8?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2db0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2db0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2db0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1978?}, {0x7c2db0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3308, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:02:46 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:02:46 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:02:47 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:02:47 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:02:48 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:02:48 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:02:48 Antes de modificar el valor 
+2024/10/12 18:02:48 Registro obtenido
+2024/10/12 18:02:48 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:02:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:02:49 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:02:49 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:02:49 Antes de modificar el valor 
+2024/10/12 18:02:49 Registro obtenido
+2024/10/12 18:02:49 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:02:49 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:02:50 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:02:50 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:02:50 Registro obtenido
+2024/10/12 18:02:50 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:02:50 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:02:51 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:02:51 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:02:51 Registro obtenido
+2024/10/12 18:02:51 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:02:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:02:52 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:02:52 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:02:52 Registro obtenido
+2024/10/12 18:02:52 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:02:52 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:02:53 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:02:53 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:02:53 EL registro AX contiene el valor 4
+2024/10/12 18:02:53 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:02:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:02:54 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:02:54 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:02:54 Finalizar proceos PID : %d1
+2024/10/12 18:02:55 Enviando a kernel syscall
+2024/10/12 18:02:55 Recive bien interrupcion
+2024/10/12 18:02:55 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:02:55 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:02:55 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:02:55 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:02:56 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:02:56 http: panic serving 127.0.0.1:60276: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b593?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2db0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2db0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2db0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1978?}, {0x7c2db0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3308, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:05:21 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:05:21 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:05:22 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:05:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:05:23 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:05:23 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:05:23 Antes de modificar el valor 
+2024/10/12 18:05:23 Registro obtenido
+2024/10/12 18:05:23 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:05:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:05:24 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:05:24 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:05:24 Antes de modificar el valor 
+2024/10/12 18:05:24 Registro obtenido
+2024/10/12 18:05:24 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:05:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:05:25 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:05:25 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:05:25 Registro obtenido
+2024/10/12 18:05:25 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:05:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:05:26 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:05:26 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:05:26 Registro obtenido
+2024/10/12 18:05:26 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:05:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:05:27 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:05:27 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:05:27 Registro obtenido
+2024/10/12 18:05:27 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:05:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:05:28 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:05:28 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:05:28 EL registro AX contiene el valor 4
+2024/10/12 18:05:28 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:05:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:05:29 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:05:29 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:05:29 Finalizar proceos PID : %d1
+2024/10/12 18:05:30 Enviando a kernel syscall
+2024/10/12 18:05:30 Recive bien interrupcion
+2024/10/12 18:05:30 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:05:30 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:05:30 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:05:30 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:05:31 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:05:31 http: panic serving 127.0.0.1:42254: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a6?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2e10, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2e10?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2e10, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19d8?}, {0x7c2e10?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3368, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:09:10 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:09:10 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:09:11 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:09:11 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:09:12 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:09:12 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:09:12 Antes de modificar el valor 
+2024/10/12 18:09:12 Registro obtenido
+2024/10/12 18:09:12 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:09:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:09:13 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:09:13 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:09:13 Antes de modificar el valor 
+2024/10/12 18:09:13 Registro obtenido
+2024/10/12 18:09:13 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:09:13 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:09:14 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:09:14 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:09:14 Registro obtenido
+2024/10/12 18:09:14 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:09:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:09:15 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:09:15 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:09:15 Registro obtenido
+2024/10/12 18:09:15 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:09:15 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:09:16 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:09:16 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:09:16 Registro obtenido
+2024/10/12 18:09:16 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:09:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:09:17 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:09:17 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:09:17 EL registro AX contiene el valor 4
+2024/10/12 18:09:17 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:09:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:09:18 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:09:18 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:09:18 Finalizar proceos PID : %d1
+2024/10/12 18:09:19 Enviando a kernel syscall
+2024/10/12 18:09:19 Recive bien interrupcion
+2024/10/12 18:09:19 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:09:19 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:09:19 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:09:19 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:09:20 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:09:20 http: panic serving 127.0.0.1:35242: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc000017520?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b593?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2db0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2db0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2db0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c1978?}, {0x7c2db0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3308, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:10:19 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:10:19 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:10:20 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:10:20 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:10:21 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:10:21 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:10:21 Antes de modificar el valor 
+2024/10/12 18:10:21 Registro obtenido
+2024/10/12 18:10:21 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:10:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:10:22 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:10:22 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:10:22 Antes de modificar el valor 
+2024/10/12 18:10:22 Registro obtenido
+2024/10/12 18:10:22 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:10:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:10:23 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:10:23 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:10:23 Registro obtenido
+2024/10/12 18:10:23 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:10:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:10:24 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:10:24 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:10:24 Registro obtenido
+2024/10/12 18:10:24 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:10:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:10:25 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:10:25 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:10:25 Registro obtenido
+2024/10/12 18:10:25 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:10:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:10:26 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:10:26 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:10:26 EL registro AX contiene el valor 4
+2024/10/12 18:10:26 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:10:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:10:27 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:10:27 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:10:27 Finalizar proceos PID : %d1
+2024/10/12 18:10:28 Enviando a kernel syscall
+2024/10/12 18:10:28 Recive bien interrupcion
+2024/10/12 18:10:28 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:10:28 ERROR AQUIIIIIII
+2024/10/12 18:10:28 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:10:28 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:10:28 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:10:29 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:10:29 http: panic serving 127.0.0.1:54544: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2df0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3348, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:12:19 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:12:19 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:12:20 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:12:20 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:12:21 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:12:21 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:12:21 Antes de modificar el valor 
+2024/10/12 18:12:21 Registro obtenido
+2024/10/12 18:12:21 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:12:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:12:22 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:12:22 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:12:22 Antes de modificar el valor 
+2024/10/12 18:12:22 Registro obtenido
+2024/10/12 18:12:22 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:12:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:12:23 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:12:23 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:12:23 Registro obtenido
+2024/10/12 18:12:23 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:12:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:12:24 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:12:24 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:12:24 Registro obtenido
+2024/10/12 18:12:24 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:12:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:12:25 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:12:25 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:12:25 Registro obtenido
+2024/10/12 18:12:25 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:12:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:12:26 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:12:26 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:12:26 EL registro AX contiene el valor 4
+2024/10/12 18:12:26 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:12:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:12:27 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:12:27 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:12:27 Finalizar proceos PID : %d1
+2024/10/12 18:12:28 Enviando a kernel syscall
+2024/10/12 18:12:28 Recive bien interrupcion
+2024/10/12 18:12:28 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:12:28 ERROR AQUIIIIIII
+2024/10/12 18:12:28 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:12:28 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:12:28 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:12:29 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:12:29 http: panic serving 127.0.0.1:53590: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:12:32 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:12:32 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:12:33 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:12:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:12:34 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:12:34 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:12:34 Antes de modificar el valor 
+2024/10/12 18:12:34 Registro obtenido
+2024/10/12 18:12:34 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:13:02 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:13:02 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:13:03 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:13:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:13:04 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:13:04 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:13:04 Antes de modificar el valor 
+2024/10/12 18:13:04 Registro obtenido
+2024/10/12 18:13:04 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:13:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:13:05 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:13:05 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:13:05 Antes de modificar el valor 
+2024/10/12 18:13:05 Registro obtenido
+2024/10/12 18:13:05 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:13:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:13:06 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:13:06 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:13:06 Registro obtenido
+2024/10/12 18:13:06 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:13:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:13:07 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:13:07 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:13:07 Registro obtenido
+2024/10/12 18:13:07 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:13:07 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:13:08 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:13:08 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:13:08 Registro obtenido
+2024/10/12 18:13:08 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:13:08 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:13:09 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:13:09 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:13:09 EL registro AX contiene el valor 4
+2024/10/12 18:13:09 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:13:09 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:13:10 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:13:10 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:13:10 Finalizar proceos PID : %d1
+2024/10/12 18:13:11 Enviando a kernel syscall
+2024/10/12 18:13:11 Recive bien interrupcion
+2024/10/12 18:13:11 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:13:11 ERROR AQUIIIIIII
+2024/10/12 18:13:11 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:13:11 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:13:11 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:13:12 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:13:12 http: panic serving 127.0.0.1:45932: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2df0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3348, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:17:51 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:17:51 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:17:52 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:17:52 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:17:53 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:17:53 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:17:53 Antes de modificar el valor 
+2024/10/12 18:17:53 Registro obtenido
+2024/10/12 18:17:53 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:17:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:17:54 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:17:54 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:17:54 Antes de modificar el valor 
+2024/10/12 18:17:54 Registro obtenido
+2024/10/12 18:17:54 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:17:54 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:17:55 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:17:55 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:17:55 Registro obtenido
+2024/10/12 18:17:55 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:17:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:17:56 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:17:56 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:17:56 Registro obtenido
+2024/10/12 18:17:56 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:17:56 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:17:57 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:17:57 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:17:57 Registro obtenido
+2024/10/12 18:17:57 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:17:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:17:58 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:17:58 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:17:58 EL registro AX contiene el valor 4
+2024/10/12 18:17:58 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:17:58 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:17:59 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:17:59 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:17:59 Finalizar proceos PID : %d1
+2024/10/12 18:18:00 Enviando a kernel syscall
+2024/10/12 18:18:00 Recive bien interrupcion
+2024/10/12 18:18:00 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:18:00 ERROR AQUIIIIIII
+2024/10/12 18:18:00 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:18:00 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:18:00 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:18:01 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:18:01 http: panic serving 127.0.0.1:43964: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2df0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3348, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:19:11 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:19:11 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:19:12 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:19:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:19:13 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:19:13 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:19:13 Antes de modificar el valor 
+2024/10/12 18:19:13 Registro obtenido
+2024/10/12 18:19:13 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:19:13 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:19:14 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:19:14 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:19:14 Antes de modificar el valor 
+2024/10/12 18:19:14 Registro obtenido
+2024/10/12 18:19:14 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:19:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:19:15 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:19:15 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:19:15 Registro obtenido
+2024/10/12 18:19:15 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:19:15 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:19:16 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:19:16 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:19:16 Registro obtenido
+2024/10/12 18:19:16 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:19:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:19:17 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:19:17 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:19:17 Registro obtenido
+2024/10/12 18:19:17 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:19:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:19:18 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:19:18 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:19:18 EL registro AX contiene el valor 4
+2024/10/12 18:19:18 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:19:18 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:19:19 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:19:19 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:19:19 Finalizar proceos PID : %d1
+2024/10/12 18:19:20 Enviando a kernel syscall
+2024/10/12 18:19:20 Recive bien interrupcion
+2024/10/12 18:19:20 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:19:20 ERROR AQUIIIIIII
+2024/10/12 18:19:20 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:19:20 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:19:20 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:19:21 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:19:21 http: panic serving 127.0.0.1:51028: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:21:24 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:21:24 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:21:25 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:21:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:21:26 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:21:26 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:21:26 Antes de modificar el valor 
+2024/10/12 18:21:26 Registro obtenido
+2024/10/12 18:21:26 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:21:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:21:27 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:21:27 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:21:27 Antes de modificar el valor 
+2024/10/12 18:21:27 Registro obtenido
+2024/10/12 18:21:27 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:21:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:21:28 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:21:28 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:21:28 Registro obtenido
+2024/10/12 18:21:28 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:21:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:21:29 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:21:29 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:21:29 Registro obtenido
+2024/10/12 18:21:29 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:21:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:21:30 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:21:30 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:21:30 Registro obtenido
+2024/10/12 18:21:30 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:21:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:21:31 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:21:31 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:21:31 EL registro AX contiene el valor 4
+2024/10/12 18:21:31 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:21:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:21:32 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:21:32 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:21:32 Finalizar proceos PID : %d1
+2024/10/12 18:21:33 Enviando a kernel syscall
+2024/10/12 18:21:33 Recive bien interrupcion
+2024/10/12 18:21:33 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:21:33 ERROR AQUIIIIIII
+2024/10/12 18:21:33 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:21:33 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:21:33 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:21:34 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:21:34 http: panic serving 127.0.0.1:59598: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:29:04 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:29:04 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:29:05 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:29:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:29:06 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:29:06 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:29:06 Antes de modificar el valor 
+2024/10/12 18:29:06 Registro obtenido
+2024/10/12 18:29:06 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:29:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:29:07 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:29:07 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:29:07 Antes de modificar el valor 
+2024/10/12 18:29:07 Registro obtenido
+2024/10/12 18:29:07 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:29:07 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:29:08 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:29:08 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:29:08 Registro obtenido
+2024/10/12 18:29:08 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:29:08 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:29:09 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:29:09 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:29:09 Registro obtenido
+2024/10/12 18:29:09 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:29:09 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:29:10 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:29:10 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:29:10 Registro obtenido
+2024/10/12 18:29:10 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:29:10 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:29:11 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:29:11 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:29:11 EL registro AX contiene el valor 4
+2024/10/12 18:29:11 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:29:11 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:29:12 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:29:12 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:29:12 Finalizar proceos PID : %d1
+2024/10/12 18:29:13 Enviando a kernel syscall
+2024/10/12 18:29:13 Recive bien interrupcion
+2024/10/12 18:29:13 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:29:13 ERROR AQUIIIIIII
+2024/10/12 18:29:13 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:29:13 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:29:13 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:29:14 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:29:14 http: panic serving 127.0.0.1:36260: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2df0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3348, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:33:19 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:33:19 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:33:21 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:33:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:33:22 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:33:22 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:33:22 Antes de modificar el valor 
+2024/10/12 18:33:22 Registro obtenido
+2024/10/12 18:33:22 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:33:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:33:23 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:33:23 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:33:23 Antes de modificar el valor 
+2024/10/12 18:33:23 Registro obtenido
+2024/10/12 18:33:23 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:33:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:33:24 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:33:24 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:33:24 Registro obtenido
+2024/10/12 18:33:24 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:33:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:33:25 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:33:25 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:33:25 Registro obtenido
+2024/10/12 18:33:25 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:33:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:33:26 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:33:26 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:33:26 Registro obtenido
+2024/10/12 18:33:26 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:33:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:33:27 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:33:27 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:33:27 EL registro AX contiene el valor 4
+2024/10/12 18:33:27 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:33:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:33:28 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:33:28 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:33:28 Finalizar proceos PID : %d1
+2024/10/12 18:33:29 Enviando a kernel syscall
+2024/10/12 18:33:29 Recive bien interrupcion
+2024/10/12 18:33:29 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:33:29 ERROR AQUIIIIIII
+2024/10/12 18:33:29 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:33:29 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:33:29 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:33:30 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:33:30 http: panic serving 127.0.0.1:54686: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2df0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3348, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:36:19 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:36:19 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:36:20 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:36:20 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:36:21 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:36:21 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:36:21 Antes de modificar el valor 
+2024/10/12 18:36:21 Registro obtenido
+2024/10/12 18:36:21 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:36:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:36:22 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:36:22 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:36:22 Antes de modificar el valor 
+2024/10/12 18:36:22 Registro obtenido
+2024/10/12 18:36:22 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:36:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:36:23 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:36:23 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:36:23 Registro obtenido
+2024/10/12 18:36:23 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:36:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:36:24 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:36:24 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:36:24 Registro obtenido
+2024/10/12 18:36:24 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:36:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:36:25 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:36:25 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:36:25 Registro obtenido
+2024/10/12 18:36:25 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:36:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:36:26 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:36:26 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:36:26 EL registro AX contiene el valor 4
+2024/10/12 18:36:26 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:36:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:36:27 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:36:27 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:36:27 Finalizar proceos PID : %d1
+2024/10/12 18:36:28 Enviando a kernel syscall
+2024/10/12 18:36:28 Recive bien interrupcion
+2024/10/12 18:36:28 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:36:28 ERROR AQUIIIIIII
+2024/10/12 18:36:28 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:36:28 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:36:28 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:36:29 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:36:29 http: panic serving 127.0.0.1:43666: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:37:52 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:37:52 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:37:53 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:37:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:37:54 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:37:54 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:37:54 Antes de modificar el valor 
+2024/10/12 18:37:54 Registro obtenido
+2024/10/12 18:37:54 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:37:54 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:37:55 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:37:55 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:37:55 Antes de modificar el valor 
+2024/10/12 18:37:55 Registro obtenido
+2024/10/12 18:37:55 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:37:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:37:56 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:37:56 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:37:56 Registro obtenido
+2024/10/12 18:37:56 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:37:56 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:37:57 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:37:57 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:37:57 Registro obtenido
+2024/10/12 18:37:57 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:37:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:37:58 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:37:58 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:37:58 Registro obtenido
+2024/10/12 18:37:58 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:37:58 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:37:59 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:37:59 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:37:59 EL registro AX contiene el valor 4
+2024/10/12 18:37:59 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:37:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:38:00 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:38:00 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:38:00 Finalizar proceos PID : %d1
+2024/10/12 18:38:01 Enviando a kernel syscall
+2024/10/12 18:38:01 Recive bien interrupcion
+2024/10/12 18:38:01 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:38:01 ERROR AQUIIIIIII
+2024/10/12 18:38:01 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:38:01 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:38:01 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:38:02 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:38:02 http: panic serving 127.0.0.1:56952: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:39:39 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:39:39 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:39:40 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:39:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:39:41 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:39:41 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:39:41 Antes de modificar el valor 
+2024/10/12 18:39:41 Registro obtenido
+2024/10/12 18:39:41 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:39:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:39:42 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:39:42 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:39:42 Antes de modificar el valor 
+2024/10/12 18:39:42 Registro obtenido
+2024/10/12 18:39:42 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:39:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:39:43 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:39:43 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:39:43 Registro obtenido
+2024/10/12 18:39:43 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:39:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:39:44 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:39:44 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:39:44 Registro obtenido
+2024/10/12 18:39:44 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:39:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:39:45 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:39:45 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:39:45 Registro obtenido
+2024/10/12 18:39:45 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:39:45 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:39:46 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:39:46 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:39:46 EL registro AX contiene el valor 4
+2024/10/12 18:39:46 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:39:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:39:47 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:39:47 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:39:47 Finalizar proceos PID : %d1
+2024/10/12 18:39:48 Enviando a kernel syscall
+2024/10/12 18:39:48 Recive bien interrupcion
+2024/10/12 18:39:48 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:39:48 ERROR AQUIIIIIII
+2024/10/12 18:39:48 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:39:48 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:39:48 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:39:49 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:39:49 http: panic serving 127.0.0.1:41506: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:40:58 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:40:58 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:40:59 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:40:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:41:00 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:41:00 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:41:00 Antes de modificar el valor 
+2024/10/12 18:41:00 Registro obtenido
+2024/10/12 18:41:00 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:41:00 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:41:01 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:41:01 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:41:01 Antes de modificar el valor 
+2024/10/12 18:41:01 Registro obtenido
+2024/10/12 18:41:01 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:41:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:41:02 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:41:02 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:41:02 Registro obtenido
+2024/10/12 18:41:02 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:41:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:41:03 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:41:03 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:41:03 Registro obtenido
+2024/10/12 18:41:03 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:41:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:41:04 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:41:04 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:41:04 Registro obtenido
+2024/10/12 18:41:04 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:41:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:41:05 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:41:05 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:41:05 EL registro AX contiene el valor 4
+2024/10/12 18:41:05 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:41:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:41:06 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:41:06 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:41:06 Finalizar proceos PID : %d1
+2024/10/12 18:41:07 Enviando a kernel syscall
+2024/10/12 18:41:07 Recive bien interrupcion
+2024/10/12 18:41:07 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:41:07 ERROR AQUIIIIIII
+2024/10/12 18:41:07 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:41:07 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:41:07 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:41:08 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:41:08 http: panic serving 127.0.0.1:58718: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:42:44 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:42:44 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:42:45 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:42:45 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:42:46 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:42:46 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:42:46 Antes de modificar el valor 
+2024/10/12 18:42:46 Registro obtenido
+2024/10/12 18:42:46 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:42:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:42:47 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:42:47 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:42:47 Antes de modificar el valor 
+2024/10/12 18:42:47 Registro obtenido
+2024/10/12 18:42:47 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:42:47 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:42:48 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:42:48 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:42:48 Registro obtenido
+2024/10/12 18:42:48 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:42:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:42:49 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:42:49 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:42:49 Registro obtenido
+2024/10/12 18:42:49 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:42:49 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:42:50 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:42:50 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:42:50 Registro obtenido
+2024/10/12 18:42:50 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:42:50 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:42:51 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:42:51 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:42:51 EL registro AX contiene el valor 4
+2024/10/12 18:42:51 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:42:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:42:52 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:42:52 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:42:52 Finalizar proceos PID : %d1
+2024/10/12 18:42:53 Enviando a kernel syscall
+2024/10/12 18:42:53 Recive bien interrupcion
+2024/10/12 18:42:53 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:42:53 ERROR AQUIIIIIII
+2024/10/12 18:42:53 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:42:53 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:42:53 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:42:54 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:42:54 http: panic serving 127.0.0.1:51300: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2df0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3348, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:44:17 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:44:17 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:44:19 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:44:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:44:20 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:44:20 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:44:20 Antes de modificar el valor 
+2024/10/12 18:44:20 Registro obtenido
+2024/10/12 18:44:20 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:44:20 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:44:21 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:44:21 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:44:21 Antes de modificar el valor 
+2024/10/12 18:44:21 Registro obtenido
+2024/10/12 18:44:21 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:44:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:44:22 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:44:22 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:44:22 Registro obtenido
+2024/10/12 18:44:22 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:44:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:44:23 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:44:23 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:44:23 Registro obtenido
+2024/10/12 18:44:23 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:44:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:44:24 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:44:24 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:44:24 Registro obtenido
+2024/10/12 18:44:24 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:44:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:44:25 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:44:25 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:44:25 EL registro AX contiene el valor 4
+2024/10/12 18:44:25 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:44:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:44:26 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:44:26 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:44:26 Finalizar proceos PID : %d1
+2024/10/12 18:44:27 Enviando a kernel syscall
+2024/10/12 18:44:27 Recive bien interrupcion
+2024/10/12 18:44:27 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:44:27 ERROR AQUIIIIIII
+2024/10/12 18:44:27 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:44:27 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:44:27 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:44:28 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:44:28 http: panic serving 127.0.0.1:60546: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:45:31 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:45:31 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:45:32 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:45:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:45:33 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:45:33 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:45:33 Antes de modificar el valor 
+2024/10/12 18:45:33 Registro obtenido
+2024/10/12 18:45:33 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:45:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:45:34 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:45:34 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:45:34 Antes de modificar el valor 
+2024/10/12 18:45:34 Registro obtenido
+2024/10/12 18:45:34 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:45:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:45:35 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:45:35 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:45:35 Registro obtenido
+2024/10/12 18:45:35 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:45:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:45:36 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:45:36 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:45:36 Registro obtenido
+2024/10/12 18:45:36 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:45:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:45:37 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:45:37 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:45:37 Registro obtenido
+2024/10/12 18:45:37 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:45:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:45:38 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:45:38 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:45:38 EL registro AX contiene el valor 4
+2024/10/12 18:45:38 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:45:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:45:39 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:45:39 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:45:39 Finalizar proceos PID : %d1
+2024/10/12 18:45:40 Enviando a kernel syscall
+2024/10/12 18:45:40 Recive bien interrupcion
+2024/10/12 18:45:40 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:45:40 ERROR AQUIIIIIII
+2024/10/12 18:45:40 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:45:40 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:45:40 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:45:41 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:45:41 http: panic serving 127.0.0.1:39480: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:47:25 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:47:25 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:47:26 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:47:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:47:27 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:47:27 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:47:27 Antes de modificar el valor 
+2024/10/12 18:47:27 Registro obtenido
+2024/10/12 18:47:27 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:47:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:47:28 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:47:28 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:47:28 Antes de modificar el valor 
+2024/10/12 18:47:28 Registro obtenido
+2024/10/12 18:47:28 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:47:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:47:29 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:47:29 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:47:29 Registro obtenido
+2024/10/12 18:47:29 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:47:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:47:30 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:47:30 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:47:30 Registro obtenido
+2024/10/12 18:47:30 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:47:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:47:31 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:47:31 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:47:31 Registro obtenido
+2024/10/12 18:47:31 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:47:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:47:32 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:47:32 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:47:32 EL registro AX contiene el valor 4
+2024/10/12 18:47:32 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:47:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:47:33 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:47:33 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:47:33 Finalizar proceos PID : %d1
+2024/10/12 18:47:34 Enviando a kernel syscall
+2024/10/12 18:47:34 Recive bien interrupcion
+2024/10/12 18:47:34 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:47:34 ERROR AQUIIIIIII
+2024/10/12 18:47:34 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:47:34 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:47:34 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:47:35 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:47:35 http: panic serving 127.0.0.1:35608: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:49:27 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:49:27 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:49:28 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:49:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:49:29 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:49:29 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:49:29 Antes de modificar el valor 
+2024/10/12 18:49:29 Registro obtenido
+2024/10/12 18:49:29 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:49:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:49:30 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:49:30 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:49:30 Antes de modificar el valor 
+2024/10/12 18:49:30 Registro obtenido
+2024/10/12 18:49:30 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:49:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:49:31 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:49:31 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:49:31 Registro obtenido
+2024/10/12 18:49:31 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:49:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:49:32 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:49:32 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:49:32 Registro obtenido
+2024/10/12 18:49:32 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:49:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:49:33 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:49:33 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:49:33 Registro obtenido
+2024/10/12 18:49:33 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:49:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:49:34 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:49:34 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:49:34 EL registro AX contiene el valor 4
+2024/10/12 18:49:34 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:49:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:49:35 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:49:35 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:49:35 Finalizar proceos PID : %d1
+2024/10/12 18:49:36 Enviando a kernel syscall
+2024/10/12 18:49:36 Recive bien interrupcion
+2024/10/12 18:49:36 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:49:36 ERROR AQUIIIIIII
+2024/10/12 18:49:36 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:49:36 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:49:36 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:49:37 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:49:37 http: panic serving 127.0.0.1:48436: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000a40e0?, {0x7c2df0?, 0xc0000a41c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000a41c0}, 0xc0000ac3c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000a41c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ae120, {0x7c3348, 0xc00007d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/12 18:50:47 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/12 18:50:47 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/12 18:50:48 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/12 18:50:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/12 18:50:49 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/12 18:50:49 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/12 18:50:49 Antes de modificar el valor 
+2024/10/12 18:50:49 Registro obtenido
+2024/10/12 18:50:49 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/12 18:50:49 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/12 18:50:50 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/12 18:50:50 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/12 18:50:50 Antes de modificar el valor 
+2024/10/12 18:50:50 Registro obtenido
+2024/10/12 18:50:50 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/12 18:50:50 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/12 18:50:51 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/12 18:50:51 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/12 18:50:51 Registro obtenido
+2024/10/12 18:50:51 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/12 18:50:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/12 18:50:52 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/12 18:50:52 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/12 18:50:52 Registro obtenido
+2024/10/12 18:50:52 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/12 18:50:52 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/12 18:50:53 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/12 18:50:53 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/12 18:50:53 Registro obtenido
+2024/10/12 18:50:53 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/12 18:50:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/12 18:50:54 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/12 18:50:54 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/12 18:50:54 EL registro AX contiene el valor 4
+2024/10/12 18:50:54 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/12 18:50:54 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/12 18:50:55 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/12 18:50:55 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/12 18:50:55 Finalizar proceos PID : %d1
+2024/10/12 18:50:56 Enviando a kernel syscall
+2024/10/12 18:50:56 Recive bien interrupcion
+2024/10/12 18:50:57 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/12 18:50:57 ERROR AQUIIIIIII
+2024/10/12 18:50:57 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:50:57 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": EOF
+2024/10/12 18:50:57 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/12 18:50:58 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/12 18:50:58 http: panic serving 127.0.0.1:42252: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1947 +0xbe
+panic({0x6ce7c0?, 0xc0000174f0?})
+	/usr/local/go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x74b5a3?, 0x25?}, {0x0?, 0x467245?, 0x18?})
+	/usr/local/go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000180a0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/home/utnso/TPSO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000ac0e0?, {0x7c2df0?, 0xc0000ac1c0?}, 0x0?)
+	/usr/local/go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x40ece5?, {0x7c2df0, 0xc0000ac1c0}, 0xc0000b43c0)
+	/usr/local/go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7c19b8?}, {0x7c2df0?, 0xc0000ac1c0?}, 0x6?)
+	/usr/local/go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000b6120, {0x7c3348, 0xc00008d0b0})
+	/usr/local/go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/go/src/net/http/server.go:3360 +0x485

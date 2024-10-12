@@ -302,6 +302,7 @@ func esElPrimerProcesoEnNew(pcb PCB) bool {
 }
 
 func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Entra a exit process")
 	var hilo TCBRequest
 	decoder := json.NewDecoder(r.Body)
 
@@ -324,7 +325,7 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
+	log.Printf("TODO OK")
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -333,10 +334,11 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	pcb := getPCB(pid)
 	quitarProcesoInicializado(pcb)
 	encolarProcesoExit(pcb)
-
+	log.Printf("Quitado y encolao el proceso")
 	for _, tcb := range colaReadyHilo {
 		if tcb.Pid == pid {
 			exitHilo(pid, tcb.Tid)
+			log.Printf("ExitHilo ejecutado exitosamente desde cola de ready")
 		}
 	} // LO PUSE ASI PORQUE NO SOLO HABIA QUE MOVER A EXIT SINO TAMBIEN AVISAR QUE FINALIZA (es decir lo que hace la funcion exit proceses)
 
@@ -344,13 +346,14 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 		if tcb.Pid == pid {
 			enviarInterrupcion(tcb.Pid, tcb.Tid)
 			exitHilo(pid, tcb.Tid)
-
+			log.Printf("ExitHilo ejecutado exitosamente desde cola de execute")
 		}
 	}
 
 	for _, tcb := range colaBlockHilo {
 		if tcb.Pid == pid {
 			exitHilo(pid, tcb.Tid)
+			log.Printf("ExitHilo ejecutado exitosamente desde cola de blocked")
 		}
 	}
 
@@ -358,6 +361,7 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 
 	if resp == nil {
 		// Notificar a traves del canal
+		log.Printf("Proceso finalizado existosamente")
 		finProceso <- true
 	} else {
 		slog.Error("Error al enviar el proceso finalizado a memoria")
@@ -368,7 +372,7 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 }
 
 func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
-
+	log.Printf("Enviando proceso a memoria ")
 	memoryRequest := PCBRequest{Pid: pcb.Pid}
 
 	puerto := ConfigKernel.PuertoMemoria
@@ -381,7 +385,7 @@ func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 		return err
 	}
 
-	url := fmt.Sprintf("http://%s:%d/finalizacionProceso", ip, puerto)
+	url := fmt.Sprintf("http://%s:%d/terminateProcess", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
@@ -392,6 +396,7 @@ func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 		log.Fatalf("Error en la respuesta del módulo de CPU - status_code: %d ", resp.StatusCode)
 		return err
 	}
+	log.Printf("Proceso terminado existosamente llevado a memoria ")
 	return nil
 }
 
@@ -626,7 +631,7 @@ func EntrarHilo(w http.ResponseWriter, r *http.Request) { //debe ser del mismo p
 }
 
 func exitHilo(pid int, tid int) error {
-
+	log.Printf("ENtra a exitHilo")
 	hilo := getTCB(pid, tid)
 	pcb := getPCB(pid)
 	pcb.Tid = removeTid(pcb.Tid, tid)
@@ -641,7 +646,7 @@ func exitHilo(pid int, tid int) error {
 	}
 
 	encolarExit(hilo)
-
+	log.Printf("Hilo encolado en exit")
 	for _, tidBloqueado := range hilo.HilosBloqueados {
 		// desbloquear hilos bloqueados por el hilo que finalizo
 		desbloquearHilosJoin(tidBloqueado, pid)
@@ -652,7 +657,7 @@ func exitHilo(pid int, tid int) error {
 	}
 
 	err := enviarHiloFinalizadoAMemoria(hilo)
-
+	log.Printf("Enviado hilo finalizado a memoria ")
 	if err != nil {
 		log.Printf("Error al enviar hilo finalizado a memoria, pid: %d - tid: %d", hilo.Pid, hilo.Tid)
 		return err
@@ -872,7 +877,7 @@ func enviarTCBMemoria(tcb TCB, path string) error {
 }
 
 func enviarHiloFinalizadoAMemoria(hilo TCB) error {
-
+	log.Printf("Entra a envio hilo finalizado a memoria ")
 	memoryRequest := TCBRequest{}
 	memoryRequest.Pid = hilo.Pid
 	memoryRequest.Tid = hilo.Tid
@@ -881,24 +886,27 @@ func enviarHiloFinalizadoAMemoria(hilo TCB) error {
 	ip := ConfigKernel.IpMemoria
 
 	body, err := json.Marshal(&memoryRequest)
-
+	log.Printf("Codificando mensaje")
 	if err != nil {
 		slog.Error("error codificando" + err.Error())
 		return err
 	}
 
-	url := fmt.Sprintf("http://%s:%d/finalizacionHilo", ip, puerto)
+	url := fmt.Sprintf("http://%s:%d/terminateThread", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
-
+	log.Printf("Envio mensaje ")
 	if err != nil {
+		log.Printf("Error de envio de TCB finalizado ")
 		slog.Error("Error enviando TCB para finalizarlo. ip: %d - puerto: %s", ip, puerto)
 		return err
 	}
-
+	log.Printf("analizo repuesta de envio a memoria")
 	if resp.StatusCode != http.StatusOK {
+		log.Printf("Error en la respuesta del modulo de Memoria. status_code: %d", resp.StatusCode)
 		log.Fatalf("Error en la respuesta del modulo de CPU. status_code: %d", resp.StatusCode)
 		return err
 	}
+	log.Printf("Envio a memoria del proceso exitoso")
 	return nil
 }
 
@@ -1277,7 +1285,7 @@ func enviarInterrupcion(pid int, tid int) {
 	if err != nil {
 		slog.Error("Error enviando interrupcion", slog.String("ip", ip), slog.Int("puerto", puerto), slog.Any("error", err))
 	}
-
+	log.Printf("Envia interrupcion de finalizacion ")
 	if resp.StatusCode != http.StatusOK {
 		slog.Error("error en la respuesta del módulo de cpu:" + fmt.Sprintf("%v", resp.StatusCode))
 	}

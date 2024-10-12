@@ -10,7 +10,6 @@ import (
 	"math"
 	"net/http"
 	"os"
-	"strconv"
 	"sync"
 	"time"
 
@@ -327,6 +326,7 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 
 					w.WriteHeader(http.StatusOK)
 					w.Write([]byte("contexto de ejecucion ha sido actualizado"))
+					log.Printf("Map actualizado %v", mapPCBPorTCB)
 					return
 				}
 			}
@@ -616,9 +616,24 @@ func worstFit(processSize int) int {
 
 //--------------------------------TERMINATE PROCESS---------------------------------------------
 
+type KernelProcessTerminateReq struct {
+	Pid int `json:"pid"`
+}
+
 func TerminateProcess(w http.ResponseWriter, r *http.Request) {
-	queryParams := r.URL.Query()
-	pid, _ := strconv.Atoi(queryParams.Get("pid"))
+	log.Printf("Entra a terminate process")
+	//queryParams := r.URL.Query()
+	//pid, _ := strconv.Atoi(queryParams.Get("pid"))
+	var KernelReq KernelProcessTerminateReq
+	log.Printf("Entre a get instruction")
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&KernelReq)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	pid := KernelReq.Pid
 
 	if esquemaMemoria == "FIJAS" { //PARA FIJAS
 		var numeroDeParticion int
