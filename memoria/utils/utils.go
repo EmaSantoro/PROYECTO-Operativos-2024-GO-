@@ -76,7 +76,18 @@ type estructuraHilo struct {
 	HX  uint32
 	PC  uint32
 }
-
+type TCB struct {
+	Tid int
+	AX  uint32
+	BX  uint32
+	CX  uint32
+	DX  uint32
+	EX  uint32
+	FX  uint32
+	GX  uint32
+	HX  uint32
+	PC  uint32
+}
 type KernelExeReq struct {
 	Pid int `json:"pid"` // ver cuales son los keys usados en Kernel
 	Tid int `json:"tid"`
@@ -278,7 +289,7 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 	// pid, _ := strconv.Atoi(queryParams.Get("pid")) //esto me parece que no va
 	// tid, _ := strconv.Atoi(queryParams.Get("tid")) //esto tampoco
 	log.Printf("Entra a actualziar contexto")
-	var actualizadoContexto NewContext
+	var actualizadoContexto GetExecutionContextResponse
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
@@ -286,33 +297,33 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	log.Printf("Respuesta codificara PID = %d , TID = %d", actualizadoContexto.PCB.Pid, actualizadoContexto.estructuraHilo.Tid)
+	log.Printf("Respuesta codificara PID = %d , TID = %d", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
 	log.Printf("MAP PCB x TCB = %v", mapPCBPorTCB)
 	for pcb, tidMap := range mapPCBPorTCB {
-		if pcb.Pid == actualizadoContexto.PCB.Pid {
+		if pcb.Pid == actualizadoContexto.Pcb.Pid {
 			log.Printf("PID actualizar : %d", pcb.Pid)
 			for tcb := range tidMap {
 				log.Printf("TID actualizar : %d", tcb.Tid)
-				if tcb.Tid == actualizadoContexto.estructuraHilo.Tid {
+				if tcb.Tid == actualizadoContexto.Tcb.Tid {
 
-					pcb.Base = actualizadoContexto.PCB.Base
-					pcb.Limit = actualizadoContexto.PCB.Limit
-					tcb.AX = uint32(actualizadoContexto.estructuraHilo.AX)
-					tcb.BX = uint32(actualizadoContexto.estructuraHilo.BX)
-					tcb.CX = uint32(actualizadoContexto.estructuraHilo.CX)
-					tcb.DX = uint32(actualizadoContexto.estructuraHilo.DX)
-					tcb.EX = uint32(actualizadoContexto.estructuraHilo.EX)
-					tcb.FX = uint32(actualizadoContexto.estructuraHilo.FX)
-					tcb.GX = uint32(actualizadoContexto.estructuraHilo.GX)
-					tcb.HX = uint32(actualizadoContexto.estructuraHilo.HX)
-					tcb.PC = uint32(actualizadoContexto.estructuraHilo.PC)
+					pcb.Base = actualizadoContexto.Pcb.Base
+					pcb.Limit = actualizadoContexto.Pcb.Limit
+					tcb.AX = uint32(actualizadoContexto.Tcb.AX)
+					tcb.BX = uint32(actualizadoContexto.Tcb.BX)
+					tcb.CX = uint32(actualizadoContexto.Tcb.CX)
+					tcb.DX = uint32(actualizadoContexto.Tcb.DX)
+					tcb.EX = uint32(actualizadoContexto.Tcb.EX)
+					tcb.FX = uint32(actualizadoContexto.Tcb.FX)
+					tcb.GX = uint32(actualizadoContexto.Tcb.GX)
+					tcb.HX = uint32(actualizadoContexto.Tcb.HX)
+					tcb.PC = uint32(actualizadoContexto.Tcb.PC)
 
 					//CREO QUE NO SE ESTA ACTUALIZANDO EL MAPA ANIDADO
 					tidMap[tcb] = tidMap[tcb]
 					mapPCBPorTCB[pcb] = tidMap
 
 					// Log de obtener contexto de ejecucion
-					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", actualizadoContexto.PCB.Pid, actualizadoContexto.estructuraHilo.Tid)
+					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
 
 					w.WriteHeader(http.StatusOK)
 					w.Write([]byte("contexto de ejecucion ha sido actualizado"))

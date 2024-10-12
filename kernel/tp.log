@@ -203,3 +203,11 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/12 01:26:10 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
 2024/10/12 01:29:00 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
 2024/10/12 01:31:15 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:07:26 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:11:46 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:23:06 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:29:09 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:32:04 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:36:28 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/12 16:36:28 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": dial tcp 127.0.0.1:8004: connect: connection refused"
+2024/10/12 16:37:01 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC

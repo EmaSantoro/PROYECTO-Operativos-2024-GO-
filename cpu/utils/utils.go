@@ -63,13 +63,14 @@ type MemoryRequest struct {
 }
 
 type PCB struct {
-	pid   int
-	base  uint32
-	limit uint32
+	Pid   int
+	Base  uint32
+	Limit uint32
 }
 
 type TCB struct {
-	tid int
+	Pid int
+	Tid int
 	AX  uint32
 	BX  uint32
 	CX  uint32
@@ -216,18 +217,18 @@ func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 		log.Println("Error al decodificar el contexto de ejecucion", errorDecode)
 		return
 	}
-	log.Printf("PCB : %d TID : %d - Solicitud Contexto de Ejecucion Exitosa", context.pcb.pid, context.tcb.tid)
+	log.Printf("PCB : %d TID : %d - Solicitud Contexto de Ejecucion Exitosa", contexto.Pcb.Pid, contexto.Tcb.Tid)
 	contextoDeEjecucion.pcb = contexto.Pcb
 	contextoDeEjecucion.tcb = contexto.Tcb
-	//contextoDeEjecucion.pcb.pid = 1
+	//contextoDeEjecucion.pcb.Pid = 1
 	return contextoDeEjecucion
 }
 
 func InstructionCycle(contexto *contextoEjecucion) {
 
 	for {
-		log.Printf("Intruccion Solicitada de Pid %d y TID %d y PC %d", contexto.pcb.pid, contexto.tcb.tid, contexto.tcb.PC)
-		intructionLine, err := Fetch(contexto.pcb.pid, contexto.tcb.tid, &contexto.tcb.PC)
+		log.Printf("Intruccion Solicitada de Pid %d y TID %d y PC %d", contexto.pcb.Pid, contexto.tcb.Tid, contexto.tcb.PC)
+		intructionLine, err := Fetch(contexto.pcb.Pid, contexto.tcb.Tid, &contexto.tcb.PC)
 		if err != nil {
 			log.Printf("Error al buscar intruccion en el pc %d. ERROR : %v", contexto.tcb.PC, err)
 			break
@@ -242,7 +243,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		if errExe != nil {
 			log.Printf("Error al ejecutar %v. ERROR: %v", intructionLine, errExe)
 		}
-		log.Printf("## TID: %d - Ejecutando: %s - Parametos : %v", contexto.tcb.tid, intructionLine[0], instruction.parameters)
+		log.Printf("## TID: %d - Ejecutando: %s - Parametos : %v", contexto.tcb.Tid, intructionLine[0], instruction.parameters)
 
 		flag := CheckInterrupt(*contexto)
 		if flag {
@@ -266,8 +267,8 @@ func RealizarInterrupcion(contexto *contextoEjecucion) error {
 	/*
 		var kernelInt KernelInterrupcion
 		kernelInt.Motivo = motivo
-		kernelInt.Pid = contexto.pcb.pid
-		kernelInt.Tid = contexto.tcb.tid
+		kernelInt.Pid = contexto.pcb.Pid
+		kernelInt.Tid = contexto.Tcb.Tid
 		body, err2 := json.Marshal(kernelInt)
 
 		if err2 != nil {
@@ -381,7 +382,7 @@ func CheckInterrupt(contexto contextoEjecucion) bool {
 		return true
 	}
 	mutexInterrupt.Lock()
-	if nuevaInterrupcion.flagInterrucption && contexto.pcb.pid == nuevaInterrupcion.Pid && contexto.tcb.tid == nuevaInterrupcion.Tid {
+	if nuevaInterrupcion.flagInterrucption && contexto.pcb.Pid == nuevaInterrupcion.Pid && contexto.tcb.Tid == nuevaInterrupcion.Tid {
 		nuevaInterrupcion.flagInterrucption = false
 		return true
 	}
@@ -435,7 +436,7 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
-	direccionFisica, errT := TranslateAdress(direccionLogica, context.pcb.base, context.pcb.limit)
+	direccionFisica, errT := TranslateAdress(direccionLogica, context.pcb.Base, context.pcb.Limit)
 	if errT != nil {
 		return errT
 	}
@@ -444,8 +445,8 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	//VER SI SE PUEDE PEDIR Y ENVIAR POR MISMO PUERTO
 	var memReq MemoryRequest
 	memReq.Address = direccionFisica
-	memReq.PID = context.pcb.pid
-	memReq.TID = context.tcb.tid
+	memReq.PID = context.pcb.Pid
+	memReq.TID = context.tcb.Tid
 
 	body, err2 := json.Marshal(memReq)
 
@@ -502,7 +503,7 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	if err2 != nil {
 		return err2
 	}
-	direccionFisica, errTranslate := TranslateAdress(direccion, context.pcb.base, context.pcb.limit)
+	direccionFisica, errTranslate := TranslateAdress(direccion, context.pcb.Base, context.pcb.Limit)
 	if errTranslate != nil {
 		return err
 	}
@@ -510,8 +511,8 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	var memReq MemoryRequest
 	memReq.Address = direccionFisica
 	memReq.Data = PasarDeUintAByte(dato)
-	memReq.PID = context.pcb.pid
-	memReq.TID = context.tcb.tid
+	memReq.PID = context.pcb.Pid
+	memReq.TID = context.tcb.Tid
 
 	body, err5 := json.Marshal(memReq)
 
@@ -738,7 +739,7 @@ func CreateThead(contexto *contextoEjecucion, parameters []string) error {
 
 	body, err := json.Marshal(CrearHiloBody{
 		Path:      archivoInstruct,
-		Pid:       contexto.pcb.pid,
+		Pid:       contexto.pcb.Pid,
 		Prioridad: priorityReal,
 	})
 
@@ -770,8 +771,8 @@ func JoinThead(contexto *contextoEjecucion, parameters []string) error {
 	}
 
 	body, err := json.Marshal(EfectoHiloBody{
-		Pid:       contexto.pcb.pid,
-		TidActual: contexto.tcb.tid,
+		Pid:       contexto.pcb.Pid,
+		TidActual: contexto.tcb.Tid,
 		TidCambio: tidParse,
 	})
 
@@ -803,8 +804,8 @@ func CancelThead(contexto *contextoEjecucion, parameters []string) error {
 	}
 
 	body, err := json.Marshal(EfectoHiloBody{
-		Pid:       contexto.pcb.pid,
-		TidActual: contexto.tcb.tid,
+		Pid:       contexto.pcb.Pid,
+		TidActual: contexto.tcb.Tid,
 		TidCambio: tidParse,
 	})
 
@@ -839,7 +840,7 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 }
 
 func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
-	log.Print("Finalizar proceos PID : %d", contexto.pcb.pid)
+	log.Print("Finalizar proceos PID : %d", contexto.pcb.Pid)
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
