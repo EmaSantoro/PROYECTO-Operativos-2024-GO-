@@ -24,12 +24,8 @@ var memoryData sync.WaitGroup
 var dataFromMemory uint32 //verrr
 var flagSegmentationFault bool
 
-// DEFINICION DE TIPOS
-type MutexRequest struct {
-	Pid   int    `json:"pid"`
-	Tid   int    `json:"tid"`
-	Mutex string `json:"mutex"`
-}
+//DEFINICION DE TIPOS
+
 type InstructionReq struct {
 	Pid int `json:"pid"`
 	Tid int `json:"tid"`
@@ -351,9 +347,6 @@ func Decode(instructionLine []string) (DecodedInstruction, error) {
 		"PROCESS_EXIT":   ProcessExit,
 		"READ_MEM":       Read_Memory,
 		"WRITE_MEM":      Write_Memory,
-		"MUTEX_CREATE":   MutexCreate,
-		"MUTEX_LOCK":     MutexLOCK,
-		"MUTEX_UNLOCK":   MutexUNLOCK,
 	}
 
 	var instructionDecoded DecodedInstruction
@@ -833,6 +826,52 @@ func CancelThead(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
+	return nil
+}
+func MutexCreate (contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters,"crearMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexLOCK (contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters,"bloquearMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexUNLOCK (contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters,"liberarMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexFunction (contexto *contextoEjecucion, parameters []string, endpoint string) error {
+	recurso := parameters[0]
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	body, err := json.Marshal(MutexRequest{
+		Pid: contexto.pcb.Pid
+		Tid: contexto.tcb.Tid
+		Mutex: recurso 
+	})
+	if err != nil {
+		log.Printf("Error al codificar estructura de cancelacion de hilo")
+		return err
+	}
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), endpoint)
+	if err != nil {
+		log.Printf("Error syscall THREAD_CANCEL : %v", err)
+		return err
+	}
 	return nil
 }
 
