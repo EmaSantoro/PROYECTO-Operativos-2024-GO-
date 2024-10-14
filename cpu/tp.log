@@ -3090,3 +3090,752 @@ net/http.(*conn).serve(0xc0000b6120, {0x7c3348, 0xc00008d0b0})
 	/usr/local/go/src/net/http/server.go:2092 +0x5d0
 created by net/http.(*Server).Serve in goroutine 1
 	/usr/local/go/src/net/http/server.go:3360 +0x485
+2024/10/14 17:22:39 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 17:22:39 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 17:22:40 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 17:22:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 17:22:41 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 17:22:41 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 17:22:41 Antes de modificar el valor 
+2024/10/14 17:22:41 Registro obtenido
+2024/10/14 17:22:41 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 17:22:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 17:22:42 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 17:22:42 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 17:22:42 Antes de modificar el valor 
+2024/10/14 17:22:42 Registro obtenido
+2024/10/14 17:22:42 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 17:22:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 17:22:43 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 17:22:43 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 17:22:43 Registro obtenido
+2024/10/14 17:22:43 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 17:22:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 17:22:44 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 17:22:44 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 17:22:44 Registro obtenido
+2024/10/14 17:22:44 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 17:22:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 17:22:45 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 17:22:45 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 17:22:45 Registro obtenido
+2024/10/14 17:22:45 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 17:22:45 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 17:22:46 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 17:22:46 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 17:22:46 EL registro AX contiene el valor 4
+2024/10/14 17:22:46 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 17:22:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 17:22:47 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 17:22:47 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 17:22:47 Finalizar proceos PID : %d1
+2024/10/14 17:22:48 Enviando a kernel syscall
+2024/10/14 17:22:49 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/14 17:22:49 ERROR AQUIIIIIII
+2024/10/14 17:22:49 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58100->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:22:49 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58100->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:22:49 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 17:22:49 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 17:22:50 error en la respuesta del módulo de memoria: 400
+2024/10/14 17:22:50 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 17:31:58 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 17:31:58 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 17:31:59 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 17:31:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 17:32:00 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 17:32:00 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 17:32:00 Antes de modificar el valor 
+2024/10/14 17:32:00 Registro obtenido
+2024/10/14 17:32:00 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 17:32:00 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 17:32:01 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 17:32:01 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 17:32:01 Antes de modificar el valor 
+2024/10/14 17:32:01 Registro obtenido
+2024/10/14 17:32:01 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 17:32:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 17:32:02 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 17:32:02 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 17:32:02 Registro obtenido
+2024/10/14 17:32:02 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 17:32:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 17:32:03 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 17:32:03 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 17:32:03 Registro obtenido
+2024/10/14 17:32:03 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 17:32:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 17:32:04 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 17:32:04 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 17:32:04 Registro obtenido
+2024/10/14 17:32:04 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 17:32:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 17:32:05 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 17:32:05 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 17:32:05 EL registro AX contiene el valor 4
+2024/10/14 17:32:05 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 17:32:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 17:32:06 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 17:32:06 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 17:32:06 Finalizar proceos PID : %d1
+2024/10/14 17:32:07 Enviando a kernel syscall
+2024/10/14 17:32:08 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/14 17:32:08 ERROR AQUIIIIIII
+2024/10/14 17:32:08 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58212->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:32:08 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58212->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:32:08 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 17:32:08 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 17:32:09 error en la respuesta del módulo de memoria: 400
+2024/10/14 17:32:09 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 17:47:30 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 17:47:30 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 17:47:31 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 17:47:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 17:47:32 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 17:47:32 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 17:47:32 Antes de modificar el valor 
+2024/10/14 17:47:32 Registro obtenido
+2024/10/14 17:47:32 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 17:47:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 17:47:33 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 17:47:33 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 17:47:33 Antes de modificar el valor 
+2024/10/14 17:47:33 Registro obtenido
+2024/10/14 17:47:33 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 17:47:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 17:47:34 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 17:47:34 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 17:47:34 Registro obtenido
+2024/10/14 17:47:34 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 17:47:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 17:47:35 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 17:47:35 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 17:47:35 Registro obtenido
+2024/10/14 17:47:35 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 17:47:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 17:47:36 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 17:47:36 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 17:47:36 Registro obtenido
+2024/10/14 17:47:36 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 17:47:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 17:47:37 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 17:47:37 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 17:47:37 EL registro AX contiene el valor 4
+2024/10/14 17:47:37 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 17:47:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 17:47:38 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 17:47:38 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 17:47:38 Finalizar proceos PID : %d1
+2024/10/14 17:47:39 Enviando a kernel syscall
+2024/10/14 17:47:40 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/14 17:47:40 ERROR AQUIIIIIII
+2024/10/14 17:47:40 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58342->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:47:40 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58342->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:47:40 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 17:47:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 17:47:41 error en la respuesta del módulo de memoria: 400
+2024/10/14 17:47:41 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 17:48:21 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 17:48:21 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 17:48:22 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 17:48:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 17:48:23 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 17:48:23 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 17:48:23 Antes de modificar el valor 
+2024/10/14 17:48:23 Registro obtenido
+2024/10/14 17:48:23 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 17:48:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 17:48:24 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 17:48:24 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 17:48:24 Antes de modificar el valor 
+2024/10/14 17:48:24 Registro obtenido
+2024/10/14 17:48:24 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 17:48:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 17:48:25 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 17:48:25 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 17:48:25 Registro obtenido
+2024/10/14 17:48:25 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 17:48:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 17:48:26 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 17:48:26 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 17:48:26 Registro obtenido
+2024/10/14 17:48:26 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 17:48:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 17:48:27 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 17:48:27 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 17:48:27 Registro obtenido
+2024/10/14 17:48:27 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 17:48:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 17:48:28 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 17:48:28 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 17:48:28 EL registro AX contiene el valor 4
+2024/10/14 17:48:28 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 17:48:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 17:48:29 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 17:48:29 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 17:48:29 Finalizar proceos PID : %d1
+2024/10/14 17:48:30 Enviando a kernel syscall
+2024/10/14 17:48:31 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/14 17:48:31 ERROR AQUIIIIIII
+2024/10/14 17:48:31 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58361->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:48:31 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58361->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:48:31 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 17:48:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 17:48:32 error en la respuesta del módulo de memoria: 400
+2024/10/14 17:48:32 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 17:49:56 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 17:49:56 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 17:49:57 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 17:49:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 17:49:58 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 17:49:58 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 17:49:58 Antes de modificar el valor 
+2024/10/14 17:49:58 Registro obtenido
+2024/10/14 17:49:58 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 17:49:58 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 17:49:59 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 17:49:59 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 17:49:59 Antes de modificar el valor 
+2024/10/14 17:49:59 Registro obtenido
+2024/10/14 17:49:59 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 17:49:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 17:50:00 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 17:50:00 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 17:50:00 Registro obtenido
+2024/10/14 17:50:00 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 17:50:00 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 17:50:01 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 17:50:01 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 17:50:01 Registro obtenido
+2024/10/14 17:50:01 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 17:50:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 17:50:02 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 17:50:02 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 17:50:02 Registro obtenido
+2024/10/14 17:50:02 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 17:50:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 17:50:03 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 17:50:03 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 17:50:03 EL registro AX contiene el valor 4
+2024/10/14 17:50:03 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 17:50:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 17:50:04 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 17:50:04 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 17:50:04 Finalizar proceos PID : %d1
+2024/10/14 17:50:05 Enviando a kernel syscall
+2024/10/14 17:50:06 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/14 17:50:06 ERROR AQUIIIIIII
+2024/10/14 17:50:06 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58392->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:50:06 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58392->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:50:06 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 17:50:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 17:50:07 error en la respuesta del módulo de memoria: 400
+2024/10/14 17:50:07 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 17:51:28 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 17:51:28 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 17:51:29 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 17:51:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 17:51:30 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 17:51:30 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 17:51:30 Antes de modificar el valor 
+2024/10/14 17:51:30 Registro obtenido
+2024/10/14 17:51:30 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 17:51:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 17:51:31 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 17:51:31 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 17:51:31 Antes de modificar el valor 
+2024/10/14 17:51:31 Registro obtenido
+2024/10/14 17:51:31 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 17:51:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 17:51:32 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 17:51:32 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 17:51:32 Registro obtenido
+2024/10/14 17:51:32 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 17:51:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 17:51:33 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 17:51:33 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 17:51:33 Registro obtenido
+2024/10/14 17:51:33 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 17:51:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 17:51:34 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 17:51:34 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 17:51:34 Registro obtenido
+2024/10/14 17:51:34 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 17:51:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 17:51:35 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 17:51:35 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 17:51:35 EL registro AX contiene el valor 4
+2024/10/14 17:51:35 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 17:51:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 17:51:36 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 17:51:36 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 17:51:36 Finalizar proceos PID : %d1
+2024/10/14 17:51:37 Enviando a kernel syscall
+2024/10/14 17:51:38 error enviando mensaje al End point finalizarProceso - IP:127.0.0.1 - Puerto:8001
+2024/10/14 17:51:38 ERROR AQUIIIIIII
+2024/10/14 17:51:38 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58412->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:51:38 Error al ejecutar [PROCESS_EXIT]. ERROR: Post "http://127.0.0.1:8001/finalizarProceso": read tcp 127.0.0.1:58412->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 17:51:38 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 17:51:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 17:51:39 error en la respuesta del módulo de memoria: 400
+2024/10/14 17:51:39 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 17:56:41 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 17:56:41 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 17:56:42 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 17:56:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 17:56:43 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 17:56:43 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 17:56:43 Antes de modificar el valor 
+2024/10/14 17:56:43 Registro obtenido
+2024/10/14 17:56:43 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 17:56:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 17:56:44 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 17:56:44 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 17:56:44 Antes de modificar el valor 
+2024/10/14 17:56:44 Registro obtenido
+2024/10/14 17:56:44 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 17:56:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 17:56:45 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 17:56:45 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 17:56:45 Registro obtenido
+2024/10/14 17:56:45 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 17:56:45 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 17:56:46 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 17:56:46 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 17:56:46 Registro obtenido
+2024/10/14 17:56:46 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 17:56:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 17:56:47 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 17:56:47 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 17:56:47 Registro obtenido
+2024/10/14 17:56:47 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 17:56:47 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 17:56:48 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 17:56:48 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 17:56:48 EL registro AX contiene el valor 4
+2024/10/14 17:56:48 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 17:56:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 17:56:49 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 17:56:49 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 17:56:49 Finalizar proceos PID : %d1
+2024/10/14 17:56:50 Enviando a kernel syscall
+2024/10/14 18:00:45 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 18:00:45 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 18:00:46 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 18:00:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 18:00:47 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 18:00:47 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 18:00:47 Antes de modificar el valor 
+2024/10/14 18:00:47 Registro obtenido
+2024/10/14 18:00:47 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 18:00:47 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 18:00:48 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 18:00:48 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 18:00:48 Antes de modificar el valor 
+2024/10/14 18:00:48 Registro obtenido
+2024/10/14 18:00:48 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 18:00:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 18:00:49 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 18:00:49 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 18:00:49 Registro obtenido
+2024/10/14 18:00:49 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 18:00:49 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 18:00:50 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 18:00:50 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 18:00:50 Registro obtenido
+2024/10/14 18:00:50 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 18:00:50 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 18:00:51 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 18:00:51 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 18:00:51 Registro obtenido
+2024/10/14 18:00:51 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 18:00:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 18:00:52 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 18:00:52 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 18:00:52 EL registro AX contiene el valor 4
+2024/10/14 18:00:52 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 18:00:52 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 18:00:53 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 18:00:53 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 18:00:53 Finalizar proceos PID : %d1
+2024/10/14 18:00:54 Enviando a kernel syscall
+2024/10/14 18:00:55 Syscall se ejecuto correctamente
+2024/10/14 18:00:55 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 18:00:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 18:00:56 error en la respuesta del módulo de memoria: 400
+2024/10/14 18:00:56 Error al buscar intruccion en el pc 7. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 18:09:55 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 18:09:55 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 18:09:56 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 18:09:56 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 18:09:57 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 18:09:57 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 18:09:57 Antes de modificar el valor 
+2024/10/14 18:09:57 Registro obtenido
+2024/10/14 18:09:57 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 18:09:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 18:09:58 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 18:09:58 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 18:09:58 Antes de modificar el valor 
+2024/10/14 18:09:58 Registro obtenido
+2024/10/14 18:09:58 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 18:09:58 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 18:09:59 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 18:09:59 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 18:09:59 Registro obtenido
+2024/10/14 18:09:59 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 18:09:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 18:10:00 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 18:10:00 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 18:10:00 Registro obtenido
+2024/10/14 18:10:00 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 18:10:00 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 18:10:01 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 18:10:01 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 18:10:01 Registro obtenido
+2024/10/14 18:10:01 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 18:10:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 18:10:02 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 18:10:02 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 18:10:02 EL registro AX contiene el valor 4
+2024/10/14 18:10:02 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 18:10:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 18:10:03 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 18:10:03 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 18:10:03 Finalizar proceos PID : %d1
+2024/10/14 18:10:04 Enviando a kernel syscall
+2024/10/14 18:10:04 Recive bien interrupcion
+2024/10/14 18:10:05 Syscall se ejecuto correctamente
+2024/10/14 18:10:05 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 18:10:06 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/14 18:10:06 http: panic serving 127.0.0.1:58661: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 20 [running]:
+net/http.(*conn).serve.func1()
+	C:/Program Files/Go/src/net/http/server.go:1947 +0xbe
+panic({0x61bb00?, 0xc0001063a0?})
+	C:/Program Files/Go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x699e41?, 0xc000004e08?}, {0x0?, 0x3b5485?, 0x18?})
+	C:/Program Files/Go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	C:/Users/Usuario/Desktop/Sistemas Operativos/TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc000148000)
+	C:/Users/Usuario/Desktop/Sistemas Operativos/TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x711450, 0xc00012c000}, 0xc000114000)
+	C:/Users/Usuario/Desktop/Sistemas Operativos/TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000e60e0?, {0x711450?, 0xc00012c000?}, 0x670d88a3?)
+	C:/Program Files/Go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x35da05?, {0x711450, 0xc00012c000}, 0xc000114000)
+	C:/Program Files/Go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x710018?}, {0x711450?, 0xc00012c000?}, 0x6?)
+	C:/Program Files/Go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000ee120, {0x711910, 0xc00008b110})
+	C:/Program Files/Go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Program Files/Go/src/net/http/server.go:3360 +0x485
+2024/10/14 18:15:10 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 18:15:10 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 18:15:11 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 18:15:11 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 18:15:12 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 18:15:12 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 18:15:12 Antes de modificar el valor 
+2024/10/14 18:15:12 Registro obtenido
+2024/10/14 18:15:12 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 18:15:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 18:15:13 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 18:15:13 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 18:15:13 Antes de modificar el valor 
+2024/10/14 18:15:13 Registro obtenido
+2024/10/14 18:15:13 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 18:15:13 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 18:15:14 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 18:15:14 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 18:15:14 Registro obtenido
+2024/10/14 18:15:14 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 18:15:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 18:15:15 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 18:15:15 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 18:15:15 Registro obtenido
+2024/10/14 18:15:15 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 18:15:15 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 18:15:16 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 18:15:16 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 18:15:16 Registro obtenido
+2024/10/14 18:15:16 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 18:15:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 18:15:17 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 18:15:17 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 18:15:17 EL registro AX contiene el valor 4
+2024/10/14 18:15:17 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 18:15:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 18:15:18 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 18:15:18 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 18:15:18 Finalizar proceos PID : %d1
+2024/10/14 18:15:19 Enviando a kernel syscall
+2024/10/14 18:15:19 Recive bien interrupcion
+2024/10/14 18:15:20 Syscall se ejecuto correctamente
+2024/10/14 18:15:20 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 18:15:21 Error al actualizar contexto de ejecucion para la interrupcion
+2024/10/14 18:15:21 http: panic serving 127.0.0.1:58737: Error al actualizar contexto de ejecucion para la interrupcion
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	C:/Program Files/Go/src/net/http/server.go:1947 +0xbe
+panic({0x12bbb00?, 0xc000090450?})
+	C:/Program Files/Go/src/runtime/panic.go:785 +0x132
+log.Panicf({0x1339e41?, 0xc0001c7508?}, {0x0?, 0x1055485?, 0x18?})
+	C:/Program Files/Go/src/log/log.go:439 +0x65
+github.com/sisoputnfrba/tp-golang/cpu/utils.RealizarInterrupcion(0x1?)
+	C:/Users/Usuario/Desktop/Sistemas Operativos/TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/utils/utils.go:265 +0x45
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000c8000)
+	C:/Users/Usuario/Desktop/Sistemas Operativos/TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/utils/utils.go:250 +0x5ba
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x13b1450, 0xc0000b4000}, 0xc00009c000)
+	C:/Users/Usuario/Desktop/Sistemas Operativos/TP OPERATIVOS GOGO/tp-2024-2c-Operativo2/cpu/utils/utils.go:180 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc00012e0e0?, {0x13b1450?, 0xc0000b4000?}, 0x670d89de?)
+	C:/Program Files/Go/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0xffda05?, {0x13b1450, 0xc0000b4000}, 0xc00009c000)
+	C:/Program Files/Go/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x13b0018?}, {0x13b1450?, 0xc0000b4000?}, 0x6?)
+	C:/Program Files/Go/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc000134120, {0x13b1910, 0xc000023140})
+	C:/Program Files/Go/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Program Files/Go/src/net/http/server.go:3360 +0x485
+2024/10/14 18:24:58 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 18:24:58 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 18:24:59 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 18:24:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 18:25:00 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 18:25:00 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 18:25:00 Antes de modificar el valor 
+2024/10/14 18:25:00 Registro obtenido
+2024/10/14 18:25:00 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 18:25:00 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 18:25:01 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 18:25:01 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 18:25:01 Antes de modificar el valor 
+2024/10/14 18:25:01 Registro obtenido
+2024/10/14 18:25:01 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 18:25:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 18:25:02 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 18:25:02 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 18:25:02 Registro obtenido
+2024/10/14 18:25:02 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 18:25:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 18:25:03 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 18:25:03 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 18:25:03 Registro obtenido
+2024/10/14 18:25:03 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 18:25:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/14 18:25:04 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/14 18:25:04 La instruccion fue decodificada : INSTUCCION = SUB, PARAMETROS = [AX BX]
+2024/10/14 18:25:04 Registro obtenido
+2024/10/14 18:25:04 ## TID: 0 - Ejecutando: SUB - Parametos : [AX BX]
+2024/10/14 18:25:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 18:25:05 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 18:25:05 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 18:25:05 EL registro AX contiene el valor 4
+2024/10/14 18:25:05 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 18:25:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 18:25:06 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 18:25:06 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/14 18:25:06 Finalizar proceos PID : %d1
+2024/10/14 18:25:07 Enviando a kernel syscall
+2024/10/14 18:25:07 Recive bien interrupcion
+2024/10/14 18:25:08 Syscall se ejecuto correctamente
+2024/10/14 18:25:08 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/14 18:25:09 Funciona ok el realizar interrupcion
+2024/10/14 18:34:10 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 18:34:10 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 18:34:11 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 18:34:11 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 18:34:12 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 18:34:12 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 18:34:12 Antes de modificar el valor 
+2024/10/14 18:34:12 Registro obtenido
+2024/10/14 18:34:12 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 18:34:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 18:34:13 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 18:34:13 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 18:34:16 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 18:34:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 18:34:17 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 18:34:17 Error en etapa Decode. ERROR : La instruccion MUTEX_CREATE no existe
+2024/10/14 18:41:08 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 18:41:08 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 18:41:09 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 18:41:09 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 18:41:10 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 18:41:10 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 18:41:10 Antes de modificar el valor 
+2024/10/14 18:41:10 Registro obtenido
+2024/10/14 18:41:10 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 18:41:10 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 18:41:11 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 18:41:11 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 18:41:14 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 18:41:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 18:41:15 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 18:41:15 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 256 2]
+2024/10/14 18:41:16 Recibe bien interrupcion
+2024/10/14 18:41:16 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 256 2]
+2024/10/14 18:41:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 18:41:17 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 18:41:17 La instruccion fue decodificada : INSTUCCION = THREAD_JOIN, PARAMETROS = [1]
+2024/10/14 18:41:18 Recibe bien interrupcion
+2024/10/14 18:41:18 Cpu recibe TID : 1 PID:1 del Kernel
+2024/10/14 18:41:18 PCB : 1 TID : 1 - Solicita Contexto de Ejecucion
+2024/10/14 18:41:19 PCB : 1 TID : 1 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 18:41:19 Intruccion Solicitada de Pid 1 y TID 1 y PC 0
+2024/10/14 18:41:20 PID: 1 TID: 1 - FETCH - Program Counter: 0
+2024/10/14 18:41:20 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 18:41:20 Antes de modificar el valor 
+2024/10/14 18:41:20 Registro obtenido
+2024/10/14 18:41:20 ## TID: 1 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 18:41:20 Intruccion Solicitada de Pid 1 y TID 1 y PC 1
+2024/10/14 18:41:21 PID: 1 TID: 1 - FETCH - Program Counter: 1
+2024/10/14 18:41:21 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 2]
+2024/10/14 18:41:21 Antes de modificar el valor 
+2024/10/14 18:41:21 Registro obtenido
+2024/10/14 18:41:21 ## TID: 1 - Ejecutando: SET - Parametos : [BX 2]
+2024/10/14 18:41:21 Intruccion Solicitada de Pid 1 y TID 1 y PC 2
+2024/10/14 18:41:22 PID: 1 TID: 1 - FETCH - Program Counter: 2
+2024/10/14 18:41:22 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 18:41:22 Registro obtenido
+2024/10/14 18:41:22 ## TID: 1 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 18:41:22 Intruccion Solicitada de Pid 1 y TID 1 y PC 3
+2024/10/14 18:41:23 PID: 1 TID: 1 - FETCH - Program Counter: 3
+2024/10/14 18:41:23 La instruccion fue decodificada : INSTUCCION = THREAD_EXIT, PARAMETROS = []
+2024/10/14 18:41:24 Error al recibir la respuesta del End point exirThread - IP:127.0.0.1 - Puerto:8001
+2024/10/14 18:41:24 Error al ejecutar la instruccion : 404 Not Found
+2024/10/14 18:41:24 Error al ejecutar [THREAD_EXIT]. ERROR: 404 Not Found
+2024/10/14 18:41:24 ## TID: 1 - Ejecutando: THREAD_EXIT - Parametos : []
+2024/10/14 18:41:24 Intruccion Solicitada de Pid 1 y TID 1 y PC 4
+2024/10/14 18:41:25 error en la respuesta del módulo de memoria: 400
+2024/10/14 18:41:25 Error al buscar intruccion en el pc 4. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 18:41:25 ## TID: 0 - Ejecutando: THREAD_JOIN - Parametos : [1]
+2024/10/14 18:41:26 Funciona ok el realizar interrupcion
+2024/10/14 18:48:26 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 18:48:26 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 18:48:27 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 18:48:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 18:48:28 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 18:48:28 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 18:48:28 Antes de modificar el valor 
+2024/10/14 18:48:28 Registro obtenido
+2024/10/14 18:48:28 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 18:48:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 18:48:29 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 18:48:29 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 18:48:32 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 18:48:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 18:48:33 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 18:48:33 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 256 2]
+2024/10/14 18:48:34 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 256 2]
+2024/10/14 18:48:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 18:48:35 error en la respuesta del módulo de memoria: 400
+2024/10/14 18:48:35 Error al buscar intruccion en el pc 3. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 19:02:08 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 19:02:08 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 19:02:09 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:02:09 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 19:02:10 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 19:02:10 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:02:10 Antes de modificar el valor 
+2024/10/14 19:02:10 Registro obtenido
+2024/10/14 19:02:10 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:02:10 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 19:02:11 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 19:02:11 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 19:02:14 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 19:02:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 19:02:15 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 19:02:15 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 256 2]
+2024/10/14 19:02:16 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 256 2]
+2024/10/14 19:02:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 19:02:17 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 19:02:17 La instruccion fue decodificada : INSTUCCION = THREAD_JOIN, PARAMETROS = [1]
+2024/10/14 19:02:18 Recibe bien interrupcion
+2024/10/14 19:02:18 Cpu recibe TID : 1 PID:1 del Kernel
+2024/10/14 19:02:18 PCB : 1 TID : 1 - Solicita Contexto de Ejecucion
+2024/10/14 19:02:19 PCB : 1 TID : 1 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:02:19 Intruccion Solicitada de Pid 1 y TID 1 y PC 0
+2024/10/14 19:02:20 PID: 1 TID: 1 - FETCH - Program Counter: 0
+2024/10/14 19:02:20 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:02:20 Antes de modificar el valor 
+2024/10/14 19:02:20 Registro obtenido
+2024/10/14 19:02:20 ## TID: 1 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:02:20 Intruccion Solicitada de Pid 1 y TID 1 y PC 1
+2024/10/14 19:02:21 PID: 1 TID: 1 - FETCH - Program Counter: 1
+2024/10/14 19:02:21 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 2]
+2024/10/14 19:02:21 Antes de modificar el valor 
+2024/10/14 19:02:21 Registro obtenido
+2024/10/14 19:02:21 ## TID: 1 - Ejecutando: SET - Parametos : [BX 2]
+2024/10/14 19:02:21 Intruccion Solicitada de Pid 1 y TID 1 y PC 2
+2024/10/14 19:02:22 PID: 1 TID: 1 - FETCH - Program Counter: 2
+2024/10/14 19:02:22 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 19:02:22 Registro obtenido
+2024/10/14 19:02:22 ## TID: 1 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 19:02:22 Intruccion Solicitada de Pid 1 y TID 1 y PC 3
+2024/10/14 19:02:23 PID: 1 TID: 1 - FETCH - Program Counter: 3
+2024/10/14 19:02:23 La instruccion fue decodificada : INSTUCCION = THREAD_EXIT, PARAMETROS = []
+2024/10/14 19:02:24 Error al recibir la respuesta del End point exirThread - IP:127.0.0.1 - Puerto:8001
+2024/10/14 19:02:24 Error al ejecutar la instruccion : 404 Not Found
+2024/10/14 19:02:24 Error al ejecutar [THREAD_EXIT]. ERROR: 404 Not Found
+2024/10/14 19:02:24 ## TID: 1 - Ejecutando: THREAD_EXIT - Parametos : []
+2024/10/14 19:02:24 Intruccion Solicitada de Pid 1 y TID 1 y PC 4
+2024/10/14 19:02:25 error en la respuesta del módulo de memoria: 400
+2024/10/14 19:02:25 Error al buscar intruccion en el pc 4. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 19:02:25 ## TID: 0 - Ejecutando: THREAD_JOIN - Parametos : [1]
+2024/10/14 19:02:26 Funciona ok el realizar interrupcion
+2024/10/14 19:03:15 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 19:03:15 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 19:03:16 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:03:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 19:03:17 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 19:03:17 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:03:17 Antes de modificar el valor 
+2024/10/14 19:03:17 Registro obtenido
+2024/10/14 19:03:17 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:03:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 19:03:18 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 19:03:18 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 19:03:21 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 19:03:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 19:03:22 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 19:03:22 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 256 2]
+2024/10/14 19:03:23 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 256 2]
+2024/10/14 19:03:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 19:03:24 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 19:03:24 La instruccion fue decodificada : INSTUCCION = THREAD_JOIN, PARAMETROS = [1]
+2024/10/14 19:03:25 Recibe bien interrupcion
+2024/10/14 19:03:25 Cpu recibe TID : 1 PID:1 del Kernel
+2024/10/14 19:03:25 PCB : 1 TID : 1 - Solicita Contexto de Ejecucion
+2024/10/14 19:03:26 PCB : 1 TID : 1 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:03:26 Intruccion Solicitada de Pid 1 y TID 1 y PC 0
+2024/10/14 19:03:27 PID: 1 TID: 1 - FETCH - Program Counter: 0
+2024/10/14 19:03:27 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:03:27 Antes de modificar el valor 
+2024/10/14 19:03:27 Registro obtenido
+2024/10/14 19:03:27 ## TID: 1 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:03:27 Intruccion Solicitada de Pid 1 y TID 1 y PC 1
+2024/10/14 19:03:28 PID: 1 TID: 1 - FETCH - Program Counter: 1
+2024/10/14 19:03:28 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 2]
+2024/10/14 19:03:28 Antes de modificar el valor 
+2024/10/14 19:03:28 Registro obtenido
+2024/10/14 19:03:28 ## TID: 1 - Ejecutando: SET - Parametos : [BX 2]
+2024/10/14 19:03:28 Intruccion Solicitada de Pid 1 y TID 1 y PC 2
+2024/10/14 19:03:29 PID: 1 TID: 1 - FETCH - Program Counter: 2
+2024/10/14 19:03:29 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/14 19:03:29 Registro obtenido
+2024/10/14 19:03:29 ## TID: 1 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/14 19:03:29 Intruccion Solicitada de Pid 1 y TID 1 y PC 3
+2024/10/14 19:03:30 PID: 1 TID: 1 - FETCH - Program Counter: 3
+2024/10/14 19:03:30 La instruccion fue decodificada : INSTUCCION = THREAD_EXIT, PARAMETROS = []
+2024/10/14 19:03:31 Error al recibir la respuesta del End point exirThread - IP:127.0.0.1 - Puerto:8001
+2024/10/14 19:03:31 Error al ejecutar la instruccion : 404 Not Found
+2024/10/14 19:03:31 Error al ejecutar [THREAD_EXIT]. ERROR: 404 Not Found
+2024/10/14 19:03:31 ## TID: 1 - Ejecutando: THREAD_EXIT - Parametos : []
+2024/10/14 19:03:31 Intruccion Solicitada de Pid 1 y TID 1 y PC 4
+2024/10/14 19:03:32 error en la respuesta del módulo de memoria: 400
+2024/10/14 19:03:32 Error al buscar intruccion en el pc 4. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 19:03:32 ## TID: 0 - Ejecutando: THREAD_JOIN - Parametos : [1]
+2024/10/14 19:03:33 Funciona ok el realizar interrupcion

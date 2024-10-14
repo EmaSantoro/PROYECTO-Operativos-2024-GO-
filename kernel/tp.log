@@ -429,3 +429,207 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/12 18:50:57 analizo repuesta de envio a memoria
 2024/10/12 18:50:57 Error en la respuesta del modulo de Memoria. status_code: 404
 2024/10/12 18:50:57 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/14 17:22:48 Entra a exit process
+2024/10/14 17:22:48 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 17:22:48  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 17:22:48 Quitado y encolao el proceso
+2024/10/14 17:22:48 ENtra a exitHilo
+2024/10/14 17:22:48  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 17:22:48 Hilo encolado en exit
+2024/10/14 17:22:48 Entra a envio hilo finalizado a memoria 
+2024/10/14 17:22:48 Codificando mensaje
+2024/10/14 17:22:49 Envio mensaje 
+2024/10/14 17:22:49 analizo repuesta de envio a memoria
+2024/10/14 17:22:49 Error en la respuesta del modulo de Memoria. status_code: 404
+2024/10/14 17:22:49 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/14 17:32:07 Entra a exit process
+2024/10/14 17:32:07 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 17:32:07  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 17:32:07 Quitado y encolao el proceso
+2024/10/14 17:32:07 ENtra a exitHilo
+2024/10/14 17:32:07  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 17:32:07 Hilo encolado en exit
+2024/10/14 17:32:07 Entra a envio hilo finalizado a memoria 
+2024/10/14 17:32:07 Codificando mensaje
+2024/10/14 17:32:08 Envio mensaje 
+2024/10/14 17:32:08 analizo repuesta de envio a memoria
+2024/10/14 17:32:08 Error en la respuesta del modulo de Memoria. status_code: 404
+2024/10/14 17:32:08 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/14 17:47:39 Entra a exit process
+2024/10/14 17:47:39 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 17:47:39  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 17:47:39 Quitado y encolao el proceso
+2024/10/14 17:47:39 ENtra a exitHilo
+2024/10/14 17:47:39  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 17:47:39 Hilo encolado en exit
+2024/10/14 17:47:39 Entra a envio hilo finalizado a memoria 
+2024/10/14 17:47:39 Codificando mensaje
+2024/10/14 17:47:40 Envio mensaje 
+2024/10/14 17:47:40 analizo repuesta de envio a memoria
+2024/10/14 17:47:40 Error en la respuesta del modulo de Memoria. status_code: 404
+2024/10/14 17:47:40 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/14 17:48:30 Entra a exit process
+2024/10/14 17:48:30 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 17:48:30  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 17:48:30 Quitado y encolao el proceso
+2024/10/14 17:48:30 ENtra a exitHilo
+2024/10/14 17:48:30  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 17:48:30 Hilo encolado en exit
+2024/10/14 17:48:30 Entra a envio hilo finalizado a memoria 
+2024/10/14 17:48:30 Codificando mensaje
+2024/10/14 17:48:31 Envio mensaje 
+2024/10/14 17:48:31 analizo repuesta de envio a memoria
+2024/10/14 17:48:31 Error en la respuesta del modulo de Memoria. status_code: 404
+2024/10/14 17:48:31 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/14 17:50:05 Entra a exit process
+2024/10/14 17:50:05 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 17:50:05  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 17:50:05 Quitado y encolao el proceso
+2024/10/14 17:50:05 ENtra a exitHilo
+2024/10/14 17:50:05  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 17:50:05 Hilo encolado en exit
+2024/10/14 17:50:05 Entra a envio hilo finalizado a memoria 
+2024/10/14 17:50:05 Codificando mensaje
+2024/10/14 17:50:06 Envio mensaje 
+2024/10/14 17:50:06 analizo repuesta de envio a memoria
+2024/10/14 17:50:06 Error en la respuesta del modulo de Memoria. status_code: 404
+2024/10/14 17:50:06 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/14 17:51:37 Entra a exit process
+2024/10/14 17:51:37 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 17:51:37  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 17:51:37 Quitado y encolao el proceso
+2024/10/14 17:51:37 ENtra a exitHilo
+2024/10/14 17:51:37  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 17:51:37 Hilo encolado en exit
+2024/10/14 17:51:37 Entra a envio hilo finalizado a memoria 
+2024/10/14 17:51:37 Codificando mensaje
+2024/10/14 17:51:38 Envio mensaje 
+2024/10/14 17:51:38 analizo repuesta de envio a memoria
+2024/10/14 17:51:38 Error en la respuesta del modulo de Memoria. status_code: 404
+2024/10/14 17:51:38 Error en la respuesta del modulo de CPU. status_code: 404
+2024/10/14 17:56:50 Entra a exit process
+2024/10/14 17:56:50 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 17:56:50  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 17:56:50 Quitado y encolao el proceso
+2024/10/14 17:56:50 ENtra a exitHilo
+2024/10/14 17:56:50  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 17:56:50 Hilo encolado en exit
+2024/10/14 17:56:50 Entra a envio hilo finalizado a memoria 
+2024/10/14 17:56:50 Codificando mensaje
+2024/10/14 17:56:51 Envio mensaje 
+2024/10/14 17:56:51 analizo repuesta de envio a memoria
+2024/10/14 17:56:51 Envio a memoria del proceso exitoso
+2024/10/14 17:56:51 Enviado hilo finalizado a memoria 
+2024/10/14 17:56:51 ExitHilo ejecutado exitosamente desde cola de execute
+2024/10/14 17:56:51 Enviando proceso a memoria 
+2024/10/14 17:56:51 Proceso terminado existosamente llevado a memoria 
+2024/10/14 17:56:51 Proceso finalizado existosamente
+2024/10/14 18:00:22 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": read tcp 127.0.0.1:58486->127.0.0.1:8004: wsarecv: An existing connection was forcibly closed by the remote host."
+2024/10/14 18:00:54 Entra a exit process
+2024/10/14 18:00:54 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 18:00:54  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 18:00:54 Quitado y encolao el proceso
+2024/10/14 18:00:54 ENtra a exitHilo
+2024/10/14 18:00:54  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 18:00:54 Hilo encolado en exit
+2024/10/14 18:00:54 Entra a envio hilo finalizado a memoria 
+2024/10/14 18:00:54 Codificando mensaje
+2024/10/14 18:00:55 Envio mensaje 
+2024/10/14 18:00:55 analizo repuesta de envio a memoria
+2024/10/14 18:00:55 Envio a memoria del proceso exitoso
+2024/10/14 18:00:55 Enviado hilo finalizado a memoria 
+2024/10/14 18:00:55 ExitHilo ejecutado exitosamente desde cola de execute
+2024/10/14 18:00:55 Enviando proceso a memoria 
+2024/10/14 18:00:55 Proceso terminado existosamente llevado a memoria 
+2024/10/14 18:00:55 Proceso finalizado existosamente
+2024/10/14 18:00:55 TODO OK
+2024/10/14 18:10:04 Entra a exit process
+2024/10/14 18:10:04 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 18:10:04  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 18:10:04 Envia interrupcion de finalizacion 
+2024/10/14 18:10:04 ENtra a exitHilo
+2024/10/14 18:10:04  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 18:10:04 Hilo encolado en exit
+2024/10/14 18:10:04 Entra a envio hilo finalizado a memoria 
+2024/10/14 18:10:04 Codificando mensaje
+2024/10/14 18:10:05 Envio mensaje 
+2024/10/14 18:10:05 analizo repuesta de envio a memoria
+2024/10/14 18:10:05 Envio a memoria del proceso exitoso
+2024/10/14 18:10:05 Enviado hilo finalizado a memoria 
+2024/10/14 18:10:05 Enviando proceso a memoria 
+2024/10/14 18:10:05 Proceso terminado existosamente llevado a memoria 
+2024/10/14 18:10:05 Proceso finalizado existosamente
+2024/10/14 18:10:06 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/14 18:15:19 Entra a exit process
+2024/10/14 18:15:19 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 18:15:19  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 18:15:19 Envia interrupcion de finalizacion 
+2024/10/14 18:15:19 ENtra a exitHilo
+2024/10/14 18:15:19  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 18:15:19 Hilo encolado en exit
+2024/10/14 18:15:19 Entra a envio hilo finalizado a memoria 
+2024/10/14 18:15:19 Codificando mensaje
+2024/10/14 18:15:20 Envio mensaje 
+2024/10/14 18:15:20 analizo repuesta de envio a memoria
+2024/10/14 18:15:20 Envio a memoria del proceso exitoso
+2024/10/14 18:15:20 Enviado hilo finalizado a memoria 
+2024/10/14 18:15:20 Enviando proceso a memoria 
+2024/10/14 18:15:20 Proceso terminado existosamente llevado a memoria 
+2024/10/14 18:15:20 Proceso finalizado existosamente
+2024/10/14 18:15:21 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": EOF"
+2024/10/14 18:25:07 Entra a exit process
+2024/10/14 18:25:07 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/14 18:25:07  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/14 18:25:07 Envia interrupcion de finalizacion 
+2024/10/14 18:25:07 ENtra a exitHilo
+2024/10/14 18:25:07  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/14 18:25:07 Hilo encolado en exit
+2024/10/14 18:25:07 Entra a envio hilo finalizado a memoria 
+2024/10/14 18:25:07 Codificando mensaje
+2024/10/14 18:25:08 Envio mensaje 
+2024/10/14 18:25:08 analizo repuesta de envio a memoria
+2024/10/14 18:25:08 Envio a memoria del proceso exitoso
+2024/10/14 18:25:08 Enviado hilo finalizado a memoria 
+2024/10/14 18:25:08 Enviando proceso a memoria 
+2024/10/14 18:25:08 Proceso terminado existosamente llevado a memoria 
+2024/10/14 18:25:08 Proceso finalizado existosamente
+2024/10/14 18:34:14 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_CREATE> ##
+2024/10/14 18:34:16 ## (<PID 1>:<TID 1>) Se crea el Hilo - Estado: READY
+2024/10/14 18:41:12 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_CREATE> ##
+2024/10/14 18:41:14 ## (<PID 1>:<TID 1>) Se crea el Hilo - Estado: READY
+2024/10/14 18:41:16 ## (<PID:0>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/14 18:41:16 Envia interrupcion de finalizacion 
+2024/10/14 18:41:16 (<PID: 0 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/14 18:41:16 ## (<PID 0>:<TID 0>) Se crea el Hilo - Estado: READY
+2024/10/14 18:41:18 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_JOIN> ##
+2024/10/14 18:41:18 Envia interrupcion de finalizacion 
+2024/10/14 18:41:18 (<PID: 1 >:<TID: 0 >) - Bloqueado por: PTHREAD_JOIN
+2024/10/14 18:41:18 ## (<PID 1>:<TID 1>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/14 18:48:30 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_CREATE> ##
+2024/10/14 18:48:32 ## (<PID 1>:<TID 1>) Se crea el Hilo - Estado: READY
+2024/10/14 18:48:34 ## (<PID:0>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/14 18:48:34 ## (<PID 2>) Se crea el proceso - Estado: NEW
+2024/10/14 18:48:34 PID enviada a memoria : 2
+2024/10/14 18:48:37 ## (<PID 2>:<TID 0>) Se crea el Hilo - Estado: READY
+2024/10/14 19:02:12 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_CREATE> ##
+2024/10/14 19:02:14 ## (<PID 1>:<TID 1>) Se encola el Hilo - Estado: READY
+2024/10/14 19:02:14 ## (<PID 1>:<TID 1>) Se crea el Hilo - Estado: READY
+2024/10/14 19:02:16 ## (<PID:0>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/14 19:02:16 ## (<PID 2>) Se crea el proceso - Estado: NEW
+2024/10/14 19:02:16 PID enviada a memoria : 2
+2024/10/14 19:02:18 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_JOIN> ##
+2024/10/14 19:02:18 Envia interrupcion de finalizacion 
+2024/10/14 19:02:18 (<PID: 1 >:<TID: 0 >) - Bloqueado por: PTHREAD_JOIN
+2024/10/14 19:02:18 ## (<PID 1>:<TID 1>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/14 19:02:19 ## (<PID 2>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/14 19:03:19 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_CREATE> ##
+2024/10/14 19:03:21 ## (<PID 1>:<TID 1>) Se encola el Hilo - Estado: READY
+2024/10/14 19:03:21 ## (<PID 1>:<TID 1>) Se crea el Hilo - Estado: READY
+2024/10/14 19:03:23 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/14 19:03:23 ## (<PID 2>) Se crea el proceso - Estado: NEW
+2024/10/14 19:03:23 PID enviada a memoria : 2
+2024/10/14 19:03:25 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_JOIN> ##
+2024/10/14 19:03:25 Envia interrupcion de finalizacion 
+2024/10/14 19:03:25 (<PID: 1 >:<TID: 0 >) - Bloqueado por: PTHREAD_JOIN
+2024/10/14 19:03:25 ## (<PID 1>:<TID 1>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/14 19:03:26 ## (<PID 2>:<TID 0>) Se encola el Hilo - Estado: READY

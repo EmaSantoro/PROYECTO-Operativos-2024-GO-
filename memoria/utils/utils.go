@@ -177,7 +177,7 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	for pcb, tidMap := range mapPCBPorTCB {
-		log.Printf("tengo guardado: %v", tidMap)
+		/// log.Printf("tengo guardado: %v", tidMap)
 		log.Printf("IntructionReq.Pid %d", instructionReq.Pid)
 		if pcb.Pid == instructionReq.Pid {
 			log.Printf("me llego: %d", instructionReq.Tid)
@@ -287,7 +287,6 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 	// queryParams := r.URL.Query()
 	// pid, _ := strconv.Atoi(queryParams.Get("pid")) //esto me parece que no va
 	// tid, _ := strconv.Atoi(queryParams.Get("tid")) //esto tampoco
-	log.Printf("Entra a actualziar contexto")
 	var actualizadoContexto GetExecutionContextResponse
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
@@ -296,8 +295,8 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	log.Printf("Respuesta codificara PID = %d , TID = %d", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
-	log.Printf("MAP PCB x TCB = %v", mapPCBPorTCB)
+	log.Printf("Respuesta codificada PID = %d , TID = %d", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
+	///log.Printf("MAP PCB x TCB = %v", mapPCBPorTCB)
 	for pcb, tidMap := range mapPCBPorTCB {
 		if pcb.Pid == actualizadoContexto.Pcb.Pid {
 			log.Printf("PID actualizar : %d", pcb.Pid)
@@ -326,7 +325,7 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 
 					w.WriteHeader(http.StatusOK)
 					w.Write([]byte("contexto de ejecucion ha sido actualizado"))
-					log.Printf("Map actualizado %v", mapPCBPorTCB)
+					///log.Printf("Map actualizado %v", mapPCBPorTCB)
 					return
 				}
 			}
@@ -625,7 +624,6 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 	//queryParams := r.URL.Query()
 	//pid, _ := strconv.Atoi(queryParams.Get("pid"))
 	var KernelReq KernelProcessTerminateReq
-	log.Printf("Entre a get instruction")
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&KernelReq)
 
@@ -767,7 +765,7 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	log.Printf("Lo que se guardo en map: %v", mapPCBPorTCB)
+	/// log.Printf("Lo que se guardo en map: %v", mapPCBPorTCB)
 	// Log de creación de hilo
 	log.Printf("## Hilo Creado - (PID:TID) - (%d:%d)", thread.Pid, thread.Tid)
 
@@ -822,19 +820,22 @@ type Req struct {
 }
 
 func TerminateThread(w http.ResponseWriter, r *http.Request) {
+	log.Printf("ENTRO A TERMINATE THREAD")
 
 	var req Req
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		log.Printf("ENTRO A TERMINATE THREAD7")
 		return
 	}
 
-	if _, exists := mapPCBPorTCB[PCB{Pid: req.Pid}]; !exists {
+	/*if _, exists := mapPCBPorTCB[PCB{Pid: req.Pid}]; !exists {
 		http.Error(w, "No se pudo encontrar el proceso", http.StatusNotFound)
+		log.Printf("ENTRO A TERMINATE THREAD8")
 		return
-	}
+	}*/
 
 	if tcbMap, found := mapPCBPorTCB[PCB{Pid: req.Pid}]; found {
 		delete(tcbMap, estructuraHilo{Pid: req.Pid, Tid: req.Tid})

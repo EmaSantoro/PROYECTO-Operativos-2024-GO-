@@ -130,9 +130,8 @@ var ConfigKernel *globals.Config
 
 /*---------------------- CANALES ----------------------*/
 
-var finProceso = make(chan bool)
-
-//var nuevoHiloEnCola = make(chan bool)
+//var finProceso = make(chan bool)
+//VER CANAL FINPROCESO QUE LO USAMOS PARA SABER CUANDO FINALIZA UN PROCESO Y ASI PODER INICIALIZAR OTRO PERO NOS ESTA SIENDO BLOQUEANTE
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -290,7 +289,7 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 
 				slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
 				// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
-				<-finProceso // se bloquea hasta que finalice un proceso
+				//<-finProceso // se bloquea hasta que finalice un proceso
 
 			}
 		}
@@ -325,7 +324,6 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	log.Printf("TODO OK")
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -334,11 +332,10 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	pcb := getPCB(pid)
 	quitarProcesoInicializado(pcb)
 	encolarProcesoExit(pcb)
-	log.Printf("Quitado y encolao el proceso")
+
 	for _, tcb := range colaReadyHilo {
 		if tcb.Pid == pid {
 			exitHilo(pid, tcb.Tid)
-			log.Printf("ExitHilo ejecutado exitosamente desde cola de ready")
 		}
 	} // LO PUSE ASI PORQUE NO SOLO HABIA QUE MOVER A EXIT SINO TAMBIEN AVISAR QUE FINALIZA (es decir lo que hace la funcion exit proceses)
 
@@ -346,14 +343,12 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 		if tcb.Pid == pid {
 			enviarInterrupcion(tcb.Pid, tcb.Tid)
 			exitHilo(pid, tcb.Tid)
-			log.Printf("ExitHilo ejecutado exitosamente desde cola de execute")
 		}
 	}
 
 	for _, tcb := range colaBlockHilo {
 		if tcb.Pid == pid {
 			exitHilo(pid, tcb.Tid)
-			log.Printf("ExitHilo ejecutado exitosamente desde cola de blocked")
 		}
 	}
 
@@ -362,7 +357,7 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 	if resp == nil {
 		// Notificar a traves del canal
 		log.Printf("Proceso finalizado existosamente")
-		finProceso <- true
+		//finProceso <- true
 	} else {
 		slog.Error("Error al enviar el proceso finalizado a memoria")
 		return fmt.Errorf("error al enviar el proceso finalizado a memoria")
@@ -550,7 +545,7 @@ func iniciarHilo(pid int, path string, prioridad int) error {
 	pcb := getPCB(pid)
 	pcb.Tid = append(pcb.Tid, tcb.Tid)
 	encolarReady(tcb)
-
+	log.Printf("## (<PID %d>:<TID %d>) Se crea el Hilo - Estado: READY", tcb.Pid, tcb.Tid)
 	return nil
 }
 
@@ -631,7 +626,7 @@ func EntrarHilo(w http.ResponseWriter, r *http.Request) { //debe ser del mismo p
 }
 
 func exitHilo(pid int, tid int) error {
-	log.Printf("ENtra a exitHilo")
+	log.Printf("Entra a exitHilo")
 	hilo := getTCB(pid, tid)
 	pcb := getPCB(pid)
 	pcb.Tid = removeTid(pcb.Tid, tid)
@@ -648,7 +643,6 @@ func exitHilo(pid int, tid int) error {
 	encolarExit(hilo)
 	log.Printf("Hilo encolado en exit")
 	for _, tidBloqueado := range hilo.HilosBloqueados {
-		// desbloquear hilos bloqueados por el hilo que finalizo
 		desbloquearHilosJoin(tidBloqueado, pid)
 	}
 	if tieneMutexAsignado(pcb, hilo) {
@@ -709,11 +703,6 @@ func joinHilo(pid int, tidActual int, tidAEjecutar int) error {
 	quitarExec(tcbActual)
 	encolarBlock(tcbActual, "PTHREAD_JOIN")
 
-	quitarReady(tcbAEjecutar)
-	encolarExec(tcbAEjecutar)
-	enviarTCBCpu(tcbAEjecutar) // SE SUPONE QUE ESTO LO HACE EL ALGORITMO DE PLANIFICACION
-	// PERO SE TIENE QUE EJECUTAR ESTE HILO Y NO CUALQUIER OTRO
-
 	return nil
 }
 
@@ -732,18 +721,17 @@ func ejecutarHilosFIFO() {
 func ejecutarInstruccion(Hilo TCB) {
 	quitarReady(Hilo)
 	encolarExec(Hilo)
-	enviarTCBCpu(Hilo) // envio el hilo a la cpu para que ejecute sus instruciones
+	enviarTCBCpu(Hilo)
 }
 
 // PRIORIDADES
 func ejecutarHilosPrioridades() {
 	for {
-		//verificarPrioridad := <-nuevoHiloEnCola // no se hace <-nuevoHiloEnCola ya que los canales son bloqueantes y no queremos que la planificacion se bloquee
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccion(Hilo)
 
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 /*&& verificarPrioridad*/ {
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
@@ -751,7 +739,6 @@ func ejecutarHilosPrioridades() {
 				encolarReady(colaExecHilo[0])
 
 			}
-			//nuevoHiloEnCola <- false
 		}
 	}
 }
@@ -776,22 +763,18 @@ func obtenerHiloMayorPrioridad() TCB {
 // Multicolas
 func ejecutarHilosColasMultinivel(quantum int) {
 	for {
-		//verificarPrioridad := <-nuevoHiloEnCola
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
 			ejecutarInstruccionRR(Hilo, quantum)
-
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 /*&& verificarPrioridad*/ {
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
-
 			}
-
 		}
-		//nuevoHiloEnCola <- false
+
 	}
 }
 
@@ -866,7 +849,7 @@ func enviarTCBMemoria(tcb TCB, path string) error {
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
 	if err != nil {
-		slog.Error("Error enviando TCB", slog.String("ip", ip), slog.Int("puerto", puerto), slog.Any("error", err)) // err contiene el error que causo que no se envie la tcb
+		slog.Error("Error enviando TCB", slog.String("ip", ip), slog.Int("puerto", puerto), slog.Any("error", err))
 		return err
 	}
 	if resp.StatusCode != http.StatusOK {
@@ -931,7 +914,7 @@ func encolarReady(tcb TCB) {
 	colaReadyHilo = append(colaReadyHilo, tcb)
 	mutexColaReadyHilo.Unlock()
 
-	log.Printf("## (<PID %d>:<TID %d>) Se crea el Hilo - Estado: READY", tcb.Pid, tcb.Tid)
+	log.Printf("## (<PID %d>:<TID %d>) Se encola el Hilo - Estado: READY", tcb.Pid, tcb.Tid)
 }
 
 func encolarExec(tcb TCB) {
@@ -993,11 +976,6 @@ func obtenerHiloDeCola(colaHilo []TCB, criterio func(TCB) bool) (TCB, error) {
 	}
 	return TCB{}, fmt.Errorf("no se encontró el hilo buscado")
 }
-
-// Uso de la función para búsqueda solo por pid
-/*func buscarPorPid(colaHilo []TCB, pid int) (TCB, error) {
-	return obtenerHiloDeCola(colaHilo, func(hilo TCB) bool { return hilo.Pid == pid })
-}*/
 
 // Uso de la función para búsqueda por pid y tid
 func buscarPorPidYTid(colaHilo []TCB, pid, tid int) (TCB, error) {

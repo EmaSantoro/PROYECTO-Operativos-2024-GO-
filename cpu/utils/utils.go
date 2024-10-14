@@ -24,8 +24,12 @@ var memoryData sync.WaitGroup
 var dataFromMemory uint32 //verrr
 var flagSegmentationFault bool
 
-//DEFINICION DE TIPOS
-
+// DEFINICION DE TIPOS
+type MutexRequest struct {
+	Pid   int    `json:"pid"`
+	Tid   int    `json:"tid"`
+	Mutex string `json:"mutex"`
+}
 type InstructionReq struct {
 	Pid int `json:"pid"`
 	Tid int `json:"tid"`
@@ -114,6 +118,8 @@ type IniciarProcesoBody struct {
 	Path      string `json:"path"`
 	Size      int    `json:"size"`
 	Prioridad int    `json:"prioridad"`
+	PidActual int    `json:"pidActual"`
+	TidActual int    `json:"tidActual"`
 }
 
 type CrearHiloBody struct {
@@ -261,10 +267,12 @@ func InstructionCycle(contexto *contextoEjecucion) {
 
 func RealizarInterrupcion(contexto *contextoEjecucion) error {
 	err := AcualizarContextoDeEjecucion(contexto)
-	if err == nil {
+	if err != nil {
 		log.Panicf("Error al actualizar contexto de ejecucion para la interrupcion")
 		return err
 	}
+
+	log.Printf("Funciona ok el realizar interrupcion")
 	/*
 		var kernelInt KernelInterrupcion
 		kernelInt.Motivo = motivo
@@ -343,6 +351,9 @@ func Decode(instructionLine []string) (DecodedInstruction, error) {
 		"PROCESS_EXIT":   ProcessExit,
 		"READ_MEM":       Read_Memory,
 		"WRITE_MEM":      Write_Memory,
+		"MUTEX_CREATE":   MutexCreate,
+		"MUTEX_LOCK":     MutexLOCK,
+		"MUTEX_UNLOCK":   MutexUNLOCK,
 	}
 
 	var instructionDecoded DecodedInstruction
@@ -708,15 +719,17 @@ func CreateProcess(contexto *contextoEjecucion, parameters []string) error {
 		Path:      archivoInstruct,
 		Size:      tamArchReal,
 		Prioridad: priorityReal,
+		PidActual: contexto.pcb.Pid,
+		TidActual: contexto.tcb.Tid,
 	})
 
 	if err != nil {
 		log.Printf("Error al codificar estructura de creacion de proceso")
 		return err
 	}
-	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "crearProceso")
 	if err != nil {
-		log.Printf("Error syscall IO : %v", err)
+		log.Printf("Error syscall crearProceso : %v", err)
 		return err
 	}
 
@@ -839,13 +852,59 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 	return nil
 
 }
-
-func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
-	log.Print("Finalizar proceos PID : %d", contexto.pcb.Pid)
+func MutexCreate(contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters, "crearMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexLOCK(contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters, "bloquearMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexUNLOCK(contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters, "liberarMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexFunction(contexto *contextoEjecucion, parameters []string, endpoint string) error {
+	recurso := parameters[0]
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
 		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	body, err := json.Marshal(MutexRequest{
+		Pid:   contexto.pcb.Pid,
+		Tid:   contexto.tcb.Tid,
+		Mutex: recurso,
+	})
+	if err != nil {
+		log.Printf("Error al codificar estructura de cancelacion de hilo")
+		return err
+	}
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), endpoint)
+	if err != nil {
+		log.Printf("Error syscall THREAD_CANCEL : %v", err)
+		return err
+	}
+	return nil
+}
+
+func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
+	log.Print("Finalizar proceos PID : %d ", contexto.pcb.Pid)
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualizar contexto de ejecucion")
 		return err
 	}
 	var process KernelExeReq
@@ -943,7 +1002,7 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	nuevaInterrupcion.Pid = interrupction.Pid
 	nuevaInterrupcion.Tid = interrupction.Tid
 	mutexInterrupt.Unlock()
-	log.Printf("Recive bien interrupcion")
+	log.Printf("Recibe bien interrupcion")
 }
 
 /*ng)

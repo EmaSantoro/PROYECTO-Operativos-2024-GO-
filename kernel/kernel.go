@@ -25,8 +25,8 @@ func main() {
 	http.HandleFunc("POST /finalizarProceso", utils.FinalizarProceso)
 
 	http.HandleFunc("POST /crearHilo", utils.CrearHilo)
-	http.HandleFunc("DELETE /finalizarHilo", utils.FinalizarHilo)
-	http.HandleFunc("DELETE /cancelarHilo", utils.CancelarHilo)
+	http.HandleFunc("POST /finalizarHilo", utils.FinalizarHilo)
+	http.HandleFunc("POST /cancelarHilo", utils.CancelarHilo)
 	http.HandleFunc("POST /unirseAHilo", utils.EntrarHilo)
 
 	http.HandleFunc("POST /crearMutex", utils.CrearMutex)
