@@ -633,3 +633,14 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/14 19:03:25 (<PID: 1 >:<TID: 0 >) - Bloqueado por: PTHREAD_JOIN
 2024/10/14 19:03:25 ## (<PID 1>:<TID 1>) Se ejecuta el Hilo - Estado: EXEC
 2024/10/14 19:03:26 ## (<PID 2>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/14 19:27:16 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_CREATE> ##
+2024/10/14 19:27:18 ## (<PID 1>:<TID 1>) Se encola el Hilo - Estado: READY
+2024/10/14 19:27:18 ## (<PID 1>:<TID 1>) Se crea el Hilo - Estado: READY
+2024/10/14 19:27:20 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/14 19:27:20 ## (<PID 2>) Se crea el proceso - Estado: NEW
+2024/10/14 19:27:20 PID enviada a memoria : 2
+2024/10/14 19:27:22 ## (<PID:1>:<TID:0>) - Solicitó syscall: <THREAD_JOIN> ##
+2024/10/14 19:27:22 Envia interrupcion de finalizacion 
+2024/10/14 19:27:22 (<PID: 1 >:<TID: 0 >) - Bloqueado por: PTHREAD_JOIN
+2024/10/14 19:27:23 ## (<PID 2>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/14 19:27:23 ## (<PID 1>:<TID 1>) Se ejecuta el Hilo - Estado: EXEC

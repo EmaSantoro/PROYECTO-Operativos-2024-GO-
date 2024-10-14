@@ -729,7 +729,6 @@ func consolidarParticiones(numeroDeParticion int) {
 //-----------------------------------------CREATE THREAD--------------------------------------------
 
 func CreateThread(w http.ResponseWriter, r *http.Request) {
-	log.Printf("entre a crear thread")
 	var thread Thread
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
@@ -783,7 +782,6 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 		return err
 	}
 	defer readFile.Close()
-	log.Printf("Abri el archivo")
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	fileScanner := bufio.NewScanner(readFile)
@@ -793,7 +791,6 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 	for fileScanner.Scan() {
 		instrucciones = append(instrucciones, fileScanner.Text()) //esta linea lee los codigos
 	}
-	log.Printf("escaneo")
 	var pcbEncontrado PCB //para encontrar el pcb y poder entrar al mapa anidado
 	for pcb := range mapPCBPorTCB {
 		if pcb.Pid == pid {
@@ -801,7 +798,6 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 			break
 		}
 	}
-	log.Printf("busco pcb")
 	if _, found := mapPCBPorTCB[pcbEncontrado]; !found {
 		mapPCBPorTCB[pcbEncontrado] = make(map[estructuraHilo][]string)
 	}

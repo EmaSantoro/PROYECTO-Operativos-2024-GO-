@@ -3839,3 +3839,35 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/14 19:03:32 Error al buscar intruccion en el pc 4. ERROR : error en la respuesta del módulo de memoria: 400
 2024/10/14 19:03:32 ## TID: 0 - Ejecutando: THREAD_JOIN - Parametos : [1]
 2024/10/14 19:03:33 Funciona ok el realizar interrupcion
+2024/10/14 19:27:12 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 19:27:12 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 19:27:13 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:27:13 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 19:27:14 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 19:27:14 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:27:14 Antes de modificar el valor 
+2024/10/14 19:27:14 Registro obtenido
+2024/10/14 19:27:14 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:27:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 19:27:15 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 19:27:15 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 19:27:18 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 19:27:18 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 19:27:19 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 19:27:19 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 256 2]
+2024/10/14 19:27:20 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 256 2]
+2024/10/14 19:27:20 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 19:27:21 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 19:27:21 La instruccion fue decodificada : INSTUCCION = THREAD_JOIN, PARAMETROS = [1]
+2024/10/14 19:27:22 Recibe bien interrupcion
+2024/10/14 19:27:22 ## TID: 0 - Ejecutando: THREAD_JOIN - Parametos : [1]
+2024/10/14 19:27:23 Funciona ok el realizar interrupcion
+2024/10/14 19:27:23 Cpu recibe TID : 1 PID:1 del Kernel
+2024/10/14 19:27:23 PCB : 1 TID : 1 - Solicita Contexto de Ejecucion
+2024/10/14 19:27:24 PCB : 1 TID : 1 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:27:24 Intruccion Solicitada de Pid 1 y TID 1 y PC 0
+2024/10/14 19:27:25 PID: 1 TID: 1 - FETCH - Program Counter: 0
+2024/10/14 19:27:25 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:27:25 Antes de modificar el valor 
+2024/10/14 19:27:25 Registro obtenido
+2024/10/14 19:27:25 ## TID: 1 - Ejecutando: SET - Parametos : [AX 1]
