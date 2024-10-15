@@ -115,8 +115,8 @@ type KernelExeReq struct {
 }
 type IOReq struct {
 	Tiempo int `json:"tiempoIO"`
-	Pid   int `json:"pid"`
-	Tid   int `json:"tid"`
+	Pid    int `json:"pid"`
+	Tid    int `json:"tid"`
 }
 
 type IniciarProcesoBody struct {
