@@ -4148,3 +4148,37 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/14 21:09:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
 2024/10/14 21:10:00 error en la respuesta del módulo de memoria: 400
 2024/10/14 21:10:00 Error al buscar intruccion en el pc 3. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/15 16:33:01 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/15 16:33:01 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/15 16:33:02 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/15 16:33:02 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/15 16:33:03 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/15 16:33:03 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/15 16:33:04 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/15 16:33:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/15 16:33:05 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/15 16:33:05 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/15 16:33:06 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/15 16:33:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/15 16:33:07 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/15 16:33:07 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/15 16:33:08 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/15 16:33:08 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/15 16:33:09 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/15 16:33:09 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/15 16:33:10 Recibe bien interrupcion
+2024/10/15 16:33:10 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/15 16:33:11 Funciona ok el realizar interrupcion
+2024/10/15 16:33:11 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/15 16:33:11 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/15 16:33:12 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/15 16:33:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/15 16:33:13 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/15 16:33:13 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/15 16:33:13 Finalizar proceos PID : 1 
+2024/10/15 16:33:14 Enviando a kernel syscall
+2024/10/15 16:33:14 Recibe bien interrupcion
+2024/10/15 16:33:14 Recibe bien interrupcion
+2024/10/15 16:33:15 Syscall se ejecuto correctamente
+2024/10/15 16:33:15 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/15 16:33:16 Funciona ok el realizar interrupcion

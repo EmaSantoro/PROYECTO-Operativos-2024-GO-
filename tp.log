@@ -5350,3 +5350,75 @@
 2024/10/14 21:10:00 IntructionReq.Pid 1
 2024/10/14 21:10:00 me llego: 0
 2024/10/14 21:10:00 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 PROCESS_EXIT] {1 0 0 0 0 0 0 0 0 0 1}:[] {1 0 0 0 0 0 0 0 0 0 2}:[] {1 0 0 0 0 0 0 0 0 0 3}:[]]
+2024/10/15 16:32:59 Pid: 1
+2024/10/15 16:32:59 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/15 16:33:00 cree el hilo PID:1 TID:0
+2024/10/15 16:33:00 procesoInicial
+2024/10/15 16:33:01 hago el map
+2024/10/15 16:33:01 fin
+2024/10/15 16:33:01 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/15 16:33:01 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/15 16:33:02 Pid 1 y tid 0 enontradas
+2024/10/15 16:33:02 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/15 16:33:02 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/15 16:33:02 Entre a get instruction
+2024/10/15 16:33:03 IntructionReq.Pid 1
+2024/10/15 16:33:03 me llego: 0
+2024/10/15 16:33:03 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 PROCESS_EXIT]]
+2024/10/15 16:33:03 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_CREATE RECURSO_1
+2024/10/15 16:33:04 Respuesta codificada PID = 1 , TID = 0
+2024/10/15 16:33:04 PID actualizar : 1
+2024/10/15 16:33:04 TID actualizar : 0
+2024/10/15 16:33:04 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/15 16:33:04 Entre a get instruction
+2024/10/15 16:33:05 IntructionReq.Pid 1
+2024/10/15 16:33:05 me llego: 0
+2024/10/15 16:33:05 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 1}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 PROCESS_EXIT]]
+2024/10/15 16:33:05 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_LOCK RECURSO_1
+2024/10/15 16:33:06 Respuesta codificada PID = 1 , TID = 0
+2024/10/15 16:33:06 PID actualizar : 1
+2024/10/15 16:33:06 TID actualizar : 0
+2024/10/15 16:33:06 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/15 16:33:06 Entre a get instruction
+2024/10/15 16:33:07 IntructionReq.Pid 1
+2024/10/15 16:33:07 me llego: 0
+2024/10/15 16:33:07 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 2}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 PROCESS_EXIT]]
+2024/10/15 16:33:07 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_UNLOCK RECURSO_1
+2024/10/15 16:33:08 Respuesta codificada PID = 1 , TID = 0
+2024/10/15 16:33:08 PID actualizar : 1
+2024/10/15 16:33:08 TID actualizar : 0
+2024/10/15 16:33:08 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/15 16:33:08 Entre a get instruction
+2024/10/15 16:33:09 IntructionReq.Pid 1
+2024/10/15 16:33:09 me llego: 0
+2024/10/15 16:33:09 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 3}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 PROCESS_EXIT]]
+2024/10/15 16:33:09 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/15 16:33:10 Respuesta codificada PID = 1 , TID = 0
+2024/10/15 16:33:10 PID actualizar : 1
+2024/10/15 16:33:10 TID actualizar : 0
+2024/10/15 16:33:10 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/15 16:33:11 Respuesta codificada PID = 1 , TID = 0
+2024/10/15 16:33:11 PID actualizar : 1
+2024/10/15 16:33:11 TID actualizar : 0
+2024/10/15 16:33:11 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/15 16:33:11 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/15 16:33:12 Pid 1 y tid 0 enontradas
+2024/10/15 16:33:12 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 4}}
+2024/10/15 16:33:12 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/15 16:33:12 Entre a get instruction
+2024/10/15 16:33:13 IntructionReq.Pid 1
+2024/10/15 16:33:13 me llego: 0
+2024/10/15 16:33:13 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 PROCESS_EXIT]]
+2024/10/15 16:33:13 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/15 16:33:14 Respuesta codificada PID = 1 , TID = 0
+2024/10/15 16:33:14 PID actualizar : 1
+2024/10/15 16:33:14 TID actualizar : 0
+2024/10/15 16:33:14 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/15 16:33:14 ENTRO A TERMINATE THREAD
+2024/10/15 16:33:15 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/15 16:33:15 Entra a terminate process
+2024/10/15 16:33:15 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/15 16:33:16 Respuesta codificada PID = 1 , TID = 0
+2024/10/15 16:33:16 PID actualizar : 1
+2024/10/15 16:33:16 TID actualizar : 0
+2024/10/15 16:33:16 ## Contexto <Solicitado> - (PID:TID) - (1:0)

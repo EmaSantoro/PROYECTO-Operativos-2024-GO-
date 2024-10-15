@@ -683,3 +683,29 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/14 21:09:55 Mutex creado: RECURSO_1
 2024/10/14 21:09:57 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
 2024/10/14 21:09:59 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/15 16:33:04 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/15 16:33:04 Mutex creado: RECURSO_1
+2024/10/15 16:33:06 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/15 16:33:08 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/15 16:33:10 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/15 16:33:10 Envia interrupcion de finalizacion 
+2024/10/15 16:33:10 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/15 16:33:11 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/15 16:33:11 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/15 16:33:14 Entra a exit process
+2024/10/15 16:33:14 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/15 16:33:14  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/15 16:33:14 Envia interrupcion de finalizacion 
+2024/10/15 16:33:14 Entra a exitHilo
+2024/10/15 16:33:14  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/15 16:33:14 Envia interrupcion de finalizacion 
+2024/10/15 16:33:14 Hilo encolado en exit
+2024/10/15 16:33:14 Entra a envio hilo finalizado a memoria 
+2024/10/15 16:33:14 Codificando mensaje
+2024/10/15 16:33:15 Envio mensaje 
+2024/10/15 16:33:15 analizo repuesta de envio a memoria
+2024/10/15 16:33:15 Envio a memoria del proceso exitoso
+2024/10/15 16:33:15 Enviado hilo finalizado a memoria 
+2024/10/15 16:33:15 Enviando proceso a memoria 
+2024/10/15 16:33:15 Proceso terminado existosamente llevado a memoria 
+2024/10/15 16:33:15 Proceso finalizado existosamente
