@@ -26,7 +26,9 @@ type PCB struct { //NO ES LA MISMA PCB QUE TIENE KERNEL DIGAMOS ES UNA PROPIA DE
 type InstructionResponse struct {
 	Instruction string `json:"instruction"`
 }
-
+type DataRead struct {
+	Data []byte `json:"data"`
+}
 type NewContext struct {
 	PCB struct {
 		Pid   int    `json:"pid"`
@@ -315,7 +317,7 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 					// tcb.GX = uint32(actualizadoContexto.Tcb.GX)
 					// tcb.HX = uint32(actualizadoContexto.Tcb.HX)
 					// tcb.PC = uint32(actualizadoContexto.Tcb.PC)
-					
+
 					ModificarContexto(pcb, tcb, actualizadoContexto.Tcb)
 
 					// Log de obtener contexto de ejecucion
@@ -870,6 +872,7 @@ type MemoryRequest struct {
 }
 
 func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Entra a read memory")
 	var memReq MemoryRequest
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
@@ -878,16 +881,28 @@ func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data, err := ReadMemory(memReq.PID, memReq.TID, memReq.Address) //, memReq.Size )
+	dataEncontrado, err := ReadMemory(memReq.PID, memReq.TID, memReq.Address) //, memReq.Size )
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	if err := sendDataToCPU(data); err != nil {
-		http.Error(w, "Error al enviar los datos a la CPU", http.StatusInternalServerError)
-		return
+	log.Printf("Ya tengo el data")
+	var dataReq DataRead
+	dataReq.Data = dataEncontrado
+	respuestaJson, err1 := json.Marshal(dataReq)
+	if err1 != nil {
+		http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
 	}
+	w.WriteHeader(http.StatusOK)
+	w.Write(respuestaJson)
+	log.Printf("Intenta mandar data al CPU en read memory")
+
+	/*
+		if err := sendDataToCPU(data); err != nil {
+			http.Error(w, "Error al enviar los datos a la CPU", http.StatusInternalServerError)
+			return
+		}
+	*/
 }
 
 var mu sync.Mutex
@@ -986,6 +1001,7 @@ func sendDataToCPU(content []byte) error {
 // otra vez fundamentalmente escribir sobre la memoria "grande"
 
 func WriteMemoryHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Enters to Write Memory Handler")
 	var memReq MemoryRequest
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
@@ -993,7 +1009,7 @@ func WriteMemoryHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
+	log.Printf("Intenta escribir memoria")
 	if err := WriteMemory(memReq.PID, memReq.TID, memReq.Address, memReq.Data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -1003,13 +1019,9 @@ func WriteMemoryHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func WriteMemory(PID int, TID int, address uint32, data []byte) error {
-
+	log.Printf("Enters to Write Memory")
 	mu.Lock()
 	defer mu.Unlock()
-
-	if _, exists := mapPCBPorTCB[PCB{Pid: PID}]; !exists {
-		return fmt.Errorf("no se encontró el PID")
-	}
 
 	var pcbEncontrado PCB //LO HAGO PARA PODER ENTRAR AL MAPA ANIDADO Y AGARRAR LA PCB DE ESE PID
 	encontrado := false
@@ -1021,37 +1033,49 @@ func WriteMemory(PID int, TID int, address uint32, data []byte) error {
 			break
 		}
 	}
-
-	tcbMap, found := mapPCBPorTCB[pcbEncontrado]
-	if !found {
-		return fmt.Errorf("no se encontró el TID para el PID: %d", PID)
-	}
-
-	encontrado = false
-	for tcb := range tcbMap {
-		if tcb.Tid == TID {
-			encontrado = true
-			break
-		}
-	}
-
 	if !encontrado {
-		return fmt.Errorf("no se encontró el TID: %d para el PID: %d", TID, PID)
+		log.Printf("no se encontró el PID : %d", PID)
+		return fmt.Errorf("no se encontró el PID: %d", PID)
 	}
-
+	/*
+		tcbMap := mapPCBPorTCB[pcbEncontrado]
+		var tcbEncontrada estructuraHilo
+		encontrado = false
+		for tcb := range tcbMap {
+			if tcb.Tid == TID {
+				tcbEncontrada = tcb
+				encontrado = true
+				break
+			}
+		}
+		if !encontrado {
+			log.Printf("no se encontró el TID para el PID: %d", PID)
+			return fmt.Errorf("no se encontró el TID para el PID: %d", PID)
+		}
+	*/
 	//primero tengo que ver si la direccion que me dieron esta dentro del rango de la particion del pid
 	if address < pcbEncontrado.Base || address > pcbEncontrado.Limit {
+		log.Printf("dirección fuera de rango para el PID: %d", PID)
 		return fmt.Errorf("dirección fuera de rango para el PID: %d", PID)
 	}
 
 	espaciodisponible := pcbEncontrado.Limit - address // Espacio disponible desde la dirección hasta el límite
-
-	if espaciodisponible >= 4 {
-		copy(globals.MemoriaUsuario[address:address+4], data[:4])
+	lengthData := len(data)
+	var dataNuevo []byte
+	if lengthData >= 4 {
+		dataNuevo = data[:4]
 	} else {
-		copy(globals.MemoriaUsuario[address:address+espaciodisponible], data[:espaciodisponible])
+		dataNuevo = data[:lengthData]
 	}
-
+	lengthDataNuevo := len(dataNuevo)
+	if espaciodisponible >= 4 {
+		copy(globals.MemoriaUsuario[address:address+uint32(lengthDataNuevo)], dataNuevo)
+	} else if lengthDataNuevo <= int(espaciodisponible) {
+		copy(globals.MemoriaUsuario[address:address+uint32(lengthDataNuevo)], dataNuevo)
+	} else {
+		copy(globals.MemoriaUsuario[address:address+espaciodisponible], dataNuevo[:espaciodisponible])
+	}
+	log.Printf("Gets out of Write Memory")
 	return nil
 }
 

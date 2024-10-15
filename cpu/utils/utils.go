@@ -2,6 +2,7 @@ package utils
 
 import (
 	"bytes"
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -30,6 +31,9 @@ type InstructionReq struct {
 	Pid int `json:"pid"`
 	Tid int `json:"tid"`
 	Pc  int `json:"pc"`
+}
+type DataRead struct {
+	Data []byte `json:"data"`
 }
 
 type MutexRequest struct {
@@ -466,24 +470,43 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	log.Printf("Leer memoria con direccion fisica %d", direccionFisica)
 	//leer en memoria
 	//VER SI SE PUEDE PEDIR Y ENVIAR POR MISMO PUERTO
+
+	//memoryData.Add(1)
+	//memoryData.Wait()
 	var memReq MemoryRequest
 	memReq.Address = direccionFisica
 	memReq.PID = context.pcb.Pid
 	memReq.TID = context.tcb.Tid
 
 	body, err2 := json.Marshal(memReq)
-
 	if err2 != nil {
+		log.Printf("Error al codificar el mensaje de solicitud de instruccion")
 		return err2
 	}
-	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/ReadMemory")
-	if err3 != nil {
-		return err3
-	}
-	memoryData.Add(1)
-	memoryData.Wait()
 
-	err4 := ModificarValorCampo(registers, parameters[0], dataFromMemory)
+	url := fmt.Sprintf("http://%s:%d/readMemory", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
+
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+
+	if err != nil {
+		log.Fatalf("error al enviar la solicitud al módulo de memoria: %v", err)
+		return err
+	}
+	//defer response.Body.Close()
+
+	if response.StatusCode != http.StatusOK {
+		err := fmt.Errorf("error en la respuesta del módulo de memoria: %v", response.StatusCode)
+		log.Println(err)
+		return err
+	}
+	var dataResponse DataRead
+	errorDecode := json.NewDecoder(response.Body).Decode(&dataResponse)
+	if errorDecode != nil {
+		log.Println("Error al decodificar la instruccion", errorDecode)
+		return errorDecode
+	}
+	dataAEscribir := BytesToUint32(dataResponse.Data)
+	err4 := ModificarValorCampo(registers, parameters[0], dataAEscribir)
 
 	if err4 != nil {
 		return err4
@@ -492,7 +515,12 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	return nil
 
 }
-
+func BytesToUint32(bytes []byte) uint32 {
+	if len(bytes) < 4 {
+		panic("El slice de bytes debe tener al menos 4 bytes de longitud")
+	}
+	return binary.LittleEndian.Uint32(bytes)
+}
 func RecieveDataFromMemory(w http.ResponseWriter, r *http.Request) {
 
 	decoder := json.NewDecoder(r.Body)
@@ -534,6 +562,7 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	var memReq MemoryRequest
 	memReq.Address = direccionFisica
 	memReq.Data = PasarDeUintAByte(dato)
+	log.Printf("LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : %d", len(memReq.Data))
 	memReq.PID = context.pcb.Pid
 	memReq.TID = context.tcb.Tid
 
@@ -542,8 +571,8 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	if err5 != nil {
 		return err5
 	}
-
-	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/writeMemory")
+	log.Printf("Enviando a memoria write_memory")
+	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "writeMemory")
 
 	if err3 != nil {
 		return err3
