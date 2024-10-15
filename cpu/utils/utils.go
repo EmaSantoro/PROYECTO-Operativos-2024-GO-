@@ -406,6 +406,7 @@ func CheckInterrupt(contexto contextoEjecucion) bool {
 	mutexInterrupt.Lock()
 	if nuevaInterrupcion.flagInterrucption && contexto.pcb.Pid == nuevaInterrupcion.Pid && contexto.tcb.Tid == nuevaInterrupcion.Tid {
 		nuevaInterrupcion.flagInterrucption = false
+		mutexInterrupt.Unlock()
 		return true
 	}
 	mutexInterrupt.Unlock()
@@ -913,7 +914,15 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "exirThread")
+	var process KernelExeReq
+	process.Pid = contexto.pcb.Pid
+	process.Tid = contexto.tcb.Tid
+	encodedeProcess, err2 := json.Marshal(process)
+	if err2 != nil {
+		return err2
+	}
+	log.Printf("Enviando a kernel syscall")
+	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(encodedeProcess), "finalizarHilo")
 	if errM != nil {
 		return errM
 	}

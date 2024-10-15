@@ -304,21 +304,19 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 				log.Printf("TID actualizar : %d", tcb.Tid)
 				if tcb.Tid == actualizadoContexto.Tcb.Tid {
 
-					pcb.Base = actualizadoContexto.Pcb.Base
-					pcb.Limit = actualizadoContexto.Pcb.Limit
-					tcb.AX = uint32(actualizadoContexto.Tcb.AX)
-					tcb.BX = uint32(actualizadoContexto.Tcb.BX)
-					tcb.CX = uint32(actualizadoContexto.Tcb.CX)
-					tcb.DX = uint32(actualizadoContexto.Tcb.DX)
-					tcb.EX = uint32(actualizadoContexto.Tcb.EX)
-					tcb.FX = uint32(actualizadoContexto.Tcb.FX)
-					tcb.GX = uint32(actualizadoContexto.Tcb.GX)
-					tcb.HX = uint32(actualizadoContexto.Tcb.HX)
-					tcb.PC = uint32(actualizadoContexto.Tcb.PC)
-
-					//CREO QUE NO SE ESTA ACTUALIZANDO EL MAPA ANIDADO
-					tidMap[tcb] = tidMap[tcb]
-					mapPCBPorTCB[pcb] = tidMap
+					// pcb.Base = actualizadoContexto.Pcb.Base
+					// pcb.Limit = actualizadoContexto.Pcb.Limit
+					// tcb.AX = uint32(actualizadoContexto.Tcb.AX)
+					// tcb.BX = uint32(actualizadoContexto.Tcb.BX)
+					// tcb.CX = uint32(actualizadoContexto.Tcb.CX)
+					// tcb.DX = uint32(actualizadoContexto.Tcb.DX)
+					// tcb.EX = uint32(actualizadoContexto.Tcb.EX)
+					// tcb.FX = uint32(actualizadoContexto.Tcb.FX)
+					// tcb.GX = uint32(actualizadoContexto.Tcb.GX)
+					// tcb.HX = uint32(actualizadoContexto.Tcb.HX)
+					// tcb.PC = uint32(actualizadoContexto.Tcb.PC)
+					
+					ModificarContexto(pcb, tcb, actualizadoContexto.Tcb)
 
 					// Log de obtener contexto de ejecucion
 					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
@@ -334,6 +332,17 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	http.Error(w, "PID no ha sido encontrado", http.StatusNotFound)
+}
+
+//-----------------MODIFICAR CONTEXTO----------(NUEVA FUNCION)----
+
+func ModificarContexto(pcbEncontrado PCB, tcbEncontrada estructuraHilo, nuevoTCB estructuraHilo) {
+
+	instrucciones := mapPCBPorTCB[pcbEncontrado][tcbEncontrada]
+
+	delete(mapPCBPorTCB[pcbEncontrado], tcbEncontrada)
+
+	mapPCBPorTCB[pcbEncontrado][nuevoTCB] = instrucciones
 }
 
 //-----------------------------------------CREATE PROCESS-------------------------------------------
@@ -799,7 +808,9 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 		}
 	}
 	if _, found := mapPCBPorTCB[pcbEncontrado]; !found {
-		mapPCBPorTCB[pcbEncontrado] = make(map[estructuraHilo][]string)
+		//mapPCBPorTCB[pcbEncontrado] = make(map[estructuraHilo][]string)
+		err := fmt.Errorf(" PID no encontrado")
+		return err
 	}
 	log.Printf("hago el map")
 	mapPCBPorTCB[pcbEncontrado][TCB] = instrucciones

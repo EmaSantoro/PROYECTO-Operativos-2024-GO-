@@ -641,6 +641,7 @@ func exitHilo(pid int, tid int) error {
 	}
 
 	encolarExit(hilo)
+	enviarInterrupcion(pid, tid)
 	log.Printf("Hilo encolado en exit")
 	for _, tidBloqueado := range hilo.HilosBloqueados {
 		desbloquearHilosJoin(tidBloqueado, pid)
