@@ -3871,3 +3871,280 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/14 19:27:25 Antes de modificar el valor 
 2024/10/14 19:27:25 Registro obtenido
 2024/10/14 19:27:25 ## TID: 1 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:41:35 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 19:41:35 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 19:41:36 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:41:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 19:41:37 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 19:41:37 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:41:37 Antes de modificar el valor 
+2024/10/14 19:41:37 Registro obtenido
+2024/10/14 19:41:37 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:41:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 19:41:38 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 19:41:38 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 19:41:41 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 19:41:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 19:41:42 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 19:41:42 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 256 2]
+2024/10/14 19:41:43 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 256 2]
+2024/10/14 19:41:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 19:41:44 error en la respuesta del módulo de memoria: 400
+2024/10/14 19:41:44 Error al buscar intruccion en el pc 3. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 19:50:08 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 19:50:08 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 19:50:09 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:50:09 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 19:50:10 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 19:50:10 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:50:10 Antes de modificar el valor 
+2024/10/14 19:50:10 Registro obtenido
+2024/10/14 19:50:10 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:50:10 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 19:50:11 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 19:50:11 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 19:50:14 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 19:50:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 19:50:15 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 19:50:15 La instruccion fue decodificada : INSTUCCION = THREAD_JOIN, PARAMETROS = [1]
+2024/10/14 19:50:16 Recibe bien interrupcion
+2024/10/14 19:50:16 ## TID: 0 - Ejecutando: THREAD_JOIN - Parametos : [1]
+2024/10/14 19:50:17 Funciona ok el realizar interrupcion
+2024/10/14 19:50:17 Cpu recibe TID : 1 PID:1 del Kernel
+2024/10/14 19:50:17 PCB : 1 TID : 1 - Solicita Contexto de Ejecucion
+2024/10/14 19:50:18 PCB : 1 TID : 1 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:50:18 Intruccion Solicitada de Pid 1 y TID 1 y PC 0
+2024/10/14 19:50:20 PID: 1 TID: 1 - FETCH - Program Counter: 0
+2024/10/14 19:50:20 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:50:20 Antes de modificar el valor 
+2024/10/14 19:50:20 Registro obtenido
+2024/10/14 19:50:20 ## TID: 1 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:55:37 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 19:55:37 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 19:55:38 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 19:55:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 19:55:39 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 19:55:39 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 19:55:39 Antes de modificar el valor 
+2024/10/14 19:55:39 Registro obtenido
+2024/10/14 19:55:39 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 19:55:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 19:55:40 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 19:55:40 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 19:55:43 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 19:55:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 19:55:44 error en la respuesta del módulo de memoria: 400
+2024/10/14 19:55:44 Error al buscar intruccion en el pc 2. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 20:00:36 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 20:00:36 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 20:00:37 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 20:00:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 20:00:38 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 20:00:38 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 20:00:38 Antes de modificar el valor 
+2024/10/14 20:00:38 Registro obtenido
+2024/10/14 20:00:38 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 20:00:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 20:00:39 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 20:00:39 La instruccion fue decodificada : INSTUCCION = THREAD_CREATE, PARAMETROS = [hiloBasico 1]
+2024/10/14 20:00:42 ## TID: 0 - Ejecutando: THREAD_CREATE - Parametos : [hiloBasico 1]
+2024/10/14 20:00:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 20:00:43 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 20:00:43 La instruccion fue decodificada : INSTUCCION = THREAD_JOIN, PARAMETROS = [1]
+2024/10/14 20:00:44 Recibe bien interrupcion
+2024/10/14 20:00:44 ## TID: 0 - Ejecutando: THREAD_JOIN - Parametos : [1]
+2024/10/14 20:00:45 Funciona ok el realizar interrupcion
+2024/10/14 20:00:45 Cpu recibe TID : 1 PID:1 del Kernel
+2024/10/14 20:00:45 PCB : 1 TID : 1 - Solicita Contexto de Ejecucion
+2024/10/14 20:00:46 PCB : 1 TID : 1 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 20:00:46 Intruccion Solicitada de Pid 1 y TID 1 y PC 0
+2024/10/14 20:00:47 PID: 1 TID: 1 - FETCH - Program Counter: 0
+2024/10/14 20:00:47 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX 1]
+2024/10/14 20:00:47 EL registro AX contiene el valor 0
+2024/10/14 20:00:47 ## TID: 1 - Ejecutando: LOG - Parametos : [AX 1]
+2024/10/14 20:22:36 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 20:22:36 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 20:22:37 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 20:22:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 20:22:38 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 20:22:38 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 20:22:38 Antes de modificar el valor 
+2024/10/14 20:22:38 Registro obtenido
+2024/10/14 20:22:38 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 20:22:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 20:22:39 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 20:22:39 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 20:22:39 Antes de modificar el valor 
+2024/10/14 20:22:39 Registro obtenido
+2024/10/14 20:22:39 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 20:22:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 20:22:40 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 20:22:40 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [PC 5]
+2024/10/14 20:22:40 Antes de modificar el valor 
+2024/10/14 20:22:40 Registro obtenido
+2024/10/14 20:22:40 ## TID: 0 - Ejecutando: SET - Parametos : [PC 5]
+2024/10/14 20:22:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 20:22:41 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 20:22:41 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [AX BX]
+2024/10/14 20:22:41 Leer memoria con direccion fisica 1
+2024/10/14 20:22:41 Error al recibir la respuesta del End point /ReadMemoryHandler - IP:127.0.0.1 - Puerto:8002
+2024/10/14 20:22:41 Error al ejecutar la instruccion : 404 Not Found
+2024/10/14 20:22:41 Error al ejecutar [READ_MEM AX BX]. ERROR: 404 Not Found
+2024/10/14 20:22:41 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [AX BX]
+2024/10/14 20:22:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 20:22:42 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 20:22:42 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [AX BX]
+2024/10/14 20:22:42 Error al recibir la respuesta del End point /writememory - IP:127.0.0.1 - Puerto:8002
+2024/10/14 20:22:42 Error al ejecutar la instruccion : 405 Method Not Allowed
+2024/10/14 20:22:42 Error al ejecutar [WRITE_MEM AX BX]. ERROR: 405 Method Not Allowed
+2024/10/14 20:22:42 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [AX BX]
+2024/10/14 20:22:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 20:22:43 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/14 20:22:43 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 20:22:43 Registro obtenido
+2024/10/14 20:22:43 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 20:22:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/14 20:22:44 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/14 20:22:44 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 20:22:44 EL registro AX contiene el valor 4
+2024/10/14 20:22:44 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 20:22:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 9
+2024/10/14 20:22:45 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/14 20:22:45 Error en etapa Decode. ERROR : La instruccion MUTEX_CREATE no existe
+2024/10/14 20:29:37 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 20:29:37 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 20:29:38 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 20:29:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 20:29:39 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 20:29:39 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 20:29:39 Antes de modificar el valor 
+2024/10/14 20:29:39 Registro obtenido
+2024/10/14 20:29:39 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 20:29:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 20:29:40 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 20:29:40 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 20:29:40 Antes de modificar el valor 
+2024/10/14 20:29:40 Registro obtenido
+2024/10/14 20:29:40 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 20:29:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 20:29:41 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 20:29:41 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [PC 5]
+2024/10/14 20:29:41 Antes de modificar el valor 
+2024/10/14 20:29:41 Registro obtenido
+2024/10/14 20:29:41 ## TID: 0 - Ejecutando: SET - Parametos : [PC 5]
+2024/10/14 20:29:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 20:29:42 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 20:29:42 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [AX BX]
+2024/10/14 20:29:42 Leer memoria con direccion fisica 1
+2024/10/14 20:29:42 Error al recibir la respuesta del End point /ReadMemory - IP:127.0.0.1 - Puerto:8002
+2024/10/14 20:29:42 Error al ejecutar la instruccion : 404 Not Found
+2024/10/14 20:29:42 Error al ejecutar [READ_MEM AX BX]. ERROR: 404 Not Found
+2024/10/14 20:29:42 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [AX BX]
+2024/10/14 20:29:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 20:29:43 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 20:29:43 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [AX BX]
+2024/10/14 20:29:43 Error al recibir la respuesta del End point /writeMemory - IP:127.0.0.1 - Puerto:8002
+2024/10/14 20:29:43 Error al ejecutar la instruccion : 405 Method Not Allowed
+2024/10/14 20:29:43 Error al ejecutar [WRITE_MEM AX BX]. ERROR: 405 Method Not Allowed
+2024/10/14 20:29:43 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [AX BX]
+2024/10/14 20:29:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 20:29:44 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/14 20:29:44 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 20:29:44 Registro obtenido
+2024/10/14 20:29:44 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 20:29:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/14 20:29:45 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/14 20:29:45 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 20:29:45 EL registro AX contiene el valor 4
+2024/10/14 20:29:45 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 20:29:45 Intruccion Solicitada de Pid 1 y TID 0 y PC 9
+2024/10/14 20:29:46 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/14 20:29:46 Error en etapa Decode. ERROR : La instruccion MUTEX_CREATE no existe
+2024/10/14 20:47:24 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 20:47:24 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 20:47:25 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 20:47:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 20:47:26 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 20:47:26 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/14 20:47:26 Antes de modificar el valor 
+2024/10/14 20:47:26 Registro obtenido
+2024/10/14 20:47:26 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/14 20:47:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 20:47:27 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 20:47:27 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 1]
+2024/10/14 20:47:27 Antes de modificar el valor 
+2024/10/14 20:47:27 Registro obtenido
+2024/10/14 20:47:27 ## TID: 0 - Ejecutando: SET - Parametos : [BX 1]
+2024/10/14 20:47:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 20:47:28 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 20:47:28 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [PC 5]
+2024/10/14 20:47:28 Antes de modificar el valor 
+2024/10/14 20:47:28 Registro obtenido
+2024/10/14 20:47:28 ## TID: 0 - Ejecutando: SET - Parametos : [PC 5]
+2024/10/14 20:47:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/14 20:47:29 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/14 20:47:29 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [AX 4]
+2024/10/14 20:47:29 Registro obtenido
+2024/10/14 20:47:29 ## TID: 0 - Ejecutando: JNZ - Parametos : [AX 4]
+2024/10/14 20:47:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/14 20:47:30 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/14 20:47:30 La instruccion fue decodificada : INSTUCCION = LOG, PARAMETROS = [AX]
+2024/10/14 20:47:30 EL registro AX contiene el valor 4
+2024/10/14 20:47:30 ## TID: 0 - Ejecutando: LOG - Parametos : [AX]
+2024/10/14 20:47:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/14 20:47:31 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/14 20:47:31 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/14 20:47:32 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/14 20:47:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/14 20:47:33 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/14 20:47:33 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/14 20:47:34 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/14 20:47:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 9
+2024/10/14 20:47:35 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/14 20:47:35 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/14 20:47:36 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/14 20:47:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 10
+2024/10/14 20:47:37 error en la respuesta del módulo de memoria: 400
+2024/10/14 20:47:37 Error al buscar intruccion en el pc 10. ERROR : error en la respuesta del módulo de memoria: 400
+2024/10/14 21:00:33 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 21:00:33 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 21:00:34 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 21:00:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 21:00:35 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 21:00:35 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/14 21:00:36 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/14 21:00:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 21:00:37 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 21:00:37 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/14 21:00:38 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/14 21:00:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 21:00:39 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 21:00:39 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/14 21:00:40 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/14 21:00:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 21:00:41 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/14 21:00:41 La instruccion fue decodificada : INSTUCCION = DUMP_MEMORY, PARAMETROS = []
+2024/10/14 21:00:42 Recibe bien interrupcion
+2024/10/14 21:00:42 error enviando mensaje al End point dumpMemory - IP:127.0.0.1 - Puerto:8001
+2024/10/14 21:00:42 Error al ejecutar la instruccion : Post "http://127.0.0.1:8001/dumpMemory": read tcp 127.0.0.1:61079->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 21:00:42 Error al ejecutar [DUMP_MEMORY]. ERROR: Post "http://127.0.0.1:8001/dumpMemory": read tcp 127.0.0.1:61079->127.0.0.1:8001: wsarecv: An existing connection was forcibly closed by the remote host.
+2024/10/14 21:00:42 ## TID: 0 - Ejecutando: DUMP_MEMORY - Parametos : []
+2024/10/14 21:00:43 Funciona ok el realizar interrupcion
+2024/10/14 21:09:52 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/14 21:09:52 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/14 21:09:53 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/14 21:09:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/14 21:09:54 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/14 21:09:54 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/14 21:09:55 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/14 21:09:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/14 21:09:56 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/14 21:09:56 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/14 21:09:57 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/14 21:09:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/14 21:09:58 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/14 21:09:58 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/14 21:09:59 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/14 21:09:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/14 21:10:00 error en la respuesta del módulo de memoria: 400
+2024/10/14 21:10:00 Error al buscar intruccion en el pc 3. ERROR : error en la respuesta del módulo de memoria: 400

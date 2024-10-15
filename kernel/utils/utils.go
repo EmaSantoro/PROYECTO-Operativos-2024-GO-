@@ -1027,7 +1027,8 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 	tid := hilo.Tid
 	pid := hilo.Pid
-
+	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <DUMP_MEMORY> ##", pid, tid)
+	
 	tcb := getTCB(pid, tid)
 	enviarInterrupcion(tcb.Pid, tcb.Tid)
 	quitarExec(tcb)
@@ -1096,6 +1097,7 @@ func CrearMutex(w http.ResponseWriter, r *http.Request) {
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <MUTEX_CREATE> ##", pid, tid)
 
 	mutexNuevo := mutexCreate(mutexNombre)
+	log.Printf("Mutex creado: %s", mutexNuevo.Nombre)
 	pcb := getPCB(pid)
 	pcb.Mutex = append(pcb.Mutex, mutexNuevo)
 
@@ -1171,6 +1173,7 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 
 				mutex.Bloqueado = true
 				mutex.HiloUsando = hiloSolicitante.Tid
+				log.Printf("Hilo %d bloquea el mutex %s", hiloSolicitante.Tid, mutex.Nombre)
 
 				for i, m := range proceso.Mutex {
 					if m.Nombre == mutexNombre {
@@ -1185,9 +1188,11 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 				enviarInterrupcion(hiloSolicitante.Pid, hiloSolicitante.Tid)
 				quitarExec(hiloSolicitante)
 				encolarBlock(hiloSolicitante, "MUTEX")
+				break
 			}
 		} else {
 			slog.Warn("El mutex no existe")
+			break
 		}
 	}
 	return nil
@@ -1202,6 +1207,7 @@ func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 			if mutex.HiloUsando == hiloSolicitante.Tid {
 				mutex.Bloqueado = false
 				mutex.HiloUsando = -1
+				log.Printf("Hilo %d desbloquea el mutex %s", hiloSolicitante.Tid, mutex.Nombre)
 
 				if len(mutex.colaBloqueados) > 0 {
 					hiloDesbloqueado := mutex.colaBloqueados[0]
@@ -1220,12 +1226,12 @@ func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 
 			} else {
 				slog.Warn("El hilo solicitante no tiene asignado al mutex")
-
+				break
 			}
 
 		} else {
 			slog.Warn("El mutex no existe")
-
+			break
 		}
 	}
 	return nil

@@ -114,7 +114,9 @@ type KernelExeReq struct {
 	Tid int `json:"tid"`
 }
 type IOReq struct {
-	Tiempo int `json:"tiempo"`
+	Tiempo int `json:"tiempoIO"`
+	Pid   int `json:"pid"`
+	Tid   int `json:"tid"`
 }
 
 type IniciarProcesoBody struct {
@@ -306,6 +308,11 @@ func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 
 	reqInstruccionBody, err := json.Marshal(reqInstruccion)
 
+	if err != nil {
+		log.Printf("Error al codificar el mensaje de solicitud de instruccion")
+		return nil, err
+	}
+
 	url := fmt.Sprintf("http://%s:%d/obtenerInstruccion", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
 
 	response, err := http.Post(url, "application/json", bytes.NewBuffer(reqInstruccionBody))
@@ -354,6 +361,9 @@ func Decode(instructionLine []string) (DecodedInstruction, error) {
 		"PROCESS_EXIT":   ProcessExit,
 		"READ_MEM":       Read_Memory,
 		"WRITE_MEM":      Write_Memory,
+		"MUTEX_CREATE":   MutexCreate,
+		"MUTEX_LOCK":     MutexLOCK,
+		"MUTEX_UNLOCK":   MutexUNLOCK,
 	}
 
 	var instructionDecoded DecodedInstruction
@@ -465,7 +475,7 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	if err2 != nil {
 		return err2
 	}
-	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/ReadMemoryHandler")
+	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/ReadMemory")
 	if err3 != nil {
 		return err3
 	}
@@ -532,7 +542,7 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 		return err5
 	}
 
-	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/writememory")
+	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/writeMemory")
 
 	if err3 != nil {
 		return err3
@@ -657,8 +667,16 @@ func DumpMemory(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al actualziar contexto de ejecucion")
 		return err
 	}
+	body, err := json.Marshal(KernelExeReq{
+		Pid: contexto.pcb.Pid,
+		Tid: contexto.tcb.Tid,
+	})
+	if err != nil {
+		log.Printf("Error al codificar el mernsaje")
+		return err
+	}
 
-	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "vaciarMemoria")
+	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "dumpMemory")
 	if errM != nil {
 		return errM
 	}
@@ -681,6 +699,8 @@ func IO(contexto *contextoEjecucion, parameters []string) error {
 	}
 	body, err := json.Marshal(IOReq{
 		Tiempo: tiempoReq,
+		Pid:    contexto.pcb.Pid,
+		Tid:    contexto.tcb.Tid,
 	})
 	if err != nil {
 		log.Printf("Error al codificar el mernsaje")

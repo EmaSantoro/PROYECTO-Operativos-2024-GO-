@@ -37,8 +37,8 @@ func main() {
 	http.HandleFunc("POST /obtenerInstruccion", utils.GetInstruction)                    //me piden instrucciones y las paso
 	http.HandleFunc("POST /obtenerContextoDeEjecucion", utils.GetExecutionContext)       //me piden el contexto de ejecucion y lo paso
 	http.HandleFunc("POST /actualizarContextoDeEjecucion", utils.UpdateExecutionContext) //me mandan el contexto de ejecucion y lo actualizo
-	http.HandleFunc("POST /readmemory", utils.ReadMemoryHandler)                         //me piden leer la memoria y la paso
-	http.HandleFunc("POST /writememory", utils.WriteMemoryHandler)                       //me mandan la memoria y la escribo
+	http.HandleFunc("POST /readMemory", utils.ReadMemoryHandler)                         //me piden leer la memoria y la paso
+	http.HandleFunc("POST /writeMemory", utils.WriteMemoryHandler)                       //me mandan la memoria y la escribo
 
 	http.ListenAndServe(":"+strconv.Itoa(puerto), nil)
 
