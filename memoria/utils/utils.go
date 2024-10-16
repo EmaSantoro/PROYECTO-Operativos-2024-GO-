@@ -872,7 +872,7 @@ type MemoryRequest struct {
 }
 
 func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Entra a read memory")
+	log.Printf("Entra a read memory handler")
 	var memReq MemoryRequest
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
@@ -880,7 +880,7 @@ func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
+	log.Printf("Va a leer la memoria")
 	dataEncontrado, err := ReadMemory(memReq.PID, memReq.TID, memReq.Address) //, memReq.Size )
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -912,12 +912,9 @@ var mu sync.Mutex
 // tengo que leer y escribir pero en mi slice de memoria, las particiones corte el limite y base lo voy a utilizar para calcular todo lo anterior
 
 func ReadMemory(PID int, TID int, address uint32) ([]byte, error) { //size capaz sacarlo y poner directamente 4
+	log.Printf("Entra a readMemory")
 	mu.Lock()
 	defer mu.Unlock()
-
-	if _, exists := mapPCBPorTCB[PCB{Pid: PID}]; !exists {
-		return nil, fmt.Errorf("no se encontró el PID")
-	}
 
 	var pcbEncontrado PCB //LO HAGO PARA PODER ENTRAR AL MAPA ANIDADO Y AGARRAR LA PCB DE ESE PID
 	encontrado := false
@@ -929,24 +926,10 @@ func ReadMemory(PID int, TID int, address uint32) ([]byte, error) { //size capaz
 			break
 		}
 	}
-
-	tcbMap, found := mapPCBPorTCB[pcbEncontrado]
-	if !found {
-		return nil, fmt.Errorf("no se encontró el TID para el PID: %d", PID)
-	}
-
-	encontrado = false
-	for tcb := range tcbMap {
-		if tcb.Tid == TID {
-			encontrado = true
-			break
-		}
-	}
-
 	if !encontrado {
-		return nil, fmt.Errorf("no se encontró el TID: %d para el PID: %d", TID, PID)
+		log.Printf(" No Encontro el PID ")
+		return nil, fmt.Errorf("no se encontró el PID")
 	}
-
 	//primero tengo que ver si la direccion que me dieron esta dentro del rango de la particion del pid
 	if address < pcbEncontrado.Base || address > pcbEncontrado.Limit {
 		return nil, fmt.Errorf("Direccion fuera de rango")
@@ -968,7 +951,6 @@ func ReadMemory(PID int, TID int, address uint32) ([]byte, error) { //size capaz
 		padding := make([]byte, 4-len(data)) //creo un slice con los numeros que va a tener la cantidad de bytes que me faltan para llegar a 4
 		data = append(data, padding...)      //asi cada data tiene 4 bytes
 	}
-
 	return data, nil
 }
 
@@ -1075,7 +1057,7 @@ func WriteMemory(PID int, TID int, address uint32, data []byte) error {
 	} else {
 		copy(globals.MemoriaUsuario[address:address+espaciodisponible], dataNuevo[:espaciodisponible])
 	}
-	log.Printf("Gets out of Write Memory")
+	log.Printf("Gets out of Write Memory habiendo escrito %v", dataNuevo)
 	return nil
 }
 

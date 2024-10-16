@@ -1033,3 +1033,246 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/15 18:03:45 Enviando proceso a memoria 
 2024/10/15 18:03:45 Proceso terminado existosamente llevado a memoria 
 2024/10/15 18:03:45 Proceso finalizado existosamente
+2024/10/16 13:21:42 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:21:45 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:21:45 Mutex creado: RECURSO_1
+2024/10/16 13:21:47 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:21:49 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:21:51 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:21:51 Envia interrupcion de finalizacion 
+2024/10/16 13:21:51 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:21:52 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:21:52 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:22:01 Entra a exit process
+2024/10/16 13:22:01 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:22:01  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:22:01 Envia interrupcion de finalizacion 
+2024/10/16 13:22:01 Entra a exitHilo
+2024/10/16 13:22:01  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:22:01 Envia interrupcion de finalizacion 
+2024/10/16 13:22:01 Hilo encolado en exit
+2024/10/16 13:22:01 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:22:01 Codificando mensaje
+2024/10/16 13:22:02 Envio mensaje 
+2024/10/16 13:22:02 analizo repuesta de envio a memoria
+2024/10/16 13:22:02 Envio a memoria del proceso exitoso
+2024/10/16 13:22:02 Enviado hilo finalizado a memoria 
+2024/10/16 13:22:02 Enviando proceso a memoria 
+2024/10/16 13:22:02 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:22:02 Proceso finalizado existosamente
+2024/10/16 13:25:33 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:25:36 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:25:36 Mutex creado: RECURSO_1
+2024/10/16 13:25:38 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:25:40 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:25:42 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:25:42 Envia interrupcion de finalizacion 
+2024/10/16 13:25:42 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:25:43 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:25:43 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:25:52 Entra a exit process
+2024/10/16 13:25:52 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:25:52  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:25:52 Envia interrupcion de finalizacion 
+2024/10/16 13:25:52 Entra a exitHilo
+2024/10/16 13:25:52  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:25:52 Envia interrupcion de finalizacion 
+2024/10/16 13:25:52 Hilo encolado en exit
+2024/10/16 13:25:52 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:25:52 Codificando mensaje
+2024/10/16 13:25:53 Envio mensaje 
+2024/10/16 13:25:53 analizo repuesta de envio a memoria
+2024/10/16 13:25:53 Envio a memoria del proceso exitoso
+2024/10/16 13:25:53 Enviado hilo finalizado a memoria 
+2024/10/16 13:25:53 Enviando proceso a memoria 
+2024/10/16 13:25:53 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:25:53 Proceso finalizado existosamente
+2024/10/16 13:27:18 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:27:21 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:27:21 Mutex creado: RECURSO_1
+2024/10/16 13:27:23 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:27:25 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:27:27 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:27:27 Envia interrupcion de finalizacion 
+2024/10/16 13:27:27 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:27:29 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:27:29 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:27:38 Entra a exit process
+2024/10/16 13:27:38 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:27:38  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:27:38 Envia interrupcion de finalizacion 
+2024/10/16 13:27:38 Entra a exitHilo
+2024/10/16 13:27:38  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:27:38 Envia interrupcion de finalizacion 
+2024/10/16 13:27:38 Hilo encolado en exit
+2024/10/16 13:27:38 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:27:38 Codificando mensaje
+2024/10/16 13:27:39 Envio mensaje 
+2024/10/16 13:27:39 analizo repuesta de envio a memoria
+2024/10/16 13:27:39 Envio a memoria del proceso exitoso
+2024/10/16 13:27:39 Enviado hilo finalizado a memoria 
+2024/10/16 13:27:39 Enviando proceso a memoria 
+2024/10/16 13:27:39 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:27:39 Proceso finalizado existosamente
+2024/10/16 13:30:00 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:30:03 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:30:03 Mutex creado: RECURSO_1
+2024/10/16 13:30:05 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:30:07 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:30:09 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:30:09 Envia interrupcion de finalizacion 
+2024/10/16 13:30:09 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:30:10 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:30:10 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:30:20 Entra a exit process
+2024/10/16 13:30:20 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:30:20  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:30:20 Envia interrupcion de finalizacion 
+2024/10/16 13:30:20 Entra a exitHilo
+2024/10/16 13:30:20  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:30:20 Envia interrupcion de finalizacion 
+2024/10/16 13:30:20 Hilo encolado en exit
+2024/10/16 13:30:20 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:30:20 Codificando mensaje
+2024/10/16 13:30:21 Envio mensaje 
+2024/10/16 13:30:21 analizo repuesta de envio a memoria
+2024/10/16 13:30:21 Envio a memoria del proceso exitoso
+2024/10/16 13:30:21 Enviado hilo finalizado a memoria 
+2024/10/16 13:30:21 Enviando proceso a memoria 
+2024/10/16 13:30:21 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:30:21 Proceso finalizado existosamente
+2024/10/16 13:37:24 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:37:27 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:37:27 Mutex creado: RECURSO_1
+2024/10/16 13:37:29 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:37:31 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:37:33 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:37:33 Envia interrupcion de finalizacion 
+2024/10/16 13:37:33 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:37:34 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:37:34 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:37:43 Entra a exit process
+2024/10/16 13:37:43 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:37:43  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:37:43 Envia interrupcion de finalizacion 
+2024/10/16 13:37:43 Entra a exitHilo
+2024/10/16 13:37:43  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:37:43 Envia interrupcion de finalizacion 
+2024/10/16 13:37:43 Hilo encolado en exit
+2024/10/16 13:37:43 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:37:43 Codificando mensaje
+2024/10/16 13:37:44 Envio mensaje 
+2024/10/16 13:37:44 analizo repuesta de envio a memoria
+2024/10/16 13:37:44 Envio a memoria del proceso exitoso
+2024/10/16 13:37:44 Enviado hilo finalizado a memoria 
+2024/10/16 13:37:44 Enviando proceso a memoria 
+2024/10/16 13:37:44 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:37:44 Proceso finalizado existosamente
+2024/10/16 13:41:35 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:41:38 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:41:38 Mutex creado: RECURSO_1
+2024/10/16 13:41:40 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:41:42 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:41:44 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:41:44 Envia interrupcion de finalizacion 
+2024/10/16 13:41:44 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:41:45 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:41:45 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:41:54 Entra a exit process
+2024/10/16 13:41:54 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:41:54  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:41:54 Envia interrupcion de finalizacion 
+2024/10/16 13:41:54 Entra a exitHilo
+2024/10/16 13:41:54  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:41:54 Envia interrupcion de finalizacion 
+2024/10/16 13:41:54 Hilo encolado en exit
+2024/10/16 13:41:54 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:41:54 Codificando mensaje
+2024/10/16 13:41:55 Envio mensaje 
+2024/10/16 13:41:55 analizo repuesta de envio a memoria
+2024/10/16 13:41:55 Envio a memoria del proceso exitoso
+2024/10/16 13:41:55 Enviado hilo finalizado a memoria 
+2024/10/16 13:41:55 Enviando proceso a memoria 
+2024/10/16 13:41:55 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:41:55 Proceso finalizado existosamente
+2024/10/16 13:43:10 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:43:13 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:43:13 Mutex creado: RECURSO_1
+2024/10/16 13:43:15 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:43:17 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:43:19 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:43:19 Envia interrupcion de finalizacion 
+2024/10/16 13:43:19 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:43:20 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:43:20 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:43:29 Entra a exit process
+2024/10/16 13:43:29 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:43:29  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:43:29 Envia interrupcion de finalizacion 
+2024/10/16 13:43:29 Entra a exitHilo
+2024/10/16 13:43:29  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:43:29 Envia interrupcion de finalizacion 
+2024/10/16 13:43:29 Hilo encolado en exit
+2024/10/16 13:43:29 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:43:29 Codificando mensaje
+2024/10/16 13:43:30 Envio mensaje 
+2024/10/16 13:43:30 analizo repuesta de envio a memoria
+2024/10/16 13:43:30 Envio a memoria del proceso exitoso
+2024/10/16 13:43:30 Enviado hilo finalizado a memoria 
+2024/10/16 13:43:30 Enviando proceso a memoria 
+2024/10/16 13:43:30 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:43:30 Proceso finalizado existosamente
+2024/10/16 13:45:50 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:45:53 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:45:53 Mutex creado: RECURSO_1
+2024/10/16 13:45:55 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:45:57 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:45:59 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:45:59 Envia interrupcion de finalizacion 
+2024/10/16 13:45:59 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:46:01 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:46:01 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:46:10 Entra a exit process
+2024/10/16 13:46:10 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:46:10  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:46:10 Envia interrupcion de finalizacion 
+2024/10/16 13:46:10 Entra a exitHilo
+2024/10/16 13:46:10  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:46:10 Envia interrupcion de finalizacion 
+2024/10/16 13:46:10 Hilo encolado en exit
+2024/10/16 13:46:10 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:46:10 Codificando mensaje
+2024/10/16 13:46:11 Envio mensaje 
+2024/10/16 13:46:11 analizo repuesta de envio a memoria
+2024/10/16 13:46:11 Envio a memoria del proceso exitoso
+2024/10/16 13:46:11 Enviado hilo finalizado a memoria 
+2024/10/16 13:46:11 Enviando proceso a memoria 
+2024/10/16 13:46:11 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:46:11 Proceso finalizado existosamente
+2024/10/16 13:52:47 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:52:50 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/16 13:52:50 Mutex creado: RECURSO_1
+2024/10/16 13:52:52 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/16 13:52:54 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/16 13:52:56 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/16 13:52:56 Envia interrupcion de finalizacion 
+2024/10/16 13:52:56 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/16 13:52:58 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/16 13:52:58 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/16 13:53:07 Entra a exit process
+2024/10/16 13:53:07 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/16 13:53:07  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/16 13:53:07 Envia interrupcion de finalizacion 
+2024/10/16 13:53:07 Entra a exitHilo
+2024/10/16 13:53:07  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/16 13:53:07 Envia interrupcion de finalizacion 
+2024/10/16 13:53:07 Hilo encolado en exit
+2024/10/16 13:53:07 Entra a envio hilo finalizado a memoria 
+2024/10/16 13:53:07 Codificando mensaje
+2024/10/16 13:53:08 Envio mensaje 
+2024/10/16 13:53:08 analizo repuesta de envio a memoria
+2024/10/16 13:53:08 Envio a memoria del proceso exitoso
+2024/10/16 13:53:08 Enviado hilo finalizado a memoria 
+2024/10/16 13:53:08 Enviando proceso a memoria 
+2024/10/16 13:53:08 Proceso terminado existosamente llevado a memoria 
+2024/10/16 13:53:08 Proceso finalizado existosamente

@@ -2,7 +2,6 @@ package utils
 
 import (
 	"bytes"
-	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -505,7 +504,11 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 		log.Println("Error al decodificar la instruccion", errorDecode)
 		return errorDecode
 	}
-	dataAEscribir := BytesToUint32(dataResponse.Data)
+	dataAEscribir, errP := BytesToUint32(dataResponse.Data)
+	if errP != nil {
+		return errP
+	}
+	log.Printf("Data A escribir  : %v", dataAEscribir)
 	err4 := ModificarValorCampo(registers, parameters[0], dataAEscribir)
 
 	if err4 != nil {
@@ -515,11 +518,22 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	return nil
 
 }
-func BytesToUint32(bytes []byte) uint32 {
-	if len(bytes) < 4 {
-		panic("El slice de bytes debe tener al menos 4 bytes de longitud")
+
+func BytesToUint32(bytes []byte) (uint32, error) {
+	/*
+		if len(bytes) < 4 {
+			panic("El slice de bytes debe tener al menos 4 bytes de longitud")
+		}
+		return binary.LittleEndian.Uint32(bytes)
+	*/
+	dataString := fmt.Sprint(bytes)
+	data, err := strconv.Atoi(dataString)
+	if err != nil {
+		log.Printf("No se pudo parsear de []bytes a unint32")
+		return 0, err
 	}
-	return binary.LittleEndian.Uint32(bytes)
+	return uint32(data), nil
+
 }
 func RecieveDataFromMemory(w http.ResponseWriter, r *http.Request) {
 
@@ -562,6 +576,7 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	var memReq MemoryRequest
 	memReq.Address = direccionFisica
 	memReq.Data = PasarDeUintAByte(dato)
+	log.Print("Se va a escribir %v", memReq.Data)
 	log.Printf("LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : %d", len(memReq.Data))
 	memReq.PID = context.pcb.Pid
 	memReq.TID = context.tcb.Tid
