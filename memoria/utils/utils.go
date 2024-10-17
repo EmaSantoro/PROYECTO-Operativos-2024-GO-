@@ -1159,8 +1159,9 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	var informacion FsInfo
 	informacion.Data = data
 	informacion.Tamanio = tamanio
-	informacion.Pid = tcbReq.Pid
-	informacion.Tid = tcbReq.Tid
+
+	fileName := GenerarNombreArchivo(tcbReq.Pid, tcbReq.Tid)
+	informacion.NombreArchivo = fileName 
 
 	body, err5 := json.Marshal(informacion)
 
@@ -1182,10 +1183,9 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 }
 
 type FsInfo struct {
-	Pid     int    `json:"pid"`
-	Tid     int    `json:"tid"`
 	Data    []byte `json:"data"`
 	Tamanio uint32 `json:"tamanio"`
+	NombreArchivo string `json:"nombreArchivo"`
 }
 
 func PasarDeUintAByte(num uint32) []byte {
@@ -1208,4 +1208,11 @@ func EnviarAModulo(ipModulo string, puertoModulo int, body io.Reader, endPoint s
 		return err
 	}
 	return nil
+}
+
+func GenerarNombreArchivo(pid int, tid int) string {
+	
+	timestamp := time.Now().Format("20060102-150405")
+	
+	return fmt.Sprintf("%d-%d-%s.dmp", pid, tid, timestamp)
 }
