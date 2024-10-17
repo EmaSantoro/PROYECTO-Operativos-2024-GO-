@@ -1061,7 +1061,67 @@ func WriteMemory(PID int, TID int, address uint32, data []byte) error {
 	return nil
 }
 
-//-----------------------------------------------------------------------------------------------------
+//-------------------------------DUMP MEMORY------------------------------------------------
+
+// type TCBRequest struct {
+// 	Pid int `json:"pid"`
+// 	Tid int `json:"tid"`
+// }
+
+
+// func DumpMemory(w http.ResponseWriter, r *http.Request) {
+
+// 	var tcbReq TCBRequest
+
+// 	decoder := json.NewDecoder(r.Body)
+// 	err := decoder.Decode(&tcbReq)
+
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusBadRequest)
+// 		return 
+// 	}
+
+// 	log.Printf("PCB : %d TID : %d - me llegaron estos valores", tcbReq.Pid, tcbReq.Tid)
+
+// 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
+
+// 	//ver de encontrar base y limite de ese proceso  
+
+// 	//convertir a bytes el base y limit 
+
+// 	// Leer los bytes de la memoria
+// 	var data []byte = globals.MemoriaUsuario[pcb.Base:pcb.Limit]
+// 	var tamanio int  
+// 	tamanio = pcb.Limit - pcb.Base
+	
+// 	var informacion FsInfo
+// 	informacion.Data = data
+// 	informacion.Tamanio = tamanio
+
+// 	body, err5 := json.Marshal(informacion)
+
+// 	if err5 != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return 
+// 	}
+
+// 	log.Printf("Enviando a memoria write_memory")
+// 	err3 := EnviarAModulo(MemoriaConfig.IpFs, MemoriaConfig.PuertoFs, bytes.NewBuffer(body), "dumpMemory")
+
+// 	if err3 != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return 
+// 	}
+// }
+
+// type FsInfo struct{
+
+// 	Pid int `json:"pid"`
+// 	Tid int `json:"tid"`
+// 	Data []byte `json:"data"`
+// 	Tamanio int `json:"tamanio"`
+
+// }
 
 // func EnviarAModulo(ipModulo string, puertoModulo int, body io.Reader, endPoint string) error {
 
@@ -1079,15 +1139,4 @@ func WriteMemory(PID int, TID int, address uint32, data []byte) error {
 // 	return nil
 // }
 
-//-------------------------------DUMP MEMORY------------------------------------------------
 
-// func DumpMemory(w http.ResponseWriter, r *http.Request) {
-// 	queryParams := r.URL.Query()
-// 	pid, _ := strconv.Atoi(queryParams.Get("pid"))
-// 	tid, _ := strconv.Atoi(queryParams.Get("tid"))
-
-// 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
-
-// 	for pcb, tidMap := range mapPCBPorTCB {
-
-// }
