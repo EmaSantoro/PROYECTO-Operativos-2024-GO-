@@ -415,7 +415,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		pcb.Limit = uint32(limitEnInt)
 		mapParticiones[numeroDeParticion] = true
 
-		ModificarValores(process.Pid, pcb.Base, pcb.Limit)
+		mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
 
 		//marcar particion como ocupada
 		if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
@@ -466,7 +466,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
 		pcb.Limit = uint32(limitEnInt)
 
-		ModificarValores(process.Pid, pcb.Base, pcb.Limit)
+		mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
 
 		// mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
 
