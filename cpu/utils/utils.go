@@ -677,6 +677,7 @@ func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
 	registro := parameters[0]
 	registers := reflect.ValueOf(&registrosCPU.tcb)
 	register, err := ObtenerValorCampo(registers, registro)
+	log.Printf("El valor de el registro es %d", register)
 	if err != nil {
 		return err
 	}
@@ -685,7 +686,7 @@ func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
 		return errI
 	}
 	if register != 0 {
-		ModificarValorCampo(registers, registro, uint32(instruction))
+		ModificarValorCampo(registers, "PC", uint32(instruction))
 	}
 	return nil
 

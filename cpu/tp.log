@@ -5878,3 +5878,225 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/18 08:04:45 Syscall se ejecuto correctamente
 2024/10/18 08:04:45 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
 2024/10/18 08:04:46 Funciona ok el realizar interrupcion
+2024/10/18 08:09:38 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:09:38 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:09:39 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:09:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 08:09:40 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 08:09:40 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [DX 5]
+2024/10/18 08:09:40 ## TID: 0 - Ejecutando: JNZ - Parametos : [DX 5]
+2024/10/18 08:09:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 08:09:41 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 08:09:41 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/18 08:09:42 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/18 08:09:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/18 08:09:43 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/18 08:09:43 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 08:09:44 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/18 08:09:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/18 08:09:45 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/18 08:09:45 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 08:09:46 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/18 08:09:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 08:09:47 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 08:09:47 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 08:09:48 Recibe bien interrupcion
+2024/10/18 08:09:48 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 08:09:49 Funciona ok el realizar interrupcion
+2024/10/18 08:09:50 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:09:50 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:09:51 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:09:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 08:09:52 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 08:09:52 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 08:09:52 Antes de modificar el valor 
+2024/10/18 08:09:52 Registro obtenido
+2024/10/18 08:09:52 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 08:09:52 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 08:09:53 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 08:09:53 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 16]
+2024/10/18 08:09:53 Antes de modificar el valor 
+2024/10/18 08:09:53 Registro obtenido
+2024/10/18 08:09:53 ## TID: 0 - Ejecutando: SET - Parametos : [BX 16]
+2024/10/18 08:09:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/18 08:09:54 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/18 08:09:54 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/18 08:09:54 Registro obtenido
+2024/10/18 08:09:54 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/18 08:09:54 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/18 08:09:55 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/18 08:09:55 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 08:09:55 Antes de modificar el valor 
+2024/10/18 08:09:55 Registro obtenido
+2024/10/18 08:09:55 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 08:09:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 9
+2024/10/18 08:09:56 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/18 08:09:56 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 08:09:56 Se va a escribir %v[31 0 0 0]
+2024/10/18 08:09:56 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/18 08:09:56 Enviando a memoria write_memory
+2024/10/18 08:09:57 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [CX AX]
+2024/10/18 08:09:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 10
+2024/10/18 08:09:58 PID: 1 TID: 0 - FETCH - Program Counter: 10
+2024/10/18 08:09:58 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [BX CX]
+2024/10/18 08:09:58 Leer memoria con direccion fisica 1
+2024/10/18 08:09:59 Data A escribir  : 31
+2024/10/18 08:09:59 Registro obtenido
+2024/10/18 08:09:59 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [BX CX]
+2024/10/18 08:09:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 11
+2024/10/18 08:10:00 PID: 1 TID: 0 - FETCH - Program Counter: 11
+2024/10/18 08:10:00 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/18 08:10:00 Finalizar proceos PID : 1 
+2024/10/18 08:10:01 Enviando a kernel syscall
+2024/10/18 08:10:01 Recibe bien interrupcion
+2024/10/18 08:10:01 Recibe bien interrupcion
+2024/10/18 08:10:02 Syscall se ejecuto correctamente
+2024/10/18 08:10:02 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/18 08:10:03 Funciona ok el realizar interrupcion
+2024/10/18 08:12:42 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:12:42 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:12:43 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:12:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 08:12:44 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 08:12:44 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [DX 5]
+2024/10/18 08:12:44 El valor de el registro es 0
+2024/10/18 08:12:44 ## TID: 0 - Ejecutando: JNZ - Parametos : [DX 5]
+2024/10/18 08:12:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 08:12:45 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 08:12:45 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/18 08:12:46 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/18 08:12:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/18 08:12:47 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/18 08:12:47 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 08:12:48 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/18 08:12:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/18 08:12:49 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/18 08:12:49 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 08:12:50 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/18 08:12:50 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 08:12:51 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 08:12:51 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 08:12:52 Recibe bien interrupcion
+2024/10/18 08:12:52 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 08:12:53 Funciona ok el realizar interrupcion
+2024/10/18 08:12:54 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:12:54 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:12:55 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:12:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 08:12:56 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 08:12:56 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 08:12:56 Antes de modificar el valor 
+2024/10/18 08:12:56 Registro obtenido
+2024/10/18 08:12:56 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 08:12:56 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 08:12:57 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 08:12:57 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 16]
+2024/10/18 08:12:57 Antes de modificar el valor 
+2024/10/18 08:12:57 Registro obtenido
+2024/10/18 08:12:57 ## TID: 0 - Ejecutando: SET - Parametos : [BX 16]
+2024/10/18 08:12:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/18 08:12:58 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/18 08:12:58 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/18 08:12:58 Registro obtenido
+2024/10/18 08:12:58 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/18 08:12:58 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/18 08:12:59 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/18 08:12:59 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 08:12:59 Antes de modificar el valor 
+2024/10/18 08:12:59 Registro obtenido
+2024/10/18 08:12:59 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 08:12:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 9
+2024/10/18 08:13:00 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/18 08:13:00 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 08:13:00 Se va a escribir %v[31 0 0 0]
+2024/10/18 08:13:00 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/18 08:13:00 Enviando a memoria write_memory
+2024/10/18 08:13:01 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [CX AX]
+2024/10/18 08:13:01 Intruccion Solicitada de Pid 1 y TID 0 y PC 10
+2024/10/18 08:13:02 PID: 1 TID: 0 - FETCH - Program Counter: 10
+2024/10/18 08:13:02 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [BX CX]
+2024/10/18 08:13:02 Leer memoria con direccion fisica 1
+2024/10/18 08:13:03 Data A escribir  : 31
+2024/10/18 08:13:03 Registro obtenido
+2024/10/18 08:13:03 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [BX CX]
+2024/10/18 08:13:03 Intruccion Solicitada de Pid 1 y TID 0 y PC 11
+2024/10/18 08:13:04 PID: 1 TID: 0 - FETCH - Program Counter: 11
+2024/10/18 08:13:04 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/18 08:13:04 Finalizar proceos PID : 1 
+2024/10/18 08:13:05 Enviando a kernel syscall
+2024/10/18 08:13:05 Recibe bien interrupcion
+2024/10/18 08:13:05 Recibe bien interrupcion
+2024/10/18 08:13:06 Syscall se ejecuto correctamente
+2024/10/18 08:13:06 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/18 08:13:07 Funciona ok el realizar interrupcion
+2024/10/18 08:16:31 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:16:31 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:16:32 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:16:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 08:16:33 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 08:16:33 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [DX 19]
+2024/10/18 08:16:33 Antes de modificar el valor 
+2024/10/18 08:16:33 Registro obtenido
+2024/10/18 08:16:33 ## TID: 0 - Ejecutando: SET - Parametos : [DX 19]
+2024/10/18 08:16:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 08:16:34 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 08:16:34 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [DX 5]
+2024/10/18 08:16:34 El valor de el registro es 19
+2024/10/18 08:16:34 Registro obtenido
+2024/10/18 08:16:34 ## TID: 0 - Ejecutando: JNZ - Parametos : [DX 5]
+2024/10/18 08:16:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 08:16:35 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 08:16:35 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 08:16:36 Recibe bien interrupcion
+2024/10/18 08:16:36 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 08:16:37 Funciona ok el realizar interrupcion
+2024/10/18 08:16:37 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:16:37 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:16:38 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:16:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 08:16:39 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 08:16:39 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 08:16:39 Antes de modificar el valor 
+2024/10/18 08:16:39 Registro obtenido
+2024/10/18 08:16:39 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 08:16:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/18 08:16:40 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/18 08:16:40 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 16]
+2024/10/18 08:16:40 Antes de modificar el valor 
+2024/10/18 08:16:40 Registro obtenido
+2024/10/18 08:16:40 ## TID: 0 - Ejecutando: SET - Parametos : [BX 16]
+2024/10/18 08:16:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/18 08:16:41 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/18 08:16:41 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/18 08:16:41 Registro obtenido
+2024/10/18 08:16:41 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/18 08:16:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 9
+2024/10/18 08:16:42 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/18 08:16:42 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 08:16:42 Antes de modificar el valor 
+2024/10/18 08:16:42 Registro obtenido
+2024/10/18 08:16:42 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 08:16:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 10
+2024/10/18 08:16:43 PID: 1 TID: 0 - FETCH - Program Counter: 10
+2024/10/18 08:16:43 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 08:16:43 Se va a escribir %v[31 0 0 0]
+2024/10/18 08:16:43 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/18 08:16:43 Enviando a memoria write_memory
+2024/10/18 08:16:44 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [CX AX]
+2024/10/18 08:16:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 11
+2024/10/18 08:16:45 PID: 1 TID: 0 - FETCH - Program Counter: 11
+2024/10/18 08:16:45 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [BX CX]
+2024/10/18 08:16:45 Leer memoria con direccion fisica 1
+2024/10/18 08:16:46 Data A escribir  : 31
+2024/10/18 08:16:46 Registro obtenido
+2024/10/18 08:16:46 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [BX CX]
+2024/10/18 08:16:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 12
+2024/10/18 08:16:47 PID: 1 TID: 0 - FETCH - Program Counter: 12
+2024/10/18 08:16:47 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/18 08:16:47 Finalizar proceos PID : 1 
+2024/10/18 08:16:48 Enviando a kernel syscall
+2024/10/18 08:16:48 Recibe bien interrupcion
+2024/10/18 08:16:48 Recibe bien interrupcion
+2024/10/18 08:16:49 Syscall se ejecuto correctamente
+2024/10/18 08:16:49 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/18 08:16:50 Funciona ok el realizar interrupcion
