@@ -5456,3 +5456,425 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/16 13:53:08 Syscall se ejecuto correctamente
 2024/10/16 13:53:08 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
 2024/10/16 13:53:09 Funciona ok el realizar interrupcion
+2024/10/18 00:06:24 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 00:06:24 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 00:06:25 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 00:06:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 00:06:26 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 00:06:26 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/18 00:06:27 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/18 00:06:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 00:06:28 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 00:06:28 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 00:06:29 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/18 00:06:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/18 00:06:30 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/18 00:06:30 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 00:06:31 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/18 00:06:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/18 00:06:32 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/18 00:06:32 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 00:06:33 Recibe bien interrupcion
+2024/10/18 00:06:33 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 00:06:34 Funciona ok el realizar interrupcion
+2024/10/18 00:06:34 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 00:06:34 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 00:06:35 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 00:06:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 00:06:36 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 00:06:36 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 00:06:36 Antes de modificar el valor 
+2024/10/18 00:06:36 Registro obtenido
+2024/10/18 00:06:36 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 00:06:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 00:06:37 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 00:06:37 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 00:06:37 Antes de modificar el valor 
+2024/10/18 00:06:37 Registro obtenido
+2024/10/18 00:06:37 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 00:06:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 00:06:38 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 00:06:38 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 00:06:38 Se va a escribir %v[49 53]
+2024/10/18 00:06:38 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 2
+2024/10/18 00:06:38 Enviando a memoria write_memory
+2024/10/18 00:06:39 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [CX AX]
+2024/10/18 00:06:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/18 00:06:40 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/18 00:06:40 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [BX CX]
+2024/10/18 00:06:40 Leer memoria con direccion fisica 1
+2024/10/18 00:06:41 bytes: [49 53 0 0]
+2024/10/18 00:06:41 data: 825556992
+2024/10/18 00:06:41 Data A escribir  : 825556992
+2024/10/18 00:06:41 Registro obtenido
+2024/10/18 00:06:41 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [BX CX]
+2024/10/18 00:06:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/18 00:06:42 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/18 00:06:42 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/18 00:06:42 Finalizar proceos PID : 1 
+2024/10/18 00:06:43 Enviando a kernel syscall
+2024/10/18 00:06:43 Recibe bien interrupcion
+2024/10/18 00:06:43 Recibe bien interrupcion
+2024/10/18 00:06:44 Syscall se ejecuto correctamente
+2024/10/18 00:06:44 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/18 00:06:45 Funciona ok el realizar interrupcion
+2024/10/18 07:42:29 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 07:42:29 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 07:42:30 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 07:42:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 07:42:31 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 07:42:31 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/18 07:42:32 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/18 07:42:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 07:42:33 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 07:42:33 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 07:42:34 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/18 07:42:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/18 07:42:35 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/18 07:42:35 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 07:42:36 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/18 07:42:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/18 07:42:37 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/18 07:42:37 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 07:42:38 Recibe bien interrupcion
+2024/10/18 07:42:38 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 07:42:39 Funciona ok el realizar interrupcion
+2024/10/18 07:42:40 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 07:42:40 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 07:42:41 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 07:42:41 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 07:42:42 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 07:42:42 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 07:42:42 Antes de modificar el valor 
+2024/10/18 07:42:42 Registro obtenido
+2024/10/18 07:42:42 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 07:42:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 07:42:43 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 07:42:43 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 07:42:43 Antes de modificar el valor 
+2024/10/18 07:42:43 Registro obtenido
+2024/10/18 07:42:43 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 07:42:43 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 07:42:44 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 07:42:44 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 07:42:44 http: panic serving 127.0.0.1:52893: runtime error: index out of range [3] with length 0
+goroutine 47 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:1947 +0xbe
+panic({0x918de80?, 0xc000018138?})
+	/usr/local/Cellar/go/1.23.2/libexec/src/runtime/panic.go:785 +0x132
+encoding/binary.bigEndian.PutUint32(...)
+	/usr/local/Cellar/go/1.23.2/libexec/src/encoding/binary/binary.go:169
+github.com/sisoputnfrba/tp-golang/cpu/utils.PasarDeUintAByte(0x9139cc0?)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:598 +0x16
+github.com/sisoputnfrba/tp-golang/cpu/utils.Write_Memory(0xc00022a1e0, {0xc00010c970, 0xc0000122c0?, 0x9?})
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:573 +0x15a
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc0000a4270?, {0x91ac730?, {0xc00010c970?, 0xc00025d9b0?, 0xf?}})
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:395 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc00022a1e0)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:257 +0x2f2
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x91b1648, 0xc00026a0e0}, 0xc00022dcc0)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:195 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000d80e0?, {0x91b1648?, 0xc00026a0e0?}, 0x9c24698?)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x8dfd345?, {0x91b1648, 0xc00026a0e0}, 0xc00022dcc0)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x91b0250?}, {0x91b1648?, 0xc00026a0e0?}, 0x6?)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc000221200, {0x91b1b70, 0xc0000a5050})
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:3360 +0x485
+2024/10/18 07:48:16 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 07:48:16 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 07:48:17 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 07:48:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 07:48:18 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 07:48:18 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 07:48:18 Antes de modificar el valor 
+2024/10/18 07:48:18 Registro obtenido
+2024/10/18 07:48:18 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 07:48:18 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 07:48:19 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 07:48:19 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 07:48:19 Antes de modificar el valor 
+2024/10/18 07:48:19 Registro obtenido
+2024/10/18 07:48:19 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 07:48:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 07:48:20 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 07:48:20 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 07:48:20 http: panic serving 127.0.0.1:52918: runtime error: index out of range [3] with length 0
+goroutine 19 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:1947 +0xbe
+panic({0xa97be80?, 0xc000018120?})
+	/usr/local/Cellar/go/1.23.2/libexec/src/runtime/panic.go:785 +0x132
+encoding/binary.bigEndian.PutUint32(...)
+	/usr/local/Cellar/go/1.23.2/libexec/src/encoding/binary/binary.go:169
+github.com/sisoputnfrba/tp-golang/cpu/utils.PasarDeUintAByte(0xa927cc0?)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:598 +0x16
+github.com/sisoputnfrba/tp-golang/cpu/utils.Write_Memory(0xc0000f40f0, {0xc00010a400, 0xc0000121b0?, 0x9?})
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:573 +0x15a
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc0000a4270?, {0xa99a730?, {0xc00010a400?, 0xc00002f9b0?, 0xf?}})
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:395 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000f40f0)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:257 +0x2f2
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0xa99f648, 0xc0000d81c0}, 0xc0000e03c0)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:195 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc0000d80e0?, {0xa99f648?, 0xc0000d81c0?}, 0x1f4470b8?)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0xa5eb345?, {0xa99f648, 0xc0000d81c0}, 0xc0000e03c0)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0xa99e250?}, {0xa99f648?, 0xc0000d81c0?}, 0x6?)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc0000e2120, {0xa99fb70, 0xc0000a5050})
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:3360 +0x485
+2024/10/18 07:52:05 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 07:52:05 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 07:52:06 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 07:52:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 07:52:07 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 07:52:07 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/18 07:52:08 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/18 07:52:08 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 07:52:09 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 07:52:09 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 07:52:10 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/18 07:52:10 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/18 07:52:11 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/18 07:52:11 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 07:52:12 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/18 07:52:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/18 07:52:13 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/18 07:52:13 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 07:52:14 Recibe bien interrupcion
+2024/10/18 07:52:14 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 07:52:15 Funciona ok el realizar interrupcion
+2024/10/18 07:52:16 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 07:52:16 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 07:52:17 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 07:52:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 07:52:18 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 07:52:18 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 07:52:18 Antes de modificar el valor 
+2024/10/18 07:52:18 Registro obtenido
+2024/10/18 07:52:18 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 07:52:18 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 07:52:19 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 07:52:19 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 07:52:19 Antes de modificar el valor 
+2024/10/18 07:52:19 Registro obtenido
+2024/10/18 07:52:19 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 07:52:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 07:52:20 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 07:52:20 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 07:52:20 http: panic serving 127.0.0.1:52949: runtime error: index out of range [3] with length 0
+goroutine 65 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:1947 +0xbe
+panic({0x7b40e80?, 0xc0001be0a8?})
+	/usr/local/Cellar/go/1.23.2/libexec/src/runtime/panic.go:785 +0x132
+encoding/binary.littleEndian.PutUint32(...)
+	/usr/local/Cellar/go/1.23.2/libexec/src/encoding/binary/binary.go:92
+github.com/sisoputnfrba/tp-golang/cpu/utils.PasarDeUintAByte(0x7aeccc0?)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:598 +0x16
+github.com/sisoputnfrba/tp-golang/cpu/utils.Write_Memory(0xc0000201e0, {0xc0001a2e50, 0xc0001942f0?, 0x9?})
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:573 +0x15a
+github.com/sisoputnfrba/tp-golang/cpu/utils.Execute(0xc00010a270?, {0x7b5f730?, {0xc0001a2e50?, 0xc0001679b0?, 0xf?}})
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:395 +0x34
+github.com/sisoputnfrba/tp-golang/cpu/utils.InstructionCycle(0xc0000201e0)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:257 +0x2f2
+github.com/sisoputnfrba/tp-golang/cpu/utils.RecibirPIDyTID({0x7b64648, 0xc00012e2a0}, 0xc000137180)
+	/Users/milisalafia/Documents/go/tp-2024-2c-Operativo2/cpu/utils/utils.go:195 +0x39d
+net/http.HandlerFunc.ServeHTTP(0xc00012e0e0?, {0x7b64648?, 0xc00012e2a0?}, 0x19095510?)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2220 +0x29
+net/http.(*ServeMux).ServeHTTP(0x77b0345?, {0x7b64648, 0xc00012e2a0}, 0xc000137180)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2747 +0x1ca
+net/http.serverHandler.ServeHTTP({0x7b63250?}, {0x7b64648?, 0xc00012e2a0?}, 0x6?)
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:3210 +0x8e
+net/http.(*conn).serve(0xc000138900, {0x7b64b70, 0xc00010b050})
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:2092 +0x5d0
+created by net/http.(*Server).Serve in goroutine 1
+	/usr/local/Cellar/go/1.23.2/libexec/src/net/http/server.go:3360 +0x485
+2024/10/18 07:56:39 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 07:56:39 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 07:56:40 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 07:56:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 07:56:41 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 07:56:41 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/18 07:56:42 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/18 07:56:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 07:56:43 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 07:56:43 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 07:56:44 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/18 07:56:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/18 07:56:45 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/18 07:56:45 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 07:56:46 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/18 07:56:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/18 07:56:47 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/18 07:56:47 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 07:56:48 Recibe bien interrupcion
+2024/10/18 07:56:48 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 07:56:49 Funciona ok el realizar interrupcion
+2024/10/18 07:56:50 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 07:56:50 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 07:56:51 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 07:56:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 07:56:52 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 07:56:52 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 07:56:52 Antes de modificar el valor 
+2024/10/18 07:56:52 Registro obtenido
+2024/10/18 07:56:52 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 07:56:52 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 07:56:53 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 07:56:53 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 07:56:53 Antes de modificar el valor 
+2024/10/18 07:56:53 Registro obtenido
+2024/10/18 07:56:53 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 07:56:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 07:56:54 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 07:56:54 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 07:56:54 Se va a escribir %v[15 0 0 0]
+2024/10/18 07:56:54 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/18 07:56:54 Enviando a memoria write_memory
+2024/10/18 07:56:55 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [CX AX]
+2024/10/18 07:56:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/18 07:56:56 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/18 07:56:56 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [BX CX]
+2024/10/18 07:56:56 Leer memoria con direccion fisica 1
+2024/10/18 07:56:57 Data A escribir  : 15
+2024/10/18 07:56:57 Registro obtenido
+2024/10/18 07:56:57 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [BX CX]
+2024/10/18 07:56:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/18 07:56:58 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/18 07:56:58 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/18 07:56:58 Finalizar proceos PID : 1 
+2024/10/18 07:56:59 Enviando a kernel syscall
+2024/10/18 07:56:59 Recibe bien interrupcion
+2024/10/18 07:56:59 Recibe bien interrupcion
+2024/10/18 07:57:00 Syscall se ejecuto correctamente
+2024/10/18 07:57:00 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/18 07:57:01 Funciona ok el realizar interrupcion
+2024/10/18 08:03:19 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:03:19 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:03:20 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:03:20 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 08:03:21 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 08:03:21 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/18 08:03:22 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/18 08:03:22 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 08:03:23 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 08:03:23 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 08:03:24 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/18 08:03:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/18 08:03:25 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/18 08:03:25 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 08:03:26 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/18 08:03:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/18 08:03:27 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/18 08:03:27 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 08:03:28 Recibe bien interrupcion
+2024/10/18 08:03:28 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 08:03:29 Funciona ok el realizar interrupcion
+2024/10/18 08:03:30 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:03:30 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:03:31 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:03:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 08:03:32 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 08:03:32 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 08:03:32 Antes de modificar el valor 
+2024/10/18 08:03:32 Registro obtenido
+2024/10/18 08:03:32 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 08:03:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 08:03:33 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 08:03:33 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 08:03:33 Antes de modificar el valor 
+2024/10/18 08:03:33 Registro obtenido
+2024/10/18 08:03:33 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 08:03:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 08:03:34 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 08:03:34 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 08:03:34 Se va a escribir %v[15 0 0 0]
+2024/10/18 08:03:34 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/18 08:03:34 Enviando a memoria write_memory
+2024/10/18 08:03:35 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [CX AX]
+2024/10/18 08:03:35 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/18 08:03:36 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/18 08:03:36 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [BX CX]
+2024/10/18 08:03:36 Leer memoria con direccion fisica 1
+2024/10/18 08:03:37 Data A escribir  : 15
+2024/10/18 08:03:37 Registro obtenido
+2024/10/18 08:03:37 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [BX CX]
+2024/10/18 08:03:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/18 08:03:38 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/18 08:03:38 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/18 08:03:38 Finalizar proceos PID : 1 
+2024/10/18 08:03:39 Enviando a kernel syscall
+2024/10/18 08:03:39 Recibe bien interrupcion
+2024/10/18 08:03:39 Recibe bien interrupcion
+2024/10/18 08:03:40 Syscall se ejecuto correctamente
+2024/10/18 08:03:40 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/18 08:03:41 Funciona ok el realizar interrupcion
+2024/10/18 08:04:24 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:04:24 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:04:25 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:04:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/18 08:04:26 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/18 08:04:26 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/18 08:04:27 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/18 08:04:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/18 08:04:28 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/18 08:04:28 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 08:04:29 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/18 08:04:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/18 08:04:30 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/18 08:04:30 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/18 08:04:31 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/18 08:04:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/18 08:04:32 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/18 08:04:32 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/18 08:04:33 Recibe bien interrupcion
+2024/10/18 08:04:33 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/18 08:04:34 Funciona ok el realizar interrupcion
+2024/10/18 08:04:35 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/18 08:04:35 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/18 08:04:36 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/18 08:04:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/18 08:04:37 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/18 08:04:37 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/18 08:04:37 Antes de modificar el valor 
+2024/10/18 08:04:37 Registro obtenido
+2024/10/18 08:04:37 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/18 08:04:37 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/18 08:04:38 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/18 08:04:38 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/18 08:04:38 Antes de modificar el valor 
+2024/10/18 08:04:38 Registro obtenido
+2024/10/18 08:04:38 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/18 08:04:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/18 08:04:39 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/18 08:04:39 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/18 08:04:39 Se va a escribir %v[15 0 0 0]
+2024/10/18 08:04:39 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/18 08:04:39 Enviando a memoria write_memory
+2024/10/18 08:04:40 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [CX AX]
+2024/10/18 08:04:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/18 08:04:41 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/18 08:04:41 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [BX CX]
+2024/10/18 08:04:41 Leer memoria con direccion fisica 1
+2024/10/18 08:04:42 Data A escribir  : 15
+2024/10/18 08:04:42 Registro obtenido
+2024/10/18 08:04:42 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [BX CX]
+2024/10/18 08:04:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/18 08:04:43 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/18 08:04:43 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/18 08:04:43 Finalizar proceos PID : 1 
+2024/10/18 08:04:44 Enviando a kernel syscall
+2024/10/18 08:04:44 Recibe bien interrupcion
+2024/10/18 08:04:44 Recibe bien interrupcion
+2024/10/18 08:04:45 Syscall se ejecuto correctamente
+2024/10/18 08:04:45 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/18 08:04:46 Funciona ok el realizar interrupcion

@@ -7539,3 +7539,587 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/16 13:53:09 PID actualizar : 1
 2024/10/16 13:53:09 TID actualizar : 0
 2024/10/16 13:53:09 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:21 Pid: 1
+2024/10/18 00:06:21 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/18 00:06:22 cree el hilo PID:1 TID:0
+2024/10/18 00:06:22 procesoInicial
+2024/10/18 00:06:23 hago el map
+2024/10/18 00:06:23 fin
+2024/10/18 00:06:23 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/18 00:06:24 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 00:06:25 Pid 1 y tid 0 enontradas
+2024/10/18 00:06:25 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/18 00:06:25 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:25 Entre a get instruction
+2024/10/18 00:06:26 IntructionReq.Pid 1
+2024/10/18 00:06:26 me llego: 0
+2024/10/18 00:06:26 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:26 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_CREATE RECURSO_1
+2024/10/18 00:06:27 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 00:06:27 PID actualizar : 1
+2024/10/18 00:06:27 TID actualizar : 0
+2024/10/18 00:06:27 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:27 Entre a get instruction
+2024/10/18 00:06:28 IntructionReq.Pid 1
+2024/10/18 00:06:28 me llego: 0
+2024/10/18 00:06:28 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 1}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:28 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_LOCK RECURSO_1
+2024/10/18 00:06:29 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 00:06:29 PID actualizar : 1
+2024/10/18 00:06:29 TID actualizar : 0
+2024/10/18 00:06:29 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:29 Entre a get instruction
+2024/10/18 00:06:30 IntructionReq.Pid 1
+2024/10/18 00:06:30 me llego: 0
+2024/10/18 00:06:30 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 2}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:30 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_UNLOCK RECURSO_1
+2024/10/18 00:06:31 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 00:06:31 PID actualizar : 1
+2024/10/18 00:06:31 TID actualizar : 0
+2024/10/18 00:06:31 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:31 Entre a get instruction
+2024/10/18 00:06:32 IntructionReq.Pid 1
+2024/10/18 00:06:32 me llego: 0
+2024/10/18 00:06:32 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 3}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:32 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/18 00:06:33 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 00:06:33 PID actualizar : 1
+2024/10/18 00:06:33 TID actualizar : 0
+2024/10/18 00:06:33 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:34 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 00:06:34 PID actualizar : 1
+2024/10/18 00:06:34 TID actualizar : 0
+2024/10/18 00:06:34 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:34 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 00:06:35 Pid 1 y tid 0 enontradas
+2024/10/18 00:06:35 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 4}}
+2024/10/18 00:06:35 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:35 Entre a get instruction
+2024/10/18 00:06:36 IntructionReq.Pid 1
+2024/10/18 00:06:36 me llego: 0
+2024/10/18 00:06:36 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:36 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/18 00:06:36 Entre a get instruction
+2024/10/18 00:06:37 IntructionReq.Pid 1
+2024/10/18 00:06:37 me llego: 0
+2024/10/18 00:06:37 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:37 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/18 00:06:37 Entre a get instruction
+2024/10/18 00:06:38 IntructionReq.Pid 1
+2024/10/18 00:06:38 me llego: 0
+2024/10/18 00:06:38 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:38 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/18 00:06:38 Enters to Write Memory Handler
+2024/10/18 00:06:39 Intenta escribir memoria
+2024/10/18 00:06:39 Enters to Write Memory
+2024/10/18 00:06:39 Gets out of Write Memory habiendo escrito [49 53]
+2024/10/18 00:06:39 Entre a get instruction
+2024/10/18 00:06:40 IntructionReq.Pid 1
+2024/10/18 00:06:40 me llego: 0
+2024/10/18 00:06:40 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:40 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: READ_MEM BX CX
+2024/10/18 00:06:40 Entra a read memory handler
+2024/10/18 00:06:41 Va a leer la memoria
+2024/10/18 00:06:41 Entra a readMemory
+2024/10/18 00:06:41 Ya tengo el data
+2024/10/18 00:06:41 Intenta mandar data al CPU en read memory
+2024/10/18 00:06:41 Entre a get instruction
+2024/10/18 00:06:42 IntructionReq.Pid 1
+2024/10/18 00:06:42 me llego: 0
+2024/10/18 00:06:42 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 00:06:42 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/18 00:06:43 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 00:06:43 PID actualizar : 1
+2024/10/18 00:06:43 TID actualizar : 0
+2024/10/18 00:06:43 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 00:06:43 ENTRO A TERMINATE THREAD
+2024/10/18 00:06:44 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/18 00:06:44 Entra a terminate process
+2024/10/18 00:06:44 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/18 00:06:45 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 00:06:45 PID actualizar : 1
+2024/10/18 00:06:45 TID actualizar : 0
+2024/10/18 00:06:45 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:42:27 Pid: 1
+2024/10/18 07:42:27 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/18 07:42:28 cree el hilo PID:1 TID:0
+2024/10/18 07:42:28 procesoInicial
+2024/10/18 07:42:29 hago el map
+2024/10/18 07:42:29 fin
+2024/10/18 07:42:29 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/18 07:42:29 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 07:42:30 Pid 1 y tid 0 enontradas
+2024/10/18 07:42:30 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/18 07:42:30 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:42:30 Entre a get instruction
+2024/10/18 07:42:31 IntructionReq.Pid 1
+2024/10/18 07:42:31 me llego: 0
+2024/10/18 07:42:31 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:42:31 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_CREATE RECURSO_1
+2024/10/18 07:42:32 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:42:32 PID actualizar : 1
+2024/10/18 07:42:32 TID actualizar : 0
+2024/10/18 07:42:32 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:42:32 Entre a get instruction
+2024/10/18 07:42:33 IntructionReq.Pid 1
+2024/10/18 07:42:33 me llego: 0
+2024/10/18 07:42:33 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 1}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:42:33 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_LOCK RECURSO_1
+2024/10/18 07:42:34 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:42:34 PID actualizar : 1
+2024/10/18 07:42:34 TID actualizar : 0
+2024/10/18 07:42:34 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:42:34 Entre a get instruction
+2024/10/18 07:42:35 IntructionReq.Pid 1
+2024/10/18 07:42:35 me llego: 0
+2024/10/18 07:42:35 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 2}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:42:35 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_UNLOCK RECURSO_1
+2024/10/18 07:42:36 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:42:36 PID actualizar : 1
+2024/10/18 07:42:36 TID actualizar : 0
+2024/10/18 07:42:36 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:42:36 Entre a get instruction
+2024/10/18 07:42:37 IntructionReq.Pid 1
+2024/10/18 07:42:37 me llego: 0
+2024/10/18 07:42:37 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 3}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:42:37 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/18 07:42:38 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:42:38 PID actualizar : 1
+2024/10/18 07:42:38 TID actualizar : 0
+2024/10/18 07:42:38 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:42:39 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:42:39 PID actualizar : 1
+2024/10/18 07:42:39 TID actualizar : 0
+2024/10/18 07:42:39 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:42:40 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 07:42:41 Pid 1 y tid 0 enontradas
+2024/10/18 07:42:41 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 4}}
+2024/10/18 07:42:41 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:42:41 Entre a get instruction
+2024/10/18 07:42:42 IntructionReq.Pid 1
+2024/10/18 07:42:42 me llego: 0
+2024/10/18 07:42:42 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:42:42 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/18 07:42:42 Entre a get instruction
+2024/10/18 07:42:43 IntructionReq.Pid 1
+2024/10/18 07:42:43 me llego: 0
+2024/10/18 07:42:43 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:42:43 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/18 07:42:43 Entre a get instruction
+2024/10/18 07:42:44 IntructionReq.Pid 1
+2024/10/18 07:42:44 me llego: 0
+2024/10/18 07:42:44 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:42:44 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/18 07:48:14 Pid: 1
+2024/10/18 07:48:14 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/18 07:48:15 cree el hilo PID:1 TID:0
+2024/10/18 07:48:15 procesoInicial
+2024/10/18 07:48:16 hago el map
+2024/10/18 07:48:16 fin
+2024/10/18 07:48:16 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/18 07:48:16 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 07:48:17 Pid 1 y tid 0 enontradas
+2024/10/18 07:48:17 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 4}}
+2024/10/18 07:48:17 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:48:17 Entre a get instruction
+2024/10/18 07:48:18 IntructionReq.Pid 1
+2024/10/18 07:48:18 me llego: 0
+2024/10/18 07:48:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT] {1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:48:18 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/18 07:48:18 Entre a get instruction
+2024/10/18 07:48:19 IntructionReq.Pid 1
+2024/10/18 07:48:19 me llego: 0
+2024/10/18 07:48:19 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT] {1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:48:19 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/18 07:48:19 Entre a get instruction
+2024/10/18 07:48:20 IntructionReq.Pid 1
+2024/10/18 07:48:20 me llego: 0
+2024/10/18 07:48:20 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT] {1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:48:20 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/18 07:52:03 Pid: 1
+2024/10/18 07:52:03 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/18 07:52:04 cree el hilo PID:1 TID:0
+2024/10/18 07:52:04 procesoInicial
+2024/10/18 07:52:05 hago el map
+2024/10/18 07:52:05 fin
+2024/10/18 07:52:05 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/18 07:52:05 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 07:52:06 Pid 1 y tid 0 enontradas
+2024/10/18 07:52:06 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/18 07:52:06 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:52:06 Entre a get instruction
+2024/10/18 07:52:07 IntructionReq.Pid 1
+2024/10/18 07:52:07 me llego: 0
+2024/10/18 07:52:07 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:52:07 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_CREATE RECURSO_1
+2024/10/18 07:52:08 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:52:08 PID actualizar : 1
+2024/10/18 07:52:08 TID actualizar : 0
+2024/10/18 07:52:08 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:52:08 Entre a get instruction
+2024/10/18 07:52:09 IntructionReq.Pid 1
+2024/10/18 07:52:09 me llego: 0
+2024/10/18 07:52:09 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 1}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:52:09 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_LOCK RECURSO_1
+2024/10/18 07:52:10 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:52:10 PID actualizar : 1
+2024/10/18 07:52:10 TID actualizar : 0
+2024/10/18 07:52:10 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:52:10 Entre a get instruction
+2024/10/18 07:52:11 IntructionReq.Pid 1
+2024/10/18 07:52:11 me llego: 0
+2024/10/18 07:52:11 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 2}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:52:11 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_UNLOCK RECURSO_1
+2024/10/18 07:52:12 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:52:12 PID actualizar : 1
+2024/10/18 07:52:12 TID actualizar : 0
+2024/10/18 07:52:12 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:52:12 Entre a get instruction
+2024/10/18 07:52:13 IntructionReq.Pid 1
+2024/10/18 07:52:13 me llego: 0
+2024/10/18 07:52:13 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 3}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:52:13 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/18 07:52:14 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:52:14 PID actualizar : 1
+2024/10/18 07:52:14 TID actualizar : 0
+2024/10/18 07:52:14 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:52:15 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:52:15 PID actualizar : 1
+2024/10/18 07:52:15 TID actualizar : 0
+2024/10/18 07:52:15 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:52:16 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 07:52:17 Pid 1 y tid 0 enontradas
+2024/10/18 07:52:17 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 4}}
+2024/10/18 07:52:17 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:52:17 Entre a get instruction
+2024/10/18 07:52:18 IntructionReq.Pid 1
+2024/10/18 07:52:18 me llego: 0
+2024/10/18 07:52:18 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:52:18 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/18 07:52:18 Entre a get instruction
+2024/10/18 07:52:19 IntructionReq.Pid 1
+2024/10/18 07:52:19 me llego: 0
+2024/10/18 07:52:19 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:52:19 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/18 07:52:19 Entre a get instruction
+2024/10/18 07:52:20 IntructionReq.Pid 1
+2024/10/18 07:52:20 me llego: 0
+2024/10/18 07:52:20 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:52:20 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/18 07:56:37 Pid: 1
+2024/10/18 07:56:37 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/18 07:56:38 cree el hilo PID:1 TID:0
+2024/10/18 07:56:38 procesoInicial
+2024/10/18 07:56:39 hago el map
+2024/10/18 07:56:39 fin
+2024/10/18 07:56:39 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/18 07:56:39 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 07:56:40 Pid 1 y tid 0 enontradas
+2024/10/18 07:56:40 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/18 07:56:40 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:56:40 Entre a get instruction
+2024/10/18 07:56:41 IntructionReq.Pid 1
+2024/10/18 07:56:41 me llego: 0
+2024/10/18 07:56:41 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:41 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_CREATE RECURSO_1
+2024/10/18 07:56:42 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:56:42 PID actualizar : 1
+2024/10/18 07:56:42 TID actualizar : 0
+2024/10/18 07:56:42 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:56:42 Entre a get instruction
+2024/10/18 07:56:43 IntructionReq.Pid 1
+2024/10/18 07:56:43 me llego: 0
+2024/10/18 07:56:43 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 1}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:43 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_LOCK RECURSO_1
+2024/10/18 07:56:44 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:56:44 PID actualizar : 1
+2024/10/18 07:56:44 TID actualizar : 0
+2024/10/18 07:56:44 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:56:44 Entre a get instruction
+2024/10/18 07:56:45 IntructionReq.Pid 1
+2024/10/18 07:56:45 me llego: 0
+2024/10/18 07:56:45 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 2}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:45 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_UNLOCK RECURSO_1
+2024/10/18 07:56:46 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:56:46 PID actualizar : 1
+2024/10/18 07:56:46 TID actualizar : 0
+2024/10/18 07:56:46 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:56:46 Entre a get instruction
+2024/10/18 07:56:47 IntructionReq.Pid 1
+2024/10/18 07:56:47 me llego: 0
+2024/10/18 07:56:47 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 3}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:47 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/18 07:56:48 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:56:48 PID actualizar : 1
+2024/10/18 07:56:48 TID actualizar : 0
+2024/10/18 07:56:48 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:56:49 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:56:49 PID actualizar : 1
+2024/10/18 07:56:49 TID actualizar : 0
+2024/10/18 07:56:49 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:56:50 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 07:56:51 Pid 1 y tid 0 enontradas
+2024/10/18 07:56:51 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 4}}
+2024/10/18 07:56:51 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:56:51 Entre a get instruction
+2024/10/18 07:56:52 IntructionReq.Pid 1
+2024/10/18 07:56:52 me llego: 0
+2024/10/18 07:56:52 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:52 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/18 07:56:52 Entre a get instruction
+2024/10/18 07:56:53 IntructionReq.Pid 1
+2024/10/18 07:56:53 me llego: 0
+2024/10/18 07:56:53 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:53 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/18 07:56:53 Entre a get instruction
+2024/10/18 07:56:54 IntructionReq.Pid 1
+2024/10/18 07:56:54 me llego: 0
+2024/10/18 07:56:54 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:54 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/18 07:56:54 Enters to Write Memory Handler
+2024/10/18 07:56:55 Intenta escribir memoria
+2024/10/18 07:56:55 Enters to Write Memory
+2024/10/18 07:56:55 Gets out of Write Memory habiendo escrito [15 0 0 0]
+2024/10/18 07:56:55 Entre a get instruction
+2024/10/18 07:56:56 IntructionReq.Pid 1
+2024/10/18 07:56:56 me llego: 0
+2024/10/18 07:56:56 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:56 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: READ_MEM BX CX
+2024/10/18 07:56:56 Entra a read memory handler
+2024/10/18 07:56:57 Va a leer la memoria
+2024/10/18 07:56:57 Entra a readMemory
+2024/10/18 07:56:57 Ya tengo el data
+2024/10/18 07:56:57 Intenta mandar data al CPU en read memory
+2024/10/18 07:56:57 Entre a get instruction
+2024/10/18 07:56:58 IntructionReq.Pid 1
+2024/10/18 07:56:58 me llego: 0
+2024/10/18 07:56:58 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 07:56:58 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/18 07:56:59 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:56:59 PID actualizar : 1
+2024/10/18 07:56:59 TID actualizar : 0
+2024/10/18 07:56:59 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 07:56:59 ENTRO A TERMINATE THREAD
+2024/10/18 07:57:00 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/18 07:57:00 Entra a terminate process
+2024/10/18 07:57:00 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/18 07:57:01 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 07:57:01 PID actualizar : 1
+2024/10/18 07:57:01 TID actualizar : 0
+2024/10/18 07:57:01 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:17 Pid: 1
+2024/10/18 08:03:17 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/18 08:03:18 cree el hilo PID:1 TID:0
+2024/10/18 08:03:18 procesoInicial
+2024/10/18 08:03:19 hago el map
+2024/10/18 08:03:19 fin
+2024/10/18 08:03:19 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/18 08:03:19 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 08:03:20 Pid 1 y tid 0 enontradas
+2024/10/18 08:03:20 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/18 08:03:20 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:20 Entre a get instruction
+2024/10/18 08:03:21 IntructionReq.Pid 1
+2024/10/18 08:03:21 me llego: 0
+2024/10/18 08:03:21 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:21 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_CREATE RECURSO_1
+2024/10/18 08:03:22 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:03:22 PID actualizar : 1
+2024/10/18 08:03:22 TID actualizar : 0
+2024/10/18 08:03:22 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:22 Contexto = [MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]
+2024/10/18 08:03:22 Entre a get instruction
+2024/10/18 08:03:23 IntructionReq.Pid 1
+2024/10/18 08:03:23 me llego: 0
+2024/10/18 08:03:23 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 1}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:23 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_LOCK RECURSO_1
+2024/10/18 08:03:24 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:03:24 PID actualizar : 1
+2024/10/18 08:03:24 TID actualizar : 0
+2024/10/18 08:03:24 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:24 Contexto = [MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]
+2024/10/18 08:03:24 Entre a get instruction
+2024/10/18 08:03:25 IntructionReq.Pid 1
+2024/10/18 08:03:25 me llego: 0
+2024/10/18 08:03:25 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 2}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:25 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_UNLOCK RECURSO_1
+2024/10/18 08:03:26 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:03:26 PID actualizar : 1
+2024/10/18 08:03:26 TID actualizar : 0
+2024/10/18 08:03:26 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:26 Contexto = [MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]
+2024/10/18 08:03:26 Entre a get instruction
+2024/10/18 08:03:27 IntructionReq.Pid 1
+2024/10/18 08:03:27 me llego: 0
+2024/10/18 08:03:27 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 3}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:27 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/18 08:03:28 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:03:28 PID actualizar : 1
+2024/10/18 08:03:28 TID actualizar : 0
+2024/10/18 08:03:28 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:28 Contexto = [MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]
+2024/10/18 08:03:29 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:03:29 PID actualizar : 1
+2024/10/18 08:03:29 TID actualizar : 0
+2024/10/18 08:03:29 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:29 Contexto = [MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]
+2024/10/18 08:03:30 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 08:03:31 Pid 1 y tid 0 enontradas
+2024/10/18 08:03:31 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 4}}
+2024/10/18 08:03:31 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:31 Entre a get instruction
+2024/10/18 08:03:32 IntructionReq.Pid 1
+2024/10/18 08:03:32 me llego: 0
+2024/10/18 08:03:32 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:32 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/18 08:03:32 Entre a get instruction
+2024/10/18 08:03:33 IntructionReq.Pid 1
+2024/10/18 08:03:33 me llego: 0
+2024/10/18 08:03:33 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:33 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/18 08:03:33 Entre a get instruction
+2024/10/18 08:03:34 IntructionReq.Pid 1
+2024/10/18 08:03:34 me llego: 0
+2024/10/18 08:03:34 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:34 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/18 08:03:34 Enters to Write Memory Handler
+2024/10/18 08:03:35 Intenta escribir memoria
+2024/10/18 08:03:35 Enters to Write Memory
+2024/10/18 08:03:35 Gets out of Write Memory habiendo escrito [15 0 0 0]
+2024/10/18 08:03:35 Entre a get instruction
+2024/10/18 08:03:36 IntructionReq.Pid 1
+2024/10/18 08:03:36 me llego: 0
+2024/10/18 08:03:36 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:36 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: READ_MEM BX CX
+2024/10/18 08:03:36 Entra a read memory handler
+2024/10/18 08:03:37 Va a leer la memoria
+2024/10/18 08:03:37 Entra a readMemory
+2024/10/18 08:03:37 Ya tengo el data
+2024/10/18 08:03:37 Intenta mandar data al CPU en read memory
+2024/10/18 08:03:37 Entre a get instruction
+2024/10/18 08:03:38 IntructionReq.Pid 1
+2024/10/18 08:03:38 me llego: 0
+2024/10/18 08:03:38 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:03:38 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/18 08:03:39 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:03:39 PID actualizar : 1
+2024/10/18 08:03:39 TID actualizar : 0
+2024/10/18 08:03:39 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:39 Contexto = [MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]
+2024/10/18 08:03:39 ENTRO A TERMINATE THREAD
+2024/10/18 08:03:40 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/18 08:03:40 Entra a terminate process
+2024/10/18 08:03:40 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/18 08:03:41 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:03:41 PID actualizar : 1
+2024/10/18 08:03:41 TID actualizar : 0
+2024/10/18 08:03:41 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:03:41 Contexto = [MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]
+2024/10/18 08:04:22 Pid: 1
+2024/10/18 08:04:22 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/18 08:04:23 cree el hilo PID:1 TID:0
+2024/10/18 08:04:23 procesoInicial
+2024/10/18 08:04:24 hago el map
+2024/10/18 08:04:24 fin
+2024/10/18 08:04:24 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/18 08:04:24 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 08:04:25 Pid 1 y tid 0 enontradas
+2024/10/18 08:04:25 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 0}}
+2024/10/18 08:04:25 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:25 Entre a get instruction
+2024/10/18 08:04:26 IntructionReq.Pid 1
+2024/10/18 08:04:26 me llego: 0
+2024/10/18 08:04:26 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 0}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:26 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_CREATE RECURSO_1
+2024/10/18 08:04:27 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:04:27 PID actualizar : 1
+2024/10/18 08:04:27 TID actualizar : 0
+2024/10/18 08:04:27 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:27 Contexto = map[{1 0 0 0 0 0 0 0 0 0 1}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:27 Entre a get instruction
+2024/10/18 08:04:28 IntructionReq.Pid 1
+2024/10/18 08:04:28 me llego: 0
+2024/10/18 08:04:28 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 1}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:28 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_LOCK RECURSO_1
+2024/10/18 08:04:29 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:04:29 PID actualizar : 1
+2024/10/18 08:04:29 TID actualizar : 0
+2024/10/18 08:04:29 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:29 Contexto = map[{1 0 0 0 0 0 0 0 0 0 2}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:29 Entre a get instruction
+2024/10/18 08:04:30 IntructionReq.Pid 1
+2024/10/18 08:04:30 me llego: 0
+2024/10/18 08:04:30 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 2}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:30 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: MUTEX_UNLOCK RECURSO_1
+2024/10/18 08:04:31 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:04:31 PID actualizar : 1
+2024/10/18 08:04:31 TID actualizar : 0
+2024/10/18 08:04:31 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:31 Contexto = map[{1 0 0 0 0 0 0 0 0 0 3}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:31 Entre a get instruction
+2024/10/18 08:04:32 IntructionReq.Pid 1
+2024/10/18 08:04:32 me llego: 0
+2024/10/18 08:04:32 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 3}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:32 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/18 08:04:33 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:04:33 PID actualizar : 1
+2024/10/18 08:04:33 TID actualizar : 0
+2024/10/18 08:04:33 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:33 Contexto = map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:34 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:04:34 PID actualizar : 1
+2024/10/18 08:04:34 TID actualizar : 0
+2024/10/18 08:04:34 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:34 Contexto = map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:35 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/18 08:04:36 Pid 1 y tid 0 enontradas
+2024/10/18 08:04:36 Respuetsa {{1 0 511} {1 0 0 0 0 0 0 0 0 0 4}}
+2024/10/18 08:04:36 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:36 Entre a get instruction
+2024/10/18 08:04:37 IntructionReq.Pid 1
+2024/10/18 08:04:37 me llego: 0
+2024/10/18 08:04:37 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:37 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/18 08:04:37 Entre a get instruction
+2024/10/18 08:04:38 IntructionReq.Pid 1
+2024/10/18 08:04:38 me llego: 0
+2024/10/18 08:04:38 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:38 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/18 08:04:38 Entre a get instruction
+2024/10/18 08:04:39 IntructionReq.Pid 1
+2024/10/18 08:04:39 me llego: 0
+2024/10/18 08:04:39 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:39 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/18 08:04:39 Enters to Write Memory Handler
+2024/10/18 08:04:40 Intenta escribir memoria
+2024/10/18 08:04:40 Enters to Write Memory
+2024/10/18 08:04:40 Gets out of Write Memory habiendo escrito [15 0 0 0]
+2024/10/18 08:04:40 Entre a get instruction
+2024/10/18 08:04:41 IntructionReq.Pid 1
+2024/10/18 08:04:41 me llego: 0
+2024/10/18 08:04:41 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:41 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: READ_MEM BX CX
+2024/10/18 08:04:41 Entra a read memory handler
+2024/10/18 08:04:42 Va a leer la memoria
+2024/10/18 08:04:42 Entra a readMemory
+2024/10/18 08:04:42 Ya tengo el data
+2024/10/18 08:04:42 Intenta mandar data al CPU en read memory
+2024/10/18 08:04:42 Entre a get instruction
+2024/10/18 08:04:43 IntructionReq.Pid 1
+2024/10/18 08:04:43 me llego: 0
+2024/10/18 08:04:43 tengo guardado: map[{1 0 0 0 0 0 0 0 0 0 4}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:43 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/18 08:04:44 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:04:44 PID actualizar : 1
+2024/10/18 08:04:44 TID actualizar : 0
+2024/10/18 08:04:44 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:44 Contexto = map[{1 0 15 15 1 0 0 0 0 0 9}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/18 08:04:44 ENTRO A TERMINATE THREAD
+2024/10/18 08:04:45 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/18 08:04:45 Entra a terminate process
+2024/10/18 08:04:45 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/18 08:04:46 Respuesta codificada PID = 1 , TID = 0
+2024/10/18 08:04:46 PID actualizar : 1
+2024/10/18 08:04:46 TID actualizar : 0
+2024/10/18 08:04:46 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/18 08:04:46 Contexto = map[{1 0 15 15 1 0 0 0 0 0 9}:[MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]

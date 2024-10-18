@@ -504,10 +504,7 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 		log.Println("Error al decodificar la instruccion", errorDecode)
 		return errorDecode
 	}
-	dataAEscribir, errP := BytesToUint32(dataResponse.Data)
-	if errP != nil {
-		return errP
-	}
+	dataAEscribir := BytesToUint32(dataResponse.Data)
 	log.Printf("Data A escribir  : %v", dataAEscribir)
 	err4 := ModificarValorCampo(registers, parameters[0], dataAEscribir)
 
@@ -519,20 +516,20 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 
 }
 
-func BytesToUint32(bytes []byte) (uint32, error) {
+func BytesToUint32(val []byte) uint32 {
 	/*
 		if len(bytes) < 4 {
 			panic("El slice de bytes debe tener al menos 4 bytes de longitud")
 		}
 		return binary.LittleEndian.Uint32(bytes)
 	*/
-	dataString := fmt.Sprint(bytes)
-	data, err := strconv.Atoi(dataString)
-	if err != nil {
-		log.Printf("No se pudo parsear de []bytes a unint32")
-		return 0, err
+
+	// Convertir de []byte a uint32 usando Big Endian
+	r := uint32(0)
+	for i := uint32(0); i < 4; i++ {
+		r |= uint32(val[i]) << (8 * i)
 	}
-	return uint32(data), nil
+	return r
 
 }
 func RecieveDataFromMemory(w http.ResponseWriter, r *http.Request) {
@@ -596,10 +593,12 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	return nil
 }
 
-func PasarDeUintAByte(num uint32) []byte {
-	numEnString := strconv.Itoa(int(num))
-
-	return []byte(numEnString)
+func PasarDeUintAByte(val uint32) []byte {
+	r := make([]byte, 4)
+	for i := uint32(0); i < 4; i++ {
+		r[i] = byte((val >> (8 * i)) & 0xff)
+	}
+	return r
 }
 func TranslateAdress(direccionLogica uint32, base uint32, limite uint32) (uint32, error) {
 	direccionFisica := direccionLogica + base

@@ -343,7 +343,7 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 
 					// Log de obtener contexto de ejecucion
 					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
-
+					log.Printf("Contexto = %v", mapPCBPorTCB[actualizadoContexto.Pcb])
 					w.WriteHeader(http.StatusOK)
 					w.Write([]byte("contexto de ejecucion ha sido actualizado"))
 					///log.Printf("Map actualizado %v", mapPCBPorTCB)
@@ -1161,7 +1161,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	informacion.Tamanio = tamanio
 
 	fileName := GenerarNombreArchivo(tcbReq.Pid, tcbReq.Tid)
-	informacion.NombreArchivo = fileName 
+	informacion.NombreArchivo = fileName
 
 	body, err5 := json.Marshal(informacion)
 
@@ -1183,8 +1183,8 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 }
 
 type FsInfo struct {
-	Data    []byte `json:"data"`
-	Tamanio uint32 `json:"tamanio"`
+	Data          []byte `json:"data"`
+	Tamanio       uint32 `json:"tamanio"`
 	NombreArchivo string `json:"nombreArchivo"`
 }
 
@@ -1211,8 +1211,8 @@ func EnviarAModulo(ipModulo string, puertoModulo int, body io.Reader, endPoint s
 }
 
 func GenerarNombreArchivo(pid int, tid int) string {
-	
+
 	timestamp := time.Now().Format("20060102-150405")
-	
+
 	return fmt.Sprintf("%d-%d-%s.dmp", pid, tid, timestamp)
 }
