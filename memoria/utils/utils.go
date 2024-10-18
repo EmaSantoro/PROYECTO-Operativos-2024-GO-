@@ -442,6 +442,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		if numeroDeParticion == -1 {
 			if espacioLibreSuficiente(process.Size) { //funcion que me devuelve true o false si hay espacio suficiente sumando todas las particiones libres
 				compactarLasParticiones() //compacto las particiones libres
+				actualizarBasesYLímites() //actualizo las bases y limites
 				numeroDeParticion = asignarPorAlgoritmo(algoritmoBusqueda, process.Size)
 			} else {
 				http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
@@ -551,6 +552,31 @@ func subdividirParticion(numeroDeParticion, processSize int) {
 	if espacioRestante > 0 {
 		particiones = append(particiones, espacioRestante) //agrego la nueva particion al vector de particiones
 		mapParticiones = append(mapParticiones, false)     // y esta nueva particion va a estar libre para ser la proxima a usar
+	}
+}
+
+func actualizarBasesYLímites() {
+	baseAcumulada := 0
+
+	for i := 0; i < len(particiones); i++ {
+		if mapParticiones[i] { // Si la partición está ocupada
+			for pcb, particion := range mapPCBPorParticion {
+				if particion == i {
+					// Actualizar la base y el límite
+					pcb.Base = uint32(baseAcumulada)
+					pcb.Limit = uint32(baseAcumulada + particiones[i] - 1)
+
+					// Actualizar en el mapa PID -> Base/Limit
+					mapPIDxBaseLimit[pcb.Pid] = Valor{
+						Base:  pcb.Base,
+						Limit: pcb.Limit,
+					}
+
+					// Incrementar la base acumulada
+					baseAcumulada += particiones[i]
+				}
+			}
+		}
 	}
 }
 
