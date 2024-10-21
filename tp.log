@@ -10405,3 +10405,618 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/21 11:28:41 ## Contexto Actualizado - (PID:TID) - (1:0)
 2024/10/21 11:28:41 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
 2024/10/21 11:28:41 Funciona ok el realizar interrupcion
+2024/10/21 11:38:10 Pid: 1
+2024/10/21 11:38:10 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/21 11:38:11 cree el hilo PID:1 TID:0
+2024/10/21 11:38:11 Cargando archivo desde: procesoInicial
+2024/10/21 11:38:12 Actualizando instrucciones en el mapa
+2024/10/21 11:38:12 Carga de instrucciones finalizada
+2024/10/21 11:38:12 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/21 11:38:12 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 11:38:12 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 11:38:12 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 11:38:12 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/21 11:38:13 Pid 1 y Tid 0 encontrados
+2024/10/21 11:38:13 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/21 11:38:13 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 11:38:13 Instrucción solicitada de PID: 1, TID: 0, PC: 0
+2024/10/21 11:38:13 Entrando a GetInstruction
+2024/10/21 11:38:14 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET DX 19
+2024/10/21 11:38:14 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 11:38:14 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [DX 19]
+2024/10/21 11:38:14 Antes de modificar el valor 
+2024/10/21 11:38:14 Registro obtenido
+2024/10/21 11:38:14 ## TID: 0 - Ejecutando: SET - Parámetros: [DX 19]
+2024/10/21 11:38:14 Instrucción solicitada de PID: 1, TID: 0, PC: 1
+2024/10/21 11:38:14 Entrando a GetInstruction
+2024/10/21 11:38:15 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ DX 5
+2024/10/21 11:38:15 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 11:38:15 Instrucción decodificada: INSTUCCIÓN = JNZ, PARÁMETROS = [DX 5]
+2024/10/21 11:38:15 El valor de el registro es 19
+2024/10/21 11:38:15 Registro obtenido
+2024/10/21 11:38:15 ## TID: 0 - Ejecutando: JNZ - Parámetros: [DX 5]
+2024/10/21 11:38:15 Instrucción solicitada de PID: 1, TID: 0, PC: 5
+2024/10/21 11:38:15 Entrando a GetInstruction
+2024/10/21 11:38:16 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/21 11:38:16 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/21 11:38:16 Instrucción decodificada: INSTUCCIÓN = IO, PARÁMETROS = [1500]
+2024/10/21 11:38:17 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 11:38:17 TID actualizar : 0
+2024/10/21 11:38:17 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 11:38:17 Contexto = map[{1 0 0 0 0 19 0 0 0 0 6}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 11:38:17 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/21 11:38:17 Recibe bien interrupcion
+2024/10/21 11:38:17 Envia interrupcion de finalizacion 
+2024/10/21 11:38:17 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/21 11:38:17 ## TID: 0 - Ejecutando: IO - Parámetros: [1500]
+2024/10/21 11:38:18 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 11:38:18 TID actualizar : 0
+2024/10/21 11:38:18 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 11:38:18 Contexto = map[{1 0 0 0 0 19 0 0 0 0 6}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 11:38:18 Funciona ok el realizar interrupcion
+2024/10/21 11:38:18 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 11:38:18 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 11:38:18 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 11:38:18 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 11:38:18 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/21 11:38:19 Pid 1 y Tid 0 encontrados
+2024/10/21 11:38:19 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/21 11:38:19 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 11:38:19 Instrucción solicitada de PID: 1, TID: 0, PC: 6
+2024/10/21 11:38:19 Entrando a GetInstruction
+2024/10/21 11:38:20 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/21 11:38:20 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/21 11:38:20 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [AX 15]
+2024/10/21 11:38:20 Antes de modificar el valor 
+2024/10/21 11:38:20 Registro obtenido
+2024/10/21 11:38:20 ## TID: 0 - Ejecutando: SET - Parámetros: [AX 15]
+2024/10/21 11:38:20 Instrucción solicitada de PID: 1, TID: 0, PC: 7
+2024/10/21 11:38:20 Entrando a GetInstruction
+2024/10/21 11:38:21 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 16
+2024/10/21 11:38:21 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/21 11:38:21 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [BX 16]
+2024/10/21 11:38:21 Antes de modificar el valor 
+2024/10/21 11:38:21 Registro obtenido
+2024/10/21 11:38:21 ## TID: 0 - Ejecutando: SET - Parámetros: [BX 16]
+2024/10/21 11:38:21 Instrucción solicitada de PID: 1, TID: 0, PC: 8
+2024/10/21 11:38:21 Entrando a GetInstruction
+2024/10/21 11:38:22 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/21 11:38:22 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/21 11:38:22 Instrucción decodificada: INSTUCCIÓN = SUM, PARÁMETROS = [AX BX]
+2024/10/21 11:38:22 Registro obtenido
+2024/10/21 11:38:22 ## TID: 0 - Ejecutando: SUM - Parámetros: [AX BX]
+2024/10/21 11:38:22 Instrucción solicitada de PID: 1, TID: 0, PC: 9
+2024/10/21 11:38:22 Entrando a GetInstruction
+2024/10/21 11:38:23 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/21 11:38:23 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/21 11:38:23 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [CX 1]
+2024/10/21 11:38:23 Antes de modificar el valor 
+2024/10/21 11:38:23 Registro obtenido
+2024/10/21 11:38:23 ## TID: 0 - Ejecutando: SET - Parámetros: [CX 1]
+2024/10/21 11:38:23 Instrucción solicitada de PID: 1, TID: 0, PC: 10
+2024/10/21 11:38:23 Entrando a GetInstruction
+2024/10/21 11:38:24 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/21 11:38:24 PID: 1 TID: 0 - FETCH - Program Counter: 10
+2024/10/21 11:38:24 Instrucción decodificada: INSTUCCIÓN = WRITE_MEM, PARÁMETROS = [CX AX]
+2024/10/21 11:38:24 Se va a escribir %v[31 0 0 0]
+2024/10/21 11:38:24 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/21 11:38:24 Enviando a memoria write_memory
+2024/10/21 11:38:24 Enters to Write Memory Handler
+2024/10/21 11:38:25 Intenta escribir memoria
+2024/10/21 11:38:25 Accediendo a Write Memory
+2024/10/21 11:38:25 Salida de Write Memory, datos escritos: [31 0 0 0]
+2024/10/21 11:38:25 ## TID: 0 - Ejecutando: WRITE_MEM - Parámetros: [CX AX]
+2024/10/21 11:38:25 Instrucción solicitada de PID: 1, TID: 0, PC: 11
+2024/10/21 11:38:25 Entrando a GetInstruction
+2024/10/21 11:38:26 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: READ_MEM BX CX
+2024/10/21 11:38:26 PID: 1 TID: 0 - FETCH - Program Counter: 11
+2024/10/21 11:38:26 Instrucción decodificada: INSTUCCIÓN = READ_MEM, PARÁMETROS = [BX CX]
+2024/10/21 11:38:26 Leer memoria con direccion fisica 1
+2024/10/21 11:38:26 Iniciando handler para lectura de memoria
+2024/10/21 11:38:27 Leyendo memoria...
+2024/10/21 11:38:27 Accediendo a readMemory
+2024/10/21 11:38:27 Datos leídos con éxito
+2024/10/21 11:38:27 Datos enviados al CPU
+2024/10/21 11:38:27 Data A escribir  : 31
+2024/10/21 11:38:27 Registro obtenido
+2024/10/21 11:38:27 ## TID: 0 - Ejecutando: READ_MEM - Parámetros: [BX CX]
+2024/10/21 11:38:27 Instrucción solicitada de PID: 1, TID: 0, PC: 12
+2024/10/21 11:38:27 Entrando a GetInstruction
+2024/10/21 11:38:28 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/21 11:38:28 PID: 1 TID: 0 - FETCH - Program Counter: 12
+2024/10/21 11:38:28 Instrucción decodificada: INSTUCCIÓN = PROCESS_EXIT, PARÁMETROS = []
+2024/10/21 11:38:28 Finalizar proceos PID : 1 
+2024/10/21 11:38:29 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 11:38:29 TID actualizar : 0
+2024/10/21 11:38:29 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 11:38:29 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 11:38:29 Enviando a kernel syscall
+2024/10/21 11:38:29 Entra a exit process
+2024/10/21 11:38:29 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 11:38:29  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 11:38:29 Recibe bien interrupcion
+2024/10/21 11:38:29 Envia interrupcion de finalizacion 
+2024/10/21 11:38:29 Entra a exitHilo
+2024/10/21 11:38:29  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 11:38:29 Recibe bien interrupcion
+2024/10/21 11:38:29 Envia interrupcion de finalizacion 
+2024/10/21 11:38:29 Hilo encolado en exit
+2024/10/21 11:38:29 Entra a envio hilo finalizado a memoria 
+2024/10/21 11:38:29 Codificando mensaje
+2024/10/21 11:38:29 ENTRO A TERMINATE THREAD
+2024/10/21 11:38:30 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/21 11:38:30 Envio mensaje 
+2024/10/21 11:38:30 analizo repuesta de envio a memoria
+2024/10/21 11:38:30 Envio a memoria del proceso exitoso
+2024/10/21 11:38:30 Enviado hilo finalizado a memoria 
+2024/10/21 11:38:30 Enviando proceso a memoria 
+2024/10/21 11:38:30 Entra a terminate process
+2024/10/21 11:38:30 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/21 11:38:30 Proceso terminado existosamente llevado a memoria 
+2024/10/21 11:38:30 Proceso finalizado existosamente
+2024/10/21 11:38:30 Syscall se ejecuto correctamente
+2024/10/21 11:38:30 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parámetros: []
+2024/10/21 11:38:31 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 11:38:31 TID actualizar : 0
+2024/10/21 11:38:31 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 11:38:31 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 11:38:31 Funciona ok el realizar interrupcion
+2024/10/21 11:44:17 Pid: 1
+2024/10/21 11:44:17 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/21 11:44:18 cree el hilo PID:1 TID:0
+2024/10/21 11:44:18 Cargando archivo desde: procesoInicial
+2024/10/21 11:44:19 Actualizando instrucciones en el mapa
+2024/10/21 11:44:19 Carga de instrucciones finalizada
+2024/10/21 11:44:19 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/21 11:44:19 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 11:44:19 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 11:44:19 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 11:44:19 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/21 11:44:20 Pid 1 y Tid 0 encontrados
+2024/10/21 11:44:20 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/21 11:44:20 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 11:44:20 Instrucción solicitada de PID: 1, TID: 0, PC: 0
+2024/10/21 11:44:20 Entrando a GetInstruction
+2024/10/21 11:44:21 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET DX 19
+2024/10/21 11:44:21 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 11:44:21 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [DX 19]
+2024/10/21 11:44:21 Antes de modificar el valor 
+2024/10/21 11:44:21 Registro obtenido
+2024/10/21 11:44:21 ## TID: 0 - Ejecutando: SET - Parámetros: [DX 19]
+2024/10/21 11:44:21 Instrucción solicitada de PID: 1, TID: 0, PC: 1
+2024/10/21 11:44:21 Entrando a GetInstruction
+2024/10/21 11:44:22 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ DX 5
+2024/10/21 11:44:22 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 11:44:22 Instrucción decodificada: INSTUCCIÓN = JNZ, PARÁMETROS = [DX 5]
+2024/10/21 11:44:22 El valor de el registro es 19
+2024/10/21 11:44:22 Registro obtenido
+2024/10/21 11:44:22 ## TID: 0 - Ejecutando: JNZ - Parámetros: [DX 5]
+2024/10/21 11:44:22 Instrucción solicitada de PID: 1, TID: 0, PC: 5
+2024/10/21 11:44:22 Entrando a GetInstruction
+2024/10/21 11:44:23 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/21 11:44:23 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/21 11:44:23 Instrucción decodificada: INSTUCCIÓN = IO, PARÁMETROS = [1500]
+2024/10/21 11:44:24 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 11:44:24 TID actualizar : 0
+2024/10/21 11:44:24 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 11:44:24 Contexto = map[{1 0 0 0 0 19 0 0 0 0 6}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 11:44:24 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/21 11:44:24 Recibe bien interrupcion
+2024/10/21 11:44:24 Envia interrupcion de finalizacion 
+2024/10/21 11:44:24 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/21 11:44:24 ## TID: 0 - Ejecutando: IO - Parámetros: [1500]
+2024/10/21 11:44:25 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 11:44:25 TID actualizar : 0
+2024/10/21 11:44:25 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 11:44:25 Contexto = map[{1 0 0 0 0 19 0 0 0 0 6}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 11:44:25 Funciona ok el realizar interrupcion
+2024/10/21 11:44:25 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 11:44:25 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 11:44:25 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 11:44:25 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 11:44:25 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/21 11:44:26 Pid 1 y Tid 0 encontrados
+2024/10/21 11:44:26 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/21 11:44:26 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 11:44:26 Instrucción solicitada de PID: 1, TID: 0, PC: 6
+2024/10/21 11:44:26 Entrando a GetInstruction
+2024/10/21 11:44:27 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/21 11:44:27 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/21 11:44:27 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [AX 15]
+2024/10/21 11:44:27 Antes de modificar el valor 
+2024/10/21 11:44:27 Registro obtenido
+2024/10/21 11:44:27 ## TID: 0 - Ejecutando: SET - Parámetros: [AX 15]
+2024/10/21 11:44:27 Instrucción solicitada de PID: 1, TID: 0, PC: 7
+2024/10/21 11:44:27 Entrando a GetInstruction
+2024/10/21 11:44:28 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 16
+2024/10/21 11:44:28 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/21 11:44:28 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [BX 16]
+2024/10/21 11:44:28 Antes de modificar el valor 
+2024/10/21 11:44:28 Registro obtenido
+2024/10/21 11:44:28 ## TID: 0 - Ejecutando: SET - Parámetros: [BX 16]
+2024/10/21 11:44:28 Instrucción solicitada de PID: 1, TID: 0, PC: 8
+2024/10/21 11:44:28 Entrando a GetInstruction
+2024/10/21 11:44:29 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/21 11:44:29 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/21 11:44:29 Instrucción decodificada: INSTUCCIÓN = SUM, PARÁMETROS = [AX BX]
+2024/10/21 11:44:29 Registro obtenido
+2024/10/21 11:44:29 ## TID: 0 - Ejecutando: SUM - Parámetros: [AX BX]
+2024/10/21 11:44:29 Instrucción solicitada de PID: 1, TID: 0, PC: 9
+2024/10/21 11:44:29 Entrando a GetInstruction
+2024/10/21 11:44:30 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/21 11:44:30 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/21 11:44:30 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [CX 1]
+2024/10/21 11:44:30 Antes de modificar el valor 
+2024/10/21 11:44:30 Registro obtenido
+2024/10/21 11:44:30 ## TID: 0 - Ejecutando: SET - Parámetros: [CX 1]
+2024/10/21 11:44:30 Instrucción solicitada de PID: 1, TID: 0, PC: 10
+2024/10/21 11:44:30 Entrando a GetInstruction
+2024/10/21 11:44:31 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/21 11:44:31 PID: 1 TID: 0 - FETCH - Program Counter: 10
+2024/10/21 11:44:31 Instrucción decodificada: INSTUCCIÓN = WRITE_MEM, PARÁMETROS = [CX AX]
+2024/10/21 11:44:31 Se va a escribir %v[31 0 0 0]
+2024/10/21 11:44:31 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/21 11:44:31 Enviando a memoria write_memory
+2024/10/21 11:44:31 Enters to Write Memory Handler
+2024/10/21 11:44:32 Intenta escribir memoria
+2024/10/21 11:44:32 Accediendo a Write Memory
+2024/10/21 11:44:32 Salida de Write Memory, datos escritos: [31 0 0 0]
+2024/10/21 11:44:32 ## TID: 0 - Ejecutando: WRITE_MEM - Parámetros: [CX AX]
+2024/10/21 11:44:32 Instrucción solicitada de PID: 1, TID: 0, PC: 11
+2024/10/21 11:44:32 Entrando a GetInstruction
+2024/10/21 11:44:33 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: READ_MEM BX CX
+2024/10/21 11:44:33 PID: 1 TID: 0 - FETCH - Program Counter: 11
+2024/10/21 11:44:33 Instrucción decodificada: INSTUCCIÓN = READ_MEM, PARÁMETROS = [BX CX]
+2024/10/21 11:44:33 Leer memoria con direccion fisica 1
+2024/10/21 11:44:33 Iniciando handler para lectura de memoria
+2024/10/21 11:44:34 Leyendo memoria...
+2024/10/21 11:44:34 Accediendo a readMemory
+2024/10/21 11:44:34 Datos leídos con éxito
+2024/10/21 11:44:34 Datos enviados al CPU
+2024/10/21 11:44:34 Data A escribir  : 31
+2024/10/21 11:44:34 Registro obtenido
+2024/10/21 11:44:34 ## TID: 0 - Ejecutando: READ_MEM - Parámetros: [BX CX]
+2024/10/21 11:44:34 Instrucción solicitada de PID: 1, TID: 0, PC: 12
+2024/10/21 11:44:34 Entrando a GetInstruction
+2024/10/21 11:44:35 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/21 11:44:35 PID: 1 TID: 0 - FETCH - Program Counter: 12
+2024/10/21 11:44:35 Instrucción decodificada: INSTUCCIÓN = PROCESS_EXIT, PARÁMETROS = []
+2024/10/21 11:44:35 Finalizar proceos PID : 1 
+2024/10/21 11:44:36 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 11:44:36 TID actualizar : 0
+2024/10/21 11:44:36 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 11:44:36 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 11:44:36 Enviando a kernel syscall
+2024/10/21 11:44:36 Entra a exit process
+2024/10/21 11:44:36 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 11:44:36  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 11:44:36 Recibe bien interrupcion
+2024/10/21 11:44:36 Envia interrupcion de finalizacion 
+2024/10/21 11:44:36 Entra a exitHilo
+2024/10/21 11:44:36  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 11:44:36 Recibe bien interrupcion
+2024/10/21 11:44:36 Envia interrupcion de finalizacion 
+2024/10/21 11:44:36 Hilo encolado en exit
+2024/10/21 11:44:36 Entra a envio hilo finalizado a memoria 
+2024/10/21 11:44:36 Codificando mensaje
+2024/10/21 11:44:36 ENTRO A TERMINATE THREAD
+2024/10/21 11:44:37 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/21 11:44:37 Envio mensaje 
+2024/10/21 11:44:37 analizo repuesta de envio a memoria
+2024/10/21 11:44:37 Envio a memoria del proceso exitoso
+2024/10/21 11:44:37 Enviado hilo finalizado a memoria 
+2024/10/21 11:44:37 Enviando proceso a memoria 
+2024/10/21 11:44:37 Entra a terminate process
+2024/10/21 11:44:37 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/21 11:44:37 Proceso terminado existosamente llevado a memoria 
+2024/10/21 11:44:37 Proceso finalizado existosamente
+2024/10/21 11:44:37 Syscall se ejecuto correctamente
+2024/10/21 11:44:37 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parámetros: []
+2024/10/21 11:44:38 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 11:44:38 TID actualizar : 0
+2024/10/21 11:44:38 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 11:44:38 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 11:44:38 Funciona ok el realizar interrupcion
+2024/10/21 12:03:47 Pid: 1
+2024/10/21 12:03:47 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/21 12:03:48 cree el hilo PID:1 TID:0
+2024/10/21 12:03:48 Cargando archivo desde: procesoInicial
+2024/10/21 12:03:49 Actualizando instrucciones en el mapa
+2024/10/21 12:03:49 Carga de instrucciones finalizada
+2024/10/21 12:03:49 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/21 12:03:49 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 12:03:49 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 12:03:49 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 12:03:49 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/21 12:03:50 Pid 1 y Tid 0 encontrados
+2024/10/21 12:03:50 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/21 12:03:50 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 12:03:50 Instrucción solicitada de PID: 1, TID: 0, PC: 0
+2024/10/21 12:03:50 Entrando a GetInstruction
+2024/10/21 12:03:51 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET DX 19
+2024/10/21 12:03:51 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 12:03:51 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [DX 19]
+2024/10/21 12:03:51 Antes de modificar el valor 
+2024/10/21 12:03:51 Registro obtenido
+2024/10/21 12:03:51 ## TID: 0 - Ejecutando: SET - Parámetros: [DX 19]
+2024/10/21 12:03:51 Instrucción solicitada de PID: 1, TID: 0, PC: 1
+2024/10/21 12:03:51 Entrando a GetInstruction
+2024/10/21 12:03:52 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ DX 5
+2024/10/21 12:03:52 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 12:03:52 Instrucción decodificada: INSTUCCIÓN = JNZ, PARÁMETROS = [DX 5]
+2024/10/21 12:03:52 El valor de el registro es 19
+2024/10/21 12:03:52 Registro obtenido
+2024/10/21 12:03:52 ## TID: 0 - Ejecutando: JNZ - Parámetros: [DX 5]
+2024/10/21 12:03:52 Instrucción solicitada de PID: 1, TID: 0, PC: 5
+2024/10/21 12:03:52 Entrando a GetInstruction
+2024/10/21 12:03:53 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/21 12:03:53 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/21 12:03:53 Instrucción decodificada: INSTUCCIÓN = IO, PARÁMETROS = [1500]
+2024/10/21 12:03:54 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 12:03:54 TID actualizar : 0
+2024/10/21 12:03:54 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 12:03:54 Contexto = map[{1 0 0 0 0 19 0 0 0 0 6}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 12:03:54 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/21 12:03:54 Recibe bien interrupcion
+2024/10/21 12:03:54 Envia interrupcion de finalizacion 
+2024/10/21 12:03:54 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/21 12:03:54 ## TID: 0 - Ejecutando: IO - Parámetros: [1500]
+2024/10/21 12:03:55 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 12:03:55 TID actualizar : 0
+2024/10/21 12:03:55 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 12:03:55 Contexto = map[{1 0 0 0 0 19 0 0 0 0 6}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 12:03:55 Funciona ok el realizar interrupcion
+2024/10/21 12:03:56 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 12:03:56 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 12:03:56 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 12:03:56 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 12:03:56 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/21 12:03:57 Pid 1 y Tid 0 encontrados
+2024/10/21 12:03:57 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/21 12:03:57 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 12:03:57 Instrucción solicitada de PID: 1, TID: 0, PC: 6
+2024/10/21 12:03:57 Entrando a GetInstruction
+2024/10/21 12:03:58 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/21 12:03:58 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/21 12:03:58 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [AX 15]
+2024/10/21 12:03:58 Antes de modificar el valor 
+2024/10/21 12:03:58 Registro obtenido
+2024/10/21 12:03:58 ## TID: 0 - Ejecutando: SET - Parámetros: [AX 15]
+2024/10/21 12:03:58 Instrucción solicitada de PID: 1, TID: 0, PC: 7
+2024/10/21 12:03:58 Entrando a GetInstruction
+2024/10/21 12:03:59 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 16
+2024/10/21 12:03:59 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/21 12:03:59 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [BX 16]
+2024/10/21 12:03:59 Antes de modificar el valor 
+2024/10/21 12:03:59 Registro obtenido
+2024/10/21 12:03:59 ## TID: 0 - Ejecutando: SET - Parámetros: [BX 16]
+2024/10/21 12:03:59 Instrucción solicitada de PID: 1, TID: 0, PC: 8
+2024/10/21 12:03:59 Entrando a GetInstruction
+2024/10/21 12:04:00 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/21 12:04:00 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/21 12:04:00 Instrucción decodificada: INSTUCCIÓN = SUM, PARÁMETROS = [AX BX]
+2024/10/21 12:04:00 Registro obtenido
+2024/10/21 12:04:00 ## TID: 0 - Ejecutando: SUM - Parámetros: [AX BX]
+2024/10/21 12:04:00 Instrucción solicitada de PID: 1, TID: 0, PC: 9
+2024/10/21 12:04:00 Entrando a GetInstruction
+2024/10/21 12:04:01 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/21 12:04:01 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/21 12:04:01 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [CX 1]
+2024/10/21 12:04:01 Antes de modificar el valor 
+2024/10/21 12:04:01 Registro obtenido
+2024/10/21 12:04:01 ## TID: 0 - Ejecutando: SET - Parámetros: [CX 1]
+2024/10/21 12:04:01 Instrucción solicitada de PID: 1, TID: 0, PC: 10
+2024/10/21 12:04:01 Entrando a GetInstruction
+2024/10/21 12:04:02 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/21 12:04:02 PID: 1 TID: 0 - FETCH - Program Counter: 10
+2024/10/21 12:04:02 Instrucción decodificada: INSTUCCIÓN = WRITE_MEM, PARÁMETROS = [CX AX]
+2024/10/21 12:04:02 Escribiendo datos: [31 0 0 0] (longitud: 4)
+2024/10/21 12:04:02 Enviando a memoria write_memory
+2024/10/21 12:04:02 Enters to Write Memory Handler
+2024/10/21 12:04:03 Intenta escribir memoria
+2024/10/21 12:04:03 Accediendo a Write Memory
+2024/10/21 12:04:03 Salida de Write Memory, datos escritos: [31 0 0 0]
+2024/10/21 12:04:03 ## TID: 0 - Ejecutando: WRITE_MEM - Parámetros: [CX AX]
+2024/10/21 12:04:03 Instrucción solicitada de PID: 1, TID: 0, PC: 11
+2024/10/21 12:04:03 Entrando a GetInstruction
+2024/10/21 12:04:04 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: READ_MEM BX CX
+2024/10/21 12:04:04 PID: 1 TID: 0 - FETCH - Program Counter: 11
+2024/10/21 12:04:04 Instrucción decodificada: INSTUCCIÓN = READ_MEM, PARÁMETROS = [BX CX]
+2024/10/21 12:04:04 Leer memoria con dirección física: 1
+2024/10/21 12:04:04 Iniciando handler para lectura de memoria
+2024/10/21 12:04:05 Leyendo memoria...
+2024/10/21 12:04:05 Accediendo a readMemory
+2024/10/21 12:04:05 Datos leídos con éxito
+2024/10/21 12:04:05 Datos enviados al CPU
+2024/10/21 12:04:05 Datos a escribir: 31
+2024/10/21 12:04:05 Registro obtenido
+2024/10/21 12:04:05 ## TID: 0 - Ejecutando: READ_MEM - Parámetros: [BX CX]
+2024/10/21 12:04:05 Instrucción solicitada de PID: 1, TID: 0, PC: 12
+2024/10/21 12:04:05 Entrando a GetInstruction
+2024/10/21 12:04:06 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/21 12:04:06 PID: 1 TID: 0 - FETCH - Program Counter: 12
+2024/10/21 12:04:06 Instrucción decodificada: INSTUCCIÓN = PROCESS_EXIT, PARÁMETROS = []
+2024/10/21 12:04:06 Finalizar proceos PID : 1 
+2024/10/21 12:04:07 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 12:04:07 TID actualizar : 0
+2024/10/21 12:04:07 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 12:04:07 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 12:04:07 Enviando a kernel syscall
+2024/10/21 12:04:07 Entra a exit process
+2024/10/21 12:04:07 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 12:04:07  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 12:04:07 Recibe bien interrupcion
+2024/10/21 12:04:07 Envia interrupcion de finalizacion 
+2024/10/21 12:04:07 Entra a exitHilo
+2024/10/21 12:04:07  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 12:04:07 Recibe bien interrupcion
+2024/10/21 12:04:07 Envia interrupcion de finalizacion 
+2024/10/21 12:04:07 Hilo encolado en exit
+2024/10/21 12:04:07 Entra a envio hilo finalizado a memoria 
+2024/10/21 12:04:07 Codificando mensaje
+2024/10/21 12:04:07 ENTRO A TERMINATE THREAD
+2024/10/21 12:04:08 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/21 12:04:08 Envio mensaje 
+2024/10/21 12:04:08 analizo repuesta de envio a memoria
+2024/10/21 12:04:08 Envio a memoria del proceso exitoso
+2024/10/21 12:04:08 Enviado hilo finalizado a memoria 
+2024/10/21 12:04:08 Enviando proceso a memoria 
+2024/10/21 12:04:08 Entra a terminate process
+2024/10/21 12:04:08 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/21 12:04:08 Proceso terminado existosamente llevado a memoria 
+2024/10/21 12:04:08 Proceso finalizado existosamente
+2024/10/21 12:04:08 Syscall se ejecuto correctamente
+2024/10/21 12:04:08 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parámetros: []
+2024/10/21 12:04:09 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 12:04:09 TID actualizar : 0
+2024/10/21 12:04:09 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 12:04:09 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 12:04:09 Funciona ok el realizar interrupcion
+2024/10/21 12:32:13 Pid: 1
+2024/10/21 12:32:13 ## Proceso Creado - PID: 1 - Tamaño: 0
+2024/10/21 12:32:14 cree el hilo PID:1 TID:0
+2024/10/21 12:32:14 Cargando archivo desde: procesoInicial
+2024/10/21 12:32:15 Actualizando instrucciones en el mapa
+2024/10/21 12:32:15 Carga de instrucciones finalizada
+2024/10/21 12:32:15 ## Hilo Creado - (PID:TID) - (1:0)
+2024/10/21 12:32:15 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 12:32:15 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 12:32:15 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 12:32:15 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/21 12:32:16 Pid 1 y Tid 0 encontrados
+2024/10/21 12:32:16 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/21 12:32:16 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 12:32:16 Instrucción solicitada de PID: 1, TID: 0, PC: 0
+2024/10/21 12:32:16 Entrando a GetInstruction
+2024/10/21 12:32:17 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET DX 19
+2024/10/21 12:32:17 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 12:32:17 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [DX 19]
+2024/10/21 12:32:17 Antes de modificar el valor 
+2024/10/21 12:32:17 ## TID: 0 - Ejecutando: SET - Parámetros: [DX 19]
+2024/10/21 12:32:17 Instrucción solicitada de PID: 1, TID: 0, PC: 1
+2024/10/21 12:32:17 Entrando a GetInstruction
+2024/10/21 12:32:18 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: JNZ DX 5
+2024/10/21 12:32:18 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 12:32:18 Instrucción decodificada: INSTUCCIÓN = JNZ, PARÁMETROS = [DX 5]
+2024/10/21 12:32:18 El valor de el registro es 19
+2024/10/21 12:32:18 ## TID: 0 - Ejecutando: JNZ - Parámetros: [DX 5]
+2024/10/21 12:32:18 Instrucción solicitada de PID: 1, TID: 0, PC: 5
+2024/10/21 12:32:18 Entrando a GetInstruction
+2024/10/21 12:32:19 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: IO 1500
+2024/10/21 12:32:19 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/21 12:32:19 Instrucción decodificada: INSTUCCIÓN = IO, PARÁMETROS = [1500]
+2024/10/21 12:32:20 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 12:32:20 TID actualizar : 0
+2024/10/21 12:32:20 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 12:32:20 Contexto = map[{1 0 0 0 0 19 0 0 0 0 6}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 12:32:20 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/21 12:32:20 Interrupción recibida correctamente
+2024/10/21 12:32:20 Envia interrupcion de finalizacion 
+2024/10/21 12:32:20 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/21 12:32:20 ## TID: 0 - Ejecutando: IO - Parámetros: [1500]
+2024/10/21 12:32:21 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 12:32:21 TID actualizar : 0
+2024/10/21 12:32:21 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 12:32:21 Contexto = map[{1 0 0 0 0 19 0 0 0 0 6}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 12:32:21 Funciona ok el realizar interrupcion
+2024/10/21 12:32:22 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 12:32:22 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 12:32:22 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 12:32:22 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 12:32:22 PCB : 1 TID : 0 - me llegaron estos valores
+2024/10/21 12:32:23 Pid 1 y Tid 0 encontrados
+2024/10/21 12:32:23 ## Contexto <Solicitado> - (PID:TID) - (1:0)
+2024/10/21 12:32:23 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 12:32:23 Instrucción solicitada de PID: 1, TID: 0, PC: 6
+2024/10/21 12:32:23 Entrando a GetInstruction
+2024/10/21 12:32:24 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET AX 15
+2024/10/21 12:32:24 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/21 12:32:24 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [AX 15]
+2024/10/21 12:32:24 Antes de modificar el valor 
+2024/10/21 12:32:24 ## TID: 0 - Ejecutando: SET - Parámetros: [AX 15]
+2024/10/21 12:32:24 Instrucción solicitada de PID: 1, TID: 0, PC: 7
+2024/10/21 12:32:24 Entrando a GetInstruction
+2024/10/21 12:32:25 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET BX 16
+2024/10/21 12:32:25 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/21 12:32:25 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [BX 16]
+2024/10/21 12:32:25 Antes de modificar el valor 
+2024/10/21 12:32:25 ## TID: 0 - Ejecutando: SET - Parámetros: [BX 16]
+2024/10/21 12:32:25 Instrucción solicitada de PID: 1, TID: 0, PC: 8
+2024/10/21 12:32:25 Entrando a GetInstruction
+2024/10/21 12:32:26 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SUM AX BX
+2024/10/21 12:32:26 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/21 12:32:26 Instrucción decodificada: INSTUCCIÓN = SUM, PARÁMETROS = [AX BX]
+2024/10/21 12:32:26 ## TID: 0 - Ejecutando: SUM - Parámetros: [AX BX]
+2024/10/21 12:32:26 Instrucción solicitada de PID: 1, TID: 0, PC: 9
+2024/10/21 12:32:26 Entrando a GetInstruction
+2024/10/21 12:32:27 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: SET CX 1
+2024/10/21 12:32:27 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/21 12:32:27 Instrucción decodificada: INSTUCCIÓN = SET, PARÁMETROS = [CX 1]
+2024/10/21 12:32:27 Antes de modificar el valor 
+2024/10/21 12:32:27 ## TID: 0 - Ejecutando: SET - Parámetros: [CX 1]
+2024/10/21 12:32:27 Instrucción solicitada de PID: 1, TID: 0, PC: 10
+2024/10/21 12:32:27 Entrando a GetInstruction
+2024/10/21 12:32:28 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: WRITE_MEM CX AX
+2024/10/21 12:32:28 PID: 1 TID: 0 - FETCH - Program Counter: 10
+2024/10/21 12:32:28 Instrucción decodificada: INSTUCCIÓN = WRITE_MEM, PARÁMETROS = [CX AX]
+2024/10/21 12:32:28 Escribiendo datos: [31 0 0 0] (longitud: 4)
+2024/10/21 12:32:28 Enviando a memoria write_memory
+2024/10/21 12:32:28 Enters to Write Memory Handler
+2024/10/21 12:32:29 Intenta escribir memoria
+2024/10/21 12:32:29 Accediendo a Write Memory
+2024/10/21 12:32:29 Salida de Write Memory, datos escritos: [31 0 0 0]
+2024/10/21 12:32:29 ## TID: 0 - Ejecutando: WRITE_MEM - Parámetros: [CX AX]
+2024/10/21 12:32:29 Instrucción solicitada de PID: 1, TID: 0, PC: 11
+2024/10/21 12:32:29 Entrando a GetInstruction
+2024/10/21 12:32:30 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: READ_MEM BX CX
+2024/10/21 12:32:30 PID: 1 TID: 0 - FETCH - Program Counter: 11
+2024/10/21 12:32:30 Instrucción decodificada: INSTUCCIÓN = READ_MEM, PARÁMETROS = [BX CX]
+2024/10/21 12:32:30 Leer memoria con dirección física: 1
+2024/10/21 12:32:30 Iniciando handler para lectura de memoria
+2024/10/21 12:32:31 Leyendo memoria...
+2024/10/21 12:32:31 Accediendo a readMemory
+2024/10/21 12:32:31 Datos leídos con éxito
+2024/10/21 12:32:31 Datos enviados al CPU
+2024/10/21 12:32:31 Datos a escribir: 31
+2024/10/21 12:32:31 ## TID: 0 - Ejecutando: READ_MEM - Parámetros: [BX CX]
+2024/10/21 12:32:31 Instrucción solicitada de PID: 1, TID: 0, PC: 12
+2024/10/21 12:32:31 Entrando a GetInstruction
+2024/10/21 12:32:32 ## Obtener instrucción - (PID:TID) - (1:0) - Instrucción: PROCESS_EXIT
+2024/10/21 12:32:32 PID: 1 TID: 0 - FETCH - Program Counter: 12
+2024/10/21 12:32:32 Instrucción decodificada: INSTUCCIÓN = PROCESS_EXIT, PARÁMETROS = []
+2024/10/21 12:32:32 Finalizando proceso PID: 1
+2024/10/21 12:32:33 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 12:32:33 TID actualizar : 0
+2024/10/21 12:32:33 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 12:32:33 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 12:32:33 Enviando syscall al kernel
+2024/10/21 12:32:33 Entra a exit process
+2024/10/21 12:32:33 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 12:32:33  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 12:32:33 Interrupción recibida correctamente
+2024/10/21 12:32:33 Envia interrupcion de finalizacion 
+2024/10/21 12:32:33 Entra a exitHilo
+2024/10/21 12:32:33  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 12:32:33 Interrupción recibida correctamente
+2024/10/21 12:32:33 Envia interrupcion de finalizacion 
+2024/10/21 12:32:33 Hilo encolado en exit
+2024/10/21 12:32:33 Entra a envio hilo finalizado a memoria 
+2024/10/21 12:32:33 Codificando mensaje
+2024/10/21 12:32:33 ENTRO A TERMINATE THREAD
+2024/10/21 12:32:34 ## Hilo Destruido - (PID:TID) - (1:0)
+2024/10/21 12:32:34 Envio mensaje 
+2024/10/21 12:32:34 analizo repuesta de envio a memoria
+2024/10/21 12:32:34 Envio a memoria del proceso exitoso
+2024/10/21 12:32:34 Enviado hilo finalizado a memoria 
+2024/10/21 12:32:34 Enviando proceso a memoria 
+2024/10/21 12:32:34 Entra a terminate process
+2024/10/21 12:32:34 ## Proceso Destruido - PID: 1 - Tamaño: 512
+2024/10/21 12:32:34 Proceso terminado existosamente llevado a memoria 
+2024/10/21 12:32:34 Proceso finalizado existosamente
+2024/10/21 12:32:34 Syscall ejecutada correctamente
+2024/10/21 12:32:34 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parámetros: []
+2024/10/21 12:32:35 Respuesta codificada PID = 1 , TID = 0
+2024/10/21 12:32:35 TID actualizar : 0
+2024/10/21 12:32:35 ## Contexto Actualizado - (PID:TID) - (1:0)
+2024/10/21 12:32:35 Contexto = map[{1 0 31 31 1 19 0 0 0 0 13}:[SET DX 19 JNZ DX 5 MUTEX_CREATE RECURSO_1 MUTEX_LOCK RECURSO_1 MUTEX_UNLOCK RECURSO_1 IO 1500 SET AX 15 SET BX 16 SUM AX BX SET CX 1 WRITE_MEM CX AX READ_MEM BX CX PROCESS_EXIT]]
+2024/10/21 12:32:35 Funciona ok el realizar interrupcion

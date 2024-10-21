@@ -239,42 +239,44 @@ func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 }
 
 func InstructionCycle(contexto *contextoEjecucion) {
-
 	for {
-		log.Printf("Intruccion Solicitada de Pid %d y TID %d y PC %d", contexto.pcb.Pid, contexto.tcb.Tid, contexto.tcb.PC)
-		intructionLine, err := Fetch(contexto.pcb.Pid, contexto.tcb.Tid, &contexto.tcb.PC)
+		log.Printf("Instrucción solicitada de PID: %d, TID: %d, PC: %d", contexto.pcb.Pid, contexto.tcb.Tid, contexto.tcb.PC)
+
+		// Fetch
+		instructionLine, err := Fetch(contexto.pcb.Pid, contexto.tcb.Tid, &contexto.tcb.PC)
 		if err != nil {
-			log.Printf("Error al buscar intruccion en el pc %d. ERROR : %v", contexto.tcb.PC, err)
+			log.Printf("Error al buscar instrucción en PC %d: %v", contexto.tcb.PC, err)
 			break
 		}
-		instruction, err2 := Decode(intructionLine)
-		if err2 != nil {
-			log.Printf("Error en etapa Decode. ERROR : %v", err2)
-			break
-		}
-		log.Printf("La instruccion fue decodificada : INSTUCCION = %s, PARAMETROS = %v", intructionLine[0], instruction.parameters)
-		errExe := Execute(contexto, instruction)
-		if errExe != nil {
-			log.Printf("Error al ejecutar %v. ERROR: %v", intructionLine, errExe)
-		}
-		log.Printf("## TID: %d - Ejecutando: %s - Parametos : %v", contexto.tcb.Tid, intructionLine[0], instruction.parameters)
 
-		flag := CheckInterrupt(*contexto)
-		if flag {
-			err := RealizarInterrupcion(contexto)
-			if err == nil {
-				break
+		// Decode
+		instruction, err := Decode(instructionLine)
+		if err != nil {
+			log.Printf("Error en etapa Decode: %v", err)
+			break
+		}
+
+		log.Printf("Instrucción decodificada: INSTUCCIÓN = %s, PARÁMETROS = %v", instructionLine[0], instruction.parameters)
+
+		// Execute
+		if err := Execute(contexto, instruction); err != nil {
+			log.Printf("Error al ejecutar %v: %v", instructionLine, err)
+		}
+
+		log.Printf("## TID: %d - Ejecutando: %s - Parámetros: %v", contexto.tcb.Tid, instructionLine[0], instruction.parameters)
+
+		// Check Interrupt
+		if CheckInterrupt(*contexto) {
+			if err := RealizarInterrupcion(contexto); err != nil {
+				log.Printf("Error al ejecutar la interrupción: %v", err)
 			}
-			log.Printf("Error al ejecutar la interrupcion %v", err)
 			break
 		}
-
 	}
-
 }
 
 func RealizarInterrupcion(contexto *contextoEjecucion) error {
-	err := AcualizarContextoDeEjecucion(contexto)
+	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
 		log.Panicf("Error al actualizar contexto de ejecucion para la interrupcion")
 		return err
@@ -303,46 +305,44 @@ func RealizarInterrupcion(contexto *contextoEjecucion) error {
 
 func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 
-	var reqInstruccion InstructionReq
-
-	reqInstruccion.Pid = pid
-	reqInstruccion.Tid = tid
-	reqInstruccion.Pc = int(*PC)
+	reqInstruccion := InstructionReq{
+		Pid: pid,
+		Tid: tid,
+		Pc:  int(*PC),
+	}
 
 	reqInstruccionBody, err := json.Marshal(reqInstruccion)
-
 	if err != nil {
 		log.Printf("Error al codificar el mensaje de solicitud de instruccion")
 		return nil, err
 	}
 
 	url := fmt.Sprintf("http://%s:%d/obtenerInstruccion", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
-
 	response, err := http.Post(url, "application/json", bytes.NewBuffer(reqInstruccionBody))
-
 	if err != nil {
 		log.Fatalf("error al enviar la solicitud al módulo de memoria: %v", err)
 		return nil, err
 	}
-	//defer response.Body.Close()
+	defer response.Body.Close()
 
+	// Verificar el estado de la respuesta
 	if response.StatusCode != http.StatusOK {
 		err := fmt.Errorf("error en la respuesta del módulo de memoria: %v", response.StatusCode)
 		log.Println(err)
 		return nil, err
 	}
+
+	// Decodificar la respuesta
 	var instructionResponse InstructionResponse
-	errorDecode := json.NewDecoder(response.Body).Decode(&instructionResponse)
-	if errorDecode != nil {
-		log.Println("Error al decodificar la instruccion", errorDecode)
-		return nil, errorDecode
+	if err := json.NewDecoder(response.Body).Decode(&instructionResponse); err != nil {
+		log.Println("Error al decodificar la instrucción:", err)
+		return nil, err
 	}
-	instructions := strings.Split(instructionResponse.Instruction, " ") //la instruccion recibida esta separada por comas, y se tomara cada una de las partes y pondra en vector de strings
+
+	instructions := strings.Fields(instructionResponse.Instruction) // Separar la instrucción en partes
 
 	log.Printf("PID: %d TID: %d - FETCH - Program Counter: %d", pid, tid, reqInstruccion.Pc)
-
-	*PC = *PC + 1 //esta bien colocarlo de esta manera ????
-
+	*PC++ // Incrementa el program counter en uno
 	return instructions, nil
 
 }
@@ -370,15 +370,16 @@ func Decode(instructionLine []string) (DecodedInstruction, error) {
 	}
 
 	var instructionDecoded DecodedInstruction
+
 	if len(instructionLine) == 0 {
-		err := fmt.Errorf("null intruction")
-		return instructionDecoded, err
+		return instructionDecoded, fmt.Errorf("instrucción nula")
 	}
-	functionInstruction, ok := SetInstructions[instructionLine[0]]
-	if !ok {
-		err := fmt.Errorf("La instruccion %s no existe", instructionLine[0])
-		return instructionDecoded, err
+
+	functionInstruction, exists := SetInstructions[instructionLine[0]]
+	if !exists {
+		return instructionDecoded, fmt.Errorf("la instrucción '%s' no existe", instructionLine[0])
 	}
+
 	instructionDecoded.instruction = functionInstruction
 	instructionDecoded.parameters = instructionLine[1:]
 
@@ -417,99 +418,85 @@ func CheckInterrupt(contexto contextoEjecucion) bool {
 
 }
 
-// Funciones del set de intrucciones
+// -------------------------------FUNCIONES DEL SET DE INSTRUCIONES------------------------------------------------
 func Set(registrosCPU *contextoEjecucion, parameters []string) error {
-
 	valor := parameters[1]
 	registro := parameters[0]
 
 	registers := reflect.ValueOf(&registrosCPU.tcb)
+
 	valorUint, err := strconv.ParseUint(valor, 10, 32)
 	if err != nil {
 		return err
 	}
+
 	log.Printf("Antes de modificar el valor ")
-	err2 := ModificarValorCampo(registers, registro, uint32(valorUint))
-	if err2 != nil {
-		return err2
+
+	err = ModificarValorCampo(registers, registro, uint32(valorUint))
+	if err != nil {
+		return err
 	}
 
-	/*
-		register, errR := GetRegister(registrosCPU, registro)
-		if errR != nil {
-			return errR
-		}
-
-		valorParse, err := strconv.ParseUint(valor, 10, 32)
-		if err != nil {
-			log.Printf("SET error: Error al convertir valor %s al del tipo del registro %s", valor, registro)
-			return err
-		}
-		*register = uint32(valorParse)
-
-		return nil
-	*/
 	return nil
-
 }
+
 func Read_Memory(context *contextoEjecucion, parameters []string) error {
-
-	//registroDato := parameters[0]
-	registroDireccion := parameters[1]
+	// Obtiene la dirección del registro destino.
+	registerDirection := parameters[1]
 	registers := reflect.ValueOf(&context.tcb)
-	// obtnego el registro del destino del dato
-	direccionLogica, err := ObtenerValorCampo(registers, registroDireccion)
+
+	// Obtiene la dirección lógica del registro.
+	logicalAddress, err := ObtenerValorCampo(registers, registerDirection)
 	if err != nil {
 		return err
 	}
-	direccionFisica, errT := TranslateAdress(direccionLogica, context.pcb.Base, context.pcb.Limit)
-	if errT != nil {
-		return errT
+
+	// Traduce la dirección lógica a física.
+	physicalAddress, err := TranslateAdress(logicalAddress, context.pcb.Base, context.pcb.Limit)
+	if err != nil {
+		return err
 	}
-	log.Printf("Leer memoria con direccion fisica %d", direccionFisica)
-	//leer en memoria
-	//VER SI SE PUEDE PEDIR Y ENVIAR POR MISMO PUERTO
+	log.Printf("Leer memoria con dirección física: %d", physicalAddress)
 
-	//memoryData.Add(1)
-	//memoryData.Wait()
-	var memReq MemoryRequest
-	memReq.Address = direccionFisica
-	memReq.PID = context.pcb.Pid
-	memReq.TID = context.tcb.Tid
-
-	body, err2 := json.Marshal(memReq)
-	if err2 != nil {
-		log.Printf("Error al codificar el mensaje de solicitud de instruccion")
-		return err2
+	// Crea la solicitud de lectura de memoria.
+	memReq := MemoryRequest{
+		Address: physicalAddress,
+		PID:     context.pcb.Pid,
+		TID:     context.tcb.Tid,
 	}
 
+	body, err := json.Marshal(memReq)
+	if err != nil {
+		log.Printf("Error al codificar el mensaje de solicitud de instrucción: %v", err)
+		return err
+	}
+
+	// Envía la solicitud al módulo de memoria.
 	url := fmt.Sprintf("http://%s:%d/readMemory", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
-
 	response, err := http.Post(url, "application/json", bytes.NewBuffer(body))
-
 	if err != nil {
-		log.Fatalf("error al enviar la solicitud al módulo de memoria: %v", err)
+		log.Fatalf("Error al enviar la solicitud al módulo de memoria: %v", err)
 		return err
 	}
-	//defer response.Body.Close()
+	defer response.Body.Close()
 
+	// Verifica el código de estado de la respuesta.
 	if response.StatusCode != http.StatusOK {
-		err := fmt.Errorf("error en la respuesta del módulo de memoria: %v", response.StatusCode)
-		log.Println(err)
+		return fmt.Errorf("error en la respuesta del módulo de memoria: %v", response.StatusCode)
+	}
+
+	// Decodifica la respuesta y actualiza el registro.
+	var dataResponse DataRead
+	if err := json.NewDecoder(response.Body).Decode(&dataResponse); err != nil {
+		log.Println("Error al decodificar la instrucción:", err)
 		return err
 	}
-	var dataResponse DataRead
-	errorDecode := json.NewDecoder(response.Body).Decode(&dataResponse)
-	if errorDecode != nil {
-		log.Println("Error al decodificar la instruccion", errorDecode)
-		return errorDecode
-	}
-	dataAEscribir := BytesToUint32(dataResponse.Data)
-	log.Printf("Data A escribir  : %v", dataAEscribir)
-	err4 := ModificarValorCampo(registers, parameters[0], dataAEscribir)
 
-	if err4 != nil {
-		return err4
+	dataToWrite := BytesToUint32(dataResponse.Data)
+	log.Printf("Datos a escribir: %v", dataToWrite)
+
+	if err := ModificarValorCampo(registers, parameters[0], dataToWrite); err != nil {
+		return err
 	}
 
 	return nil
@@ -532,10 +519,12 @@ func BytesToUint32(val []byte) uint32 {
 	return r
 
 }
-func RecieveDataFromMemory(w http.ResponseWriter, r *http.Request) {
 
+func RecieveDataFromMemory(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
+
 	var data uint32 // ver si esta bien con el tipo que envia memoria
+
 	err := decoder.Decode(&data)
 	if err != nil {
 		log.Printf("Error al decodificar el pedido de la memorua: %s\n", err.Error())
@@ -543,51 +532,56 @@ func RecieveDataFromMemory(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Error al decodificar mensaje"))
 		return
 	}
+
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 
 	dataFromMemory = data
 	memoryData.Done()
-
 }
 
 func Write_Memory(context *contextoEjecucion, parameters []string) error {
-	//obtengo el dato
-	registroDato := parameters[1]
+	// Obtiene el dato del registro.
+	dataRegister := parameters[1]
 	registers := reflect.ValueOf(&context.tcb)
-	dato, err := ObtenerValorCampo(registers, registroDato)
+	data, err := ObtenerValorCampo(registers, dataRegister)
 	if err != nil {
 		return err
 	}
-	//obtengo la direccion
-	registroDireccion := parameters[0]
-	direccion, err2 := ObtenerValorCampo(registers, registroDireccion)
-	if err2 != nil {
-		return err2
-	}
-	direccionFisica, errTranslate := TranslateAdress(direccion, context.pcb.Base, context.pcb.Limit)
-	if errTranslate != nil {
+
+	// Obtiene la dirección del registro.
+	addressRegister := parameters[0]
+	logicalAddress, err := ObtenerValorCampo(registers, addressRegister)
+	if err != nil {
 		return err
 	}
 
-	var memReq MemoryRequest
-	memReq.Address = direccionFisica
-	memReq.Data = PasarDeUintAByte(dato)
-	log.Print("Se va a escribir %v", memReq.Data)
-	log.Printf("LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : %d", len(memReq.Data))
-	memReq.PID = context.pcb.Pid
-	memReq.TID = context.tcb.Tid
-
-	body, err5 := json.Marshal(memReq)
-
-	if err5 != nil {
-		return err5
+	// Traduce la dirección lógica a física.
+	physicalAddress, err := TranslateAdress(logicalAddress, context.pcb.Base, context.pcb.Limit)
+	if err != nil {
+		return err
 	}
-	log.Printf("Enviando a memoria write_memory")
-	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "writeMemory")
 
-	if err3 != nil {
-		return err3
+	// Prepara la solicitud de escritura en memoria.
+	memReq := MemoryRequest{
+		Address: physicalAddress,
+		Data:    PasarDeUintAByte(data),
+		PID:     context.pcb.Pid,
+		TID:     context.tcb.Tid,
+	}
+
+	log.Printf("Escribiendo datos: %v (longitud: %d)", memReq.Data, len(memReq.Data))
+
+	// Codifica la solicitud en formato JSON.
+	body, err := json.Marshal(memReq)
+	if err != nil {
+		return err
+	}
+
+	// Envía la solicitud al módulo de memoria.
+	log.Printf("Enviando a memoria write_memory")
+	if err := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "writeMemory"); err != nil {
+		return err
 	}
 
 	return nil
@@ -615,17 +609,19 @@ func TranslateAdress(direccionLogica uint32, base uint32, limite uint32) (uint32
 func Sumar(registrosCPU *contextoEjecucion, parameters []string) error {
 	registroDestino := parameters[0]
 	registroOrigen := parameters[1]
-	registers := reflect.ValueOf(&registrosCPU.tcb)
-	originRegister, finalRegister, err := obtenerOperandos(registers, registroDestino, registroOrigen)
 
+	registers := reflect.ValueOf(&registrosCPU.tcb)
+
+	originRegister, finalRegister, err := obtenerOperandos(registers, registroDestino, registroOrigen)
 	if err != nil {
 		return err
 	}
 
-	resta := finalRegister + originRegister
-	err2 := ModificarValorCampo(registers, registroDestino, resta)
-	if err2 != nil {
-		return err2
+	suma := finalRegister + originRegister
+
+	err = ModificarValorCampo(registers, registroDestino, suma)
+	if err != nil {
+		return err
 	}
 	return nil
 }
@@ -633,115 +629,114 @@ func Sumar(registrosCPU *contextoEjecucion, parameters []string) error {
 func Restar(registrosCPU *contextoEjecucion, parameters []string) error {
 	registroDestino := parameters[0]
 	registroOrigen := parameters[1]
-	registers := reflect.ValueOf(&registrosCPU.tcb)
-	originRegister, finalRegister, err := obtenerOperandos(registers, registroDestino, registroOrigen)
 
+	registers := reflect.ValueOf(&registrosCPU.tcb)
+
+	originRegister, finalRegister, err := obtenerOperandos(registers, registroDestino, registroOrigen)
 	if err != nil {
 		return err
 	}
 
 	resta := finalRegister - originRegister
-	err2 := ModificarValorCampo(registers, registroDestino, resta)
-	if err2 != nil {
-		return err2
+
+	err = ModificarValorCampo(registers, registroDestino, resta)
+	if err != nil {
+		return err
 	}
 	return nil
 }
 
 func obtenerOperandos(registers reflect.Value, registroDestino string, registroOrigen string) (uint32, uint32, error) {
-	/*
-		originRegister, errR := GetRegister(registrosCPU, registroOrigen)
-		if errR != nil {
-			return nil, nil, errR
-		}
-
-		register, err2 := GetRegister(registrosCPU, registroDestino)
-		if err2 != nil {
-			return nil, nil, err2
-		}
-	*/
-	// obtnego el registro del destino del dato
 	valorOrigen, errOrigen := ObtenerValorCampo(registers, registroOrigen)
 	if errOrigen != nil {
 		return 0, 0, errOrigen
 	}
+
 	valorDestino, errDestino := ObtenerValorCampo(registers, registroDestino)
 	if errDestino != nil {
 		return 0, 0, errDestino
 	}
+
 	return valorOrigen, valorDestino, nil
 }
 
 func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
 	instruccion := parameters[1]
 	registro := parameters[0]
+
 	registers := reflect.ValueOf(&registrosCPU.tcb)
+
 	register, err := ObtenerValorCampo(registers, registro)
-	log.Printf("El valor de el registro es %d", register)
 	if err != nil {
 		return err
 	}
-	instruction, errI := strconv.Atoi(instruccion)
-	if errI != nil {
-		return errI
+
+	log.Printf("El valor de el registro es %d", register)
+
+	instruction, err := strconv.Atoi(instruccion)
+	if err != nil {
+		return err
 	}
+
 	if register != 0 {
 		ModificarValorCampo(registers, "PC", uint32(instruction))
 	}
-	return nil
 
+	return nil
 }
 
 func Log(registrosCPU *contextoEjecucion, parameters []string) error {
 	registro := parameters[0]
+
 	registers := reflect.ValueOf(&registrosCPU.tcb)
+
 	register, err := ObtenerValorCampo(registers, registro)
 	if err != nil {
 		return err
 	}
-	log.Printf("EL registro %s contiene el valor %d", registro, register)
-	return nil
 
+	log.Printf("EL registro %s contiene el valor %d", registro, register)
+
+	return nil
 }
 
 func DumpMemory(contexto *contextoEjecucion, parameters []string) error {
-
-	err := AcualizarContextoDeEjecucion(contexto)
-
+	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
-		log.Printf("Error al actualziar contexto de ejecucion")
+		log.Printf("Error al actualizar el contexto de ejecución: %v", err)
 		return err
 	}
+
 	body, err := json.Marshal(KernelExeReq{
 		Pid: contexto.pcb.Pid,
 		Tid: contexto.tcb.Tid,
 	})
 	if err != nil {
-		log.Printf("Error al codificar el mernsaje")
+		log.Printf("Error al codificar el mensaje: %v", err)
 		return err
 	}
 
-	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "dumpMemory")
-	if errM != nil {
-		return errM
+	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "dumpMemory"); err != nil {
+		return err
 	}
-	return nil
 
+	return nil
 }
 
 func IO(contexto *contextoEjecucion, parameters []string) error {
 	tiempo := parameters[0]
-	err := AcualizarContextoDeEjecucion(contexto)
 
+	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
 		log.Printf("Error al actualziar contexto de ejecucion")
 		return err
 	}
 
-	tiempoReq, errI := strconv.Atoi(tiempo)
-	if errI != nil {
-		return errI
+	tiempoReq, err := strconv.Atoi(tiempo)
+	if err != nil {
+		return err
 	}
+
 	body, err := json.Marshal(IOReq{
 		Tiempo: tiempoReq,
 		Pid:    contexto.pcb.Pid,
@@ -751,33 +746,34 @@ func IO(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al codificar el mernsaje")
 		return err
 	}
+
 	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
 	if err != nil {
 		return err
 	}
 
 	return nil
-
 }
 
 func CreateProcess(contexto *contextoEjecucion, parameters []string) error {
 	archivoInstruct := parameters[0]
 	tamArch := parameters[1]
 	prioridadTID := parameters[2]
-	err := AcualizarContextoDeEjecucion(contexto)
 
+	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
-		log.Printf("Error al actualziar contexto de ejecucion")
+		log.Printf("Error al actualizar contexto de ejecución: %v", err)
 		return err
 	}
 
 	tamArchReal, err := strconv.Atoi(tamArch)
 	if err != nil {
-		return err
+		return fmt.Errorf("error al convertir tamaño de archivo: %v", err)
 	}
-	priorityReal, err2 := strconv.Atoi(prioridadTID)
-	if err2 != nil {
-		return err
+
+	priorityReal, err := strconv.Atoi(prioridadTID)
+	if err != nil {
+		return fmt.Errorf("error al convertir prioridad TID: %v", err)
 	}
 
 	body, err := json.Marshal(IniciarProcesoBody{
@@ -787,32 +783,31 @@ func CreateProcess(contexto *contextoEjecucion, parameters []string) error {
 		PidActual: contexto.pcb.Pid,
 		TidActual: contexto.tcb.Tid,
 	})
-
 	if err != nil {
-		log.Printf("Error al codificar estructura de creacion de proceso")
+		log.Printf("Error al codificar estructura de creación de proceso: %v", err)
 		return err
 	}
-	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "crearProceso")
-	if err != nil {
-		log.Printf("Error syscall crearProceso : %v", err)
+
+	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "crearProceso"); err != nil {
+		log.Printf("Error en syscall crearProceso: %v", err)
 		return err
 	}
 
 	return nil
 }
 
-func CreateThead(contexto *contextoEjecucion, parameters []string) error {
+func CreateThead(contexto *contextoEjecucion, parameters []string) error { //ESTE ESTA FUNCIONANDO MAL
 	archivoInstruct := parameters[0]
 	prioridadTID := parameters[1]
-	err := AcualizarContextoDeEjecucion(contexto)
 
+	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
-		log.Printf("Error al actualziar contexto de ejecucion")
+		log.Printf("Error al actualizar contexto de ejecución: %v", err)
 		return err
 	}
 
-	priorityReal, err2 := strconv.Atoi(prioridadTID)
-	if err2 != nil {
+	priorityReal, err := strconv.Atoi(prioridadTID)
+	if err != nil {
 		return err
 	}
 
@@ -821,14 +816,13 @@ func CreateThead(contexto *contextoEjecucion, parameters []string) error {
 		Pid:       contexto.pcb.Pid,
 		Prioridad: priorityReal,
 	})
-
 	if err != nil {
-		log.Printf("Error al codificar estructura de creacion de hilo")
+		log.Printf("Error al codificar estructura de creación de hilo: %v", err)
 		return err
 	}
-	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "crearHilo")
-	if err != nil {
-		log.Printf("Error syscall THREAD_CREATE : %v", err)
+
+	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "crearHilo"); err != nil {
+		log.Printf("Error syscall THREAD_CREATE: %v", err)
 		return err
 	}
 
@@ -837,8 +831,8 @@ func CreateThead(contexto *contextoEjecucion, parameters []string) error {
 
 func JoinThead(contexto *contextoEjecucion, parameters []string) error {
 	tid := parameters[0]
-	err := AcualizarContextoDeEjecucion(contexto)
 
+	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
 		log.Printf("Error al actualziar contexto de ejecucion")
 		return err
@@ -854,11 +848,11 @@ func JoinThead(contexto *contextoEjecucion, parameters []string) error {
 		TidActual: contexto.tcb.Tid,
 		TidCambio: tidParse,
 	})
-
 	if err != nil {
 		log.Printf("Error al codificar estructura de cambio de hilo")
 		return err
 	}
+
 	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "unirseAHilo")
 	if err != nil {
 		log.Printf("Error syscall THREAD_JOIN : %v", err)
@@ -870,8 +864,8 @@ func JoinThead(contexto *contextoEjecucion, parameters []string) error {
 
 func CancelThead(contexto *contextoEjecucion, parameters []string) error {
 	tid := parameters[0]
-	err := AcualizarContextoDeEjecucion(contexto)
 
+	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
 		log.Printf("Error al actualziar contexto de ejecucion")
 		return err
@@ -887,11 +881,11 @@ func CancelThead(contexto *contextoEjecucion, parameters []string) error {
 		TidActual: contexto.tcb.Tid,
 		TidCambio: tidParse,
 	})
-
 	if err != nil {
 		log.Printf("Error al codificar estructura de cancelacion de hilo")
 		return err
 	}
+
 	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "cancelarHilo")
 	if err != nil {
 		log.Printf("Error syscall THREAD_CANCEL : %v", err)
@@ -924,8 +918,8 @@ func MutexUNLOCK(contexto *contextoEjecucion, parameters []string) error {
 }
 func MutexFunction(contexto *contextoEjecucion, parameters []string, endpoint string) error {
 	recurso := parameters[0]
-	err := AcualizarContextoDeEjecucion(contexto)
 
+	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
 		log.Printf("Error al actualziar contexto de ejecucion")
 		return err
@@ -950,89 +944,95 @@ func MutexFunction(contexto *contextoEjecucion, parameters []string, endpoint st
 }
 
 func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
-
-	err := AcualizarContextoDeEjecucion(contexto)
-
-	if err != nil {
-		log.Printf("Error al actualziar contexto de ejecucion")
+	if err := ActualizarContextoDeEjecucion(contexto); err != nil {
+		log.Printf("Error al actualizar contexto de ejecución: %v", err)
 		return err
 	}
 
-	var process KernelExeReq
-	process.Pid = contexto.pcb.Pid
-	process.Tid = contexto.tcb.Tid
-	encodedeProcess, err2 := json.Marshal(process)
-	if err2 != nil {
-		return err2
+	process := KernelExeReq{
+		Pid: contexto.pcb.Pid,
+		Tid: contexto.tcb.Tid,
 	}
-	log.Printf("Enviando a kernel syscall")
-	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(encodedeProcess), "finalizarHilo")
-	if errM != nil {
-		return errM
-	}
-	return nil
 
+	body, err := json.Marshal(process)
+	if err != nil {
+		return err
+	}
+
+	log.Println("Enviando a kernel syscall")
+	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "finalizarHilo"); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
-	log.Printf("Finalizar proceos PID : %d ", contexto.pcb.Pid)
-	err := AcualizarContextoDeEjecucion(contexto)
+	log.Printf("Finalizando proceso PID: %d", contexto.pcb.Pid)
 
-	if err != nil {
-		log.Printf("Error al actualizar contexto de ejecucion")
+	if err := ActualizarContextoDeEjecucion(contexto); err != nil {
+		log.Printf("Error al actualizar contexto de ejecución: %v", err)
 		return err
 	}
-	var process KernelExeReq
-	process.Pid = contexto.pcb.Pid
-	process.Tid = contexto.tcb.Tid
-	encodedeProcess, err2 := json.Marshal(process)
-	if err2 != nil {
-		return err2
-	}
-	log.Printf("Enviando a kernel syscall")
-	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(encodedeProcess), "finalizarProceso")
-	if errM != nil {
-		return errM
-	}
-	log.Printf("Syscall se ejecuto correctamente")
-	return nil
 
+	process := KernelExeReq{
+		Pid: contexto.pcb.Pid,
+		Tid: contexto.tcb.Tid,
+	}
+
+	body, err := json.Marshal(process)
+	if err != nil {
+		return err
+	}
+
+	log.Println("Enviando syscall al kernel")
+	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "finalizarProceso"); err != nil {
+		return err
+	}
+
+	log.Println("Syscall ejecutada correctamente")
+	return nil
 }
 
 // funciones Auxiliares
 // se suponen que todos los registros mantendran el tipo uint32
 
-func AcualizarContextoDeEjecucion(contexto *contextoEjecucion) error {
-	var contextoDeEjecucion BodyContexto
-	contextoDeEjecucion.Pcb = contexto.pcb
-	contextoDeEjecucion.Tcb = contexto.tcb
+func ActualizarContextoDeEjecucion(contexto *contextoEjecucion) error {
+	contextoDeEjecucion := BodyContexto{
+		Pcb: contexto.pcb,
+		Tcb: contexto.tcb,
+	}
+
 	body, err := json.Marshal(contextoDeEjecucion)
 	if err != nil {
-		log.Printf("Error al codificar el contexto")
+		log.Printf("Error al codificar el contexto: %v", err)
 		return err
 	}
-	errM := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "actualizarContextoDeEjecucion")
-	if errM != nil {
-		return errM
+
+	if err := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "actualizarContextoDeEjecucion"); err != nil {
+		return err
 	}
+
 	return nil
-
 }
-func EnviarAModulo(ipModulo string, puertoModulo int, body io.Reader, endPoint string) error {
 
+func EnviarAModulo(ipModulo string, puertoModulo int, body io.Reader, endPoint string) error {
 	url := fmt.Sprintf("http://%s:%d/%s", ipModulo, puertoModulo, endPoint)
 	resp, err := http.Post(url, "application/json", body)
+
 	if err != nil {
-		log.Printf("error enviando mensaje al End point %s - IP:%s - Puerto:%d", endPoint, ipModulo, puertoModulo)
+		log.Printf("Error enviando mensaje al End point %s - IP:%s - Puerto:%d: %v", endPoint, ipModulo, puertoModulo, err)
 		return err
 	}
+
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("Error al recibir la respuesta del End point %s - IP:%s - Puerto:%d", endPoint, ipModulo, puertoModulo)
-		err := fmt.Errorf("%s", resp.Status)
-		return err
+		log.Printf("Error en respuesta del End point %s - IP:%s - Puerto:%d: %s", endPoint, ipModulo, puertoModulo, resp.Status)
+		return fmt.Errorf("respuesta inesperada: %s", resp.Status)
 	}
+
 	return nil
 }
+
 func ObtenerValorCampo(estructura reflect.Value, nombreCampo string) (uint32, error) {
 	campoRef := estructura.Elem().FieldByName(nombreCampo)
 	if !campoRef.IsValid() {
@@ -1043,31 +1043,33 @@ func ObtenerValorCampo(estructura reflect.Value, nombreCampo string) (uint32, er
 	return (uint32(campoRef.Uint())), nil
 
 }
+
 func ModificarValorCampo(estructura reflect.Value, nombreCampo string, nuevoValor uint32) error {
-	//solo se aceptaran valores de tipo uint32
+	// Solo se aceptan valores de tipo uint32
 	campoRef := estructura.Elem().FieldByName(nombreCampo)
-	log.Printf("Registro obtenido")
+
 	if !campoRef.IsValid() {
-		err := fmt.Errorf("No se encuentra el campo %s en la estructura", nombreCampo)
-		return err
+		return fmt.Errorf("Campo %s no encontrado en la estructura", nombreCampo)
 	}
+
 	if !campoRef.CanSet() {
-		err := fmt.Errorf("No se puede setear el valor del campo %s", nombreCampo)
-		return err
+		return fmt.Errorf("No se puede establecer el valor del campo %s", nombreCampo)
 	}
+
 	campoRef.SetUint(uint64(nuevoValor))
 	return nil
 }
+
 func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
-	var interrupction Interrupcion // ver si esta bien con el tipo que envia memoria
-	err := decoder.Decode(&interrupction)
-	if err != nil {
-		log.Printf("Error al decodificar el pedido del Kernel: %s\n", err.Error())
+	var interrupction Interrupcion // Verificar si el tipo es correcto
+	if err := decoder.Decode(&interrupction); err != nil {
+		log.Printf("Error al decodificar el pedido del Kernel: %s", err)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Error al decodificar mensaje"))
 		return
 	}
+
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 
@@ -1076,7 +1078,7 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	nuevaInterrupcion.Pid = interrupction.Pid
 	nuevaInterrupcion.Tid = interrupction.Tid
 	mutexInterrupt.Unlock()
-	log.Printf("Recibe bien interrupcion")
+	log.Printf("Interrupción recibida correctamente")
 }
 
 /*ng)
