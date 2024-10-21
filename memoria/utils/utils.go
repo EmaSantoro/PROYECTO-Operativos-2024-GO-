@@ -193,8 +193,8 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
-	// Buscar el PCB que tenga el Pid solicitado
-	tidMap := buscarPCBPorPid(instructionReq.Pid)
+	// Buscar el PCB que tenga el Pid solicitado y nos da las estructuras de los hilos asociado
+	tidMap := buscarTCBPorPid(instructionReq.Pid)
 	if tidMap == nil {
 		http.Error(w, fmt.Sprintf("No se encontró el PID %d", instructionReq.Pid), http.StatusNotFound)
 		log.Printf("error: no se encontró el PID %d", instructionReq.Pid)
@@ -234,14 +234,24 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(instruccion))
 }
 
-func buscarPCBPorPid(pid int) map[estructuraHilo][]string {
-	// Buscar el PCB que tenga el Pid solicitado
+func buscarTCBPorPid(pid int) map[estructuraHilo][]string {
+
 	for pcb, tcbMap := range mapPCBPorTCB {
 		if pcb.Pid == pid {
 			return tcbMap
 		}
 	}
 	return nil
+}
+
+func obtenerPCBPorPID(PID int) (PCB, error) {
+	for pcb := range mapPCBPorTCB {
+		if pcb.Pid == PID {
+			return pcb, nil
+		}
+	}
+	log.Printf("No se encontró el PID: %d", PID)
+	return PCB{}, fmt.Errorf("no se encontró el PID: %d", PID)
 }
 
 // ------------------------------------ GET EXECUTION CONTEXT ---------------------------------------------
@@ -264,8 +274,8 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
-	// Usar la función `buscarPCBPorPid` para obtener el tidMap
-	tidMap := buscarPCBPorPid(solicitud.Pid)
+	// Usar la función `buscarTCBPorPid` para obtener el tidMap
+	tidMap := buscarTCBPorPid(solicitud.Pid)
 	if tidMap == nil {
 		http.Error(w, fmt.Sprintf("No se encontró el PID %d", solicitud.Pid), http.StatusNotFound)
 		log.Printf("error: no se encontró el PID %d", solicitud.Pid)
@@ -320,8 +330,8 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("Respuesta codificada PID = %d , TID = %d", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
 
-	// Usar la función `buscarPCBPorPid` para obtener el tidMap
-	tidMap := buscarPCBPorPid(actualizadoContexto.Pcb.Pid)
+	// Usar la función `buscarTCBPorPid` para obtener el tidMap
+	tidMap := buscarTCBPorPid(actualizadoContexto.Pcb.Pid)
 	if tidMap == nil {
 		http.Error(w, fmt.Sprintf("No se encontró el PID %d", actualizadoContexto.Pcb.Pid), http.StatusNotFound)
 		log.Printf("error: no se encontró el PID %d", actualizadoContexto.Pcb.Pid)
@@ -665,60 +675,26 @@ type KernelProcessTerminateReq struct {
 
 func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Entra a terminate process")
-	//queryParams := r.URL.Query()
-	//pid, _ := strconv.Atoi(queryParams.Get("pid"))
-	var KernelReq KernelProcessTerminateReq
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&KernelReq)
-
-	if err != nil {
+	var kernelReq KernelProcessTerminateReq
+	if err := json.NewDecoder(r.Body).Decode(&kernelReq); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	pid := KernelReq.Pid
+
+	pid := kernelReq.Pid
+	numeroDeParticion, err := encontrarParticionPorPID(pid)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
 
 	if esquemaMemoria == "FIJAS" { //PARA FIJAS
-		var numeroDeParticion int
-		encontrado := false
-		for pcb, particion := range mapPCBPorParticion {
-			if pcb.Pid == pid {
-				numeroDeParticion = particion
-				encontrado = true
-				break
-			}
-		}
-
-		if !encontrado {
-			http.Error(w, "PID no encontrado", http.StatusNotFound)
-			return
-		}
-
 		mapParticiones[numeroDeParticion] = false // libero el map booleano que indicaba si la particion esta libre o no
 
 		delete(mapPCBPorParticion, PCB{Pid: pid}) // elimino la estructura del pcb en el map de particiones
 		delete(mapPCBPorTCB, PCB{Pid: pid})       // elimino el pcb del map anidado
 		delete(mapPIDxBaseLimit, pid)             // elimino el pid del map de base y limit
-
-		// Log de destrucción de proceso
-		log.Printf("## Proceso Destruido - PID: %d - Tamaño: %d", pid, particiones[numeroDeParticion])
-
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Proceso finalizado exitosamente"))
 	} else if esquemaMemoria == "DINAMICAS" {
-
-		var numeroDeParticion int
-		encontrado := false
-		for pcb, particion := range mapPCBPorParticion {
-			if pcb.Pid == pid {
-				numeroDeParticion = particion
-				encontrado = true
-				break
-			}
-		}
-		if !encontrado {
-			http.Error(w, "PID no encontrado", http.StatusNotFound)
-			return
-		}
 		mapParticiones[numeroDeParticion] = false
 
 		consolidarParticiones(numeroDeParticion) //consolido las particiones libres
@@ -726,19 +702,27 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 		delete(mapPCBPorParticion, PCB{Pid: pid})
 		delete(mapPCBPorTCB, PCB{Pid: pid})
 		delete(mapPIDxBaseLimit, pid)
-
-		// Log de destrucción de proceso
-		log.Printf("## Proceso Destruido - PID: %d - Tamaño: %d", pid, particiones[numeroDeParticion])
-
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Proceso finalizado exitosamente"))
 	}
+
+	// Log de destrucción de proceso
+	log.Printf("## Proceso Destruido - PID: %d - Tamaño: %d", pid, particiones[numeroDeParticion])
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Proceso finalizado exitosamente"))
+}
+
+func encontrarParticionPorPID(pid int) (int, error) {
+	for pcb, particion := range mapPCBPorParticion {
+		if pcb.Pid == pid {
+			return particion, nil
+		}
+	}
+	return -1, fmt.Errorf("PID no encontrado")
 }
 
 func consolidarParticiones(numeroDeParticion int) {
 	mapeoOriginalANuevo := make(map[int]int)
 
-	//IZQUIERDA
+	//CONSOLIDAR IZQUIERDA
 	for numeroDeParticion > 0 && !mapParticiones[numeroDeParticion-1] {
 		particiones[numeroDeParticion-1] += particiones[numeroDeParticion]                          // Sumar tamaño de la partición actual a la anterior
 		particiones = append(particiones[:numeroDeParticion], particiones[numeroDeParticion+1:]...) // Eliminar partición actual
@@ -754,7 +738,7 @@ func consolidarParticiones(numeroDeParticion int) {
 		numeroDeParticion--
 	}
 
-	//DERECHA
+	//CONSOLIDAR DERECHA
 	for numeroDeParticion < len(particiones)-1 && !mapParticiones[numeroDeParticion+1] {
 		particiones[numeroDeParticion] += particiones[numeroDeParticion+1]
 		particiones = append(particiones[:numeroDeParticion+1], particiones[numeroDeParticion+2:]...)
@@ -778,11 +762,6 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 	var thread Thread
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
-	// if err := json.NewDecoder(r.Body).Decode(&thread); err != nil {
-	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-	// 	return
-	// }
-
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&thread)
 
@@ -804,14 +783,15 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 		HX:  0,
 		PC:  0,
 	}
+
 	log.Printf("cree el hilo PID:%d TID:%d", thread.Pid, thread.Tid)
+
 	if err := guardarTodoEnElMap(thread.Pid, TCB, thread.Path); err != nil { //GUARDO EN EL MAP
 		log.Printf("ERROR AL GUARDAR")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	/// log.Printf("Lo que se guardo en map: %v", mapPCBPorTCB)
-	// Log de creación de hilo
+
 	log.Printf("## Hilo Creado - (PID:TID) - (%d:%d)", thread.Pid, thread.Tid)
 
 	w.WriteHeader(http.StatusOK)
@@ -820,40 +800,40 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 }
 
 func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
-	log.Printf("%s", path)
-	// Abro el archivo de pseudocódigo
+	log.Printf("Cargando archivo desde: %s", path)
+
 	readFile, err := os.Open(path)
 	if err != nil {
-		log.Printf("Error: PATH %s opening file", path)
+		log.Printf("Error al abrir el archivo en PATH: %s", path)
 		return err
 	}
 	defer readFile.Close()
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	fileScanner := bufio.NewScanner(readFile)
-	fileScanner.Split(bufio.ScanLines)
+	instrucciones := make([]string, 0)
 
-	var instrucciones []string // Almaceno cada instrucción en un slice de strings
 	for fileScanner.Scan() {
-		instrucciones = append(instrucciones, fileScanner.Text()) //esta linea lee los codigos
+		instrucciones = append(instrucciones, fileScanner.Text())
 	}
-	var pcbEncontrado PCB //para encontrar el pcb y poder entrar al mapa anidado
+
+	// Buscar PCB asociado al PID
+	var pcbEncontrado PCB
 	for pcb := range mapPCBPorTCB {
 		if pcb.Pid == pid {
 			pcbEncontrado = pcb
 			break
 		}
 	}
-	if _, found := mapPCBPorTCB[pcbEncontrado]; !found {
-		//mapPCBPorTCB[pcbEncontrado] = make(map[estructuraHilo][]string)
-		err := fmt.Errorf(" PID no encontrado")
-		return err
-	}
-	log.Printf("hago el map")
-	mapPCBPorTCB[pcbEncontrado][TCB] = instrucciones
-	log.Printf("fin")
-	return nil
 
+	if _, found := mapPCBPorTCB[pcbEncontrado]; !found {
+		return fmt.Errorf("PID no encontrado")
+	}
+
+	log.Println("Actualizando instrucciones en el mapa")
+	mapPCBPorTCB[pcbEncontrado][TCB] = instrucciones
+	log.Println("Carga de instrucciones finalizada")
+	return nil
 }
 
 //---------------------------------------TERMINATE THREAD--------------------------------------------
@@ -871,7 +851,7 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
-		log.Printf("ENTRO A TERMINATE THREAD7")
+		log.Printf("ENTRO A TERMINATE THREAD")
 		return
 	}
 
@@ -907,37 +887,32 @@ type MemoryRequest struct {
 }
 
 func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Entra a read memory handler")
-	var memReq MemoryRequest
+	log.Println("Iniciando handler para lectura de memoria")
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
+	var memReq MemoryRequest
 	if err := json.NewDecoder(r.Body).Decode(&memReq); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	log.Printf("Va a leer la memoria")
-	dataEncontrado, err := ReadMemory(memReq.PID, memReq.TID, memReq.Address) //, memReq.Size )
+
+	log.Println("Leyendo memoria...")
+	data, err := ReadMemory(memReq.PID, memReq.TID, memReq.Address)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	log.Printf("Ya tengo el data")
-	var dataReq DataRead
-	dataReq.Data = dataEncontrado
-	respuestaJson, err1 := json.Marshal(dataReq)
-	if err1 != nil {
+
+	log.Println("Datos leídos con éxito")
+	respuestaJson, err := json.Marshal(DataRead{Data: data})
+	if err != nil {
 		http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
+		return
 	}
+
 	w.WriteHeader(http.StatusOK)
 	w.Write(respuestaJson)
-	log.Printf("Intenta mandar data al CPU en read memory")
-
-	/*
-		if err := sendDataToCPU(data); err != nil {
-			http.Error(w, "Error al enviar los datos a la CPU", http.StatusInternalServerError)
-			return
-		}
-	*/
+	log.Println("Datos enviados al CPU")
 }
 
 var mu sync.Mutex
@@ -947,11 +922,12 @@ var mu sync.Mutex
 // tengo que leer y escribir pero en mi slice de memoria, las particiones corte el limite y base lo voy a utilizar para calcular todo lo anterior
 
 func ReadMemory(PID int, TID int, address uint32) ([]byte, error) { //size capaz sacarlo y poner directamente 4
-	log.Printf("Entra a readMemory")
+	log.Printf("Accediendo a readMemory")
 	mu.Lock()
 	defer mu.Unlock()
 
-	var pcbEncontrado PCB //LO HAGO PARA PODER ENTRAR AL MAPA ANIDADO Y AGARRAR LA PCB DE ESE PID
+	// Buscar PCB asociado al PID
+	var pcbEncontrado PCB
 	encontrado := false
 
 	for pcb := range mapPCBPorTCB {
@@ -961,8 +937,9 @@ func ReadMemory(PID int, TID int, address uint32) ([]byte, error) { //size capaz
 			break
 		}
 	}
+
 	if !encontrado {
-		log.Printf(" No Encontro el PID ")
+		log.Printf("PID no encontrado")
 		return nil, fmt.Errorf("no se encontró el PID")
 	}
 
@@ -971,30 +948,27 @@ func ReadMemory(PID int, TID int, address uint32) ([]byte, error) { //size capaz
 		return nil, fmt.Errorf("error al buscar base y límite: %v", err)
 	}
 
-	pcbEncontrado.Base = valor.Base
-	pcbEncontrado.Limit = valor.Limit
+	pcbEncontrado.Base, pcbEncontrado.Limit = valor.Base, valor.Limit
 
-	//primero tengo que ver si la direccion que me dieron esta dentro del rango de la particion del pid
+	// Verificar si la dirección está dentro del rango
 	if address < pcbEncontrado.Base || address > pcbEncontrado.Limit {
-		return nil, fmt.Errorf("Direccion fuera de rango")
+		return nil, fmt.Errorf("dirección fuera de rango")
 	}
 
 	solocuatro := uint32(4)
-
-	//si se me esta por terminar la particion y no llegue a cuatro
 	if address+solocuatro > pcbEncontrado.Limit {
-		solocuatro = pcbEncontrado.Limit - address
+		solocuatro = pcbEncontrado.Limit - address // Ajustar tamaño si excede el límite
 	}
 
 	// Leer los bytes en la memoria
 	data := make([]byte, solocuatro)
 	copy(data, globals.MemoriaUsuario[address:address+solocuatro])
 
-	//completo con ceros si no se llego a leer 4 bytes
+	// Completar con ceros si no se leyeron 4 bytes
 	if len(data) < 4 {
-		padding := make([]byte, 4-len(data)) //creo un slice con los numeros que va a tener la cantidad de bytes que me faltan para llegar a 4
-		data = append(data, padding...)      //asi cada data tiene 4 bytes
+		data = append(data, make([]byte, 4-len(data))...) // Padding
 	}
+
 	return data, nil
 }
 
@@ -1045,71 +1019,36 @@ func WriteMemoryHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func WriteMemory(PID int, TID int, address uint32, data []byte) error {
-	log.Printf("Enters to Write Memory")
+	log.Printf("Accediendo a Write Memory")
 	mu.Lock()
 	defer mu.Unlock()
 
-	var pcbEncontrado PCB //LO HAGO PARA PODER ENTRAR AL MAPA ANIDADO Y AGARRAR LA PCB DE ESE PID
-	encontrado := false
-
-	for pcb := range mapPCBPorTCB {
-		if pcb.Pid == PID {
-			pcbEncontrado = pcb
-			encontrado = true
-			break
-		}
-	}
-	if !encontrado {
-		log.Printf("no se encontró el PID : %d", PID)
-		return fmt.Errorf("no se encontró el PID: %d", PID)
-	}
-
-	valor, err := BuscarBaseLimitPorPID(PID)
+	// Buscar PCB asociado al PID
+	pcbEncontrado, err := obtenerPCBPorPID(PID)
 	if err != nil {
-		return fmt.Errorf("error al buscar base y límite: %v", err)
+		return err
 	}
 
-	pcbEncontrado.Base = valor.Base
-	pcbEncontrado.Limit = valor.Limit
-	/*
-		tcbMap := mapPCBPorTCB[pcbEncontrado]
-		var tcbEncontrada estructuraHilo
-		encontrado = false
-		for tcb := range tcbMap {
-			if tcb.Tid == TID {
-				tcbEncontrada = tcb
-				encontrado = true
-				break
-			}
-		}
-		if !encontrado {
-			log.Printf("no se encontró el TID para el PID: %d", PID)
-			return fmt.Errorf("no se encontró el TID para el PID: %d", PID)
-		}
-	*/
-	//primero tengo que ver si la direccion que me dieron esta dentro del rango de la particion del pid
+	// Verificar si la dirección está dentro del rango
 	if address < pcbEncontrado.Base || address > pcbEncontrado.Limit {
-		log.Printf("dirección fuera de rango para el PID: %d", PID)
+		log.Printf("Dirección fuera de rango para el PID: %d", PID)
 		return fmt.Errorf("dirección fuera de rango para el PID: %d", PID)
 	}
 
-	espaciodisponible := pcbEncontrado.Limit - address // Espacio disponible desde la dirección hasta el límite
-	lengthData := len(data)
-	var dataNuevo []byte
-	if lengthData >= 4 {
-		dataNuevo = data[:4]
-	} else {
-		dataNuevo = data[:lengthData]
+	// Calcular espacio disponible y preparar los datos a escribir
+	espacioDisponible := pcbEncontrado.Limit - address
+	dataAEscribir := data
+	if len(data) > 4 {
+		dataAEscribir = data[:4]
 	}
-	lengthDataNuevo := len(dataNuevo)
-	if espaciodisponible >= 4 {
-		copy(globals.MemoriaUsuario[address:address+uint32(lengthDataNuevo)], dataNuevo)
-	} else if lengthDataNuevo <= int(espaciodisponible) {
-		copy(globals.MemoriaUsuario[address:address+uint32(lengthDataNuevo)], dataNuevo)
-	} else {
-		copy(globals.MemoriaUsuario[address:address+espaciodisponible], dataNuevo[:espaciodisponible])
+
+	// Escribir en la memoria
+	if espacioDisponible < uint32(len(dataAEscribir)) {
+		dataAEscribir = dataAEscribir[:espacioDisponible] // Ajustar tamaño si excede el espacio disponible
 	}
-	log.Printf("Gets out of Write Memory habiendo escrito %v", dataNuevo)
+	copy(globals.MemoriaUsuario[address:address+uint32(len(dataAEscribir))], dataAEscribir)
+
+	log.Printf("Salida de Write Memory, datos escritos: %v", dataAEscribir)
 	return nil
 }
 
@@ -1124,54 +1063,43 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 	var tcbReq TCBRequest
 
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&tcbReq)
-
-	if err != nil {
+	// Decodificar la solicitud JSON
+	if err := json.NewDecoder(r.Body).Decode(&tcbReq); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	log.Printf("PCB : %d TID : %d - me llegaron estos valores", tcbReq.Pid, tcbReq.Tid)
+	log.Printf("PCB: %d, TID: %d - Valores recibidos", tcbReq.Pid, tcbReq.Tid)
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
-	//ver de encontrar base y limite de ese proceso
-
+	// Buscar base y límite del proceso
 	valor, err := BuscarBaseLimitPorPID(tcbReq.Pid)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("error al buscar base y límite: %v", err), http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Error al buscar base y límite: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	//convertir a bytes el base y limit
-	// base := PasarDeUintAByte(valor.Base)
-	// limite := PasarDeUintAByte(valor.Limit)
+	// Leer datos de memoria
+	data := globals.MemoriaUsuario[valor.Base:valor.Limit]
+	tamanio := valor.Limit - valor.Base
 
-	// Leer los bytes de la memoria
-	var data []byte = globals.MemoriaUsuario[valor.Base:valor.Limit]
-	var tamanio uint32
-	tamanio = valor.Limit - valor.Base
+	informacion := FsInfo{
+		Data:          data,
+		Tamanio:       tamanio,
+		NombreArchivo: GenerarNombreArchivo(tcbReq.Pid, tcbReq.Tid),
+	}
 
-	var informacion FsInfo
-	informacion.Data = data
-	informacion.Tamanio = tamanio
-
-	fileName := GenerarNombreArchivo(tcbReq.Pid, tcbReq.Tid)
-	informacion.NombreArchivo = fileName
-
-	body, err5 := json.Marshal(informacion)
-
-	if err5 != nil {
+	// Convertir a JSON
+	body, err := json.Marshal(informacion)
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	log.Printf("Enviando a memoria write_memory")
-	err3 := EnviarAModulo(MemoriaConfig.IpFs, MemoriaConfig.PuertoFs, bytes.NewBuffer(body), "dumpMemory")
-
-	if err3 != nil {
-		http.Error(w, fmt.Sprintf("Error al comunicar con FileSystem: %v", err3), http.StatusInternalServerError)
+	if err := EnviarAModulo(MemoriaConfig.IpFs, MemoriaConfig.PuertoFs, bytes.NewBuffer(body), "dumpMemory"); err != nil {
+		http.Error(w, fmt.Sprintf("Error al comunicar con FileSystem: %v", err), http.StatusInternalServerError)
 		return
 	}
 
