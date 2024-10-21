@@ -151,20 +151,20 @@ func ConfigurarLogger() {
 
 // INICIAR MODULO
 func init() {
-
 	MemoriaConfig = IniciarConfiguracion("memoria/configsMemoria/config.json")
-
-	if MemoriaConfig != nil {
-		particiones = MemoriaConfig.Particiones
-		globals.MemoriaUsuario = make([]byte, MemoriaConfig.Tamanio_Memoria)
-		esquemaMemoria = MemoriaConfig.EsquemaMemoria
-		algoritmoBusqueda = MemoriaConfig.AlgoritmoBusqueda
-		IpCpu = MemoriaConfig.IpCpu
-		PuertoCpu = MemoriaConfig.PuertoCpu
-
-	} else {
+	// Si el config no tiene nada termina
+	if MemoriaConfig == nil {
 		log.Fatal("ClientConfig is not initialized")
+		panic("ClientConfig is not initialized")
 	}
+	// Modifica las variables globales
+	particiones = MemoriaConfig.Particiones
+	globals.MemoriaUsuario = make([]byte, MemoriaConfig.Tamanio_Memoria)
+	esquemaMemoria = MemoriaConfig.EsquemaMemoria
+	algoritmoBusqueda = MemoriaConfig.AlgoritmoBusqueda
+	IpCpu = MemoriaConfig.IpCpu
+	PuertoCpu = MemoriaConfig.PuertoCpu
+
 	log.Printf("%d", particiones)
 }
 
@@ -179,15 +179,13 @@ func BuscarBaseLimitPorPID(pid int) (Valor, error) {
 	return Valor{}, fmt.Errorf("PID %d no encontrado en el mapa", pid)
 }
 
-///--------------------------------------------GET INSTRUCTION---------------------------------------------
-
+// /--------------------------------------------GET INSTRUCTION---------------------------------------------
 func GetInstruction(w http.ResponseWriter, r *http.Request) {
-
 	var instructionReq InstructionReq
-	log.Printf("Entre a get instruction")
+	log.Printf("Entrando a GetInstruction")
+
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&instructionReq)
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -195,44 +193,55 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
-	for pcb, tidMap := range mapPCBPorTCB {
-		/// log.Printf("tengo guardado: %v", tidMap)
-		log.Printf("IntructionReq.Pid %d", instructionReq.Pid)
-		if pcb.Pid == instructionReq.Pid {
-			log.Printf("me llego: %d", instructionReq.Tid)
-			log.Printf("tengo guardado: %v", tidMap)
-			for tcb, instrucciones := range tidMap {
+	// Buscar el PCB que tenga el Pid solicitado
+	tidMap := buscarPCBPorPid(instructionReq.Pid)
+	if tidMap == nil {
+		http.Error(w, fmt.Sprintf("No se encontró el PID %d", instructionReq.Pid), http.StatusNotFound)
+		log.Printf("error: no se encontró el PID %d", instructionReq.Pid)
+		return
+	}
 
-				if tcb.Tid == instructionReq.Tid {
-					if instructionReq.Pc >= 0 && instructionReq.Pc < len(instrucciones) {
-
-						instruccion := instrucciones[instructionReq.Pc]
-
-						instructionResponse := InstructionResponse{
-							Instruction: instruccion,
-						}
-
-						// Log de obtencion de instruccion
-						log.Printf("## Obtener instrucción - (PID:TID) - (%d:%d) - Instrucción: %s", instructionReq.Pid, instructionReq.Tid, instruccion)
-
-						// Envio la respuesta en formato JSON
-						json.NewEncoder(w).Encode(instructionResponse)
-						w.Write([]byte(instruccion)) // Escribo la instrucción no se cual usar
-						return
-					} else {
-						http.Error(w, "PC fuera del rango de instrucciones", http.StatusBadRequest)
-						fmt.Println("PC fuera del rango de instrucciones")
-						return
-					}
-				}
-			}
-			http.Error(w, "No se encontro el TID", http.StatusNotFound)
-			fmt.Println("No se encontró el TID")
-			return
+	// Buscar el TCB por el Tid
+	var instrucciones []string
+	for tcb, inst := range tidMap {
+		if tcb.Tid == instructionReq.Tid {
+			instrucciones = inst
+			break
 		}
 	}
-	http.Error(w, "No se encontro el PID", http.StatusNotFound)
-	fmt.Println("No se encontró el PID")
+
+	if instrucciones == nil {
+		http.Error(w, fmt.Sprintf("No se encontró el TID %d para el PID %d", instructionReq.Tid, instructionReq.Pid), http.StatusNotFound)
+		log.Printf("error: no se encontró el TID %d para el PID %d", instructionReq.Tid, instructionReq.Pid)
+		return
+	}
+
+	// Verificar si el PC está dentro del rango de instrucciones
+	if instructionReq.Pc < 0 || instructionReq.Pc >= len(instrucciones) {
+		http.Error(w, fmt.Sprintf("El PC %d está fuera del rango de instrucciones (PID: %d, TID: %d)", instructionReq.Pc, instructionReq.Pid, instructionReq.Tid), http.StatusBadRequest)
+		return
+	}
+
+	// Devolver la instrucción solicitada
+	instruccion := instrucciones[instructionReq.Pc]
+	instructionResponse := InstructionResponse{Instruction: instruccion}
+
+	// Log de obtención de instrucción
+	log.Printf("## Obtener instrucción - (PID:TID) - (%d:%d) - Instrucción: %s", instructionReq.Pid, instructionReq.Tid, instruccion)
+
+	// Envio la respuesta en formato JSON
+	json.NewEncoder(w).Encode(instructionResponse)
+	w.Write([]byte(instruccion))
+}
+
+func buscarPCBPorPid(pid int) map[estructuraHilo][]string {
+	// Buscar el PCB que tenga el Pid solicitado
+	for pcb, tcbMap := range mapPCBPorTCB {
+		if pcb.Pid == pid {
+			return tcbMap
+		}
+	}
+	return nil
 }
 
 // ------------------------------------ GET EXECUTION CONTEXT ---------------------------------------------
@@ -242,15 +251,10 @@ type GetExecutionContextResponse struct {
 }
 
 func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
-
 	var solicitud KernelExeReq
-	// queryParams := r.URL.Query()
-	// pid, _ := strconv.Atoi(queryParams.Get("pid"))
-	// tid, _ := strconv.Atoi(queryParams.Get("tid"))
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&solicitud)
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -259,56 +263,53 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 	log.Printf("PCB : %d TID : %d - me llegaron estos valores", solicitud.Pid, solicitud.Tid)
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
-	var respuesta GetExecutionContextResponse
-	for pcb, tidMap := range mapPCBPorTCB {
-		if pcb.Pid == solicitud.Pid {
-			for tcb := range tidMap {
-				if tcb.Tid == solicitud.Tid {
-					valores := mapPIDxBaseLimit[solicitud.Pid] //base y limit los saco de otro mapa
-					respuesta.Pcb.Pid = pcb.Pid
-					respuesta.Pcb.Base = valores.Base
-					respuesta.Pcb.Limit = valores.Limit
-					respuesta.Tcb = tcb
-					log.Printf("Pid %d y tid %d enontradas", pcb.Pid, tcb.Tid)
-					respuestaJson, err := json.Marshal(respuesta)
-					if err != nil {
-						http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
-					}
-					log.Printf("Respuetsa %v", respuesta)
-					w.WriteHeader(http.StatusOK)
-					w.Write(respuestaJson)
-					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", solicitud.Pid, solicitud.Tid)
-					/*executionContext := struct {
-						PCB
-						estructuraHilo
-					}{
-						PCB:            pcb,
-						estructuraHilo: tcb,
-					}
-					log.Printf("Envio pid %d y tid %d", pcb.Pid, tcb.Tid)
 
-					// Log de obtener contexto de ejecucion
-					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", solicitud.Pid, solicitud.Tid)
+	// Usar la función `buscarPCBPorPid` para obtener el tidMap
+	tidMap := buscarPCBPorPid(solicitud.Pid)
+	if tidMap == nil {
+		http.Error(w, fmt.Sprintf("No se encontró el PID %d", solicitud.Pid), http.StatusNotFound)
+		log.Printf("error: no se encontró el PID %d", solicitud.Pid)
+		return
+	}
 
-					w.Header().Set("Content-Type", "application/json")
-					json.NewEncoder(w).Encode(executionContext)
-					*/
-					return
-				}
+	// Buscar el TCB dentro del tidMap
+	for tcb := range tidMap {
+		if tcb.Tid == solicitud.Tid {
+			// Obtener valores de base y limit desde otro mapa
+			valores := mapPIDxBaseLimit[solicitud.Pid]
+			var respuesta GetExecutionContextResponse
+
+			respuesta.Pcb.Pid = solicitud.Pid
+			respuesta.Pcb.Base = valores.Base
+			respuesta.Pcb.Limit = valores.Limit
+			respuesta.Tcb = tcb
+
+			log.Printf("Pid %d y Tid %d encontrados", solicitud.Pid, tcb.Tid)
+
+			// Codificar la respuesta como JSON
+			respuestaJson, err := json.Marshal(respuesta)
+			if err != nil {
+				http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
+				return
 			}
-			http.Error(w, "No se encontro el TID", http.StatusNotFound)
+
+			w.WriteHeader(http.StatusOK)
+			w.Write(respuestaJson)
+
+			// Log de obtener el contexto de ejecución
+			log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", solicitud.Pid, solicitud.Tid)
 			return
 		}
 	}
-	http.Error(w, "No se encontro el PID", http.StatusNotFound)
+
+	// Si no se encuentra el TID
+	http.Error(w, "No se encontró el TID", http.StatusNotFound)
+	log.Printf("error: no se encontró el TID %d para el PID %d", solicitud.Tid, solicitud.Pid)
 }
 
 //-------------------------------- UPDATE EXECUTION CONTEXT-----------------------------------------------
 
 func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
-	// queryParams := r.URL.Query()
-	// pid, _ := strconv.Atoi(queryParams.Get("pid")) //esto me parece que no va
-	// tid, _ := strconv.Atoi(queryParams.Get("tid")) //esto tampoco
 	var actualizadoContexto GetExecutionContextResponse
 
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
@@ -318,43 +319,36 @@ func UpdateExecutionContext(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Printf("Respuesta codificada PID = %d , TID = %d", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
-	///log.Printf("MAP PCB x TCB = %v", mapPCBPorTCB)
-	for pcb, tidMap := range mapPCBPorTCB {
-		if pcb.Pid == actualizadoContexto.Pcb.Pid {
-			log.Printf("PID actualizar : %d", pcb.Pid)
-			for tcb := range tidMap {
-				log.Printf("TID actualizar : %d", tcb.Tid)
-				if tcb.Tid == actualizadoContexto.Tcb.Tid {
 
-					// pcb.Base = actualizadoContexto.Pcb.Base
-					// pcb.Limit = actualizadoContexto.Pcb.Limit
-					// tcb.AX = uint32(actualizadoContexto.Tcb.AX)
-					// tcb.BX = uint32(actualizadoContexto.Tcb.BX)
-					// tcb.CX = uint32(actualizadoContexto.Tcb.CX)
-					// tcb.DX = uint32(actualizadoContexto.Tcb.DX)
-					// tcb.EX = uint32(actualizadoContexto.Tcb.EX)
-					// tcb.FX = uint32(actualizadoContexto.Tcb.FX)
-					// tcb.GX = uint32(actualizadoContexto.Tcb.GX)
-					// tcb.HX = uint32(actualizadoContexto.Tcb.HX)
-					// tcb.PC = uint32(actualizadoContexto.Tcb.PC)
+	// Usar la función `buscarPCBPorPid` para obtener el tidMap
+	tidMap := buscarPCBPorPid(actualizadoContexto.Pcb.Pid)
+	if tidMap == nil {
+		http.Error(w, fmt.Sprintf("No se encontró el PID %d", actualizadoContexto.Pcb.Pid), http.StatusNotFound)
+		log.Printf("error: no se encontró el PID %d", actualizadoContexto.Pcb.Pid)
+		return
+	}
 
-					ModificarContexto(pcb, tcb, actualizadoContexto.Tcb)
-					ModificarValores(pcb.Pid, actualizadoContexto.Pcb.Base, actualizadoContexto.Pcb.Limit)
+	// Buscar el TCB dentro del tidMap
+	for tcb := range tidMap {
+		log.Printf("TID actualizar : %d", tcb.Tid)
+		if tcb.Tid == actualizadoContexto.Tcb.Tid {
+			// Modificar contexto y valores
+			ModificarContexto(actualizadoContexto.Pcb, tcb, actualizadoContexto.Tcb)
+			ModificarValores(actualizadoContexto.Pcb.Pid, actualizadoContexto.Pcb.Base, actualizadoContexto.Pcb.Limit)
 
-					// Log de obtener contexto de ejecucion
-					log.Printf("## Contexto <Solicitado> - (PID:TID) - (%d:%d)", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
-					log.Printf("Contexto = %v", mapPCBPorTCB[actualizadoContexto.Pcb])
-					w.WriteHeader(http.StatusOK)
-					w.Write([]byte("contexto de ejecucion ha sido actualizado"))
-					///log.Printf("Map actualizado %v", mapPCBPorTCB)
-					return
-				}
-			}
-			http.Error(w, "TID no ha sido encontrado", http.StatusNotFound)
+			// Log de contexto de ejecución actualizado
+			log.Printf("## Contexto Actualizado - (PID:TID) - (%d:%d)", actualizadoContexto.Pcb.Pid, actualizadoContexto.Tcb.Tid)
+			log.Printf("Contexto = %v", mapPCBPorTCB[actualizadoContexto.Pcb])
+
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("El contexto de ejecución ha sido actualizado"))
 			return
 		}
 	}
-	http.Error(w, "PID no ha sido encontrado", http.StatusNotFound)
+
+	// Si no se encuentra el TID
+	http.Error(w, "TID no ha sido encontrado", http.StatusNotFound)
+	log.Printf("error: no se encontró el TID %d para el PID %d", actualizadoContexto.Tcb.Tid, actualizadoContexto.Pcb.Pid)
 }
 
 //-----------------MODIFICAR CONTEXTO----------(NUEVA FUNCION)----
@@ -379,9 +373,8 @@ func ModificarValores(pid int, base uint32, limit uint32) {
 
 //-----------------------------------------CREATE PROCESS-------------------------------------------
 
-func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y el size
+func CreateProcess(w http.ResponseWriter, r *http.Request) {
 	var process Process
-	var limitEnInt int
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	if err := json.NewDecoder(r.Body).Decode(&process); err != nil {
@@ -389,105 +382,88 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		return
 	}
 	log.Printf("Pid: %d", process.Pid)
-	pcb := PCB{ //creo la estructura necesaria
-		Pid:   process.Pid,
-		Base:  0,
-		Limit: 0,
-	}
 
+	pcb := PCB{Pid: process.Pid, Base: 0, Limit: 0}
+
+	// Ejecutar según el esquema de memoria
 	if esquemaMemoria == "FIJAS" {
-		mapParticiones = make([]bool, len(particiones))
-		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size) //asigno por algoritmo
-		if numeroDeParticion == -1 {
-			http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
+		if err := asignarParticionFija(&pcb, process.Size); err != nil {
+			http.Error(w, err.Error(), http.StatusConflict)
 			return
 		}
-
-		//BASE
-		var baseEnInt int
-		pcb.Base = 0
-		for i := 0; i < numeroDeParticion; i++ {
-			baseEnInt += particiones[i] //tengo que ver tema int y uint32
-		}
-		pcb.Base = uint32(baseEnInt)
-		//LIMIT
-		limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
-		pcb.Limit = uint32(limitEnInt)
-		mapParticiones[numeroDeParticion] = true
-
-		mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
-
-		//marcar particion como ocupada
-		if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
-			http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
-			return
-		}
-
-		if err := guardarPCBEnElMap(pcb); err != nil { //ACA ESTOY GUARDANDO LA PCB EN MI MAP PRINCIPAL EL MAS IMPORTANTE DE TODOS
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		// Log de creación de proceso
-		log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
-
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Ok"))
-		return
 	} else if esquemaMemoria == "DINAMICAS" {
-
-		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size)
-
-		//SI NO HAY PARTICION DISPONIBLE
-		if numeroDeParticion == -1 {
-			if espacioLibreSuficiente(process.Size) { //funcion que me devuelve true o false si hay espacio suficiente sumando todas las particiones libres
-				compactarLasParticiones() //compacto las particiones libres
-				actualizarBasesYLímites() //actualizo las bases y limites
-				numeroDeParticion = asignarPorAlgoritmo(algoritmoBusqueda, process.Size)
-			} else {
-				http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
-				return
-			}
-		}
-
-		//SI HAY PARTICION DISPONIBLE PARA EL TAMAÑO DEL PROCESO
-		if particiones[numeroDeParticion] > process.Size {
-			subdividirParticion(numeroDeParticion, process.Size) //subdivir la particion en dos (una ocupada y otra libre)
-		}
-
-		//BASE
-		var baseEnInt int
-		pcb.Base = 0
-		for i := 0; i < numeroDeParticion; i++ {
-			baseEnInt += particiones[i] //tengo que ver tema int y uint32
-		}
-		pcb.Base = uint32(baseEnInt)
-
-		//LIMIT
-		limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
-		pcb.Limit = uint32(limitEnInt)
-
-		mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
-
-		// mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
-
-		if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
-			http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
+		if err := asignarParticionDinamica(&pcb, process.Size); err != nil {
+			http.Error(w, err.Error(), http.StatusConflict)
 			return
 		}
+	}
 
-		if err := guardarPCBEnElMap(pcb); err != nil { //ACA ESTOY GUARDANDO LA PCB EN MI MAP PRINCIPAL EL MAS IMPORTANTE DE TODOS
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		// Log de creación de proceso
-		log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
-
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Ok"))
+	// Guardar el PCB y actualizar estructuras
+	if err := guardarPCBEnElMap(pcb); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	// Log y respuesta
+	log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Ok"))
+}
+
+func asignarParticionFija(pcb *PCB, size int) error {
+	mapParticiones = make([]bool, len(particiones))
+	numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, size)
+
+	if numeroDeParticion == -1 {
+		return fmt.Errorf("No hay espacio en la memoria")
+	}
+
+	baseEnInt := calcularBase(numeroDeParticion)
+	pcb.Base = uint32(baseEnInt)
+	pcb.Limit = uint32(baseEnInt + particiones[numeroDeParticion] - 1)
+
+	mapParticiones[numeroDeParticion] = true
+	mapPIDxBaseLimit[pcb.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
+
+	mapPCBPorParticion[*pcb] = numeroDeParticion
+
+	return nil
+}
+
+func asignarParticionDinamica(pcb *PCB, size int) error {
+	numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, size)
+
+	if numeroDeParticion == -1 && espacioLibreSuficiente(size) {
+		compactarLasParticiones()
+		actualizarBasesYLímites()
+		numeroDeParticion = asignarPorAlgoritmo(algoritmoBusqueda, size)
+	}
+
+	if numeroDeParticion == -1 {
+		return fmt.Errorf("No hay espacio en la memoria")
+	}
+
+	if particiones[numeroDeParticion] > size {
+		subdividirParticion(numeroDeParticion, size)
+	}
+
+	baseEnInt := calcularBase(numeroDeParticion)
+	pcb.Base = uint32(baseEnInt)
+	pcb.Limit = uint32(baseEnInt + particiones[numeroDeParticion] - 1)
+
+	mapPIDxBaseLimit[pcb.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
+
+	mapPCBPorParticion[*pcb] = numeroDeParticion
+
+	return nil
+}
+
+func calcularBase(particion int) int {
+	base := 0
+	for i := 0; i < particion; i++ {
+		base += particiones[i]
+	}
+	return base
 }
 
 //------------------------------FUNCIONES PARA MEMORIA DINAMICA---------------------------------------------------
@@ -583,11 +559,6 @@ func actualizarBasesYLímites() {
 //--------------------------------------------------------------------
 
 var mapPCBPorParticion = make(map[PCB]int)
-
-func guardarPCBenMapConRespectivaParticion(pcb PCB, numeroDeParticion int) error {
-	mapPCBPorParticion[pcb] = numeroDeParticion
-	return nil
-}
 
 func guardarPCBEnElMap(pcb PCB) error {
 	if _, found := mapPCBPorTCB[pcb]; !found {

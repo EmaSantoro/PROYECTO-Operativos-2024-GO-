@@ -168,7 +168,7 @@ func init() {
 		slog.SetLogLoggerLevel(slog.LevelError)
 	SE SETEA EL NIVEL MINIMO DE LOGS A IMPRIMIR POR CONSOLA*/
 
-	ConfigKernel = IniciarConfiguracion("configsKERNEL/config.json")
+	ConfigKernel = IniciarConfiguracion("kernel/configsKERNEL/config.json")
 
 	if ConfigKernel != nil {
 
@@ -1029,7 +1029,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	tid := hilo.Tid
 	pid := hilo.Pid
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <DUMP_MEMORY> ##", pid, tid)
-	
+
 	tcb := getTCB(pid, tid)
 	enviarInterrupcion(tcb.Pid, tcb.Tid)
 	quitarExec(tcb)

@@ -158,9 +158,8 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 }
 
 func init() {
-	ConfigsCpu = IniciarConfiguracion("configsCPU/config.json")
-	//EnviarMensaje(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, "Hola Kernel, Soy CPU")
-	//EnviarMensaje(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, "Hola Memoria, Soy CPU")
+	ConfigsCpu = IniciarConfiguracion("cpu/configsCPU/config.json")
+
 }
 
 func ConfigurarLogger() {
@@ -178,6 +177,7 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 	var processAndThreadIDs KernelExeReq
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&processAndThreadIDs)
+
 	if err != nil {
 		log.Printf("Error al decodificar el pedido del Kernel: %s\n", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
