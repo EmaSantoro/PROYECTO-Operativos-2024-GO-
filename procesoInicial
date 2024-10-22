@@ -5,4 +5,6 @@ PROCESS_CREATE procesoBasico 500 1
 PROCESS_CREATE procesoBasico 500 2
 PROCESS_CREATE procesoBasico 52 3
 PROCESS_CREATE procesoBasico 62 4
+PROCESS_CREATE procesoBasico 62 8
+PROCESS_CREATE procesoBasico 62 10
 PROCESS_EXIT
