@@ -18,8 +18,6 @@ type Mensaje struct {
 
 //	INICIAR CONFIGURACION Y LOGGERS
 
-
-
 func IniciarConfiguracion(filePath string) *globals.Config {
 	var config *globals.Config
 	configFile, err := os.Open(filePath)
@@ -63,7 +61,6 @@ func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 
-	
 }
 
 func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
