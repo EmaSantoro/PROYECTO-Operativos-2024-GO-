@@ -11,7 +11,7 @@ import (
 
 func main() {
 	utils.ConfigurarLogger()
-	globals.ClientConfig = utils.IniciarConfiguracion("kernel/configsKERNEL/config.json")
+	globals.ClientConfig = utils.IniciarConfiguracion("configsKERNEL/config.json")
 
 	if globals.ClientConfig == nil {
 		log.Fatalf("No se pudo cargar la configuración")

@@ -6100,3 +6100,576 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/18 08:16:49 Syscall se ejecuto correctamente
 2024/10/18 08:16:49 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
 2024/10/18 08:16:50 Funciona ok el realizar interrupcion
+2024/10/21 14:36:03 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 14:36:03 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 14:36:04 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 14:36:04 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 14:36:05 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 14:36:05 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [DX 19]
+2024/10/21 14:36:05 Antes de modificar el valor 
+2024/10/21 14:36:05 Registro obtenido
+2024/10/21 14:36:05 ## TID: 0 - Ejecutando: SET - Parametos : [DX 19]
+2024/10/21 14:36:05 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 14:36:06 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 14:36:06 La instruccion fue decodificada : INSTUCCION = JNZ, PARAMETROS = [DX 5]
+2024/10/21 14:36:06 El valor de el registro es 19
+2024/10/21 14:36:06 Registro obtenido
+2024/10/21 14:36:06 ## TID: 0 - Ejecutando: JNZ - Parametos : [DX 5]
+2024/10/21 14:36:06 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/21 14:36:07 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/21 14:36:07 La instruccion fue decodificada : INSTUCCION = IO, PARAMETROS = [1500]
+2024/10/21 14:36:08 Recibe bien interrupcion
+2024/10/21 14:36:08 ## TID: 0 - Ejecutando: IO - Parametos : [1500]
+2024/10/21 14:36:09 Funciona ok el realizar interrupcion
+2024/10/21 14:36:10 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 14:36:10 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 14:36:11 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 14:36:11 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/21 14:36:12 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/21 14:36:12 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 15]
+2024/10/21 14:36:12 Antes de modificar el valor 
+2024/10/21 14:36:12 Registro obtenido
+2024/10/21 14:36:12 ## TID: 0 - Ejecutando: SET - Parametos : [AX 15]
+2024/10/21 14:36:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/21 14:36:13 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/21 14:36:13 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 16]
+2024/10/21 14:36:13 Antes de modificar el valor 
+2024/10/21 14:36:13 Registro obtenido
+2024/10/21 14:36:13 ## TID: 0 - Ejecutando: SET - Parametos : [BX 16]
+2024/10/21 14:36:13 Intruccion Solicitada de Pid 1 y TID 0 y PC 8
+2024/10/21 14:36:14 PID: 1 TID: 0 - FETCH - Program Counter: 8
+2024/10/21 14:36:14 La instruccion fue decodificada : INSTUCCION = SUM, PARAMETROS = [AX BX]
+2024/10/21 14:36:14 Registro obtenido
+2024/10/21 14:36:14 ## TID: 0 - Ejecutando: SUM - Parametos : [AX BX]
+2024/10/21 14:36:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 9
+2024/10/21 14:36:15 PID: 1 TID: 0 - FETCH - Program Counter: 9
+2024/10/21 14:36:15 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [CX 1]
+2024/10/21 14:36:15 Antes de modificar el valor 
+2024/10/21 14:36:15 Registro obtenido
+2024/10/21 14:36:15 ## TID: 0 - Ejecutando: SET - Parametos : [CX 1]
+2024/10/21 14:36:15 Intruccion Solicitada de Pid 1 y TID 0 y PC 10
+2024/10/21 14:36:16 PID: 1 TID: 0 - FETCH - Program Counter: 10
+2024/10/21 14:36:16 La instruccion fue decodificada : INSTUCCION = WRITE_MEM, PARAMETROS = [CX AX]
+2024/10/21 14:36:16 Se va a escribir %v[31 0 0 0]
+2024/10/21 14:36:16 LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : 4
+2024/10/21 14:36:16 Enviando a memoria write_memory
+2024/10/21 14:36:17 ## TID: 0 - Ejecutando: WRITE_MEM - Parametos : [CX AX]
+2024/10/21 14:36:17 Intruccion Solicitada de Pid 1 y TID 0 y PC 11
+2024/10/21 14:36:18 PID: 1 TID: 0 - FETCH - Program Counter: 11
+2024/10/21 14:36:18 La instruccion fue decodificada : INSTUCCION = READ_MEM, PARAMETROS = [BX CX]
+2024/10/21 14:36:18 Leer memoria con direccion fisica 1
+2024/10/21 14:36:19 Data A escribir  : 31
+2024/10/21 14:36:19 Registro obtenido
+2024/10/21 14:36:19 ## TID: 0 - Ejecutando: READ_MEM - Parametos : [BX CX]
+2024/10/21 14:36:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 12
+2024/10/21 14:36:20 PID: 1 TID: 0 - FETCH - Program Counter: 12
+2024/10/21 14:36:20 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 14:36:20 Finalizar proceos PID : 1 
+2024/10/21 14:36:21 Enviando a kernel syscall
+2024/10/21 14:36:21 Recibe bien interrupcion
+2024/10/21 14:36:21 Recibe bien interrupcion
+2024/10/21 14:36:22 Syscall se ejecuto correctamente
+2024/10/21 14:36:22 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 14:36:23 Funciona ok el realizar interrupcion
+2024/10/21 14:42:18 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 14:42:18 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 14:42:19 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 14:42:19 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 14:42:20 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 14:42:20 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/21 14:42:21 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/21 14:42:21 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 14:42:22 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 14:42:22 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:42:23 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/21 14:42:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 14:42:24 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 14:42:24 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:42:25 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/21 14:42:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 14:42:26 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 14:42:26 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 14:42:26 Finalizar proceos PID : 1 
+2024/10/21 14:42:27 Enviando a kernel syscall
+2024/10/21 14:42:27 Recibe bien interrupcion
+2024/10/21 14:42:27 Recibe bien interrupcion
+2024/10/21 14:42:28 Syscall se ejecuto correctamente
+2024/10/21 14:42:28 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 14:42:29 Funciona ok el realizar interrupcion
+2024/10/21 14:46:46 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 14:46:46 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 14:46:47 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 14:46:47 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 14:46:48 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 14:46:48 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/21 14:46:49 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/21 14:46:49 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 14:46:50 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 14:46:50 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:46:51 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/21 14:46:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 14:46:52 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 14:46:52 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:46:53 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/21 14:46:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 14:46:54 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 14:46:54 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 14:46:54 Finalizar proceos PID : 1 
+2024/10/21 14:46:55 Enviando a kernel syscall
+2024/10/21 14:46:55 Recibe bien interrupcion
+2024/10/21 14:46:55 Recibe bien interrupcion
+2024/10/21 14:46:56 Syscall se ejecuto correctamente
+2024/10/21 14:46:56 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 14:46:57 Funciona ok el realizar interrupcion
+2024/10/21 14:48:22 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 14:48:22 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 14:48:23 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 14:48:23 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 14:48:24 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 14:48:24 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/21 14:48:25 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/21 14:48:25 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 14:48:26 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 14:48:26 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:48:27 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/21 14:48:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 14:48:28 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 14:48:28 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:48:29 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/21 14:48:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 14:48:30 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 14:48:30 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 14:48:30 Finalizar proceos PID : 1 
+2024/10/21 14:48:31 Enviando a kernel syscall
+2024/10/21 14:48:31 Recibe bien interrupcion
+2024/10/21 14:48:31 Recibe bien interrupcion
+2024/10/21 14:48:32 Syscall se ejecuto correctamente
+2024/10/21 14:48:32 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 14:48:33 Funciona ok el realizar interrupcion
+2024/10/21 14:54:52 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 14:54:52 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 14:54:53 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 14:54:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 14:54:54 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 14:54:54 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/21 14:54:55 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/21 14:54:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 14:54:56 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 14:54:56 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:54:57 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/21 14:54:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 14:54:58 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 14:54:58 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:54:59 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/21 14:54:59 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 14:55:00 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 14:55:00 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 14:55:00 Finalizar proceos PID : 1 
+2024/10/21 14:55:01 Enviando a kernel syscall
+2024/10/21 14:55:01 Recibe bien interrupcion
+2024/10/21 14:55:01 Recibe bien interrupcion
+2024/10/21 14:55:02 Syscall se ejecuto correctamente
+2024/10/21 14:55:02 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 14:55:03 Funciona ok el realizar interrupcion
+2024/10/21 14:57:50 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 14:57:50 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 14:57:51 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 14:57:51 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 14:57:52 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 14:57:52 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/21 14:57:53 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/21 14:57:53 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 14:57:54 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 14:57:54 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:57:55 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/21 14:57:55 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 14:57:56 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 14:57:56 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 14:57:57 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/21 14:57:57 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 14:57:58 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 14:57:58 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 14:57:58 Finalizar proceos PID : 1 
+2024/10/21 14:57:59 Enviando a kernel syscall
+2024/10/21 14:57:59 Recibe bien interrupcion
+2024/10/21 14:57:59 Recibe bien interrupcion
+2024/10/21 14:58:00 Syscall se ejecuto correctamente
+2024/10/21 14:58:00 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 14:58:01 Funciona ok el realizar interrupcion
+2024/10/21 15:01:53 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 15:01:53 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 15:01:54 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 15:01:54 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 15:01:55 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 15:01:55 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/21 15:01:56 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/21 15:01:56 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 15:01:57 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 15:01:57 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 15:01:58 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/21 15:01:58 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 15:01:59 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 15:01:59 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 15:02:00 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/21 15:02:00 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 15:02:01 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 15:02:01 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 15:02:01 Finalizar proceos PID : 1 
+2024/10/21 15:02:02 Enviando a kernel syscall
+2024/10/21 15:02:02 Recibe bien interrupcion
+2024/10/21 15:02:02 Recibe bien interrupcion
+2024/10/21 15:02:03 Syscall se ejecuto correctamente
+2024/10/21 15:02:03 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 15:02:04 Funciona ok el realizar interrupcion
+2024/10/21 15:06:09 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 15:06:09 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 15:06:10 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 15:06:10 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 15:06:11 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 15:06:11 La instruccion fue decodificada : INSTUCCION = MUTEX_CREATE, PARAMETROS = [RECURSO_1]
+2024/10/21 15:06:12 ## TID: 0 - Ejecutando: MUTEX_CREATE - Parametos : [RECURSO_1]
+2024/10/21 15:06:12 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 15:06:13 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 15:06:13 La instruccion fue decodificada : INSTUCCION = MUTEX_LOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 15:06:14 ## TID: 0 - Ejecutando: MUTEX_LOCK - Parametos : [RECURSO_1]
+2024/10/21 15:06:14 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 15:06:15 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 15:06:15 La instruccion fue decodificada : INSTUCCION = MUTEX_UNLOCK, PARAMETROS = [RECURSO_1]
+2024/10/21 15:06:16 ## TID: 0 - Ejecutando: MUTEX_UNLOCK - Parametos : [RECURSO_1]
+2024/10/21 15:06:16 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 15:06:17 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 15:06:17 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 15:06:17 Finalizar proceos PID : 1 
+2024/10/21 15:06:18 Enviando a kernel syscall
+2024/10/21 15:06:18 Recibe bien interrupcion
+2024/10/21 15:06:18 Recibe bien interrupcion
+2024/10/21 15:06:19 Syscall se ejecuto correctamente
+2024/10/21 15:06:19 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 15:06:20 Funciona ok el realizar interrupcion
+2024/10/21 15:36:28 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 15:36:28 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 15:36:29 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 15:36:29 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 15:36:30 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 15:36:30 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 510 0]
+2024/10/21 15:36:31 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 510 0]
+2024/10/21 15:36:31 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 15:36:32 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 15:36:32 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 15:36:32 Antes de modificar el valor 
+2024/10/21 15:36:32 Registro obtenido
+2024/10/21 15:36:32 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 15:36:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 15:36:33 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 15:36:33 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 2]
+2024/10/21 15:36:33 Antes de modificar el valor 
+2024/10/21 15:36:33 Registro obtenido
+2024/10/21 15:36:33 ## TID: 0 - Ejecutando: SET - Parametos : [BX 2]
+2024/10/21 15:36:33 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 15:36:34 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 15:36:34 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 124 1]
+2024/10/21 15:36:36 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 124 1]
+2024/10/21 15:36:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/21 15:36:37 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/21 15:36:37 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 15:36:37 Finalizar proceos PID : 1 
+2024/10/21 15:36:38 Enviando a kernel syscall
+2024/10/21 15:36:38 Recibe bien interrupcion
+2024/10/21 15:36:38 Recibe bien interrupcion
+2024/10/21 15:36:39 Syscall se ejecuto correctamente
+2024/10/21 15:36:39 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 15:36:40 Funciona ok el realizar interrupcion
+2024/10/21 15:36:40 Cpu recibe TID : 0 PID:2 del Kernel
+2024/10/21 15:36:40 PCB : 2 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 15:36:41 PCB : 2 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 15:36:41 Intruccion Solicitada de Pid 2 y TID 0 y PC 0
+2024/10/21 15:36:42 PID: 2 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 15:36:42 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 15:36:42 Antes de modificar el valor 
+2024/10/21 15:36:42 Registro obtenido
+2024/10/21 15:36:42 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 15:36:42 Intruccion Solicitada de Pid 2 y TID 0 y PC 1
+2024/10/21 15:36:43 PID: 2 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 15:36:43 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 15:36:43 Finalizar proceos PID : 2 
+2024/10/21 15:36:44 Enviando a kernel syscall
+2024/10/21 15:36:44 Recibe bien interrupcion
+2024/10/21 15:36:44 Recibe bien interrupcion
+2024/10/21 15:36:45 Syscall se ejecuto correctamente
+2024/10/21 15:36:45 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 15:36:46 Funciona ok el realizar interrupcion
+2024/10/21 15:36:46 Cpu recibe TID : 0 PID:3 del Kernel
+2024/10/21 15:36:46 PCB : 3 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 15:36:47 PCB : 3 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 15:36:47 Intruccion Solicitada de Pid 3 y TID 0 y PC 0
+2024/10/21 15:36:48 PID: 3 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 15:36:48 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 15:36:48 Antes de modificar el valor 
+2024/10/21 15:36:48 Registro obtenido
+2024/10/21 15:36:48 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 15:36:48 Intruccion Solicitada de Pid 3 y TID 0 y PC 1
+2024/10/21 15:36:49 PID: 3 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 15:36:49 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 15:36:49 Finalizar proceos PID : 3 
+2024/10/21 15:36:50 Enviando a kernel syscall
+2024/10/21 15:36:50 Recibe bien interrupcion
+2024/10/21 15:36:50 Recibe bien interrupcion
+2024/10/21 15:36:51 Syscall se ejecuto correctamente
+2024/10/21 15:36:51 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 15:36:52 Funciona ok el realizar interrupcion
+2024/10/21 16:22:35 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 16:22:35 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:22:36 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:22:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 16:22:37 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:22:37 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 512 0]
+2024/10/21 16:22:38 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 512 0]
+2024/10/21 16:22:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 16:22:39 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:22:39 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:22:39 Antes de modificar el valor 
+2024/10/21 16:22:39 Registro obtenido
+2024/10/21 16:22:39 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:22:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 16:22:40 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 16:22:40 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 2]
+2024/10/21 16:22:40 Antes de modificar el valor 
+2024/10/21 16:22:40 Registro obtenido
+2024/10/21 16:22:40 ## TID: 0 - Ejecutando: SET - Parametos : [BX 2]
+2024/10/21 16:22:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 16:22:41 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 16:22:41 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 512 1]
+2024/10/21 16:22:42 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 512 1]
+2024/10/21 16:22:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/21 16:22:43 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/21 16:22:43 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:22:43 Finalizar proceos PID : 1 
+2024/10/21 16:22:44 Enviando a kernel syscall
+2024/10/21 16:22:44 Recibe bien interrupcion
+2024/10/21 16:22:44 Recibe bien interrupcion
+2024/10/21 16:22:45 Syscall se ejecuto correctamente
+2024/10/21 16:22:45 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:22:46 Funciona ok el realizar interrupcion
+2024/10/21 16:22:46 Cpu recibe TID : 0 PID:2 del Kernel
+2024/10/21 16:22:46 PCB : 2 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:22:47 PCB : 2 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:22:47 Intruccion Solicitada de Pid 2 y TID 0 y PC 0
+2024/10/21 16:22:48 PID: 2 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:22:48 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:22:48 Antes de modificar el valor 
+2024/10/21 16:22:48 Registro obtenido
+2024/10/21 16:22:48 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:22:48 Intruccion Solicitada de Pid 2 y TID 0 y PC 1
+2024/10/21 16:22:49 PID: 2 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:22:49 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:22:49 Finalizar proceos PID : 2 
+2024/10/21 16:22:50 Enviando a kernel syscall
+2024/10/21 16:22:50 Recibe bien interrupcion
+2024/10/21 16:22:50 Recibe bien interrupcion
+2024/10/21 16:22:51 Syscall se ejecuto correctamente
+2024/10/21 16:22:51 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:22:52 Funciona ok el realizar interrupcion
+2024/10/21 16:22:52 Cpu recibe TID : 0 PID:3 del Kernel
+2024/10/21 16:22:52 PCB : 3 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:22:53 PCB : 3 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:22:53 Intruccion Solicitada de Pid 3 y TID 0 y PC 0
+2024/10/21 16:22:54 PID: 3 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:22:54 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:22:54 Antes de modificar el valor 
+2024/10/21 16:22:54 Registro obtenido
+2024/10/21 16:22:54 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:22:54 Intruccion Solicitada de Pid 3 y TID 0 y PC 1
+2024/10/21 16:22:55 PID: 3 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:22:55 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:22:55 Finalizar proceos PID : 3 
+2024/10/21 16:22:56 Enviando a kernel syscall
+2024/10/21 16:22:56 Recibe bien interrupcion
+2024/10/21 16:22:56 Recibe bien interrupcion
+2024/10/21 16:22:57 Syscall se ejecuto correctamente
+2024/10/21 16:22:57 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:22:58 Funciona ok el realizar interrupcion
+2024/10/21 16:26:35 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 16:26:35 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:26:36 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:26:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 16:26:37 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:26:37 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 512 0]
+2024/10/21 16:26:38 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 512 0]
+2024/10/21 16:26:38 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 16:26:39 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:26:39 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:26:39 Antes de modificar el valor 
+2024/10/21 16:26:39 Registro obtenido
+2024/10/21 16:26:39 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:26:39 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 16:26:40 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 16:26:40 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 2]
+2024/10/21 16:26:40 Antes de modificar el valor 
+2024/10/21 16:26:40 Registro obtenido
+2024/10/21 16:26:40 ## TID: 0 - Ejecutando: SET - Parametos : [BX 2]
+2024/10/21 16:26:40 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 16:26:41 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 16:26:41 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 512 1]
+2024/10/21 16:26:42 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 512 1]
+2024/10/21 16:26:42 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/21 16:26:43 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/21 16:26:43 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 12 2]
+2024/10/21 16:26:44 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 12 2]
+2024/10/21 16:26:44 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/21 16:26:45 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/21 16:26:45 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 52 3]
+2024/10/21 16:26:46 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 52 3]
+2024/10/21 16:26:46 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/21 16:26:47 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/21 16:26:47 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 62 4]
+2024/10/21 16:26:48 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 62 4]
+2024/10/21 16:26:48 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/21 16:26:49 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/21 16:26:49 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:26:49 Finalizar proceos PID : 1 
+2024/10/21 16:26:50 Enviando a kernel syscall
+2024/10/21 16:26:50 Recibe bien interrupcion
+2024/10/21 16:26:50 Recibe bien interrupcion
+2024/10/21 16:26:51 Syscall se ejecuto correctamente
+2024/10/21 16:26:51 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:26:52 Funciona ok el realizar interrupcion
+2024/10/21 16:26:52 Cpu recibe TID : 0 PID:2 del Kernel
+2024/10/21 16:26:52 PCB : 2 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:26:53 PCB : 2 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:26:53 Intruccion Solicitada de Pid 2 y TID 0 y PC 0
+2024/10/21 16:26:54 PID: 2 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:26:54 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:26:54 Antes de modificar el valor 
+2024/10/21 16:26:54 Registro obtenido
+2024/10/21 16:26:54 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:26:54 Intruccion Solicitada de Pid 2 y TID 0 y PC 1
+2024/10/21 16:26:55 PID: 2 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:26:55 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:26:55 Finalizar proceos PID : 2 
+2024/10/21 16:26:56 Enviando a kernel syscall
+2024/10/21 16:26:56 Recibe bien interrupcion
+2024/10/21 16:26:56 Recibe bien interrupcion
+2024/10/21 16:26:57 Syscall se ejecuto correctamente
+2024/10/21 16:26:57 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:26:58 Funciona ok el realizar interrupcion
+2024/10/21 16:26:58 Cpu recibe TID : 0 PID:3 del Kernel
+2024/10/21 16:26:58 PCB : 3 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:26:59 PCB : 3 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:26:59 Intruccion Solicitada de Pid 3 y TID 0 y PC 0
+2024/10/21 16:27:00 PID: 3 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:27:00 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:27:00 Antes de modificar el valor 
+2024/10/21 16:27:00 Registro obtenido
+2024/10/21 16:27:00 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:27:00 Intruccion Solicitada de Pid 3 y TID 0 y PC 1
+2024/10/21 16:27:01 PID: 3 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:27:01 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:27:01 Finalizar proceos PID : 3 
+2024/10/21 16:27:02 Enviando a kernel syscall
+2024/10/21 16:27:02 Recibe bien interrupcion
+2024/10/21 16:27:02 Recibe bien interrupcion
+2024/10/21 16:27:03 Syscall se ejecuto correctamente
+2024/10/21 16:27:03 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:27:04 Funciona ok el realizar interrupcion
+2024/10/21 16:27:04 Cpu recibe TID : 0 PID:4 del Kernel
+2024/10/21 16:27:04 PCB : 4 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:27:05 PCB : 4 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:27:05 Intruccion Solicitada de Pid 4 y TID 0 y PC 0
+2024/10/21 16:27:06 PID: 4 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:27:06 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:27:06 Antes de modificar el valor 
+2024/10/21 16:27:06 Registro obtenido
+2024/10/21 16:27:06 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:27:06 Intruccion Solicitada de Pid 4 y TID 0 y PC 1
+2024/10/21 16:27:07 PID: 4 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:27:07 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:27:07 Finalizar proceos PID : 4 
+2024/10/21 16:27:08 Enviando a kernel syscall
+2024/10/21 16:27:08 Recibe bien interrupcion
+2024/10/21 16:27:08 Recibe bien interrupcion
+2024/10/21 16:27:09 Syscall se ejecuto correctamente
+2024/10/21 16:27:09 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:27:10 Funciona ok el realizar interrupcion
+2024/10/21 16:27:10 Cpu recibe TID : 0 PID:5 del Kernel
+2024/10/21 16:27:10 PCB : 5 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:27:11 PCB : 5 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:27:11 Intruccion Solicitada de Pid 5 y TID 0 y PC 0
+2024/10/21 16:27:12 PID: 5 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:27:12 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:27:12 Antes de modificar el valor 
+2024/10/21 16:27:12 Registro obtenido
+2024/10/21 16:27:12 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:27:12 Intruccion Solicitada de Pid 5 y TID 0 y PC 1
+2024/10/21 16:27:13 PID: 5 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:27:13 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:27:13 Finalizar proceos PID : 5 
+2024/10/21 16:27:14 Enviando a kernel syscall
+2024/10/21 16:27:14 Recibe bien interrupcion
+2024/10/21 16:27:14 Recibe bien interrupcion
+2024/10/21 16:27:15 Syscall se ejecuto correctamente
+2024/10/21 16:27:15 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:27:16 Funciona ok el realizar interrupcion
+2024/10/21 16:27:16 Cpu recibe TID : 0 PID:6 del Kernel
+2024/10/21 16:27:16 PCB : 6 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:27:17 PCB : 6 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:27:17 Intruccion Solicitada de Pid 6 y TID 0 y PC 0
+2024/10/21 16:27:18 PID: 6 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:27:18 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:27:18 Antes de modificar el valor 
+2024/10/21 16:27:18 Registro obtenido
+2024/10/21 16:27:18 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:27:18 Intruccion Solicitada de Pid 6 y TID 0 y PC 1
+2024/10/21 16:27:19 PID: 6 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:27:19 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:27:19 Finalizar proceos PID : 6 
+2024/10/21 16:27:20 Enviando a kernel syscall
+2024/10/21 16:27:20 Recibe bien interrupcion
+2024/10/21 16:27:20 Recibe bien interrupcion
+2024/10/21 16:27:21 Syscall se ejecuto correctamente
+2024/10/21 16:27:21 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:27:22 Funciona ok el realizar interrupcion
+2024/10/21 16:36:23 Cpu recibe TID : 0 PID:1 del Kernel
+2024/10/21 16:36:23 PCB : 1 TID : 0 - Solicita Contexto de Ejecucion
+2024/10/21 16:36:24 PCB : 1 TID : 0 - Solicitud Contexto de Ejecucion Exitosa
+2024/10/21 16:36:24 Intruccion Solicitada de Pid 1 y TID 0 y PC 0
+2024/10/21 16:36:25 PID: 1 TID: 0 - FETCH - Program Counter: 0
+2024/10/21 16:36:25 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 600 0]
+2024/10/21 16:36:26 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 600 0]
+2024/10/21 16:36:26 Intruccion Solicitada de Pid 1 y TID 0 y PC 1
+2024/10/21 16:36:27 PID: 1 TID: 0 - FETCH - Program Counter: 1
+2024/10/21 16:36:27 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [AX 1]
+2024/10/21 16:36:27 Antes de modificar el valor 
+2024/10/21 16:36:27 Registro obtenido
+2024/10/21 16:36:27 ## TID: 0 - Ejecutando: SET - Parametos : [AX 1]
+2024/10/21 16:36:27 Intruccion Solicitada de Pid 1 y TID 0 y PC 2
+2024/10/21 16:36:28 PID: 1 TID: 0 - FETCH - Program Counter: 2
+2024/10/21 16:36:28 La instruccion fue decodificada : INSTUCCION = SET, PARAMETROS = [BX 2]
+2024/10/21 16:36:28 Antes de modificar el valor 
+2024/10/21 16:36:28 Registro obtenido
+2024/10/21 16:36:28 ## TID: 0 - Ejecutando: SET - Parametos : [BX 2]
+2024/10/21 16:36:28 Intruccion Solicitada de Pid 1 y TID 0 y PC 3
+2024/10/21 16:36:29 PID: 1 TID: 0 - FETCH - Program Counter: 3
+2024/10/21 16:36:29 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 600 1]
+2024/10/21 16:36:30 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 600 1]
+2024/10/21 16:36:30 Intruccion Solicitada de Pid 1 y TID 0 y PC 4
+2024/10/21 16:36:31 PID: 1 TID: 0 - FETCH - Program Counter: 4
+2024/10/21 16:36:31 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 12 2]
+2024/10/21 16:36:32 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 12 2]
+2024/10/21 16:36:32 Intruccion Solicitada de Pid 1 y TID 0 y PC 5
+2024/10/21 16:36:33 PID: 1 TID: 0 - FETCH - Program Counter: 5
+2024/10/21 16:36:33 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 52 3]
+2024/10/21 16:36:34 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 52 3]
+2024/10/21 16:36:34 Intruccion Solicitada de Pid 1 y TID 0 y PC 6
+2024/10/21 16:36:35 PID: 1 TID: 0 - FETCH - Program Counter: 6
+2024/10/21 16:36:35 La instruccion fue decodificada : INSTUCCION = PROCESS_CREATE, PARAMETROS = [procesoBasico 62 4]
+2024/10/21 16:36:36 ## TID: 0 - Ejecutando: PROCESS_CREATE - Parametos : [procesoBasico 62 4]
+2024/10/21 16:36:36 Intruccion Solicitada de Pid 1 y TID 0 y PC 7
+2024/10/21 16:36:37 PID: 1 TID: 0 - FETCH - Program Counter: 7
+2024/10/21 16:36:37 La instruccion fue decodificada : INSTUCCION = PROCESS_EXIT, PARAMETROS = []
+2024/10/21 16:36:37 Finalizar proceos PID : 1 
+2024/10/21 16:36:38 Enviando a kernel syscall
+2024/10/21 16:36:38 Recibe bien interrupcion
+2024/10/21 16:36:38 Recibe bien interrupcion
+2024/10/21 16:36:39 Syscall se ejecuto correctamente
+2024/10/21 16:36:39 ## TID: 0 - Ejecutando: PROCESS_EXIT - Parametos : []
+2024/10/21 16:36:40 Funciona ok el realizar interrupcion

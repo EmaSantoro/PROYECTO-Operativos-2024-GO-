@@ -1,21 +1,22 @@
 package utils
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/sisoputnfrba/tp-golang/filesystem/globals"
 )
 
+/*---------------------- ESTRUCTURAS ----------------------*/
 type Mensaje struct {
 	Mensaje string `json:"mensaje"`
 }
 
+/*-------------------- VAR GLOBALES --------------------*/
+
+/*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
 
 func IniciarConfiguracion(filePath string) *globals.Config {
@@ -31,10 +32,7 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 
 	return config
 }
-func init() {
-	ConfigFs := IniciarConfiguracion("configsFS/config.json")
-	EnviarMensaje(ConfigFs.IpMemoria, ConfigFs.PuertoMemoria, "Hola Memoria, Soy FS")
-}
+
 func ConfigurarLogger() {
 	logFile, err := os.OpenFile("tp.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
@@ -44,36 +42,41 @@ func ConfigurarLogger() {
 	log.SetOutput(mw)
 }
 
-func RecibirMensaje(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-	var mensaje Mensaje
-	err := decoder.Decode(&mensaje)
-	if err != nil {
-		log.Printf("Error al decodificar mensaje: %s\n", err.Error())
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Error al decodificar mensaje"))
-		return
-	}
+func init() {
+	ConfigFs := IniciarConfiguracion("configsFS/config.json")
 
-	log.Println("Conexion con FS")
-	log.Printf("%+v\n", mensaje)
+	//Al iniciar el modulo se debera validar que existan los archivos bitmap.dat y bloques.dat. En caso que no existan se deberan crear. Caso contrario se deberan tomar los ya existentes.
+	if ConfigFs != nil {
+			archMap := validarArchivo("bitmap.dat")
+			log.Println(archMap)
 
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("ok"))
-
+			archBloque := validarArchivo("bloques.dat")
+			log.Println(archBloque)
+		}
 }
 
-func EnviarMensaje(ip string, puerto int, mensajeTxt string) {
-	mensaje := Mensaje{Mensaje: mensajeTxt}
-	body, err := json.Marshal(mensaje)
-	if err != nil {
-		log.Printf("error codificando mensaje: %s", err.Error())
-	}
-
-	url := fmt.Sprintf("http://%s:%d/mensaje", ip, puerto)
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
-	if err != nil {
-		log.Printf("error enviando mensaje a ip:%s puerto:%d", ip, puerto)
-	}
-	log.Printf("respuesta del servidor: %s", resp.Status)
+func validarArchivo(nombre string) *os.File {
+		_, err := os.Stat(nombre)
+		if os.IsNotExist(err) {
+			
+			return crearArchivo(nombre)
+		}
+		return archivo(nombre)
 }
+
+func crearArchivo(nombre string)*os.File{ 
+	archivo, err := os.Create(nombre)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return archivo
+}
+
+func archivo(nombre string)*os.File{
+	archivo, err := os.OpenFile(nombre, os.O_RDWR, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return archivo
+}
+

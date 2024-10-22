@@ -1485,3 +1485,487 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/18 08:16:49 Enviando proceso a memoria 
 2024/10/18 08:16:49 Proceso terminado existosamente llevado a memoria 
 2024/10/18 08:16:49 Proceso finalizado existosamente
+2024/10/21 14:36:08 ## (<PID:1>:<TID:0>) - Solicitó syscall: <IO> ##
+2024/10/21 14:36:08 Envia interrupcion de finalizacion 
+2024/10/21 14:36:08 (<PID: 1 >:<TID: 0 >) - Bloqueado por: IO
+2024/10/21 14:36:10 ## (<PID 1>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 14:36:10 ## (<PID 1>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 14:36:21 Entra a exit process
+2024/10/21 14:36:21 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 14:36:21  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 14:36:21 Envia interrupcion de finalizacion 
+2024/10/21 14:36:21 Entra a exitHilo
+2024/10/21 14:36:21  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 14:36:21 Envia interrupcion de finalizacion 
+2024/10/21 14:36:21 Hilo encolado en exit
+2024/10/21 14:36:21 Entra a envio hilo finalizado a memoria 
+2024/10/21 14:36:21 Codificando mensaje
+2024/10/21 14:36:22 Envio mensaje 
+2024/10/21 14:36:22 analizo repuesta de envio a memoria
+2024/10/21 14:36:22 Envio a memoria del proceso exitoso
+2024/10/21 14:36:22 Enviado hilo finalizado a memoria 
+2024/10/21 14:36:22 Enviando proceso a memoria 
+2024/10/21 14:36:22 Proceso terminado existosamente llevado a memoria 
+2024/10/21 14:36:22 Proceso finalizado existosamente
+2024/10/21 14:41:33 ERROR Error enviando TCB ip=127.0.0.1 puerto=8004 error="Post \"http://127.0.0.1:8004/recibirTcb\": dial tcp 127.0.0.1:8004: connectex: No connection could be made because the target machine actively refused it."
+2024/10/21 14:42:21 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/21 14:42:21 Mutex creado: RECURSO_1
+2024/10/21 14:42:23 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/21 14:42:25 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/21 14:42:27 Entra a exit process
+2024/10/21 14:42:27 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 14:42:27  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 14:42:27 Envia interrupcion de finalizacion 
+2024/10/21 14:42:27 Entra a exitHilo
+2024/10/21 14:42:27  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 14:42:27 Envia interrupcion de finalizacion 
+2024/10/21 14:42:27 Hilo encolado en exit
+2024/10/21 14:42:27 Entra a envio hilo finalizado a memoria 
+2024/10/21 14:42:27 Codificando mensaje
+2024/10/21 14:42:28 Envio mensaje 
+2024/10/21 14:42:28 analizo repuesta de envio a memoria
+2024/10/21 14:42:28 Envio a memoria del proceso exitoso
+2024/10/21 14:42:28 Enviado hilo finalizado a memoria 
+2024/10/21 14:42:28 Enviando proceso a memoria 
+2024/10/21 14:42:28 Proceso terminado existosamente llevado a memoria 
+2024/10/21 14:42:28 Proceso finalizado existosamente
+2024/10/21 14:46:49 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/21 14:46:49 Mutex creado: RECURSO_1
+2024/10/21 14:46:51 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/21 14:46:53 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/21 14:46:55 Entra a exit process
+2024/10/21 14:46:55 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 14:46:55  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 14:46:55 Envia interrupcion de finalizacion 
+2024/10/21 14:46:55 Entra a exitHilo
+2024/10/21 14:46:55  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 14:46:55 Envia interrupcion de finalizacion 
+2024/10/21 14:46:55 Hilo encolado en exit
+2024/10/21 14:46:55 Entra a envio hilo finalizado a memoria 
+2024/10/21 14:46:55 Codificando mensaje
+2024/10/21 14:46:56 Envio mensaje 
+2024/10/21 14:46:56 analizo repuesta de envio a memoria
+2024/10/21 14:46:56 Envio a memoria del proceso exitoso
+2024/10/21 14:46:56 Enviado hilo finalizado a memoria 
+2024/10/21 14:46:56 Enviando proceso a memoria 
+2024/10/21 14:46:56 Proceso terminado existosamente llevado a memoria 
+2024/10/21 14:46:56 Proceso finalizado existosamente
+2024/10/21 14:48:25 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/21 14:48:25 Mutex creado: RECURSO_1
+2024/10/21 14:48:27 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/21 14:48:27 Entre al lockmutex
+2024/10/21 14:48:29 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/21 14:48:31 Entra a exit process
+2024/10/21 14:48:31 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 14:48:31  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 14:48:31 Envia interrupcion de finalizacion 
+2024/10/21 14:48:31 Entra a exitHilo
+2024/10/21 14:48:31  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 14:48:31 Envia interrupcion de finalizacion 
+2024/10/21 14:48:31 Hilo encolado en exit
+2024/10/21 14:48:31 Entra a envio hilo finalizado a memoria 
+2024/10/21 14:48:31 Codificando mensaje
+2024/10/21 14:48:32 Envio mensaje 
+2024/10/21 14:48:32 analizo repuesta de envio a memoria
+2024/10/21 14:48:32 Envio a memoria del proceso exitoso
+2024/10/21 14:48:32 Enviado hilo finalizado a memoria 
+2024/10/21 14:48:32 Enviando proceso a memoria 
+2024/10/21 14:48:32 Proceso terminado existosamente llevado a memoria 
+2024/10/21 14:48:32 Proceso finalizado existosamente
+2024/10/21 14:54:55 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/21 14:54:55 Mutex creado: RECURSO_1 y agregado a lista de mutex
+2024/10/21 14:54:57 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/21 14:54:57 Lista de mutex del proceso: []
+2024/10/21 14:54:59 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/21 14:55:01 Entra a exit process
+2024/10/21 14:55:01 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 14:55:01  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 14:55:01 Envia interrupcion de finalizacion 
+2024/10/21 14:55:01 Entra a exitHilo
+2024/10/21 14:55:01  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 14:55:01 Envia interrupcion de finalizacion 
+2024/10/21 14:55:01 Hilo encolado en exit
+2024/10/21 14:55:01 Entra a envio hilo finalizado a memoria 
+2024/10/21 14:55:01 Codificando mensaje
+2024/10/21 14:55:02 Envio mensaje 
+2024/10/21 14:55:02 analizo repuesta de envio a memoria
+2024/10/21 14:55:02 Envio a memoria del proceso exitoso
+2024/10/21 14:55:02 Enviado hilo finalizado a memoria 
+2024/10/21 14:55:02 Enviando proceso a memoria 
+2024/10/21 14:55:02 Proceso terminado existosamente llevado a memoria 
+2024/10/21 14:55:02 Proceso finalizado existosamente
+2024/10/21 14:57:53 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/21 14:57:53 Mutex creado: RECURSO_1 y agregado a lista de mutex: [{RECURSO_1 false -1 []}]
+2024/10/21 14:57:55 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/21 14:57:55 Lista de mutex del proceso: []
+2024/10/21 14:57:57 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/21 14:57:59 Entra a exit process
+2024/10/21 14:57:59 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 14:57:59  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 14:57:59 Envia interrupcion de finalizacion 
+2024/10/21 14:57:59 Entra a exitHilo
+2024/10/21 14:57:59  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 14:57:59 Envia interrupcion de finalizacion 
+2024/10/21 14:57:59 Hilo encolado en exit
+2024/10/21 14:57:59 Entra a envio hilo finalizado a memoria 
+2024/10/21 14:57:59 Codificando mensaje
+2024/10/21 14:58:00 Envio mensaje 
+2024/10/21 14:58:00 analizo repuesta de envio a memoria
+2024/10/21 14:58:00 Envio a memoria del proceso exitoso
+2024/10/21 14:58:00 Enviado hilo finalizado a memoria 
+2024/10/21 14:58:00 Enviando proceso a memoria 
+2024/10/21 14:58:00 Proceso terminado existosamente llevado a memoria 
+2024/10/21 14:58:00 Proceso finalizado existosamente
+2024/10/21 15:01:56 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/21 15:01:56 Mutex creado: RECURSO_1 y agregado a lista de mutex: [{RECURSO_1 false -1 []}]
+2024/10/21 15:01:58 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/21 15:01:58 Lista de mutex del proceso: [{RECURSO_1 false -1 []}]
+2024/10/21 15:01:58 Entre al for
+2024/10/21 15:01:58 Entre al if1
+2024/10/21 15:01:58 Entre al if2
+2024/10/21 15:01:58 Hilo 0 bloquea el mutex RECURSO_1
+2024/10/21 15:02:00 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/21 15:02:00 Hilo 0 desbloquea el mutex RECURSO_1
+2024/10/21 15:02:02 Entra a exit process
+2024/10/21 15:02:02 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 15:02:02  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 15:02:02 Envia interrupcion de finalizacion 
+2024/10/21 15:02:02 Entra a exitHilo
+2024/10/21 15:02:02  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 15:02:02 Envia interrupcion de finalizacion 
+2024/10/21 15:02:02 Hilo encolado en exit
+2024/10/21 15:02:02 Entra a envio hilo finalizado a memoria 
+2024/10/21 15:02:02 Codificando mensaje
+2024/10/21 15:02:03 Envio mensaje 
+2024/10/21 15:02:03 analizo repuesta de envio a memoria
+2024/10/21 15:02:03 Envio a memoria del proceso exitoso
+2024/10/21 15:02:03 Enviado hilo finalizado a memoria 
+2024/10/21 15:02:03 Enviando proceso a memoria 
+2024/10/21 15:02:03 Proceso terminado existosamente llevado a memoria 
+2024/10/21 15:02:03 Proceso finalizado existosamente
+2024/10/21 15:06:12 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_CREATE> ##
+2024/10/21 15:06:12 Mutex creado: RECURSO_1
+2024/10/21 15:06:14 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_LOCK> ##
+2024/10/21 15:06:14 Hilo 0 bloquea el mutex RECURSO_1
+2024/10/21 15:06:14 Nuevo valores del mutex: [{RECURSO_1 true 0 []}]
+2024/10/21 15:06:16 ## (<PID:1>:<TID:0>) - Solicitó syscall: <MUTEX_UNLOCK> ##
+2024/10/21 15:06:16 Hilo 0 desbloquea el mutex RECURSO_1
+2024/10/21 15:06:16 Nuevo valores del mutex: [{RECURSO_1 false -1 []}]
+2024/10/21 15:06:18 Entra a exit process
+2024/10/21 15:06:18 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 15:06:18  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 15:06:18 Envia interrupcion de finalizacion 
+2024/10/21 15:06:18 Entra a exitHilo
+2024/10/21 15:06:18  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 15:06:18 Envia interrupcion de finalizacion 
+2024/10/21 15:06:18 Hilo encolado en exit
+2024/10/21 15:06:18 Entra a envio hilo finalizado a memoria 
+2024/10/21 15:06:18 Codificando mensaje
+2024/10/21 15:06:19 Envio mensaje 
+2024/10/21 15:06:19 analizo repuesta de envio a memoria
+2024/10/21 15:06:19 Envio a memoria del proceso exitoso
+2024/10/21 15:06:19 Enviado hilo finalizado a memoria 
+2024/10/21 15:06:19 Enviando proceso a memoria 
+2024/10/21 15:06:19 Proceso terminado existosamente llevado a memoria 
+2024/10/21 15:06:19 Proceso finalizado existosamente
+2024/10/21 15:36:31 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 15:36:31 ## (<PID 2>) Se crea el proceso - Estado: NEW
+2024/10/21 15:36:31 PID enviada a memoria : 2
+2024/10/21 15:36:34 ## (<PID 2>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 15:36:36 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 15:36:36 ## (<PID 3>) Se crea el proceso - Estado: NEW
+2024/10/21 15:36:36 PID enviada a memoria : 3
+2024/10/21 15:36:38 Entra a exit process
+2024/10/21 15:36:38 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 15:36:38  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 15:36:38 Envia interrupcion de finalizacion 
+2024/10/21 15:36:38 Se entra a ExitHilo: Hilo 0, Proceso 1
+2024/10/21 15:36:38  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 15:36:38 Envia interrupcion de finalizacion 
+2024/10/21 15:36:38 Hilo encolado en exit: Hilo 0, Proceso 1
+2024/10/21 15:36:39 ## (<PID 3>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 15:36:39 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 1
+2024/10/21 15:36:39 Enviando proceso Finalizado a memoria...
+2024/10/21 15:36:39 Proceso finalizado existosamente enviado a memoria 
+2024/10/21 15:36:39 Proceso finalizado existosamente
+2024/10/21 15:36:40 ## (<PID 2>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 15:36:44 Entra a exit process
+2024/10/21 15:36:44 ## (<PID:2>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 15:36:44  ## (<PID: 2>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 15:36:44 Envia interrupcion de finalizacion 
+2024/10/21 15:36:44 Se entra a ExitHilo: Hilo 0, Proceso 2
+2024/10/21 15:36:44  ## (<PID: 2>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 15:36:44 Envia interrupcion de finalizacion 
+2024/10/21 15:36:44 Hilo encolado en exit: Hilo 0, Proceso 2
+2024/10/21 15:36:45 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 2
+2024/10/21 15:36:45 Enviando proceso Finalizado a memoria...
+2024/10/21 15:36:45 Proceso finalizado existosamente enviado a memoria 
+2024/10/21 15:36:45 Proceso finalizado existosamente
+2024/10/21 15:36:46 ## (<PID 3>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 15:36:50 Entra a exit process
+2024/10/21 15:36:50 ## (<PID:3>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 15:36:50  ## (<PID: 3>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 15:36:50 Envia interrupcion de finalizacion 
+2024/10/21 15:36:50 Se entra a ExitHilo: Hilo 0, Proceso 3
+2024/10/21 15:36:50  ## (<PID: 3>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 15:36:50 Envia interrupcion de finalizacion 
+2024/10/21 15:36:50 Hilo encolado en exit: Hilo 0, Proceso 3
+2024/10/21 15:36:51 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 3
+2024/10/21 15:36:51 Enviando proceso Finalizado a memoria...
+2024/10/21 15:36:51 Proceso finalizado existosamente enviado a memoria 
+2024/10/21 15:36:51 Proceso finalizado existosamente
+2024/10/21 16:22:38 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:22:38 ## (<PID 2>) Se crea el proceso - Estado: NEW
+2024/10/21 16:22:38 PID enviada a memoria : 2
+2024/10/21 16:22:41 ## (<PID 2>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 16:22:42 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:22:42 ## (<PID 3>) Se crea el proceso - Estado: NEW
+2024/10/21 16:22:42 PID enviada a memoria : 3
+2024/10/21 16:22:44 Entra a exit process
+2024/10/21 16:22:44 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:22:44  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:22:44 Envia interrupcion de finalizacion 
+2024/10/21 16:22:44 Se entra a ExitHilo: Hilo 0, Proceso 1
+2024/10/21 16:22:44  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:22:44 Envia interrupcion de finalizacion 
+2024/10/21 16:22:44 Hilo encolado en exit: Hilo 0, Proceso 1
+2024/10/21 16:22:45 ## (<PID 3>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 16:22:45 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 1
+2024/10/21 16:22:45 Enviando proceso Finalizado a memoria...
+2024/10/21 16:22:45 Proceso finalizado existosamente
+2024/10/21 16:22:46 ## (<PID 2>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 16:22:50 Entra a exit process
+2024/10/21 16:22:50 ## (<PID:2>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:22:50  ## (<PID: 2>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:22:50 Envia interrupcion de finalizacion 
+2024/10/21 16:22:50 Se entra a ExitHilo: Hilo 0, Proceso 2
+2024/10/21 16:22:50  ## (<PID: 2>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:22:50 Envia interrupcion de finalizacion 
+2024/10/21 16:22:50 Hilo encolado en exit: Hilo 0, Proceso 2
+2024/10/21 16:22:51 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 2
+2024/10/21 16:22:51 Enviando proceso Finalizado a memoria...
+2024/10/21 16:22:51 Proceso finalizado existosamente
+2024/10/21 16:22:52 ## (<PID 3>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 16:22:56 Entra a exit process
+2024/10/21 16:22:56 ## (<PID:3>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:22:56  ## (<PID: 3>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:22:56 Envia interrupcion de finalizacion 
+2024/10/21 16:22:56 Se entra a ExitHilo: Hilo 0, Proceso 3
+2024/10/21 16:22:56  ## (<PID: 3>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:22:56 Envia interrupcion de finalizacion 
+2024/10/21 16:22:56 Hilo encolado en exit: Hilo 0, Proceso 3
+2024/10/21 16:22:57 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 3
+2024/10/21 16:22:57 Enviando proceso Finalizado a memoria...
+2024/10/21 16:22:57 Proceso finalizado existosamente
+2024/10/21 16:26:38 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:26:38 ## (<PID 2>) Se crea el proceso - Estado: NEW
+2024/10/21 16:26:38 PID enviada a memoria : 2
+2024/10/21 16:26:41 ## (<PID 2>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 16:26:42 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:26:42 ## (<PID 3>) Se crea el proceso - Estado: NEW
+2024/10/21 16:26:42 PID enviada a memoria : 3
+2024/10/21 16:26:44 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:26:44 ## (<PID 4>) Se crea el proceso - Estado: NEW
+2024/10/21 16:26:45 PID enviada a memoria : 4
+2024/10/21 16:26:45 ## (<PID 3>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 16:26:46 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:26:46 ## (<PID 5>) Se crea el proceso - Estado: NEW
+2024/10/21 16:26:48 PID enviada a memoria : 5
+2024/10/21 16:26:48 ## (<PID 4>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 16:26:48 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:26:48 ## (<PID 6>) Se crea el proceso - Estado: NEW
+2024/10/21 16:26:50 Entra a exit process
+2024/10/21 16:26:50 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:26:50  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:26:50 Envia interrupcion de finalizacion 
+2024/10/21 16:26:50 Se entra a ExitHilo: Hilo 0, Proceso 1
+2024/10/21 16:26:50  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:26:50 Envia interrupcion de finalizacion 
+2024/10/21 16:26:50 Hilo encolado en exit: Hilo 0, Proceso 1
+2024/10/21 16:26:51 PID enviada a memoria : 6
+2024/10/21 16:26:51 ## (<PID 5>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 16:26:51 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 1
+2024/10/21 16:26:51 Enviando proceso Finalizado a memoria...
+2024/10/21 16:26:51 Proceso finalizado existosamente
+2024/10/21 16:26:52 ## (<PID 2>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 16:26:54 ## (<PID 6>:<TID 0>) Se encola el Hilo - Estado: READY
+2024/10/21 16:26:56 Entra a exit process
+2024/10/21 16:26:56 ## (<PID:2>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:26:56  ## (<PID: 2>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:26:56 Envia interrupcion de finalizacion 
+2024/10/21 16:26:56 Se entra a ExitHilo: Hilo 0, Proceso 2
+2024/10/21 16:26:56  ## (<PID: 2>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:26:56 Envia interrupcion de finalizacion 
+2024/10/21 16:26:56 Hilo encolado en exit: Hilo 0, Proceso 2
+2024/10/21 16:26:57 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 2
+2024/10/21 16:26:57 Enviando proceso Finalizado a memoria...
+2024/10/21 16:26:57 Proceso finalizado existosamente
+2024/10/21 16:26:58 ## (<PID 3>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 16:27:02 Entra a exit process
+2024/10/21 16:27:02 ## (<PID:3>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:27:02  ## (<PID: 3>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:27:02 Envia interrupcion de finalizacion 
+2024/10/21 16:27:02 Se entra a ExitHilo: Hilo 0, Proceso 3
+2024/10/21 16:27:02  ## (<PID: 3>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:27:02 Envia interrupcion de finalizacion 
+2024/10/21 16:27:02 Hilo encolado en exit: Hilo 0, Proceso 3
+2024/10/21 16:27:03 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 3
+2024/10/21 16:27:03 Enviando proceso Finalizado a memoria...
+2024/10/21 16:27:03 Proceso finalizado existosamente
+2024/10/21 16:27:04 ## (<PID 4>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 16:27:08 Entra a exit process
+2024/10/21 16:27:08 ## (<PID:4>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:27:08  ## (<PID: 4>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:27:08 Envia interrupcion de finalizacion 
+2024/10/21 16:27:08 Se entra a ExitHilo: Hilo 0, Proceso 4
+2024/10/21 16:27:08  ## (<PID: 4>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:27:08 Envia interrupcion de finalizacion 
+2024/10/21 16:27:08 Hilo encolado en exit: Hilo 0, Proceso 4
+2024/10/21 16:27:09 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 4
+2024/10/21 16:27:09 Enviando proceso Finalizado a memoria...
+2024/10/21 16:27:09 Proceso finalizado existosamente
+2024/10/21 16:27:10 ## (<PID 5>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 16:27:14 Entra a exit process
+2024/10/21 16:27:14 ## (<PID:5>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:27:14  ## (<PID: 5>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:27:14 Envia interrupcion de finalizacion 
+2024/10/21 16:27:14 Se entra a ExitHilo: Hilo 0, Proceso 5
+2024/10/21 16:27:14  ## (<PID: 5>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:27:14 Envia interrupcion de finalizacion 
+2024/10/21 16:27:14 Hilo encolado en exit: Hilo 0, Proceso 5
+2024/10/21 16:27:15 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 5
+2024/10/21 16:27:15 Enviando proceso Finalizado a memoria...
+2024/10/21 16:27:15 Proceso finalizado existosamente
+2024/10/21 16:27:16 ## (<PID 6>:<TID 0>) Se ejecuta el Hilo - Estado: EXEC
+2024/10/21 16:27:20 Entra a exit process
+2024/10/21 16:27:20 ## (<PID:6>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:27:20  ## (<PID: 6>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:27:20 Envia interrupcion de finalizacion 
+2024/10/21 16:27:20 Se entra a ExitHilo: Hilo 0, Proceso 6
+2024/10/21 16:27:20  ## (<PID: 6>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:27:20 Envia interrupcion de finalizacion 
+2024/10/21 16:27:20 Hilo encolado en exit: Hilo 0, Proceso 6
+2024/10/21 16:27:21 Hilo finalizado enviado a Memoria: Hilo 0, Proceso 6
+2024/10/21 16:27:21 Enviando proceso Finalizado a memoria...
+2024/10/21 16:27:21 Proceso finalizado existosamente
+2024/10/21 16:36:26 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:36:26 ## (<PID 2>) Se crea el proceso - Estado: NEW
+2024/10/21 16:36:26 PID enviada a memoria : 2
+2024/10/21 16:36:27 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:27 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:27 PID enviada a memoria : 2
+2024/10/21 16:36:28 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:28 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:28 PID enviada a memoria : 2
+2024/10/21 16:36:29 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:29 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:29 PID enviada a memoria : 2
+2024/10/21 16:36:30 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:30 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:30 PID enviada a memoria : 2
+2024/10/21 16:36:30 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:36:30 ## (<PID 3>) Se crea el proceso - Estado: NEW
+2024/10/21 16:36:31 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:31 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:31 PID enviada a memoria : 2
+2024/10/21 16:36:32 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:32 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:32 PID enviada a memoria : 2
+2024/10/21 16:36:32 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:36:32 ## (<PID 4>) Se crea el proceso - Estado: NEW
+2024/10/21 16:36:33 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:33 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:33 PID enviada a memoria : 2
+2024/10/21 16:36:34 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:34 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:34 PID enviada a memoria : 2
+2024/10/21 16:36:34 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:36:34 ## (<PID 5>) Se crea el proceso - Estado: NEW
+2024/10/21 16:36:35 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:35 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:35 PID enviada a memoria : 2
+2024/10/21 16:36:36 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:36 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:36 PID enviada a memoria : 2
+2024/10/21 16:36:36 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_CREATE> ##
+2024/10/21 16:36:36 ## (<PID 6>) Se crea el proceso - Estado: NEW
+2024/10/21 16:36:37 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:37 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:37 PID enviada a memoria : 2
+2024/10/21 16:36:38 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:38 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:38 PID enviada a memoria : 2
+2024/10/21 16:36:38 ## (<PID:1>:<TID:0>) - Solicitó syscall: <PROCESS_EXIT> ##
+2024/10/21 16:36:38  ## (<PID: 1>) finaliza el Proceso - Estado: EXIT ##
+2024/10/21 16:36:38 Envia interrupcion de finalizacion 
+2024/10/21 16:36:38  ## (<PID: 1>:<TID: 0>) finaliza el hilo - Estado: EXIT ##
+2024/10/21 16:36:38 Envia interrupcion de finalizacion 
+2024/10/21 16:36:39 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:39 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:39 PID enviada a memoria : 2
+2024/10/21 16:36:40 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:40 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:40 PID enviada a memoria : 2
+2024/10/21 16:36:41 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:41 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:41 PID enviada a memoria : 2
+2024/10/21 16:36:42 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:42 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:42 PID enviada a memoria : 2
+2024/10/21 16:36:43 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:43 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:43 PID enviada a memoria : 2
+2024/10/21 16:36:44 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:44 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:44 PID enviada a memoria : 2
+2024/10/21 16:36:45 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:45 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:45 PID enviada a memoria : 2
+2024/10/21 16:36:46 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:46 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:46 PID enviada a memoria : 2
+2024/10/21 16:36:47 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:47 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:47 PID enviada a memoria : 2
+2024/10/21 16:36:48 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:48 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:48 PID enviada a memoria : 2
+2024/10/21 16:36:49 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:49 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:49 PID enviada a memoria : 2
+2024/10/21 16:36:50 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:50 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:50 PID enviada a memoria : 2
+2024/10/21 16:36:51 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:51 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:51 PID enviada a memoria : 2
+2024/10/21 16:36:52 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:52 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:52 PID enviada a memoria : 2
+2024/10/21 16:36:53 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:53 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:53 PID enviada a memoria : 2
+2024/10/21 16:36:54 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:54 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:54 PID enviada a memoria : 2
+2024/10/21 16:36:55 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:55 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:55 PID enviada a memoria : 2
+2024/10/21 16:36:56 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:56 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:56 PID enviada a memoria : 2
+2024/10/21 16:36:57 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:57 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:57 PID enviada a memoria : 2
+2024/10/21 16:36:58 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:58 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:58 PID enviada a memoria : 2
+2024/10/21 16:36:59 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:36:59 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:36:59 PID enviada a memoria : 2
+2024/10/21 16:37:00 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:37:00 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:37:00 PID enviada a memoria : 2
+2024/10/21 16:37:01 WARN El tamanio del proceso es mas grande que la memoria disponible pid=2
+2024/10/21 16:37:01 WARN El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....
+2024/10/21 16:37:01 PID enviada a memoria : 2
