@@ -159,6 +159,7 @@ func init() {
 	}
 	// Modifica las variables globales
 	particiones = MemoriaConfig.Particiones
+	mapParticiones = make([]bool, len(particiones))
 	globals.MemoriaUsuario = make([]byte, MemoriaConfig.Tamanio_Memoria)
 	esquemaMemoria = MemoriaConfig.EsquemaMemoria
 	algoritmoBusqueda = MemoriaConfig.AlgoritmoBusqueda
@@ -190,9 +191,7 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
-
 	// Buscar el PCB que tenga el Pid solicitado y nos da las estructuras de los hilos asociado
 	tidMap := buscarTCBPorPid(instructionReq.Pid)
 	if tidMap == nil {
@@ -200,7 +199,6 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 		log.Printf("error: no se encontró el PID %d", instructionReq.Pid)
 		return
 	}
-
 	// Buscar el TCB por el Tid
 	var instrucciones []string
 	for tcb, inst := range tidMap {
@@ -209,7 +207,6 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
-
 	if instrucciones == nil {
 		http.Error(w, fmt.Sprintf("No se encontró el TID %d para el PID %d", instructionReq.Tid, instructionReq.Pid), http.StatusNotFound)
 		log.Printf("error: no se encontró el TID %d para el PID %d", instructionReq.Tid, instructionReq.Pid)
@@ -402,7 +399,6 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 
 	if esquemaMemoria == "FIJAS" {
 		log.Printf("esquema: FIJAS")
-		mapParticiones = make([]bool, len(particiones))
 		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size) //asigno por algoritmo
 		if numeroDeParticion == -1 {
 			http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
@@ -420,7 +416,6 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		//LIMIT
 		limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
 		pcb.Limit = uint32(limitEnInt)
-		mapParticiones[numeroDeParticion] = true
 
 		mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
 
@@ -434,6 +429,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		log.Printf("particion %d mapespacio: %v", numeroDeParticion, mapParticiones)
 
 		// Log de creación de proceso
 		log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
@@ -624,15 +620,12 @@ func asignarPorAlgoritmo(tipoDeAlgoritmo string, size int) int {
 func firstFit(processSize int) int {
 	for i, size := range particiones {
 		if !mapParticiones[i] && size >= processSize {
-			mapParticiones[i] = true                     //Bloquea la particion ya que fue asignada
-			log.Printf("espacio de: %d", particiones[i]) //BORRRAR
+			mapParticiones[i] = true                                                  //Bloquea la particion ya que fue asignada
+			log.Printf("espacio de: %d tomado %v", particiones[i], mapParticiones[i]) //BORRRAR
 			return i
 		}
-		if i == 0 && size < processSize {
-			log.Printf("Estas intentando crear un proceso con un tamaño mayor a todos los espacios de memoria")
-			panic("Imposible crear proceso")
-		}
 	}
+	log.Printf("no hay espacio")
 	return -1
 }
 

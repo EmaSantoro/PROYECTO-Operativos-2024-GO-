@@ -15,6 +15,7 @@ type Mensaje struct {
 }
 
 /*-------------------- VAR GLOBALES --------------------*/
+var ConfigFS *globals.Config
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -47,32 +48,40 @@ func init() {
 
 	//Al iniciar el modulo se debera validar que existan los archivos bitmap.dat y bloques.dat. En caso que no existan se deberan crear. Caso contrario se deberan tomar los ya existentes.
 	if ConfigFs != nil {
-			archMap := validarArchivo("bitmap.dat")
-			log.Println(archMap)
-
-			archBloque := validarArchivo("bloques.dat")
-			log.Println(archBloque)
-		}
+		iniciarArchivos()
+	}
 }
 
-func validarArchivo(nombre string) *os.File {
-		_, err := os.Stat(nombre)
-		if os.IsNotExist(err) {
-			
-			return crearArchivo(nombre)
-		}
-		return archivo(nombre)
+func iniciarArchivos() {
+
+	pathFS := ConfigFS.Mount_dir
+
+	archMap := validarArchivo(pathFS, "bitmap.dat")
+	log.Println(archMap)
+
+	archBloque := validarArchivo(pathFS, "bloques.dat")
+	log.Println(archBloque)
 }
 
-func crearArchivo(nombre string)*os.File{ 
+func validarArchivo(path string, nombreArchivo string) *os.File {
+	_, err := os.Stat(nombreArchivo)
+
+	if os.IsNotExist(err) {
+		crearArchivo(path, nombreArchivo)
+	}
+	return abrirArchivo(nombreArchivo)
+}
+
+func crearArchivo(path string, nombreArchivo string) {
+	nombre := path + "/" + nombreArchivo
 	archivo, err := os.Create(nombre)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error al crear el archivo '%s': %v", path, err)
 	}
-	return archivo
+	defer archivo.Close()
 }
 
-func archivo(nombre string)*os.File{
+func abrirArchivo(nombre string) *os.File {
 	archivo, err := os.OpenFile(nombre, os.O_RDWR, 0666)
 	if err != nil {
 		log.Fatal(err)
@@ -80,3 +89,4 @@ func archivo(nombre string)*os.File{
 	return archivo
 }
 
+//Bloques dat almacena los datos de bloques, y bitmap almacena los bloques que estan ocupados

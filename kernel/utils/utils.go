@@ -119,6 +119,8 @@ var mutexColaExecHilo sync.Mutex
 var mutexColaBlockHilo sync.Mutex
 var mutexColaExitHilo sync.Mutex
 
+var mutexEnviarTCB sync.Mutex
+
 /*-------------------- VAR GLOBALES --------------------*/
 
 var (
@@ -211,7 +213,9 @@ func procesoInicial(path string, size int) {
 	if consultaEspacioAMemoria(size, pcb) {
 		tcb := createTCB(pcb.Pid, 0)       // creamos hilo main
 		pcb.Tid = append(pcb.Tid, tcb.Tid) // agregamos el hilo a la listas de hilos del proceso
+
 		enviarTCBMemoria(tcb, path)
+
 		encolarReady(tcb)
 		quitarProcesoNew(pcb)
 		encolarProcesoInicializado(pcb)
@@ -281,15 +285,17 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 					nextTid = 0
 					tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
 					pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
+
 					enviarTCBMemoria(tcb, path)
+
 					quitarProcesoNew(pcb)
 					encolarProcesoInicializado(pcb)
 					encolarReady(tcb)
 					break
 
 				} else {
-					esperarFinProceso = false
 					slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
+					esperarFinProceso = false
 					// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
 				}
 			}
@@ -540,7 +546,9 @@ func CrearHilo(w http.ResponseWriter, r *http.Request) {
 func iniciarHilo(pid int, path string, prioridad int) error {
 
 	tcb := createTCB(pid, prioridad)
+
 	enviarTCBMemoria(tcb, path)
+
 	pcb := getPCB(pid)
 	pcb.Tid = append(pcb.Tid, tcb.Tid)
 	actualizarPCB(pcb)
