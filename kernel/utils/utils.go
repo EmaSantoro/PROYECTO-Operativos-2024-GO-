@@ -130,7 +130,8 @@ var ConfigKernel *globals.Config
 
 /*---------------------- CANALES ----------------------*/
 
-//var finProceso = make(chan bool)
+var finProceso bool
+
 //VER CANAL FINPROCESO QUE LO USAMOS PARA SABER CUANDO FINALIZA UN PROCESO Y ASI PODER INICIALIZAR OTRO PERO NOS ESTA SIENDO BLOQUEANTE
 
 /*---------------------- FUNCIONES ----------------------*/
@@ -168,7 +169,7 @@ func init() {
 		slog.SetLogLoggerLevel(slog.LevelError)
 	SE SETEA EL NIVEL MINIMO DE LOGS A IMPRIMIR POR CONSOLA*/
 
-	ConfigKernel = IniciarConfiguracion("configsKERNEL/config.json")
+	ConfigKernel = IniciarConfiguracion("kernel/configsKERNEL/config.json")
 
 	if ConfigKernel != nil {
 
@@ -272,25 +273,26 @@ func iniciarProceso(path string, size int, prioridad int) {
 func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
-	for {
-		if esElPrimerProcesoEnNew(pcb) {
-			if consultaEspacioAMemoria(size, pcb) {
+	if finProceso == true {
+		for {
+			if esElPrimerProcesoEnNew(pcb) {
+				if consultaEspacioAMemoria(size, pcb) {
 
-				nextTid = 0
-				tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
-				pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
-				enviarTCBMemoria(tcb, path)
-				quitarProcesoNew(pcb)
-				encolarProcesoInicializado(pcb)
-				encolarReady(tcb)
-				break
+					nextTid = 0
+					tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
+					pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
+					enviarTCBMemoria(tcb, path)
+					quitarProcesoNew(pcb)
+					encolarProcesoInicializado(pcb)
+					encolarReady(tcb)
+					break
 
-			} else {
+				} else {
+					finProceso = false
+					slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
+					// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
 
-				slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
-				// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
-				// <- finProceso  // se bloquea hasta que finalice un proceso
-
+				}
 			}
 		}
 	}
@@ -355,7 +357,7 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 
 	if resp == nil {
 		// Notificar a traves del canal
-		//finProceso <- true
+		finProceso = true
 	} else {
 		slog.Error("Error al enviar el proceso finalizado a memoria")
 		return fmt.Errorf("error al enviar el proceso finalizado a memoria")
@@ -628,7 +630,7 @@ func exitHilo(pid int, tid int) error {
 	pcb := getPCB(pid)
 	pcb.Tid = removeTid(pcb.Tid, tid)
 	actualizarPCB(pcb)
-	
+
 	switch {
 	case isInExec(hilo):
 		quitarExec(hilo)
@@ -711,7 +713,7 @@ func actualizarTCB(tcb TCB) {
 			colaReadyHilo[i] = tcb
 		}
 	}
-}	
+}
 
 /*---------- FUNCIONES HILOS ALGORITMOS PLANIFICACION ----------*/
 //FIFO
@@ -867,7 +869,7 @@ func enviarTCBMemoria(tcb TCB, path string) error {
 }
 
 func enviarHiloFinalizadoAMemoria(hilo TCB) error {
-	
+
 	memoryRequest := TCBRequest{}
 	memoryRequest.Pid = hilo.Pid
 	memoryRequest.Tid = hilo.Tid
@@ -876,7 +878,7 @@ func enviarHiloFinalizadoAMemoria(hilo TCB) error {
 	ip := ConfigKernel.IpMemoria
 
 	body, err := json.Marshal(&memoryRequest)
-	
+
 	if err != nil {
 		slog.Error("error codificando" + err.Error())
 		return err
@@ -884,19 +886,19 @@ func enviarHiloFinalizadoAMemoria(hilo TCB) error {
 
 	url := fmt.Sprintf("http://%s:%d/terminateThread", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
-	
+
 	if err != nil {
 		log.Printf("Error de envio de TCB finalizado ")
 		slog.Error("Error enviando TCB para finalizarlo. ip: %d - puerto: %s", ip, puerto)
 		return err
 	}
-	
+
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("Error en la respuesta del modulo de Memoria. status_code: %d", resp.StatusCode)
 		log.Fatalf("Error en la respuesta del modulo de CPU. status_code: %d", resp.StatusCode)
 		return err
 	}
-	
+
 	return nil
 }
 
@@ -1035,7 +1037,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	tid := hilo.Tid
 	pid := hilo.Pid
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <DUMP_MEMORY> ##", pid, tid)
-	
+
 	tcb := getTCB(pid, tid)
 	enviarInterrupcion(tcb.Pid, tcb.Tid)
 	quitarExec(tcb)
@@ -1106,9 +1108,7 @@ func CrearMutex(w http.ResponseWriter, r *http.Request) {
 	mutexNuevo := mutexCreate(mutexNombre)
 	pcb := getPCB(pid)
 	pcb.Mutex = append(pcb.Mutex, mutexNuevo)
-	actualizarPCB(pcb)	//actualizo la PCB con los nuevos mutex
-
-	
+	actualizarPCB(pcb) //actualizo la PCB con los nuevos mutex
 
 	w.WriteHeader(http.StatusOK)
 
@@ -1142,7 +1142,6 @@ func BloquearMutex(w http.ResponseWriter, r *http.Request) {
 	hiloSolicitante := getTCB(pid, tid)
 
 	err = lockMutex(proceso, hiloSolicitante, mutexNombre)
-	
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -1173,7 +1172,6 @@ func LiberarMutex(w http.ResponseWriter, r *http.Request) {
 	hiloSolicitante := getTCB(pid, tid)
 
 	err = unlockMutex(proceso, hiloSolicitante, mutexNombre)
-	
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -1184,15 +1182,14 @@ func LiberarMutex(w http.ResponseWriter, r *http.Request) {
 }
 
 func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
-	
+
 	for _, mutex := range proceso.Mutex { //recorro todos los mutex que hay en el proceso
-		
+
 		if mutex.Nombre == mutexNombre {
-			
+
 			if !mutex.Bloqueado { // si el mutex no esta bloqueado se lo asigno al hilo que lo pidio
 				mutex.Bloqueado = true
 				mutex.HiloUsando = hiloSolicitante.Tid
-				
 
 				for i, m := range proceso.Mutex {
 					if m.Nombre == mutexNombre {
@@ -1208,7 +1205,7 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 				for i, m := range proceso.Mutex {
 					if m.Nombre == mutexNombre {
 						proceso.Mutex[i] = mutex
-						actualizarPCB(proceso)	
+						actualizarPCB(proceso)
 					}
 				}
 				enviarInterrupcion(hiloSolicitante.Pid, hiloSolicitante.Tid)
@@ -1216,7 +1213,6 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 				encolarBlock(hiloSolicitante, "MUTEX")
 				break
 			}
-			
 
 		} else {
 			slog.Warn("El mutex no existe")
@@ -1225,7 +1221,6 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 	}
 	return nil
 }
-
 
 func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 
@@ -1236,7 +1231,6 @@ func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 			if mutex.HiloUsando == hiloSolicitante.Tid {
 				mutex.Bloqueado = false
 				mutex.HiloUsando = -1
-				
 
 				if len(mutex.colaBloqueados) > 0 {
 					hiloDesbloqueado := mutex.colaBloqueados[0]
@@ -1276,7 +1270,6 @@ func mutexCreate(nombreMutex string) Mutex {
 		colaBloqueados: []TCB{},
 	}
 }
-
 
 /*---------- FUNCION ENVIAR INTERRUPCION ----------*/
 

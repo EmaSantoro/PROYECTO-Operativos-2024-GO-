@@ -393,6 +393,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		return
 	}
 	log.Printf("Pid: %d", process.Pid)
+	log.Printf("size: %d", process.Size)
 	pcb := PCB{ //creo la estructura necesaria
 		Pid:   process.Pid,
 		Base:  0,
@@ -400,10 +401,12 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 	}
 
 	if esquemaMemoria == "FIJAS" {
+		log.Printf("esquema: FIJAS")
 		mapParticiones = make([]bool, len(particiones))
 		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size) //asigno por algoritmo
 		if numeroDeParticion == -1 {
 			http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
+			log.Printf("Sin espacio") //BORRAR
 			return
 		}
 
@@ -603,6 +606,7 @@ func guardarPCBEnElMap(pcb PCB) error {
 func asignarPorAlgoritmo(tipoDeAlgoritmo string, size int) int {
 	switch tipoDeAlgoritmo {
 	case "FIRST":
+		log.Printf("algoritmo: FIRST") //BORRAR
 		return firstFit(size)
 	case "BEST":
 		return bestFit(size)
@@ -620,7 +624,13 @@ func asignarPorAlgoritmo(tipoDeAlgoritmo string, size int) int {
 func firstFit(processSize int) int {
 	for i, size := range particiones {
 		if !mapParticiones[i] && size >= processSize {
+			mapParticiones[i] = true                     //AGREGE ESTO PARA SOLUCIONAR LO DE QUE ASIGNA MAL
+			log.Printf("espacio de: %d", particiones[i]) //BORRRAR
 			return i
+		}
+		if i == 0 && size < processSize {
+			log.Printf("Estas intentando crear un proceso con un tamaño mayor a todos los espacios de memoria")
+			panic("Imposible crear proceso")
 		}
 	}
 	return -1
