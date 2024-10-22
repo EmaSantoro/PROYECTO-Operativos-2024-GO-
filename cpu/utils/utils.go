@@ -31,6 +31,16 @@ type InstructionReq struct {
 	Tid int `json:"tid"`
 	Pc  int `json:"pc"`
 }
+type DataRead struct {
+	Data []byte `json:"data"`
+}
+
+type MutexRequest struct {
+	Pid   int    `json:"pid"`
+	Tid   int    `json:"tid"`
+	Mutex string `json:"mutex"`
+}
+
 type InstructionResponse struct {
 	Instruction string `json:"instruction"`
 }
@@ -107,13 +117,17 @@ type KernelExeReq struct {
 	Tid int `json:"tid"`
 }
 type IOReq struct {
-	Tiempo int `json:"tiempo"`
+	Tiempo int `json:"tiempoIO"`
+	Pid    int `json:"pid"`
+	Tid    int `json:"tid"`
 }
 
 type IniciarProcesoBody struct {
 	Path      string `json:"path"`
 	Size      int    `json:"size"`
 	Prioridad int    `json:"prioridad"`
+	PidActual int    `json:"pidActual"`
+	TidActual int    `json:"tidActual"`
 }
 
 type CrearHiloBody struct {
@@ -261,10 +275,12 @@ func InstructionCycle(contexto *contextoEjecucion) {
 
 func RealizarInterrupcion(contexto *contextoEjecucion) error {
 	err := AcualizarContextoDeEjecucion(contexto)
-	if err == nil {
+	if err != nil {
 		log.Panicf("Error al actualizar contexto de ejecucion para la interrupcion")
 		return err
 	}
+
+	log.Printf("Funciona ok el realizar interrupcion")
 	/*
 		var kernelInt KernelInterrupcion
 		kernelInt.Motivo = motivo
@@ -294,6 +310,11 @@ func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 	reqInstruccion.Pc = int(*PC)
 
 	reqInstruccionBody, err := json.Marshal(reqInstruccion)
+
+	if err != nil {
+		log.Printf("Error al codificar el mensaje de solicitud de instruccion")
+		return nil, err
+	}
 
 	url := fmt.Sprintf("http://%s:%d/obtenerInstruccion", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
 
@@ -343,6 +364,9 @@ func Decode(instructionLine []string) (DecodedInstruction, error) {
 		"PROCESS_EXIT":   ProcessExit,
 		"READ_MEM":       Read_Memory,
 		"WRITE_MEM":      Write_Memory,
+		"MUTEX_CREATE":   MutexCreate,
+		"MUTEX_LOCK":     MutexLOCK,
+		"MUTEX_UNLOCK":   MutexUNLOCK,
 	}
 
 	var instructionDecoded DecodedInstruction
@@ -385,6 +409,7 @@ func CheckInterrupt(contexto contextoEjecucion) bool {
 	mutexInterrupt.Lock()
 	if nuevaInterrupcion.flagInterrucption && contexto.pcb.Pid == nuevaInterrupcion.Pid && contexto.tcb.Tid == nuevaInterrupcion.Tid {
 		nuevaInterrupcion.flagInterrucption = false
+		mutexInterrupt.Unlock()
 		return true
 	}
 	mutexInterrupt.Unlock()
@@ -444,24 +469,44 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	log.Printf("Leer memoria con direccion fisica %d", direccionFisica)
 	//leer en memoria
 	//VER SI SE PUEDE PEDIR Y ENVIAR POR MISMO PUERTO
+
+	//memoryData.Add(1)
+	//memoryData.Wait()
 	var memReq MemoryRequest
 	memReq.Address = direccionFisica
 	memReq.PID = context.pcb.Pid
 	memReq.TID = context.tcb.Tid
 
 	body, err2 := json.Marshal(memReq)
-
 	if err2 != nil {
+		log.Printf("Error al codificar el mensaje de solicitud de instruccion")
 		return err2
 	}
-	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/ReadMemoryHandler")
-	if err3 != nil {
-		return err3
-	}
-	memoryData.Add(1)
-	memoryData.Wait()
 
-	err4 := ModificarValorCampo(registers, parameters[0], dataFromMemory)
+	url := fmt.Sprintf("http://%s:%d/readMemory", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
+
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+
+	if err != nil {
+		log.Fatalf("error al enviar la solicitud al módulo de memoria: %v", err)
+		return err
+	}
+	//defer response.Body.Close()
+
+	if response.StatusCode != http.StatusOK {
+		err := fmt.Errorf("error en la respuesta del módulo de memoria: %v", response.StatusCode)
+		log.Println(err)
+		return err
+	}
+	var dataResponse DataRead
+	errorDecode := json.NewDecoder(response.Body).Decode(&dataResponse)
+	if errorDecode != nil {
+		log.Println("Error al decodificar la instruccion", errorDecode)
+		return errorDecode
+	}
+	dataAEscribir := BytesToUint32(dataResponse.Data)
+	log.Printf("Data A escribir  : %v", dataAEscribir)
+	err4 := ModificarValorCampo(registers, parameters[0], dataAEscribir)
 
 	if err4 != nil {
 		return err4
@@ -471,6 +516,22 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 
 }
 
+func BytesToUint32(val []byte) uint32 {
+	/*
+		if len(bytes) < 4 {
+			panic("El slice de bytes debe tener al menos 4 bytes de longitud")
+		}
+		return binary.LittleEndian.Uint32(bytes)
+	*/
+
+	// Convertir de []byte a uint32 usando Big Endian
+	r := uint32(0)
+	for i := uint32(0); i < 4; i++ {
+		r |= uint32(val[i]) << (8 * i)
+	}
+	return r
+
+}
 func RecieveDataFromMemory(w http.ResponseWriter, r *http.Request) {
 
 	decoder := json.NewDecoder(r.Body)
@@ -512,6 +573,8 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	var memReq MemoryRequest
 	memReq.Address = direccionFisica
 	memReq.Data = PasarDeUintAByte(dato)
+	log.Print("Se va a escribir %v", memReq.Data)
+	log.Printf("LONGIRUD DEL DATO ENVIADO PARA ESCRIBIR : %d", len(memReq.Data))
 	memReq.PID = context.pcb.Pid
 	memReq.TID = context.tcb.Tid
 
@@ -520,8 +583,8 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	if err5 != nil {
 		return err5
 	}
-
-	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "/writememory")
+	log.Printf("Enviando a memoria write_memory")
+	err3 := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "writeMemory")
 
 	if err3 != nil {
 		return err3
@@ -530,10 +593,12 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	return nil
 }
 
-func PasarDeUintAByte(num uint32) []byte {
-	numEnString := strconv.Itoa(int(num))
-
-	return []byte(numEnString)
+func PasarDeUintAByte(val uint32) []byte {
+	r := make([]byte, 4)
+	for i := uint32(0); i < 4; i++ {
+		r[i] = byte((val >> (8 * i)) & 0xff)
+	}
+	return r
 }
 func TranslateAdress(direccionLogica uint32, base uint32, limite uint32) (uint32, error) {
 	direccionFisica := direccionLogica + base
@@ -612,6 +677,7 @@ func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
 	registro := parameters[0]
 	registers := reflect.ValueOf(&registrosCPU.tcb)
 	register, err := ObtenerValorCampo(registers, registro)
+	log.Printf("El valor de el registro es %d", register)
 	if err != nil {
 		return err
 	}
@@ -620,7 +686,7 @@ func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
 		return errI
 	}
 	if register != 0 {
-		ModificarValorCampo(registers, registro, uint32(instruction))
+		ModificarValorCampo(registers, "PC", uint32(instruction))
 	}
 	return nil
 
@@ -646,8 +712,16 @@ func DumpMemory(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al actualziar contexto de ejecucion")
 		return err
 	}
+	body, err := json.Marshal(KernelExeReq{
+		Pid: contexto.pcb.Pid,
+		Tid: contexto.tcb.Tid,
+	})
+	if err != nil {
+		log.Printf("Error al codificar el mernsaje")
+		return err
+	}
 
-	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "vaciarMemoria")
+	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "dumpMemory")
 	if errM != nil {
 		return errM
 	}
@@ -670,6 +744,8 @@ func IO(contexto *contextoEjecucion, parameters []string) error {
 	}
 	body, err := json.Marshal(IOReq{
 		Tiempo: tiempoReq,
+		Pid:    contexto.pcb.Pid,
+		Tid:    contexto.tcb.Tid,
 	})
 	if err != nil {
 		log.Printf("Error al codificar el mernsaje")
@@ -708,15 +784,17 @@ func CreateProcess(contexto *contextoEjecucion, parameters []string) error {
 		Path:      archivoInstruct,
 		Size:      tamArchReal,
 		Prioridad: priorityReal,
+		PidActual: contexto.pcb.Pid,
+		TidActual: contexto.tcb.Tid,
 	})
 
 	if err != nil {
 		log.Printf("Error al codificar estructura de creacion de proceso")
 		return err
 	}
-	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "manejarIo")
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "crearProceso")
 	if err != nil {
-		log.Printf("Error syscall IO : %v", err)
+		log.Printf("Error syscall crearProceso : %v", err)
 		return err
 	}
 
@@ -823,6 +901,54 @@ func CancelThead(contexto *contextoEjecucion, parameters []string) error {
 	return nil
 }
 
+func MutexCreate(contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters, "crearMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexLOCK(contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters, "bloquearMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexUNLOCK(contexto *contextoEjecucion, parameters []string) error {
+	err := MutexFunction(contexto, parameters, "liberarMutex")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func MutexFunction(contexto *contextoEjecucion, parameters []string, endpoint string) error {
+	recurso := parameters[0]
+	err := AcualizarContextoDeEjecucion(contexto)
+
+	if err != nil {
+		log.Printf("Error al actualziar contexto de ejecucion")
+		return err
+	}
+
+	body, err := json.Marshal(MutexRequest{
+		Pid:   contexto.pcb.Pid,
+		Tid:   contexto.tcb.Tid,
+		Mutex: recurso,
+	})
+
+	if err != nil {
+		log.Printf("Error al codificar estructura de cancelacion de hilo")
+		return err
+	}
+	err = EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), endpoint)
+	if err != nil {
+		log.Printf("Error syscall THREAD_CANCEL : %v", err)
+		return err
+	}
+	return nil
+}
+
 func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 
 	err := AcualizarContextoDeEjecucion(contexto)
@@ -832,7 +958,15 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, nil, "exirThread")
+	var process KernelExeReq
+	process.Pid = contexto.pcb.Pid
+	process.Tid = contexto.tcb.Tid
+	encodedeProcess, err2 := json.Marshal(process)
+	if err2 != nil {
+		return err2
+	}
+	log.Printf("Enviando a kernel syscall")
+	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(encodedeProcess), "finalizarHilo")
 	if errM != nil {
 		return errM
 	}
@@ -841,11 +975,11 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 }
 
 func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
-	log.Print("Finalizar proceos PID : %d", contexto.pcb.Pid)
+	log.Printf("Finalizar proceos PID : %d ", contexto.pcb.Pid)
 	err := AcualizarContextoDeEjecucion(contexto)
 
 	if err != nil {
-		log.Printf("Error al actualziar contexto de ejecucion")
+		log.Printf("Error al actualizar contexto de ejecucion")
 		return err
 	}
 	var process KernelExeReq
@@ -858,7 +992,6 @@ func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
 	log.Printf("Enviando a kernel syscall")
 	errM := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(encodedeProcess), "finalizarProceso")
 	if errM != nil {
-		log.Printf("ERROR AQUIIIIIII")
 		return errM
 	}
 	log.Printf("Syscall se ejecuto correctamente")
@@ -943,7 +1076,7 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	nuevaInterrupcion.Pid = interrupction.Pid
 	nuevaInterrupcion.Tid = interrupction.Tid
 	mutexInterrupt.Unlock()
-	log.Printf("Recive bien interrupcion")
+	log.Printf("Recibe bien interrupcion")
 }
 
 /*ng)
