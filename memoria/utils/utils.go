@@ -631,19 +631,19 @@ func firstFit(processSize int) int {
 
 func bestFit(processSize int) int {
 	bestIndex := -1
-	particionesConSuficienteTamaño := 0
+	particionesConSuficienteTamaño := 0 //n
 	minDifference := math.MaxInt32
 
 	for i, size := range particiones {
-		if size >= processSize {
-			if !mapParticiones[i] {
+		if size >= processSize { //n 
+			if !mapParticiones[i] { //n
 				difference := size - processSize
 				if difference < minDifference {
 					minDifference = difference
 					bestIndex = i
 				}
 			}
-			particionesConSuficienteTamaño++
+			particionesConSuficienteTamaño++ //n 
 		}
 	}
 	if bestIndex != -1 {
@@ -661,16 +661,29 @@ func bestFit(processSize int) int {
 func worstFit(processSize int) int {
 	worstIndex := -1
 	maxDifference := -1 //ARREGLAR IGUAL QUE BEST
+	particionesConSuficienteTamaño := 0
 
-	for i, size := range particiones {
-		if !mapParticiones[i] && size >= processSize {
-			difference := size - processSize
-			if difference > maxDifference {
-				maxDifference = difference
-				worstIndex = i
+	for i, size := range particiones{
+		if size >= processSize{
+			if !mapParticiones[i]{
+				difference := size - processSize
+				if difference > maxDifference{
+					maxDifference = difference
+					worstIndex = i
+				}
 			}
+			particionesConSuficienteTamaño++
 		}
 	}
+
+	if worstIndex != -1{
+		mapParticiones[worstIndex] = true
+	}
+	if worstIndex != -1 && particionesConSuficienteTamaño == 0{
+		log.Printf("Estas intentando crear un proceso con un tamaño mayor a todos los espacios de memoria")
+		panic("Imposible crear proceso")
+	}
+
 	return worstIndex
 }
 
