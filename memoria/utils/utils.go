@@ -624,7 +624,7 @@ func asignarPorAlgoritmo(tipoDeAlgoritmo string, size int) int {
 func firstFit(processSize int) int {
 	for i, size := range particiones {
 		if !mapParticiones[i] && size >= processSize {
-			mapParticiones[i] = true                     //AGREGE ESTO PARA SOLUCIONAR LO DE QUE ASIGNA MAL
+			mapParticiones[i] = true                     //Bloquea la particion ya que fue asignada
 			log.Printf("espacio de: %d", particiones[i]) //BORRRAR
 			return i
 		}
@@ -638,23 +638,36 @@ func firstFit(processSize int) int {
 
 func bestFit(processSize int) int {
 	bestIndex := -1
+	particionesConSuficienteTamaño := 0
 	minDifference := math.MaxInt32
 
 	for i, size := range particiones {
-		if !mapParticiones[i] && size >= processSize {
-			difference := size - processSize
-			if difference < minDifference {
-				minDifference = difference
-				bestIndex = i
+		if size >= processSize {
+			if !mapParticiones[i] {
+				difference := size - processSize
+				if difference < minDifference {
+					minDifference = difference
+					bestIndex = i
+				}
 			}
+			particionesConSuficienteTamaño++
 		}
 	}
+	if bestIndex != -1 {
+		mapParticiones[bestIndex] = true                     //Bloquea la particion ya que fue asignada
+		log.Printf("espacio de: %d", particiones[bestIndex]) //BORRRAR
+	}
+	if bestIndex != -1 && particionesConSuficienteTamaño == 0 {
+		log.Printf("Estas intentando crear un proceso con un tamaño mayor a todos los espacios de memoria")
+		panic("Imposible crear proceso")
+	}
+
 	return bestIndex
 }
 
 func worstFit(processSize int) int {
 	worstIndex := -1
-	maxDifference := -1
+	maxDifference := -1 //ARREGLAR IGUAL QUE BEST
 
 	for i, size := range particiones {
 		if !mapParticiones[i] && size >= processSize {

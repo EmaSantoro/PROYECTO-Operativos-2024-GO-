@@ -130,9 +130,9 @@ var ConfigKernel *globals.Config
 
 /*---------------------- CANALES ----------------------*/
 
-var finProceso bool
+var esperarFinProceso bool
 
-//VER CANAL FINPROCESO QUE LO USAMOS PARA SABER CUANDO FINALIZA UN PROCESO Y ASI PODER INICIALIZAR OTRO PERO NOS ESTA SIENDO BLOQUEANTE
+//VER CANAL esperarFinProceso QUE LO USAMOS PARA SABER CUANDO FINALIZA UN PROCESO Y ASI PODER INICIALIZAR OTRO PERO NOS ESTA SIENDO BLOQUEANTE
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -273,8 +273,8 @@ func iniciarProceso(path string, size int, prioridad int) {
 func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 
 	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
-	if finProceso == true {
-		for {
+	for {
+		if esperarFinProceso {
 			if esElPrimerProcesoEnNew(pcb) {
 				if consultaEspacioAMemoria(size, pcb) {
 
@@ -288,14 +288,14 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 					break
 
 				} else {
-					finProceso = false
+					esperarFinProceso = false
 					slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
 					// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
-
 				}
 			}
 		}
 	}
+
 }
 
 func esElPrimerProcesoEnNew(pcb PCB) bool {
@@ -357,7 +357,7 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 
 	if resp == nil {
 		// Notificar a traves del canal
-		finProceso = true
+		esperarFinProceso = true
 	} else {
 		slog.Error("Error al enviar el proceso finalizado a memoria")
 		return fmt.Errorf("error al enviar el proceso finalizado a memoria")
@@ -398,7 +398,7 @@ func consultaEspacioAMemoria(size int, pcb PCB) bool {
 	var memoryRequest KernelRequest
 	memoryRequest.Size = size
 	memoryRequest.Pid = pcb.Pid
-	log.Printf("PID enviada a memoria : %d", pcb.Pid)
+	log.Printf("PID enviada a memoria para consulta espacio: %d", pcb.Pid)
 	puerto := ConfigKernel.PuertoMemoria
 	ip := ConfigKernel.IpMemoria
 
