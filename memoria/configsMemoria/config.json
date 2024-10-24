@@ -9,8 +9,9 @@
     "port_cpu": 8004,
     "ip_filesystem": "127.0.0.1",
     "port_filesystem": 8006,
-    "scheme": "FIJAS",
+    "scheme": "DINAMICAS",
     "search_algorithm": "FIRST",
-    "partitions": [512, 16, 32, 16, 256, 64, 128],
+    "partitions": [1024],
     "log_level": "TRACE"
 } 
+

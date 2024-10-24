@@ -40,7 +40,10 @@ func main() {
 	http.HandleFunc("POST /readMemory", utils.ReadMemoryHandler)                         //me piden leer la memoria y la paso
 	http.HandleFunc("POST /writeMemory", utils.WriteMemoryHandler)                       //me mandan la memoria y la escribo
 	http.HandleFunc("POST /dumpMemory", utils.DumpMemory)
+	http.HandleFunc("POST /compactacion", utils.Compactacion)
 
 	http.ListenAndServe(":"+strconv.Itoa(puerto), nil)
 
 }
+
+//[512, 16, 32, 16, 256, 64, 128]

@@ -106,6 +106,10 @@ type InstructionReq struct {
 	Pc  int `json:"pc"`
 }
 
+type estadoMemoria struct {
+	Estado int `json:"estado"`
+}
+
 /*-------------------- VAR GLOBALES --------------------*/
 var esquemaMemoria string
 var particiones []int
@@ -165,6 +169,7 @@ func init() {
 	algoritmoBusqueda = MemoriaConfig.AlgoritmoBusqueda
 	IpCpu = MemoriaConfig.IpCpu
 	PuertoCpu = MemoriaConfig.PuertoCpu
+	//MemoriaTamanio = MemoriaConfig.Tamanio_Memoria
 
 	log.Printf("%d", particiones)
 }
@@ -380,9 +385,17 @@ func ModificarValores(pid int, base uint32, limit uint32) {
 
 //-----------------------------------------CREATE PROCESS-------------------------------------------
 
+const (
+	HayEspacio   int = 1
+	Compactar        = 2
+	NoHayEspacio     = 3
+)
+
 func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y el size
 	var process Process
 	var limitEnInt int
+	var estado estadoMemoria
+
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	if err := json.NewDecoder(r.Body).Decode(&process); err != nil {
@@ -398,99 +411,114 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 	}
 
 	if esquemaMemoria == "FIJAS" {
+
 		log.Printf("esquema: FIJAS")
 		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size) //asigno por algoritmo
+
 		if numeroDeParticion == -1 {
+
 			http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
-			log.Printf("Sin espacio") //BORRAR
-			return
+			estado.Estado = NoHayEspacio
+
+		} else {
+			estado.Estado = HayEspacio
+
+			//BASE
+			var baseEnInt int
+			pcb.Base = 0
+			for i := 0; i < numeroDeParticion; i++ {
+				baseEnInt += particiones[i] //tengo que ver tema int y uint32
+			}
+			pcb.Base = uint32(baseEnInt)
+			//LIMIT
+			limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
+			pcb.Limit = uint32(limitEnInt)
+
+			mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
+
+			//marcar particion como ocupada
+			if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
+				http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
+				return
+			}
+
+			if err := guardarPCBEnElMap(pcb); err != nil { //ACA ESTOY GUARDANDO LA PCB EN MI MAP PRINCIPAL EL MAS IMPORTANTE DE TODOS
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			log.Printf("particion %d mapespacio: %v", numeroDeParticion, mapParticiones)
+
+			// Log de creación de proceso
+			log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
+
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("Ok"))
+
 		}
-
-		//BASE
-		var baseEnInt int
-		pcb.Base = 0
-		for i := 0; i < numeroDeParticion; i++ {
-			baseEnInt += particiones[i] //tengo que ver tema int y uint32
-		}
-		pcb.Base = uint32(baseEnInt)
-		//LIMIT
-		limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
-		pcb.Limit = uint32(limitEnInt)
-
-		mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
-
-		//marcar particion como ocupada
-		if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
-			http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
-			return
-		}
-
-		if err := guardarPCBEnElMap(pcb); err != nil { //ACA ESTOY GUARDANDO LA PCB EN MI MAP PRINCIPAL EL MAS IMPORTANTE DE TODOS
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		log.Printf("particion %d mapespacio: %v", numeroDeParticion, mapParticiones)
-
-		// Log de creación de proceso
-		log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
-
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Ok"))
-		return
 	} else if esquemaMemoria == "DINAMICAS" {
 
 		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size)
 
 		//SI NO HAY PARTICION DISPONIBLE
 		if numeroDeParticion == -1 {
+			//aca deberia de alguna manera verificar si puede o no compactar
 			if espacioLibreSuficiente(process.Size) { //funcion que me devuelve true o false si hay espacio suficiente sumando todas las particiones libres
-				compactarLasParticiones() //compacto las particiones libres
-				actualizarBasesYLímites() //actualizo las bases y limites
-				numeroDeParticion = asignarPorAlgoritmo(algoritmoBusqueda, process.Size)
+				estado.Estado = Compactar
+				//compactarLasParticiones() //compacto las particiones libres
+				//actualizarBasesYLímites() //actualizo las bases y limites
 			} else {
 				http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
+				estado.Estado = NoHayEspacio
+			}
+		} else {
+			estado.Estado = HayEspacio
+			//SI HAY PARTICION DISPONIBLE PARA EL TAMAÑO DEL PROCESO
+			if particiones[numeroDeParticion] > process.Size {
+
+				subdividirParticion(numeroDeParticion, process.Size) //subdivir la particion en dos (una ocupada y otra libre)
+			}
+
+			//BASE
+			var baseEnInt int
+			pcb.Base = 0
+			for i := 0; i < numeroDeParticion; i++ {
+				baseEnInt += particiones[i] //tengo que ver tema int y uint32
+			}
+			pcb.Base = uint32(baseEnInt)
+
+			//LIMIT
+			limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
+			pcb.Limit = uint32(limitEnInt)
+
+			mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
+
+			// mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
+
+			if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
+				http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
 				return
 			}
+
+			if err := guardarPCBEnElMap(pcb); err != nil { //ACA ESTOY GUARDANDO LA PCB EN MI MAP PRINCIPAL EL MAS IMPORTANTE DE TODOS
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			// Log de creación de proceso
+			log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
 		}
 
-		//SI HAY PARTICION DISPONIBLE PARA EL TAMAÑO DEL PROCESO
-		if particiones[numeroDeParticion] > process.Size {
-			subdividirParticion(numeroDeParticion, process.Size) //subdivir la particion en dos (una ocupada y otra libre)
-		}
+	}
 
-		//BASE
-		var baseEnInt int
-		pcb.Base = 0
-		for i := 0; i < numeroDeParticion; i++ {
-			baseEnInt += particiones[i] //tengo que ver tema int y uint32
-		}
-		pcb.Base = uint32(baseEnInt)
+	respuesta, err := json.Marshal(&estado)
 
-		//LIMIT
-		limitEnInt = baseEnInt + particiones[numeroDeParticion] - 1
-		pcb.Limit = uint32(limitEnInt)
-
-		mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
-
-		// mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
-
-		if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
-			http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
-			return
-		}
-
-		if err := guardarPCBEnElMap(pcb); err != nil { //ACA ESTOY GUARDANDO LA PCB EN MI MAP PRINCIPAL EL MAS IMPORTANTE DE TODOS
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		// Log de creación de proceso
-		log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
-
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Ok"))
+	if err != nil {
+		http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
 		return
 	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(respuesta)
 }
 
 func guardarPCBenMapConRespectivaParticion(pcb PCB, numeroDeParticion int) error {
@@ -635,7 +663,7 @@ func bestFit(processSize int) int {
 	minDifference := math.MaxInt32
 
 	for i, size := range particiones {
-		if size >= processSize { //n 
+		if size >= processSize { //n
 			if !mapParticiones[i] { //n
 				difference := size - processSize
 				if difference < minDifference {
@@ -643,7 +671,7 @@ func bestFit(processSize int) int {
 					bestIndex = i
 				}
 			}
-			particionesConSuficienteTamaño++ //n 
+			particionesConSuficienteTamaño++ //n
 		}
 	}
 	if bestIndex != -1 {
@@ -663,11 +691,11 @@ func worstFit(processSize int) int {
 	maxDifference := -1 //ARREGLAR IGUAL QUE BEST
 	particionesConSuficienteTamaño := 0
 
-	for i, size := range particiones{
-		if size >= processSize{
-			if !mapParticiones[i]{
+	for i, size := range particiones {
+		if size >= processSize {
+			if !mapParticiones[i] {
 				difference := size - processSize
-				if difference > maxDifference{
+				if difference > maxDifference {
 					maxDifference = difference
 					worstIndex = i
 				}
@@ -676,10 +704,10 @@ func worstFit(processSize int) int {
 		}
 	}
 
-	if worstIndex != -1{
+	if worstIndex != -1 {
 		mapParticiones[worstIndex] = true
 	}
-	if worstIndex != -1 && particionesConSuficienteTamaño == 0{
+	if worstIndex != -1 && particionesConSuficienteTamaño == 0 {
 		log.Printf("Estas intentando crear un proceso con un tamaño mayor a todos los espacios de memoria")
 		panic("Imposible crear proceso")
 	}
@@ -1227,4 +1255,16 @@ func GenerarNombreArchivo(pid int, tid int) string {
 	timestamp := time.Now().Format("20060102-150405")
 
 	return fmt.Sprintf("%d-%d-%s.dmp", pid, tid, timestamp)
+}
+
+///------------------------------------COMPACTACION--------------------------------------------------
+
+func Compactacion(w http.ResponseWriter, r *http.Request) {
+
+	compactarLasParticiones() //compacto las particiones libres
+	actualizarBasesYLímites() //actualizo las bases y limites
+
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Ok"))
+	return
 }

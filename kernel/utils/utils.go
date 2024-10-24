@@ -97,6 +97,10 @@ type CrearHiloResponse struct {
 	Prioridad int    `json:"prioridad"`
 }
 
+type estadoMemoria struct {
+	Estado int `json:"estado"`
+}
+
 /*-------------------- COLAS GLOBALES --------------------*/
 
 var colaNewproceso []PCB
@@ -121,6 +125,8 @@ var mutexColaExitHilo sync.Mutex
 
 var mutexEnviarTCB sync.Mutex
 
+var mutexEsperarCompactacion sync.Mutex
+
 /*-------------------- VAR GLOBALES --------------------*/
 
 var (
@@ -132,7 +138,8 @@ var ConfigKernel *globals.Config
 
 /*---------------------- CANALES ----------------------*/
 
-var esperarFinProceso bool
+var esperarFinProceso bool = true
+var esperarFinCompactacion bool
 
 //VER CANAL esperarFinProceso QUE LO USAMOS PARA SABER CUANDO FINALIZA UN PROCESO Y ASI PODER INICIALIZAR OTRO PERO NOS ESTA SIENDO BLOQUEANTE
 
@@ -206,23 +213,10 @@ func init() {
 
 func procesoInicial(path string, size int) {
 
-	//CREAMOS PCB
 	pcb := createPCB()
 	encolarProcesoNew(pcb)
+	inicializarProceso(path, size, 0, pcb)
 
-	if consultaEspacioAMemoria(size, pcb) {
-		tcb := createTCB(pcb.Pid, 0)       // creamos hilo main
-		pcb.Tid = append(pcb.Tid, tcb.Tid) // agregamos el hilo a la listas de hilos del proceso
-
-		enviarTCBMemoria(tcb, path)
-
-		encolarReady(tcb)
-		quitarProcesoNew(pcb)
-		encolarProcesoInicializado(pcb)
-	} else {
-		slog.Error("El proceso inicial tiene mas tamaño que la memoria disponible")
-		return
-	}
 }
 
 func createPCB() PCB {
@@ -274,14 +268,19 @@ func iniciarProceso(path string, size int, prioridad int) {
 
 }
 
-func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
+const (
+	HayEspacio   int = 1
+	Compactar    int = 2
+	NoHayEspacio int = 3
+)
 
-	// Verificar si se puede enviar a memoria, si hay espacio para el proceso
+func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 	for {
 		if esperarFinProceso {
+			log.Printf("a") //borrar
 			if esElPrimerProcesoEnNew(pcb) {
-				if consultaEspacioAMemoria(size, pcb) {
-
+				estadoMemoria := consultaEspacioAMemoria(size, pcb)
+				if estadoMemoria == HayEspacio {
 					nextTid = 0
 					tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
 					pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
@@ -292,20 +291,52 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 					encolarProcesoInicializado(pcb)
 					encolarReady(tcb)
 					break
+				} else if estadoMemoria == Compactar {
+					mutexEsperarCompactacion.Lock()
+					esperarFinCompactacion = false
+					mutexEsperarCompactacion.Unlock()
 
+					for {
+						if len(colaExecHilo) == 0 {
+							compactar()
+							log.Printf("compacte, rama gay") //borrar
+							break
+						}
+					}
+
+					mutexEsperarCompactacion.Lock()
+					esperarFinCompactacion = true
+					mutexEsperarCompactacion.Unlock()
 				} else {
 					slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
 					esperarFinProceso = false
-					// esperar a que finalize otro proceso y volver a consultar por el espacio en memoria para inicializarlo
 				}
+
 			}
 		}
 	}
-
 }
 
 func esElPrimerProcesoEnNew(pcb PCB) bool {
 	return colaNewproceso[0].Pid == pcb.Pid
+}
+
+func compactar() {
+
+	puerto := ConfigKernel.PuertoMemoria
+	ip := ConfigKernel.IpMemoria
+
+	url := fmt.Sprintf("http://%s:%d/compactacion", ip, puerto)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(nil))
+
+	if err != nil {
+		slog.Error("error enviando compactar el proceso")
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		slog.Warn("Error en el proceso de compactar") //Se hace aca, porque si lo ponemos como un else de la consulta a memoria, ante cualquier error responde esto
+	}
+
 }
 
 func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
@@ -400,7 +431,7 @@ func enviarProcesoFinalizadoAMemoria(pcb PCB) error {
 	return nil
 }
 
-func consultaEspacioAMemoria(size int, pcb PCB) bool {
+func consultaEspacioAMemoria(size int, pcb PCB) int {
 	var memoryRequest KernelRequest
 	memoryRequest.Size = size
 	memoryRequest.Pid = pcb.Pid
@@ -412,7 +443,7 @@ func consultaEspacioAMemoria(size int, pcb PCB) bool {
 
 	if err != nil {
 		slog.Error("Fallo el proceso: error codificando " + err.Error())
-		return false
+
 	}
 
 	url := fmt.Sprintf("http://%s:%d/createProcess", ip, puerto)
@@ -420,14 +451,21 @@ func consultaEspacioAMemoria(size int, pcb PCB) bool {
 
 	if err != nil {
 		slog.Error("error enviando tamanio del proceso", slog.Int("pid", pcb.Pid), slog.String("ip", ip), slog.Int("puerto", puerto))
-		return false
-	}
-	if resp.StatusCode != http.StatusOK {
-		slog.Warn("El tamanio del proceso es mas grande que la memoria disponible", slog.Int("pid", pcb.Pid)) //Se hace aca, porque si lo ponemos como un else de la consulta a memoria, ante cualquier error responde esto
-		return false
+
 	}
 
-	return true
+	if resp.StatusCode != http.StatusOK {
+		slog.Warn("El tamanio del proceso es mas grande que la memoria disponible", slog.Int("pid", pcb.Pid)) //Se hace aca, porque si lo ponemos como un else de la consulta a memoria, ante cualquier error responde esto
+	}
+
+	var estado estadoMemoria
+
+	err = json.NewDecoder(resp.Body).Decode(&estado)
+	if err != nil {
+		return -1
+	}
+
+	return estado.Estado
 }
 
 func encolarProcesoNew(pcb PCB) {
@@ -736,9 +774,12 @@ func ejecutarHilosFIFO() {
 }
 
 func ejecutarInstruccion(Hilo TCB) {
-	quitarReady(Hilo)
-	encolarExec(Hilo)
-	enviarTCBCpu(Hilo)
+	log.Printf("entre a ejecutar instruccion")
+	if esperarFinCompactacion {
+		quitarReady(Hilo)
+		encolarExec(Hilo)
+		enviarTCBCpu(Hilo)
+	}
 }
 
 // PRIORIDADES
