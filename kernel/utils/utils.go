@@ -139,7 +139,7 @@ var ConfigKernel *globals.Config
 /*---------------------- CANALES ----------------------*/
 
 var esperarFinProceso bool = true
-var esperarFinCompactacion bool
+var esperarFinCompactacion bool = true
 
 //VER CANAL esperarFinProceso QUE LO USAMOS PARA SABER CUANDO FINALIZA UN PROCESO Y ASI PODER INICIALIZAR OTRO PERO NOS ESTA SIENDO BLOQUEANTE
 
@@ -277,10 +277,10 @@ const (
 func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 	for {
 		if esperarFinProceso {
-			log.Printf("a") //borrar
 			if esElPrimerProcesoEnNew(pcb) {
 				estadoMemoria := consultaEspacioAMemoria(size, pcb)
 				if estadoMemoria == HayEspacio {
+					log.Printf("Create el poceso") //borrar
 					nextTid = 0
 					tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
 					pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
@@ -292,6 +292,7 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 					encolarReady(tcb)
 					break
 				} else if estadoMemoria == Compactar {
+					log.Printf("Compactame la memoria") //borrar
 					mutexEsperarCompactacion.Lock()
 					esperarFinCompactacion = false
 					mutexEsperarCompactacion.Unlock()
@@ -774,8 +775,8 @@ func ejecutarHilosFIFO() {
 }
 
 func ejecutarInstruccion(Hilo TCB) {
-	log.Printf("entre a ejecutar instruccion")
 	if esperarFinCompactacion {
+		log.Printf("entre a ejecutar instruccion")
 		quitarReady(Hilo)
 		encolarExec(Hilo)
 		enviarTCBCpu(Hilo)
@@ -1336,6 +1337,7 @@ func enviarInterrupcion(pid int, tid int) {
 
 	if err != nil {
 		slog.Error("error codificando" + err.Error())
+		return
 	}
 
 	url := fmt.Sprintf("http://%s:%d/interrupcion", ip, puerto)
@@ -1343,9 +1345,12 @@ func enviarInterrupcion(pid int, tid int) {
 
 	if err != nil {
 		slog.Error("Error enviando interrupcion", slog.String("ip", ip), slog.Int("puerto", puerto), slog.Any("error", err))
+		return
 	}
 	log.Printf("Envia interrupcion de finalizacion ")
+	log.Printf("Pid: %d Tid: %d", pid, tid)
 	if resp.StatusCode != http.StatusOK {
 		slog.Error("error en la respuesta del módulo de cpu:" + fmt.Sprintf("%v", resp.StatusCode))
+		return
 	}
 }
