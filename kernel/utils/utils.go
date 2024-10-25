@@ -346,6 +346,7 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 
 	err := decoder.Decode(&hilo)
 	if err != nil {
+		log.Printf("1")
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -355,11 +356,13 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <PROCESS_EXIT> ##", pid, tid)
 
 	if tid == 0 {
+		log.Printf("2")
 		err = exitProcess(pid)
 	} else {
 		slog.Warn("El hilo no es el principal, no se puede ejecutar esta instruccion")
 	}
 	if err != nil {
+		log.Printf("3")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

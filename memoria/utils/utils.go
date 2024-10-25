@@ -763,6 +763,8 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 
 	pid := kernelReq.Pid
 	numeroDeParticion, err := encontrarParticionPorPID(pid)
+	tamanio := particiones[numeroDeParticion]
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
@@ -776,24 +778,30 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 		delete(mapPIDxBaseLimit, pid)             // elimino el pid del map de base y limit
 	} else if esquemaMemoria == "DINAMICAS" {
 		mapParticiones[numeroDeParticion] = false
-
 		consolidarParticiones(numeroDeParticion) //consolido las particiones libres
-
 		delete(mapPCBPorParticion, PCB{Pid: pid})
 		delete(mapPCBPorTCB, PCB{Pid: pid})
 		delete(mapPIDxBaseLimit, pid)
 	}
-
 	// Log de destrucción de proceso
-	log.Printf("## Proceso Destruido - PID: %d - Tamaño: %d", pid, particiones[numeroDeParticion])
+	log.Printf("## Proceso Destruido - PID: %d - Tamaño: %d", pid, tamanio)
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Proceso finalizado exitosamente"))
 }
 
 func encontrarParticionPorPID(pid int) (int, error) {
-	for pcb, particion := range mapPCBPorParticion {
-		if pcb.Pid == pid {
+	if len(mapPCBPorParticion) == 1 {
+		pcb := PCB{Pid: pid}
+		particion, ok := mapPCBPorParticion[pcb]
+		if ok {
 			return particion, nil
+		}
+	} else {
+		// Si el mapa tiene más de un elemento, proceder al bucle normal
+		for pcb, particion := range mapPCBPorParticion {
+			if pcb.Pid == pid {
+				return particion, nil
+			}
 		}
 	}
 	return -1, fmt.Errorf("PID no encontrado")
