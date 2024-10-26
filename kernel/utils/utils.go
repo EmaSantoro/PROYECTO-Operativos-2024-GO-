@@ -468,7 +468,7 @@ func consultaEspacioAMemoria(size int, pcb PCB) int {
 	if err != nil {
 		return -1
 	}
-
+	log.Printf("estado recibido %v", estado) // BORRAR
 	return estado.Estado
 }
 

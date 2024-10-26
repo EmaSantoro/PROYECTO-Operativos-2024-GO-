@@ -464,9 +464,11 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 			//aca deberia de alguna manera verificar si puede o no compactar
 			if espacioLibreSuficiente(process.Size) { //funcion que me devuelve true o false si hay espacio suficiente sumando todas las particiones libres
 				estado.Estado = Compactar
+				log.Printf("COMPACTE")
 				//compactarLasParticiones() //compacto las particiones libres
 				//actualizarBasesYLímites() //actualizo las bases y limites
 			} else {
+				log.Printf("NO HAY ESPACIO")
 				http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
 				estado.Estado = NoHayEspacio
 			}
@@ -517,7 +519,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusOK) // Esto da superfluos error ya que si arriba retorna http error al no tener un return genera un error, hay que ver como solucionarlo
 	w.Write(respuesta)
 }
 
@@ -536,6 +538,7 @@ func espacioLibreSuficiente(Size int) bool {
 			espacioLibre += particiones[i] //la voy a sumar
 		}
 	}
+	log.Printf("Particiones: %v Espacio libre: %d Tamaño: %d", particiones, espacioLibre, Size)
 	return espacioLibre >= Size
 }
 
@@ -760,16 +763,13 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
 	pid := kernelReq.Pid
 	numeroDeParticion, err := encontrarParticionPorPID(pid)
 	tamanio := particiones[numeroDeParticion]
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
-
 	if esquemaMemoria == "FIJAS" { //PARA FIJAS
 		mapParticiones[numeroDeParticion] = false // libero el map booleano que indicaba si la particion esta libre o no
 
@@ -790,21 +790,34 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 }
 
 func encontrarParticionPorPID(pid int) (int, error) {
+	particionEncontrada := -1
+	err := fmt.Errorf("PID no encontrado")
+
 	if len(mapPCBPorParticion) == 1 {
+		log.Printf("uno") // Borrar
 		pcb := PCB{Pid: pid}
 		particion, ok := mapPCBPorParticion[pcb]
 		if ok {
-			return particion, nil
+			particionEncontrada = particion
+			err = nil
 		}
 	} else {
-		// Si el mapa tiene más de un elemento, proceder al bucle normal
+		log.Printf("varios") // Borrar
 		for pcb, particion := range mapPCBPorParticion {
 			if pcb.Pid == pid {
-				return particion, nil
+				log.Printf("encuentro") // CAMBIAR
+				particionEncontrada = particion
+				err = nil
+				break //si haces un return dentro de este genera un error, por eso lo gestione asi
 			}
 		}
 	}
-	return -1, fmt.Errorf("PID no encontrado")
+
+	if err != nil {
+		log.Printf("no encuentro") // CAMBIAR
+	}
+
+	return particionEncontrada, err
 }
 
 func consolidarParticiones(numeroDeParticion int) {
