@@ -171,6 +171,11 @@ func init() {
 	PuertoCpu = MemoriaConfig.PuertoCpu
 	//MemoriaTamanio = MemoriaConfig.Tamanio_Memoria
 
+	if esquemaMemoria == "DINAMICAS" {
+		particiones = []int{MemoriaConfig.Tamanio_Memoria}
+		mapParticiones = make([]bool, len(particiones))
+	}
+
 	log.Printf("%d", particiones)
 }
 
@@ -456,6 +461,8 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 
 		}
 	} else if esquemaMemoria == "DINAMICAS" {
+
+
 
 		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size)
 
