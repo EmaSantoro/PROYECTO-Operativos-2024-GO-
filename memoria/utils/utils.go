@@ -120,6 +120,7 @@ type InstructionReq struct {
 type KernelProcessTerminateReq struct {
 	Pid int `json:"pid"`
 }
+
 type Req struct {
 	Pid int `json:"pid"`
 	Tid int `json:"tid"`
@@ -492,9 +493,6 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 
 			// Log de creación de proceso
 			log.Printf("## Proceso Creado - PID: %d - Tamaño: %d", process.Pid, process.Size)
-
-			w.WriteHeader(http.StatusOK)
-			w.Write([]byte("Ok"))
 
 		}
 	} else if esquemaMemoria == "DINAMICAS" {

@@ -203,9 +203,11 @@ func init() {
 			go ejecutarHilosPrioridades()
 		} else if ConfigKernel.AlgoritmoPlanificacion == "COLASMULTINIVEL" {
 			go ejecutarHilosColasMultinivel(ConfigKernel.Quantum)
+		} else {
+			log.Fatalf("Algoritmo de planificacion no valido")
 		}
 	} else {
-		log.Printf("Algoritmo de planificacion no valido")
+		log.Fatalf("Configuracion no inicializada, segui participando...")
 	}
 }
 
@@ -280,7 +282,6 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 			if esElPrimerProcesoEnNew(pcb) {
 				estadoMemoria := consultaEspacioAMemoria(size, pcb)
 				if estadoMemoria == HayEspacio {
-					log.Printf("Create el poceso") //borrar
 					nextTid = 0
 					tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
 					pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
@@ -292,7 +293,6 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 					encolarReady(tcb)
 					break
 				} else if estadoMemoria == Compactar {
-					log.Printf("Compactame la memoria") //borrar
 					mutexEsperarCompactacion.Lock()
 					esperarFinCompactacion = false
 					mutexEsperarCompactacion.Unlock()
@@ -300,7 +300,6 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 					for {
 						if len(colaExecHilo) == 0 {
 							compactar()
-							log.Printf("compacte, rama gay") //borrar
 							break
 						}
 					}
@@ -346,7 +345,6 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 
 	err := decoder.Decode(&hilo)
 	if err != nil {
-		log.Printf("1")
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -356,13 +354,11 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <PROCESS_EXIT> ##", pid, tid)
 
 	if tid == 0 {
-		log.Printf("2")
 		err = exitProcess(pid)
 	} else {
 		slog.Warn("El hilo no es el principal, no se puede ejecutar esta instruccion")
 	}
 	if err != nil {
-		log.Printf("3")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -439,7 +435,6 @@ func consultaEspacioAMemoria(size int, pcb PCB) int {
 	var memoryRequest KernelRequest
 	memoryRequest.Size = size
 	memoryRequest.Pid = pcb.Pid
-	log.Printf("PID enviada a memoria para consulta espacio: %d", pcb.Pid)
 	puerto := ConfigKernel.PuertoMemoria
 	ip := ConfigKernel.IpMemoria
 
@@ -468,7 +463,6 @@ func consultaEspacioAMemoria(size int, pcb PCB) int {
 	if err != nil {
 		return -1
 	}
-	log.Printf("estado recibido %v", estado) // BORRAR
 	return estado.Estado
 }
 
@@ -779,7 +773,6 @@ func ejecutarHilosFIFO() {
 
 func ejecutarInstruccion(Hilo TCB) {
 	if esperarFinCompactacion {
-		log.Printf("entre a ejecutar instruccion")
 		quitarReady(Hilo)
 		encolarExec(Hilo)
 		enviarTCBCpu(Hilo)
@@ -797,6 +790,7 @@ func ejecutarHilosPrioridades() {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
+				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por Prioridades ##", Hilo.Pid, Hilo.Tid)
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
 
@@ -827,11 +821,13 @@ func ejecutarHilosColasMultinivel(quantum int) {
 	for {
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
-			ejecutarInstruccionRR(Hilo, quantum) ////////////////////////////////////////////////////////////////////////////////
+			go comenzarQuantum(Hilo, quantum)
+			ejecutarInstruccion(Hilo)
 		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
+				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por Prioridades ##", Hilo.Pid, Hilo.Tid)
 				quitarExec(colaExecHilo[0])
 				encolarReady(colaExecHilo[0])
 			}
@@ -839,22 +835,27 @@ func ejecutarHilosColasMultinivel(quantum int) {
 	}
 }
 
-func ejecutarInstruccionRR(Hilo TCB, quantum int) {
-	quitarReady(Hilo)
-	encolarExec(Hilo)
-	enviarTCBCpu(Hilo)
-
+func comenzarQuantum(Hilo TCB, quantum int) {
 	timer := time.NewTimer(time.Duration(quantum) * time.Millisecond)
 
-	// Canal que espera la señal del timer
-	go func() {
-		<-timer.C // Bloquea hasta que el timer expire
-		//deberia guardar el contexto del hilo para retomarlo de nuevo luego.
+	for {
+		select {
+		case <-timer.C:
+			if isInExec(Hilo) {
+				enviarInterrupcion(Hilo.Pid, Hilo.Tid)
+				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por fin de Quantum ##", Hilo.Pid, Hilo.Tid)
+				quitarExec(Hilo)
+				encolarReady(Hilo)
+			} else {
+				log.Printf("No se puede desalojar el hilo, ya que no se encuentra en ejecucion")
+			}
+			return
+		default:
+			// Evitar bloqueo del select
+			time.Sleep(time.Millisecond)
+		}
+	}
 
-		enviarInterrupcion(Hilo.Pid, Hilo.Tid)
-		quitarExec(Hilo)
-		encolarReady(Hilo)
-	}()
 }
 
 /*---------- FUNCIONES HILOS ENVIO DE TCB ----------*/
@@ -1348,8 +1349,7 @@ func enviarInterrupcion(pid int, tid int) {
 		slog.Error("Error enviando interrupcion", slog.String("ip", ip), slog.Int("puerto", puerto), slog.Any("error", err))
 		return
 	}
-	log.Printf("Envia interrupcion de finalizacion ")
-	log.Printf("Pid: %d Tid: %d", pid, tid)
+
 	if resp.StatusCode != http.StatusOK {
 		slog.Error("error en la respuesta del módulo de cpu:" + fmt.Sprintf("%v", resp.StatusCode))
 		return

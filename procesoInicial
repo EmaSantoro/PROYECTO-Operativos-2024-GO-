@@ -1,2 +1,2 @@
-PROCESS_CREATE procesoBasico 50 1
+PROCESS_CREATE procesoBasico 50 0
 PROCESS_EXIT
