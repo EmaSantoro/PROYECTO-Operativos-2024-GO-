@@ -827,7 +827,7 @@ func ejecutarHilosColasMultinivel(quantum int) {
 	for {
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
-			ejecutarInstruccionRR(Hilo, quantum)
+			ejecutarInstruccionRR(Hilo, quantum) ////////////////////////////////////////////////////////////////////////////////
 		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
@@ -836,12 +836,10 @@ func ejecutarHilosColasMultinivel(quantum int) {
 				encolarReady(colaExecHilo[0])
 			}
 		}
-
 	}
 }
 
 func ejecutarInstruccionRR(Hilo TCB, quantum int) {
-
 	quitarReady(Hilo)
 	encolarExec(Hilo)
 	enviarTCBCpu(Hilo)

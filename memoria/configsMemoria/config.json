@@ -9,7 +9,7 @@
     "port_cpu": 8004,
     "ip_filesystem": "127.0.0.1",
     "port_filesystem": 8006,
-    "scheme": "DINAMICAS",
+    "scheme": "FIJAS",
     "search_algorithm": "FIRST",
     "partitions": [1024],
     "log_level": "TRACE"

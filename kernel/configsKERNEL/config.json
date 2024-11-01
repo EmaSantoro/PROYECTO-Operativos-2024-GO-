@@ -4,8 +4,8 @@
     "puerto_memoria": 8002,
     "ip_cpu"  : "127.0.0.1",
     "puerto_cpu": 8004,
-    "algoritmo_planificacion"   : "COLASMULTINIVEL",
-    "quantum" : 2000,
+    "algoritmo_planificacion"   : "PRIORIDADES",
+    "quantum" : 3000,
     "log_level": "DEBUG"
 }
 
