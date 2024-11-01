@@ -29,12 +29,10 @@ type Valor struct {
 	Limit uint32
 }
 
-type InstructionResponse struct {
-	Instruction string `json:"instruction"`
-}
 type DataRead struct {
 	Data []byte `json:"data"`
 }
+
 type NewContext struct {
 	PCB struct {
 		Pid   int    `json:"pid"`
@@ -55,9 +53,6 @@ type NewContext struct {
 		PC  uint32 `json:"PC"`
 	}
 }
-
-//estado de las particiones ocupada/libre
-// var particiones = MemoriaConfig.Particiones //vector de particiones, aca tengo los tamaños en int
 
 type Process struct {
 	Size int `json:"size"`
@@ -83,6 +78,7 @@ type estructuraHilo struct {
 	HX  uint32
 	PC  uint32
 }
+
 type TCB struct {
 	Tid int
 	AX  uint32
@@ -95,6 +91,21 @@ type TCB struct {
 	HX  uint32
 	PC  uint32
 }
+
+type estadoMemoria struct {
+	Estado int `json:"estado"`
+}
+
+type FsInfo struct {
+	Data          []byte `json:"data"`
+	Tamanio       uint32 `json:"tamanio"`
+	NombreArchivo string `json:"nombreArchivo"`
+}
+
+//estado de las particiones ocupada/libre
+// var particiones = MemoriaConfig.Particiones //vector de particiones, aca tengo los tamaños en int
+
+// REQUEST
 type KernelExeReq struct {
 	Pid int `json:"pid"` // ver cuales son los keys usados en Kernel
 	Tid int `json:"tid"`
@@ -106,8 +117,36 @@ type InstructionReq struct {
 	Pc  int `json:"pc"`
 }
 
-type estadoMemoria struct {
-	Estado int `json:"estado"`
+type KernelProcessTerminateReq struct {
+	Pid int `json:"pid"`
+}
+type Req struct {
+	Pid int `json:"pid"`
+	Tid int `json:"tid"`
+}
+
+type MemoryRequest struct {
+	PID     int    `json:"pid"`
+	TID     int    `json:"tid,omitempty"`
+	Address uint32 `json:"address"`        //direccion de memoria a leer
+	Size    int    `json:"size,omitempty"` //tamaño de la memoria a leer
+	Data    []byte `json:"data,omitempty"` //datos a escribir o leer y los devuelvo
+	Port    int    `json:"port,omitempty"` //puerto
+}
+
+type TCBRequest struct {
+	Pid int `json:"pid"`
+	Tid int `json:"tid"`
+}
+
+// RESPONSE
+type InstructionResponse struct {
+	Instruction string `json:"instruction"`
+}
+
+type GetExecutionContextResponse struct {
+	Pcb PCB            `json:"pcb"`
+	Tcb estructuraHilo `json:"tcb"`
 }
 
 /*-------------------- VAR GLOBALES --------------------*/
@@ -118,14 +157,23 @@ var IpCpu string
 var PuertoCpu int
 var MemoriaConfig *globals.Config
 
-// Mapa anidado que almacena los contextos de ejecución
+const (
+	HayEspacio   int = 1
+	Compactar        = 2
+	NoHayEspacio     = 3
+)
+
+// MAPS
 var mapPCBPorTCB = make(map[PCB]map[estructuraHilo][]string) //ESTE ES EL PRINCIPAL DIGAMOS
 var mapParticiones []bool
-
 var mapPIDxBaseLimit = make(map[int]Valor) //map de pid por base y limit
+var mapPCBPorParticion = make(map[PCB]int)
 
-// // Mapa anidado que almacena los contextos de ejecución
-// var mapPCBPorTCB = make(map[PCB]map[TCB][]string)
+// var mapParticiones[]bool //estado de las particiones ocupada/libre
+// var particiones = MemoriaConfig.Particiones //vector de particiones, aca tengo los tamaños en int
+
+// MUTEX
+var mu sync.Mutex
 
 /*---------------------- FUNCIONES ----------------------*/
 //	INICIAR CONFIGURACION Y LOGGERS
@@ -262,11 +310,6 @@ func obtenerPCBPorPID(PID int) (PCB, error) {
 }
 
 // ------------------------------------ GET EXECUTION CONTEXT ---------------------------------------------
-type GetExecutionContextResponse struct {
-	Pcb PCB            `json:"pcb"`
-	Tcb estructuraHilo `json:"tcb"`
-}
-
 func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 	var solicitud KernelExeReq
 
@@ -390,12 +433,6 @@ func ModificarValores(pid int, base uint32, limit uint32) {
 
 //-----------------------------------------CREATE PROCESS-------------------------------------------
 
-const (
-	HayEspacio   int = 1
-	Compactar        = 2
-	NoHayEspacio     = 3
-)
-
 func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y el size
 	var process Process
 	var limitEnInt int
@@ -461,8 +498,6 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 
 		}
 	} else if esquemaMemoria == "DINAMICAS" {
-
-
 
 		numeroDeParticion := asignarPorAlgoritmo(algoritmoBusqueda, process.Size)
 
@@ -628,8 +663,6 @@ func actualizarBasesYLímites() {
 
 //--------------------------------------------------------------------
 
-var mapPCBPorParticion = make(map[PCB]int)
-
 func guardarPCBEnElMap(pcb PCB) error {
 	if _, found := mapPCBPorTCB[pcb]; !found {
 		mapPCBPorTCB[pcb] = make(map[estructuraHilo][]string)
@@ -651,9 +684,6 @@ func asignarPorAlgoritmo(tipoDeAlgoritmo string, size int) int {
 		return -1
 	}
 }
-
-// var mapParticiones[]bool //estado de las particiones ocupada/libre
-// var particiones = MemoriaConfig.Particiones //vector de particiones, aca tengo los tamaños en int
 
 func firstFit(processSize int) int {
 	for i, size := range particiones {
@@ -758,10 +788,6 @@ func worstFit(processSize int) int {
 // }
 
 //--------------------------------TERMINATE PROCESS---------------------------------------------
-
-type KernelProcessTerminateReq struct {
-	Pid int `json:"pid"`
-}
 
 func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Entra a terminate process")
@@ -946,11 +972,6 @@ func guardarTodoEnElMap(pid int, TCB estructuraHilo, path string) error {
 
 //---------------------------------------TERMINATE THREAD--------------------------------------------
 
-type Req struct {
-	Pid int `json:"pid"`
-	Tid int `json:"tid"`
-}
-
 func TerminateThread(w http.ResponseWriter, r *http.Request) {
 	log.Printf("ENTRO A TERMINATE THREAD")
 
@@ -985,15 +1006,6 @@ func TerminateThread(w http.ResponseWriter, r *http.Request) {
 
 //-----------------------------------------READ MEMORY-------------------------------------------
 
-type MemoryRequest struct {
-	PID     int    `json:"pid"`
-	TID     int    `json:"tid,omitempty"`
-	Address uint32 `json:"address"`        //direccion de memoria a leer
-	Size    int    `json:"size,omitempty"` //tamaño de la memoria a leer
-	Data    []byte `json:"data,omitempty"` //datos a escribir o leer y los devuelvo
-	Port    int    `json:"port,omitempty"` //puerto
-}
-
 func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Iniciando handler para lectura de memoria")
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
@@ -1022,8 +1034,6 @@ func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(respuestaJson)
 	log.Println("Datos enviados al CPU")
 }
-
-var mu sync.Mutex
 
 // tener en cuenta lo de que si me dan para leer y en vez de leer 4 voy a llegar a leer 2 porque se me termino la particion
 // tener en cuenta lo de que si me dan para leer desde 4 y leo hasta el 8 pero mi particion termina en 12.
@@ -1197,11 +1207,6 @@ func WriteMemory(PID int, TID int, address uint32, data []byte) error {
 
 //-------------------------------DUMP MEMORY------------------------------------------------
 
-type TCBRequest struct {
-	Pid int `json:"pid"`
-	Tid int `json:"tid"`
-}
-
 func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 	var tcbReq TCBRequest
@@ -1248,12 +1253,6 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Ok"))
-}
-
-type FsInfo struct {
-	Data          []byte `json:"data"`
-	Tamanio       uint32 `json:"tamanio"`
-	NombreArchivo string `json:"nombreArchivo"`
 }
 
 func PasarDeUintAByte(num uint32) []byte {
