@@ -258,6 +258,10 @@ func CrearProceso(w http.ResponseWriter, r *http.Request) {
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <PROCESS_CREATE> ##", pidActual, tidActual)
 
 	iniciarProceso(path, size, prioridad)
+	tcbActual := getTCB(pidActual, tidActual)
+	
+	
+	enviarTCBCpu(tcbActual)
 
 	w.WriteHeader(http.StatusOK)
 }
@@ -379,7 +383,6 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 
 	for _, tcb := range colaExecHilo {
 		if tcb.Pid == pid {
-			enviarInterrupcion(tcb.Pid, tcb.Tid)
 			exitHilo(pid, tcb.Tid)
 		}
 	}
@@ -563,18 +566,20 @@ func CrearHilo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tidActual := hilo.Tid
-	pid := hilo.Pid
+	pidActual := hilo.Pid
 	path := hilo.Path
 	prioridad := hilo.Prioridad
 
-	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <THREAD_CREATE> ##", pid, tidActual)
+	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <THREAD_CREATE> ##", pidActual, tidActual)
 
-	err = iniciarHilo(pid, path, prioridad)
+	err = iniciarHilo(pidActual, path, prioridad)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	tcbActual := getTCB(pidActual, tidActual)
+	enviarTCBCpu(tcbActual)
 
 	w.WriteHeader(http.StatusOK)
 }
@@ -639,6 +644,10 @@ func CancelarHilo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	tcbActual := getTCB(pid, tid)
+
+	enviarTCBCpu(tcbActual)
+
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -685,7 +694,6 @@ func exitHilo(pid int, tid int) error {
 	}
 
 	encolarExit(hilo)
-	enviarInterrupcion(pid, tid)
 
 	for _, tidBloqueado := range hilo.HilosBloqueados {
 		desbloquearHilosJoin(tidBloqueado, pid)
@@ -744,7 +752,6 @@ func joinHilo(pid int, tidActual int, tidAEjecutar int) error {
 	tcbAEjecutar.HilosBloqueados = append(tcbAEjecutar.HilosBloqueados, tidActual)
 	actualizarTCB(tcbAEjecutar)
 
-	enviarInterrupcion(tcbActual.Pid, tcbActual.Tid)
 	quitarExec(tcbActual)
 	encolarBlock(tcbActual, "PTHREAD_JOIN")
 
@@ -790,9 +797,7 @@ func ejecutarHilosPrioridades() {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
-				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por Prioridades ##", Hilo.Pid, Hilo.Tid)
-				quitarExec(colaExecHilo[0])
-				encolarReady(colaExecHilo[0])
+				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por Prioridades ##", colaExecHilo[0].Pid, colaExecHilo[0].Tid)
 
 			}
 		}
@@ -827,9 +832,7 @@ func ejecutarHilosColasMultinivel(quantum int) {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
-				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por Prioridades ##", Hilo.Pid, Hilo.Tid)
-				quitarExec(colaExecHilo[0])
-				encolarReady(colaExecHilo[0])
+				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por Prioridades ##", colaExecHilo[0].Pid, colaExecHilo[0].Tid)
 			}
 		}
 	}
@@ -844,11 +847,7 @@ func comenzarQuantum(Hilo TCB, quantum int) {
 			if isInExec(Hilo) {
 				enviarInterrupcion(Hilo.Pid, Hilo.Tid)
 				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por fin de Quantum ##", Hilo.Pid, Hilo.Tid)
-				quitarExec(Hilo)
-				encolarReady(Hilo)
-			} else {
-				log.Printf("No se puede desalojar el hilo, ya que no se encuentra en ejecucion")
-			}
+			} 
 			return
 		default:
 			// Evitar bloqueo del select
@@ -1063,7 +1062,7 @@ func ManejarIo(w http.ResponseWriter, r *http.Request) {
 
 	tcb := getTCB(pid, tid)
 
-	enviarInterrupcion(tcb.Pid, tcb.Tid)
+
 	quitarExec(tcb)
 	encolarBlock(tcb, "IO")
 
@@ -1091,7 +1090,6 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <DUMP_MEMORY> ##", pid, tid)
 
 	tcb := getTCB(pid, tid)
-	enviarInterrupcion(tcb.Pid, tcb.Tid)
 	quitarExec(tcb)
 	encolarBlock(tcb, "DUMP_MEMORY")
 
@@ -1161,6 +1159,8 @@ func CrearMutex(w http.ResponseWriter, r *http.Request) {
 	pcb := getPCB(pid)
 	pcb.Mutex = append(pcb.Mutex, mutexNuevo)
 	actualizarPCB(pcb) //actualizo la PCB con los nuevos mutex
+	tcbActual := getTCB(pid, tid)
+	enviarTCBCpu(tcbActual)
 
 	w.WriteHeader(http.StatusOK)
 
@@ -1230,6 +1230,8 @@ func LiberarMutex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	enviarTCBCpu(hiloSolicitante)
+
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -1251,6 +1253,8 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 					}
 				}
 
+				enviarTCBCpu(hiloSolicitante)
+
 			} else { // si el mutex esta bloqueado, encolo al hilo en la lista de bloqueados del mutex
 
 				mutex.colaBloqueados = append(mutex.colaBloqueados, hiloSolicitante)
@@ -1260,7 +1264,6 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 						actualizarPCB(proceso)
 					}
 				}
-				enviarInterrupcion(hiloSolicitante.Pid, hiloSolicitante.Tid)
 				quitarExec(hiloSolicitante)
 				encolarBlock(hiloSolicitante, "MUTEX")
 				break
@@ -1268,6 +1271,7 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 
 		} else {
 			slog.Warn("El mutex no existe")
+			enviarTCBCpu(hiloSolicitante)
 			break
 		}
 	}
@@ -1289,7 +1293,7 @@ func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 					mutex.colaBloqueados = mutex.colaBloqueados[1:]
 					quitarBlock(hiloDesbloqueado)
 					encolarReady(hiloDesbloqueado)
-					lockMutex(proceso, hiloDesbloqueado, mutexNombre)
+					lockMutex(proceso, hiloDesbloqueado, mutexNombre) // preguntar si tiene que hacer esto o cuando se vuelva a ejecutar el hilo tiene que repreguntar hacer lock mutex
 				}
 
 				for i, m := range proceso.Mutex {
@@ -1354,4 +1358,24 @@ func enviarInterrupcion(pid int, tid int) {
 		slog.Error("error en la respuesta del módulo de cpu:" + fmt.Sprintf("%v", resp.StatusCode))
 		return
 	}
+}
+
+func DevolverPidTid(w http.ResponseWriter, r *http.Request) {
+
+	var tcb TCBRequest
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&tcb)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	pid := tcb.Pid
+	tid := tcb.Tid
+	tcbActual := getTCB(pid, tid)
+
+	quitarExec(tcbActual)
+	encolarReady(tcbActual)
+
+	w.WriteHeader(http.StatusOK)
 }

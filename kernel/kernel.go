@@ -35,6 +35,8 @@ func main() {
 
 	http.HandleFunc("POST /manejarIo", utils.ManejarIo)
 
+	http.HandleFunc("POST /devolverPidTid", utils.DevolverPidTid)
+
 	http.HandleFunc("POST /dumpMemory", utils.DumpMemory)
 
 	//Escuchar (bloqueante)

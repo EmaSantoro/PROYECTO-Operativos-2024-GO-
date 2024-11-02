@@ -23,6 +23,7 @@ var nuevaInterrupcion Interrupt
 var memoryData sync.WaitGroup
 var dataFromMemory uint32 //verrr
 var flagSegmentationFault bool
+var syscallEnviada bool = false 
 
 //DEFINICION DE TIPOS
 
@@ -264,7 +265,11 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		}
 
 		log.Printf("## TID: %d - Ejecutando: %s - Parámetros: %v", contexto.tcb.Tid, instructionLine[0], instruction.parameters)
-
+		
+		if syscallEnviada {
+			syscallEnviada = false
+			break
+		}
 		// Check Interrupt
 		if CheckInterrupt(*contexto) {
 			if err := RealizarInterrupcion(contexto); err != nil {
@@ -275,12 +280,35 @@ func InstructionCycle(contexto *contextoEjecucion) {
 	}
 }
 
+func EnviarPidTidPorInterrupcion(pidActual int, tidActual int) error{
+	kernelReq := KernelExeReq {
+		Pid: pidActual,
+		Tid: tidActual,
+	}
+	body, err := json.Marshal(kernelReq)
+	if err != nil {
+		return err
+	}
+	err2 := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "devolverPidTid")
+	if err2 != nil {
+		return err2
+	}
+	return nil
+	
+}
+
 func RealizarInterrupcion(contexto *contextoEjecucion) error {
 	err := ActualizarContextoDeEjecucion(contexto)
 	if err != nil {
 		log.Panicf("Error al actualizar contexto de ejecucion para la interrupcion")
 		return err
 	}
+	err2 := EnviarPidTidPorInterrupcion(contexto.pcb.Pid, contexto.tcb.Tid)
+			
+	if err2 != nil {
+		return err2
+	}
+				
 
 	log.Printf("Funciona ok el realizar interrupcion")
 	/*
@@ -568,7 +596,7 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 		Data:    PasarDeUintAByte(data),
 		PID:     context.pcb.Pid,
 		TID:     context.tcb.Tid,
-	}
+	} 
 
 	log.Printf("Escribiendo datos: %v (longitud: %d)", memReq.Data, len(memReq.Data))
 
@@ -719,7 +747,7 @@ func DumpMemory(contexto *contextoEjecucion, parameters []string) error {
 	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "dumpMemory"); err != nil {
 		return err
 	}
-
+	syscallEnviada = true 
 	return nil
 }
 
@@ -751,7 +779,7 @@ func IO(contexto *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
-
+	syscallEnviada = true
 	return nil
 }
 
@@ -792,7 +820,7 @@ func CreateProcess(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error en syscall crearProceso: %v", err)
 		return err
 	}
-
+	syscallEnviada = true
 	return nil
 }
 
@@ -825,7 +853,7 @@ func CreateThead(contexto *contextoEjecucion, parameters []string) error { //EST
 		log.Printf("Error syscall THREAD_CREATE: %v", err)
 		return err
 	}
-
+	syscallEnviada = true
 	return nil
 }
 
@@ -858,7 +886,7 @@ func JoinThead(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error syscall THREAD_JOIN : %v", err)
 		return err
 	}
-
+	syscallEnviada = true
 	return nil
 }
 
@@ -891,7 +919,7 @@ func CancelThead(contexto *contextoEjecucion, parameters []string) error {
 		log.Printf("Error syscall THREAD_CANCEL : %v", err)
 		return err
 	}
-
+	syscallEnviada = true
 	return nil
 }
 
@@ -900,6 +928,7 @@ func MutexCreate(contexto *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
+	syscallEnviada = true
 	return nil
 }
 func MutexLOCK(contexto *contextoEjecucion, parameters []string) error {
@@ -907,6 +936,7 @@ func MutexLOCK(contexto *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
+	syscallEnviada = true
 	return nil
 }
 func MutexUNLOCK(contexto *contextoEjecucion, parameters []string) error {
@@ -914,6 +944,7 @@ func MutexUNLOCK(contexto *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
+	syscallEnviada = true
 	return nil
 }
 func MutexFunction(contexto *contextoEjecucion, parameters []string, endpoint string) error {
@@ -963,7 +994,7 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "finalizarHilo"); err != nil {
 		return err
 	}
-
+	syscallEnviada = true
 	return nil
 }
 
@@ -991,6 +1022,7 @@ func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
 	}
 
 	log.Println("Syscall ejecutada correctamente")
+	syscallEnviada = true
 	return nil
 }
 
@@ -1081,84 +1113,3 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Interrupción recibida correctamente")
 }
 
-/*ng)
-func GetRegister(registrosCPU *TCB, registro stri(*uint32, error) {
-
-	switch registro {
-	case "AX":
-		return &registrosCPU.AX, nil
-	case "BX":
-		return &registrosCPU.BX, nil
-	case "CX":
-		return &registrosCPU.CX, nil
-	case "DX":
-		return &registrosCPU.DX, nil
-	case "EX":
-		return &registrosCPU.EX, nil
-	case "FX":
-		return &registrosCPU.FX, nil
-	case "GX":
-		return &registrosCPU.GX, nil
-	case "HX":
-		return &registrosCPU.HX, nil
-	case "PC":
-		return &registrosCPU.PC, nil
-	default:
-		err := fmt.Errorf("Registro %s no existente en la estructura", registro)
-		return nil, err
-	}
-}
-*/
-
-/*
-	switch instructionName {
-	case "SET":
-		err = Set(tcb, parameters[1], parameters[0])
-	case "READ_MEM":
-		//funcion
-	case "WRITE_MEM":
-		//funcion
-	case "SUM":
-		err = Sumar(tcb, parameters[0], parameters[1])
-	case "SUB":
-		err = Restar(tcb, parameters[0], parameters[1])
-	case "JNZ":
-		err = JNZ(tcb, parameters[0], parameters[1])
-	case "LOG":
-		err = Log(tcb, parameters[0])
-	case "DUMP_MEMORY":
-		syscall = true
-		err = DumpMemory(ContextoDeEjecucion)
-	case "IO":
-		syscall = true
-		err = IO(ContextoDeEjecucion, parameters[0])
-	case "PROCESS_CREATE":
-		syscall = true
-		err = CreateProcess(ContextoDeEjecucion, parameters[0], parameters[1], parameters[2])
-	case "THREAD_CREATE":
-		syscall = true
-		err = CreateThead(ContextoDeEjecucion, parameters[0], parameters[1])
-	case "THREAD_JOIN":
-		syscall = true
-		err = JoinThead(ContextoDeEjecucion, parameters[0])
-	case "THREAD_CANCEL":
-		syscall = true
-		err = CancelThead(ContextoDeEjecucion, parameters[0])
-	case "MUTEX_CREATE":
-		syscall = true
-		//funcion
-	case "MUTEX_LOCK":
-		syscall = true
-		//funcion
-	case "MUTEX_UNLOCK":
-		//funcion
-	case "THREAD_EXIT":
-		syscall = true
-		err = ThreadExit(ContextoDeEjecucion)
-	case "PROCESS_EXIT":
-		syscall = true
-		err = ProcessExit(ContextoDeEjecucion)
-	default:
-		log.Printf("Instruccion no valida %s", instructionName)
-	}
-*/
