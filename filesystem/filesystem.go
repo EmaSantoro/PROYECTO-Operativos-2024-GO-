@@ -19,9 +19,8 @@ func main() {
 
 	puerto := globals.ClientConfig.Puerto
 
-	//http.HandleFunc("/solicitud", utils.Solicitud)
+	http.HandleFunc("POST /dumpMemory", utils.DumpMemory)
 
-	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), nil)
 
 }

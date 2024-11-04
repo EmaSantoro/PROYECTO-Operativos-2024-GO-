@@ -5,20 +5,30 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
+
+	"net/http"
 
 	"github.com/sisoputnfrba/tp-golang/filesystem/globals"
 )
 
 /*---------------------- ESTRUCTURAS ----------------------*/
-type Mensaje struct {
-	Mensaje string `json:"mensaje"`
+type FSmemoriaREQ struct {
+	Data          []byte `json:"data"`
+	Tamanio       uint32 `json:"tamanio"`
+	NombreArchivo string `json:"nombreArchivo"`
+}
+
+type Bitmap struct {
+	bits            []int
+	contadorBloques int
+	tamanioBloques  int
 }
 
 /*-------------------- VAR GLOBALES --------------------*/
 var ConfigFS *globals.Config
 
-/*---------------------- FUNCIONES ----------------------*/
-//	INICIAR CONFIGURACION Y LOGGERS
+/*---------------------- FUNCIONES CONFIGURACION Y LOGGERS ----------------------*/
 
 func IniciarConfiguracion(filePath string) *globals.Config {
 	var config *globals.Config
@@ -43,33 +53,32 @@ func ConfigurarLogger() {
 	log.SetOutput(mw)
 }
 
+/*---------------------- FUNCION INIT ----------------------*/
+
 func init() {
 	ConfigFs := IniciarConfiguracion("configsFS/config.json")
 
 	//Al iniciar el modulo se debera validar que existan los archivos bitmap.dat y bloques.dat. En caso que no existan se deberan crear. Caso contrario se deberan tomar los ya existentes.
 	if ConfigFs != nil {
-		iniciarArchivos()
+		pathFS := ConfigFS.Mount_dir
+		iniciarArchivo(pathFS, "bitmap.dat")
+		iniciarArchivo(pathFS, "bloques.dat")
 	}
+
 }
 
-func iniciarArchivos() {
+/*---------------------- FUNCIONES DE ARCHIVOS ----------------------*/
 
-	pathFS := ConfigFS.Mount_dir
-
-	archMap := validarArchivo(pathFS, "bitmap.dat")
-	log.Println(archMap)
-
-	archBloque := validarArchivo(pathFS, "bloques.dat")
-	log.Println(archBloque)
-}
-
-func validarArchivo(path string, nombreArchivo string) *os.File {
+func iniciarArchivo(path string, nombreArchivo string) {
 	_, err := os.Stat(nombreArchivo)
 
 	if os.IsNotExist(err) {
 		crearArchivo(path, nombreArchivo)
+	} else {
+		log.Printf("El archivo '%s' ya existe, no hace falta crearlo", nombreArchivo)
 	}
-	return abrirArchivo(nombreArchivo)
+
+	time.Sleep(time.Duration(ConfigFS.Block_access_delay) * time.Millisecond)
 }
 
 func crearArchivo(path string, nombreArchivo string) {
@@ -79,14 +88,21 @@ func crearArchivo(path string, nombreArchivo string) {
 		log.Fatalf("Error al crear el archivo '%s': %v", path, err)
 	}
 	defer archivo.Close()
-}
-
-func abrirArchivo(nombre string) *os.File {
-	archivo, err := os.OpenFile(nombre, os.O_RDWR, 0666)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return archivo
+	log.Println("Archivo creado:", nombreArchivo)
 }
 
 //Bloques dat almacena los datos de bloques, y bitmap almacena los bloques que estan ocupados
+
+//Lo que reciben es el contenido de la memoria del usuario, cosa que en su caso como estan en Go,
+// si, es un array de bytes y lo único que tienen que hacer es copiar el contenido en los bloques
+
+func DumpMemory(w http.ResponseWriter, r *http.Request) {
+	dumpReq := FSmemoriaREQ{}
+	// Decodificar la solicitud JSON
+	if err := json.NewDecoder(r.Body).Decode(&dumpReq); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	time.Sleep(time.Duration(ConfigFS.Block_access_delay) * time.Millisecond)
+}
