@@ -220,7 +220,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 	cantidadDeBloques := (int(dumpReq.Tamanio) / ConfigFS.Block_size) + 1
 	// Verificar si hay suficiente espacio
-	if !hayEspacioDisponible(cantidadDeBloques) {
+	if !hayEspacioDisponible(cantidadDeBloques) || !entraEnElBloqueDeIndice(cantidadDeBloques-1) {
 		http.Error(w, "No hay suficiente espacio", http.StatusInsufficientStorage)
 		return
 	}
@@ -263,20 +263,25 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error{
-	bloquesFile, err := os.OpenFile(bloquesFilePath, os.O_WRONLY, 0666)
-	if err != nil {
-		return err
-	}
-	defer bloquesFile.Close()
+	func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error{
+		bloquesFile, err := os.OpenFile(bloquesFilePath, os.O_WRONLY, 0666)
+		if err != nil {
+			return err
+		}
+		defer bloquesFile.Close()
 
-	return nil
+		return nil
+	}
+
+	func cargarBloqueIndices (bloquesFile *os.File, bloquesReservados []int) {
+		bloqueIndex := bloquesReservados[0]
+		bloquesFile.Seek(int64(bloqueIndex * ConfigFS.Block_size),0)
+		bloquesFile.Write()
+	}
+*/
+func entraEnElBloqueDeIndice(cantidadDeBloques int) bool {
+	return cantidadDeBloques*4 <= ConfigFS.Block_size
 }
-func cargarBloqueIndices (bloquesFile *os.File, bloquesReservados []int) {
-	bloqueIndex := bloquesReservados[0]
-	bloquesFile.Seek(int64(bloqueIndex * ConfigFS.Block_size),0)
-	bloquesFile.Write()
-}*/
 
 func hayEspacioDisponible(cantidadDeBloques int) bool {
 	freeBlocks := 0
