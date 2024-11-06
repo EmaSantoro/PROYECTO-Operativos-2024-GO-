@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -20,13 +21,20 @@ type FSmemoriaREQ struct {
 }
 
 type Bitmap struct {
-	bits            []int
-	contadorBloques int
-	tamanioBloques  int
+	bits []int
 }
+
+type Metadata struct {
+	IndexBlock int    `json:"index_block"`
+	Size       uint32 `json:"size"`
+}
+
+var bitmapGlobal *Bitmap
 
 /*-------------------- VAR GLOBALES --------------------*/
 var ConfigFS *globals.Config
+var bitmapFilePath string
+var bloquesFilePath string
 
 /*---------------------- FUNCIONES CONFIGURACION Y LOGGERS ----------------------*/
 
@@ -61,24 +69,35 @@ func init() {
 	//Al iniciar el modulo se debera validar que existan los archivos bitmap.dat y bloques.dat. En caso que no existan se deberan crear. Caso contrario se deberan tomar los ya existentes.
 	if ConfigFs != nil {
 		pathFS := ConfigFS.Mount_dir
-		iniciarArchivo(pathFS, "bitmap.dat")
-		iniciarArchivo(pathFS, "bloques.dat")
+		blocksSize := ConfigFS.Block_size
+		blocksCount := ConfigFS.Block_count
+		sizeBloques := (blocksCount * blocksSize) / 8
+		sizeBitMap := blocksCount / 8
+
+		asegurarExistenciaDeArchivos(pathFS, sizeBloques, sizeBitMap)
 	}
 
 }
 
 /*---------------------- FUNCIONES DE ARCHIVOS ----------------------*/
-
-func iniciarArchivo(path string, nombreArchivo string) {
-	_, err := os.Stat(nombreArchivo)
-
-	if os.IsNotExist(err) {
-		crearArchivo(path, nombreArchivo)
+func asegurarExistenciaDeArchivos(pathFS string, sizeBloques int, sizeBitMap int) {
+	//bitmap.dat
+	bitmapFilePath = pathFS + "/bitmap.dat"
+	if _, err := os.Stat(bitmapFilePath); os.IsNotExist(err) {
+		CrearBitmap(pathFS, sizeBitMap)
 	} else {
-		log.Printf("El archivo '%s' ya existe, no hace falta crearlo", nombreArchivo)
+		err := cargarBitmap()
+		if err != nil {
+			log.Fatalf("Error al cargar el archivo de bitmap '%s': %v", bitmapFilePath, err)
+		}
 	}
 
-	time.Sleep(time.Duration(ConfigFS.Block_access_delay) * time.Millisecond)
+	//bloques.dat
+	bloquesFilePath = pathFS + "/bloques.dat"
+	_, err := os.Stat(bloquesFilePath)
+	if os.IsNotExist(err) {
+		CrearBloques(pathFS, sizeBloques)
+	}
 }
 
 func crearArchivo(path string, nombreArchivo string) {
@@ -91,10 +110,105 @@ func crearArchivo(path string, nombreArchivo string) {
 	log.Println("Archivo creado:", nombreArchivo)
 }
 
-//Bloques dat almacena los datos de bloques, y bitmap almacena los bloques que estan ocupados
+func verificarExistenciaDeArchivo(path string, fileName string) {
+	filePath := path + "/" + fileName
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		log.Fatalf("El archivo '%s' no existe", fileName)
+	}
+}
 
-//Lo que reciben es el contenido de la memoria del usuario, cosa que en su caso como estan en Go,
-// si, es un array de bytes y lo único que tienen que hacer es copiar el contenido en los bloques
+/*---------------------- FUNCIONES BLOQUES ----------------------*/
+func CrearBloques(path string, sizeBloques int) {
+	bloquesFilePath := path + "/bloques.dat"
+	bloquesFile, err := os.Create(bloquesFilePath)
+	if err != nil {
+		log.Fatalf("Error al crear el archivo de bloques %s : %v", bloquesFilePath, err)
+	}
+	defer bloquesFile.Close()
+	err2 := bloquesFile.Truncate(int64(sizeBloques))
+	if err2 != nil {
+		log.Fatalf("Error al establecer tamanio del archivo de bloques %s a tamanio %d: %v", bloquesFilePath, sizeBloques, err)
+	}
+}
+
+/*---------------------- FUNCIONES BITMAP ----------------------*/
+func CrearBitmap(path string, bitmapSize int) {
+	bitmapFilePath := path + "/bitmap.dat"
+
+	bitmapFile, err := os.Create(bitmapFilePath)
+	if err != nil {
+		log.Fatalf("Error al crear el archivo de bitmap '%s': %v", path, err)
+	}
+	defer bitmapFile.Close()
+
+	bitmap := NewBitmap()
+	bitmapGlobal = bitmap
+
+	bitmapBytes := bitmap.ToBytes()
+	_, err = bitmapFile.Write(bitmapBytes)
+	if err != nil {
+		log.Fatalf("Error al inicializar el archivo de bitmap '%s': %v", path, err)
+	}
+
+	time.Sleep(time.Duration(ConfigFS.Block_access_delay) * time.Millisecond)
+}
+
+func NewBitmap() *Bitmap {
+	return &Bitmap{bits: make([]int, ConfigFS.Block_count)}
+}
+
+func (b *Bitmap) ToBytes() []byte {
+	bytes := make([]byte, len(b.bits)/8)
+	for i, bit := range b.bits {
+		bytes[i/8] |= byte(bit) << uint(i%8)
+	}
+	return bytes
+}
+
+func (b *Bitmap) FromBytes(bytes []byte) {
+	b.bits = make([]int, len(bytes)*8)
+	for i, byteVal := range bytes {
+		for j := 0; j < 8; j++ {
+			b.bits[i*8+j] = int(byteVal>>uint(j)) & 1
+		}
+	}
+}
+
+func cargarBitmap() error {
+	bitmapFile, err := os.Open(bitmapFilePath)
+	if err != nil {
+		return err
+	}
+	defer bitmapFile.Close()
+
+	bitmapBytes := make([]byte, ConfigFS.Block_count/8)
+	_, err = bitmapFile.Read(bitmapBytes)
+	if err != nil {
+		return err
+	}
+
+	bitmapGlobal = NewBitmap()
+	bitmapGlobal.FromBytes(bitmapBytes)
+	return nil
+}
+
+func actualizarBitmap() error {
+	bitmapFile, err := os.OpenFile(bitmapFilePath, os.O_WRONLY, 0666)
+	if err != nil {
+		return err
+	}
+	defer bitmapFile.Close()
+
+	bitmapBytes := bitmapGlobal.ToBytes()
+	_, err = bitmapFile.Write(bitmapBytes)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+/*---------------------- FUNCIONES DUMP MEMORY ----------------------*/
 
 func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	dumpReq := FSmemoriaREQ{}
@@ -104,5 +218,130 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	time.Sleep(time.Duration(ConfigFS.Block_access_delay) * time.Millisecond)
+	cantidadDeBloques := (int(dumpReq.Tamanio) / ConfigFS.Block_size) + 1
+	// Verificar si hay suficiente espacio
+	if !hayEspacioDisponible(cantidadDeBloques) {
+		http.Error(w, "No hay suficiente espacio", http.StatusInsufficientStorage)
+		return
+	}
+
+	// Reservar bloques en el bitmap
+	bloquesReservados, err := reservarBloques(cantidadDeBloques, dumpReq.NombreArchivo)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Crear archivo de metadata
+	archivoMetaData, err := crearArchivoMetaData(dumpReq.NombreArchivo, bloquesReservados[0], dumpReq.Tamanio)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	log.Println("## Archivo Creado: <%s> - Tamanio: <%d>", archivoMetaData, dumpReq.Tamanio)
+
+	// Escribir punteros al archivo de punteros	???????????????????????????
+	// Guardar el bitmap actualizado en el archivo
+	err = actualizarBitmap()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Escribir contenido a los bloques de datos
+	err = actualizarBloques(bloquesReservados, dumpReq.Data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Responder con éxito
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(fmt.Sprintf(": ## Fin de solicitud - Archivo: <%s>", archivoMetaData)))
+
+}
+
+/*
+func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error{
+	bloquesFile, err := os.OpenFile(bloquesFilePath, os.O_WRONLY, 0666)
+	if err != nil {
+		return err
+	}
+	defer bloquesFile.Close()
+
+	return nil
+}
+func cargarBloqueIndices (bloquesFile *os.File, bloquesReservados []int) {
+	bloqueIndex := bloquesReservados[0]
+	bloquesFile.Seek(int64(bloqueIndex * ConfigFS.Block_size),0)
+	bloquesFile.Write()
+}*/
+
+func hayEspacioDisponible(cantidadDeBloques int) bool {
+	freeBlocks := 0
+	for _, block := range bitmapGlobal.bits {
+		if block == 0 { // Si el bloque está libre
+			freeBlocks++
+		}
+		if freeBlocks >= cantidadDeBloques {
+			return true
+		}
+	}
+	return false
+}
+
+// Función para reservar bloques en el bitmapGlobal.bits
+func reservarBloques(cantidadDeBloques int, nombreArchivo string) ([]int, error) {
+	bloquesAsignados := []int{}
+	for i, block := range bitmapGlobal.bits {
+		if block == 0 { // Bloque libre
+			bitmapGlobal.bits[i] = 1 // Marcar como ocupado
+			bloquesLibres := calcularBloquesLibres(bitmapGlobal.bits)
+			log.Printf("## Bloque asignado: <%d> - Archivo: <%s> - Bloques Libres: <%d>", i, nombreArchivo, bloquesLibres)
+			bloquesAsignados = append(bloquesAsignados, i)
+		}
+		if len(bloquesAsignados) == cantidadDeBloques {
+			return bloquesAsignados, nil
+		}
+	}
+	return nil, fmt.Errorf("no hay suficiente espacio para el archivo")
+}
+
+func calcularBloquesLibres(bitmap []int) int {
+	bloquesLibres := 0
+	for _, block := range bitmap {
+		if block == 0 {
+			bloquesLibres++
+		}
+	}
+	return bloquesLibres
+}
+
+func crearArchivoMetaData(nombreArchivo string, indexBlock int, size uint32) (string, error) {
+	// Generar nombre de archivo en el formato <PID>-<TID>-<TIMESTAMP>.dmp
+	filename := fmt.Sprintf("%s", nombreArchivo)
+
+	// Crear archivo de metadata en la carpeta /files
+	file, err := os.Create(fmt.Sprintf("%s/%s", ConfigFS.Mount_dir, filename))
+	if err != nil {
+		return "", fmt.Errorf("error al crear archivo de metadata: %w", err)
+	}
+	defer file.Close()
+
+	// Crear estructura de metadata
+	metadata := Metadata{
+		IndexBlock: indexBlock,
+		Size:       size,
+	}
+
+	// Escribir metadata en el archivo en formato JSON
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "  ") // Para mejorar la legibilidad del JSON
+	err = encoder.Encode(metadata)
+	if err != nil {
+		return "", fmt.Errorf("error al escribir metadata: %w", err)
+	}
+
+	return filename, nil
 }
