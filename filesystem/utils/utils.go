@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"time"
-
-	"net/http"
 
 	"github.com/sisoputnfrba/tp-golang/filesystem/globals"
 )
@@ -262,23 +261,49 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 }
 
-/*
-	func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error{
-		bloquesFile, err := os.OpenFile(bloquesFilePath, os.O_WRONLY, 0666)
-		if err != nil {
-			return err
+func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error {
+	bloquesFile, err := os.OpenFile(bloquesFilePath, os.O_WRONLY, 0666)
+	if err != nil {
+		return err
+	}
+	defer bloquesFile.Close()
+	cargarBloqueIndices(bloquesFile, bloquesReservados)
+	bloques := bloquesReservados[1:]
+	var data []byte
+	for indice, bloqueIndex := range bloques {
+		if (indice+1)*ConfigFS.Block_size < len(dumpReqData) {
+			data = dumpReqData[indice*ConfigFS.Block_size : (indice+1)*ConfigFS.Block_size]
+		} else {
+			data = dumpReqData[indice*ConfigFS.Block_size:]
 		}
-		defer bloquesFile.Close()
-
-		return nil
+		escribirBloque(bloqueIndex, bloquesFile, data)
 	}
 
-	func cargarBloqueIndices (bloquesFile *os.File, bloquesReservados []int) {
-		bloqueIndex := bloquesReservados[0]
-		bloquesFile.Seek(int64(bloqueIndex * ConfigFS.Block_size),0)
-		bloquesFile.Write()
+	return nil
+}
+
+func cargarBloqueIndices(bloquesFile *os.File, bloquesReservados []int) {
+	bloqueIndex := bloquesReservados[0]
+	bloquesABytes := toBytesBloque(bloquesReservados[1:])
+	escribirBloque(bloqueIndex, bloquesFile, bloquesABytes)
+
+}
+func escribirBloque(bloque int, bloquesFile *os.File, data []byte) {
+	bloquesFile.Seek(int64(bloque*ConfigFS.Block_size), 0)
+	_, err := bloquesFile.Write(data)
+	if err != nil {
+		log.Fatalf("Error al escribir el bloque de indices. Bloque numero: %d ", bloque)
 	}
-*/
+	time.Sleep(time.Duration(ConfigFS.Block_access_delay) * time.Millisecond)
+}
+func toBytesBloque(bloque []int) []byte {
+	byteSlice := make([]byte, len(bloque))
+	for i, v := range bloque {
+		byteSlice[i] = byte(v)
+	}
+	return byteSlice
+}
+
 func entraEnElBloqueDeIndice(cantidadDeBloques int) bool {
 	return cantidadDeBloques*4 <= ConfigFS.Block_size
 }
@@ -310,7 +335,7 @@ func reservarBloques(cantidadDeBloques int, nombreArchivo string) ([]int, error)
 			return bloquesAsignados, nil
 		}
 	}
-	return nil, fmt.Errorf("no hay suficiente espacio para el archivo")
+	return nil, fmt.Errorf("no hay suficiente espacio para el archivo") //?????
 }
 
 func calcularBloquesLibres(bitmap []int) int {
@@ -323,10 +348,7 @@ func calcularBloquesLibres(bitmap []int) int {
 	return bloquesLibres
 }
 
-func crearArchivoMetaData(nombreArchivo string, indexBlock int, size uint32) (string, error) {
-	// Generar nombre de archivo en el formato <PID>-<TID>-<TIMESTAMP>.dmp
-	filename := fmt.Sprintf("%s", nombreArchivo)
-
+func crearArchivoMetaData(filename string, indexBlock int, size uint32) (string, error) {
 	// Crear archivo de metadata en la carpeta /files
 	file, err := os.Create(fmt.Sprintf("%s/%s", ConfigFS.Mount_dir, filename))
 	if err != nil {
