@@ -250,7 +250,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 	if (hiloAnt.Pid == contexto.pcb.Pid && hiloAnt.Tid == contexto.tcb.Tid) {
 
 		if CheckInterrupt(*contexto) {
-			log.Printf("El pid y tid son los anteriores y hay interrupcion ")
+		
 			if err := RealizarInterrupcion(contexto); err != nil {
 				log.Printf("Error al ejecutar la interrupción: %v", err)
 			}
