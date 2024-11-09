@@ -23,7 +23,7 @@ var nuevaInterrupcion Interrupt
 var memoryData sync.WaitGroup
 var dataFromMemory uint32 //verrr
 var flagSegmentationFault bool
-var syscallEnviada bool = false 
+var syscallEnviada bool = false
 
 //DEFINICION DE TIPOS
 
@@ -241,6 +241,13 @@ func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 
 func InstructionCycle(contexto *contextoEjecucion) {
 	for {
+
+		if CheckInterrupt(*contexto) {
+			if err := RealizarInterrupcion(contexto); err != nil {
+				log.Printf("Error al ejecutar la interrupción: %v", err)
+			}
+			break
+		}
 		log.Printf("Instrucción solicitada de PID: %d, TID: %d, PC: %d", contexto.pcb.Pid, contexto.tcb.Tid, contexto.tcb.PC)
 
 		// Fetch
@@ -265,23 +272,18 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		}
 
 		log.Printf("## TID: %d - Ejecutando: %s - Parámetros: %v", contexto.tcb.Tid, instructionLine[0], instruction.parameters)
-		
+
 		if syscallEnviada {
 			syscallEnviada = false
 			break
 		}
 		// Check Interrupt
-		if CheckInterrupt(*contexto) {
-			if err := RealizarInterrupcion(contexto); err != nil {
-				log.Printf("Error al ejecutar la interrupción: %v", err)
-			}
-			break
-		}
+
 	}
 }
 
-func EnviarPidTidPorInterrupcion(pidActual int, tidActual int) error{
-	kernelReq := KernelExeReq {
+func EnviarPidTidPorInterrupcion(pidActual int, tidActual int) error {
+	kernelReq := KernelExeReq{
 		Pid: pidActual,
 		Tid: tidActual,
 	}
@@ -294,7 +296,7 @@ func EnviarPidTidPorInterrupcion(pidActual int, tidActual int) error{
 		return err2
 	}
 	return nil
-	
+
 }
 
 func RealizarInterrupcion(contexto *contextoEjecucion) error {
@@ -304,11 +306,10 @@ func RealizarInterrupcion(contexto *contextoEjecucion) error {
 		return err
 	}
 	err2 := EnviarPidTidPorInterrupcion(contexto.pcb.Pid, contexto.tcb.Tid)
-			
+
 	if err2 != nil {
 		return err2
 	}
-				
 
 	log.Printf("Funciona ok el realizar interrupcion")
 	/*
@@ -596,7 +597,7 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 		Data:    PasarDeUintAByte(data),
 		PID:     context.pcb.Pid,
 		TID:     context.tcb.Tid,
-	} 
+	}
 
 	log.Printf("Escribiendo datos: %v (longitud: %d)", memReq.Data, len(memReq.Data))
 
@@ -747,7 +748,7 @@ func DumpMemory(contexto *contextoEjecucion, parameters []string) error {
 	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "dumpMemory"); err != nil {
 		return err
 	}
-	syscallEnviada = true 
+	syscallEnviada = true
 	return nil
 }
 
@@ -1112,4 +1113,3 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	mutexInterrupt.Unlock()
 	log.Printf("Interrupción recibida correctamente")
 }
-
