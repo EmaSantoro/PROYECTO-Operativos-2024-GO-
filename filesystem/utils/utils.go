@@ -238,7 +238,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Println("## Archivo Creado: <%s> - Tamanio: <%d>", archivoMetaData, dumpReq.Tamanio)
+	log.Printf("## Archivo Creado: <%s> - Tamanio: <%d>", archivoMetaData, dumpReq.Tamanio)
 
 	// Escribir punteros al archivo de punteros	???????????????????????????
 	// Guardar el bitmap actualizado en el archivo

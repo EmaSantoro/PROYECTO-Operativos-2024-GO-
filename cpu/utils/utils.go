@@ -17,6 +17,7 @@ import (
 )
 
 // var globales
+var hiloAnt hiloAnterior
 var ConfigsCpu *globals.Config
 var mutexInterrupt sync.Mutex
 var nuevaInterrupcion Interrupt
@@ -26,6 +27,10 @@ var flagSegmentationFault bool
 var syscallEnviada bool = false
 
 //DEFINICION DE TIPOS
+type hiloAnterior struct {
+	Pid int 
+	Tid int 
+}
 
 type InstructionReq struct {
 	Pid int `json:"pid"`
@@ -48,7 +53,7 @@ type InstructionResponse struct {
 type Interrupcion struct {
 	Pid          int  `json:"pid"`
 	Tid          int  `json:"tid"`
-	Interrupcion bool `json:"interrupcion"`
+	Interrupcion string `json:"interrupcion"`
 }
 
 /*
@@ -63,6 +68,7 @@ type Interrupt struct {
 	Pid               int
 	Tid               int
 	flagInterrucption bool
+	motivo 	          string
 }
 type MemoryRequest struct {
 	PID     int    `json:"pid"`
@@ -186,12 +192,11 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("Cpu recibe TID : %d PID:%d del Kernel", processAndThreadIDs.Tid, processAndThreadIDs.Pid)
-
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
 
 	contextoActual := GetContextoEjecucion(processAndThreadIDs.Pid, processAndThreadIDs.Tid)
+
 	InstructionCycle(&contextoActual)
 
 }
@@ -240,14 +245,21 @@ func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 }
 
 func InstructionCycle(contexto *contextoEjecucion) {
-	for {
+	
+	log.Printf("El pid %d y tid %d" , hiloAnt.Pid, hiloAnt.Pid)
+	if (hiloAnt.Pid == contexto.pcb.Pid && hiloAnt.Tid == contexto.tcb.Tid) {
 
 		if CheckInterrupt(*contexto) {
+			log.Printf("El pid y tid son los anteriores y hay interrupcion ")
 			if err := RealizarInterrupcion(contexto); err != nil {
 				log.Printf("Error al ejecutar la interrupción: %v", err)
 			}
-			break
+			return
 		}
+	}
+	guardarPidyTid(contexto.pcb.Pid, contexto.tcb.Tid)
+	
+	for {
 		log.Printf("Instrucción solicitada de PID: %d, TID: %d, PC: %d", contexto.pcb.Pid, contexto.tcb.Tid, contexto.tcb.PC)
 
 		// Fetch
@@ -274,18 +286,30 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		log.Printf("## TID: %d - Ejecutando: %s - Parámetros: %v", contexto.tcb.Tid, instructionLine[0], instruction.parameters)
 
 		if syscallEnviada {
+			
 			syscallEnviada = false
 			break
 		}
 		// Check Interrupt
-
+		if CheckInterrupt(*contexto) {
+			if err := RealizarInterrupcion(contexto); err != nil {
+				log.Printf("Error al ejecutar la interrupcion: %v", err)
+			}
+			break
+		}
 	}
 }
 
-func EnviarPidTidPorInterrupcion(pidActual int, tidActual int) error {
-	kernelReq := KernelExeReq{
+func guardarPidyTid(pid int, tid int){
+	hiloAnt.Pid = pid
+	hiloAnt.Tid = tid
+}
+
+func EnviarPidTidPorInterrupcion(pidActual int, tidActual int, motivo string) error {
+	kernelReq := Interrupcion{
 		Pid: pidActual,
 		Tid: tidActual,
+		Interrupcion: motivo, 
 	}
 	body, err := json.Marshal(kernelReq)
 	if err != nil {
@@ -305,29 +329,12 @@ func RealizarInterrupcion(contexto *contextoEjecucion) error {
 		log.Panicf("Error al actualizar contexto de ejecucion para la interrupcion")
 		return err
 	}
-	err2 := EnviarPidTidPorInterrupcion(contexto.pcb.Pid, contexto.tcb.Tid)
+	err2 := EnviarPidTidPorInterrupcion(contexto.pcb.Pid, contexto.tcb.Tid, nuevaInterrupcion.motivo)
 
 	if err2 != nil {
 		return err2
 	}
-
-	log.Printf("Funciona ok el realizar interrupcion")
-	/*
-		var kernelInt KernelInterrupcion
-		kernelInt.Motivo = motivo
-		kernelInt.Pid = contexto.pcb.Pid
-		kernelInt.Tid = contexto.Tcb.Tid
-		body, err2 := json.Marshal(kernelInt)
-
-		if err2 != nil {
-			log.Printf("Error al codificar el mensaje de la interrupcion")
-			return err2
-		}
-		err3 := EnviarAModulo(globals.ClientConfig.IpKernel, globals.ClientConfig.PuertoKernel, bytes.NewBuffer(body), "/interrupcion") // ver con kernel
-		if err3 != nil {
-			return err3
-		}
-	*/
+	log.Printf("## TID: <%d> - Actualizo Contexto Ejecución", contexto.tcb.Tid)
 	return nil
 
 }
@@ -459,7 +466,6 @@ func Set(registrosCPU *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-	log.Printf("Antes de modificar el valor ")
 
 	err = ModificarValorCampo(registers, registro, uint32(valorUint))
 	if err != nil {
@@ -485,7 +491,6 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("Leer memoria con dirección física: %d", physicalAddress)
 
 	// Crea la solicitud de lectura de memoria.
 	memReq := MemoryRequest{
@@ -499,7 +504,7 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 		log.Printf("Error al codificar el mensaje de solicitud de instrucción: %v", err)
 		return err
 	}
-
+	log.Printf("## TID: <%d> - Accion: <LEER> - Direccion Fisica: <%d>", context.tcb.Tid, physicalAddress)
 	// Envía la solicitud al módulo de memoria.
 	url := fmt.Sprintf("http://%s:%d/readMemory", ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria)
 	response, err := http.Post(url, "application/json", bytes.NewBuffer(body))
@@ -522,7 +527,6 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 	}
 
 	dataToWrite := BytesToUint32(dataResponse.Data)
-	log.Printf("Datos a escribir: %v", dataToWrite)
 
 	if err := ModificarValorCampo(registers, parameters[0], dataToWrite); err != nil {
 		return err
@@ -533,14 +537,7 @@ func Read_Memory(context *contextoEjecucion, parameters []string) error {
 }
 
 func BytesToUint32(val []byte) uint32 {
-	/*
-		if len(bytes) < 4 {
-			panic("El slice de bytes debe tener al menos 4 bytes de longitud")
-		}
-		return binary.LittleEndian.Uint32(bytes)
-	*/
 
-	// Convertir de []byte a uint32 usando Big Endian
 	r := uint32(0)
 	for i := uint32(0); i < 4; i++ {
 		r |= uint32(val[i]) << (8 * i)
@@ -599,8 +596,6 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 		TID:     context.tcb.Tid,
 	}
 
-	log.Printf("Escribiendo datos: %v (longitud: %d)", memReq.Data, len(memReq.Data))
-
 	// Codifica la solicitud en formato JSON.
 	body, err := json.Marshal(memReq)
 	if err != nil {
@@ -608,7 +603,7 @@ func Write_Memory(context *contextoEjecucion, parameters []string) error {
 	}
 
 	// Envía la solicitud al módulo de memoria.
-	log.Printf("Enviando a memoria write_memory")
+	log.Printf("## TID: <%d> - Accion: <ESCRIBIR> - Direccion Fisica: <%d>", context.tcb.Tid, physicalAddress)
 	if err := EnviarAModulo(ConfigsCpu.IpMemoria, ConfigsCpu.PuertoMemoria, bytes.NewBuffer(body), "writeMemory"); err != nil {
 		return err
 	}
@@ -699,9 +694,6 @@ func JNZ(registrosCPU *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
-
-	log.Printf("El valor de el registro es %d", register)
-
 	instruction, err := strconv.Atoi(instruccion)
 	if err != nil {
 		return err
@@ -723,8 +715,6 @@ func Log(registrosCPU *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
-
-	log.Printf("EL registro %s contiene el valor %d", registro, register)
 
 	return nil
 }
@@ -991,7 +981,6 @@ func ThreadExit(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-	log.Println("Enviando a kernel syscall")
 	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "finalizarHilo"); err != nil {
 		return err
 	}
@@ -1017,18 +1006,16 @@ func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-	log.Println("Enviando syscall al kernel")
+
 	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "finalizarProceso"); err != nil {
 		return err
 	}
 
-	log.Println("Syscall ejecutada correctamente")
+
 	syscallEnviada = true
 	return nil
 }
 
-// funciones Auxiliares
-// se suponen que todos los registros mantendran el tipo uint32
 
 func ActualizarContextoDeEjecucion(contexto *contextoEjecucion) error {
 	contextoDeEjecucion := BodyContexto{
@@ -1107,9 +1094,10 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("ok"))
 
 	mutexInterrupt.Lock()
-	nuevaInterrupcion.flagInterrucption = interrupction.Interrupcion
+	nuevaInterrupcion.flagInterrucption = true
 	nuevaInterrupcion.Pid = interrupction.Pid
 	nuevaInterrupcion.Tid = interrupction.Tid
+	nuevaInterrupcion.motivo = interrupction.Interrupcion
 	mutexInterrupt.Unlock()
-	log.Printf("Interrupción recibida correctamente")
+	log.Printf("## Llega interrupcion al puerto Interrupt")
 }

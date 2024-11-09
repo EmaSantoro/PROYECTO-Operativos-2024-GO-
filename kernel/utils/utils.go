@@ -19,7 +19,7 @@ import (
 type Interrupcion struct {
 	Pid          int  `json:"pid"`
 	Tid          int  `json:"tid"`
-	Interrupcion bool `json:"interrupcion"`
+	Interrupcion string  `json:"interrupcion"`
 }
 
 type PCB struct {
@@ -796,9 +796,7 @@ func ejecutarHilosPrioridades() {
 		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
-				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
-				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por Prioridades ##", colaExecHilo[0].Pid, colaExecHilo[0].Tid)
-
+				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
 			}
 		}
 	}
@@ -831,8 +829,7 @@ func ejecutarHilosColasMultinivel(quantum int) {
 		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
 			Hilo := obtenerHiloMayorPrioridad()
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
-				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid)
-				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por Prioridades ##", colaExecHilo[0].Pid, colaExecHilo[0].Tid)
+				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
 			}
 		}
 	}
@@ -845,8 +842,7 @@ func comenzarQuantum(Hilo TCB, quantum int) {
 		select {
 		case <-timer.C:
 			if isInExec(Hilo) {
-				enviarInterrupcion(Hilo.Pid, Hilo.Tid)
-				log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por fin de Quantum ##", Hilo.Pid, Hilo.Tid)
+				enviarInterrupcion(Hilo.Pid, Hilo.Tid, "Quantum")
 			} 
 			return
 		default:
@@ -1252,8 +1248,11 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 						break
 					}
 				}
-
+				if isInExec(hiloSolicitante) {
 				enviarTCBCpu(hiloSolicitante)
+				} else {
+					break
+				}
 
 			} else { // si el mutex esta bloqueado, encolo al hilo en la lista de bloqueados del mutex
 
@@ -1329,12 +1328,12 @@ func mutexCreate(nombreMutex string) Mutex {
 
 /*---------- FUNCION ENVIAR INTERRUPCION ----------*/
 
-func enviarInterrupcion(pid int, tid int) {
+func enviarInterrupcion(pid int, tid int, motivo string) {
 
 	cpuRequest := Interrupcion{}
 	cpuRequest.Pid = pid
 	cpuRequest.Tid = tid
-	cpuRequest.Interrupcion = true
+	cpuRequest.Interrupcion = motivo
 
 	puerto := ConfigKernel.PuertoCpu
 	ip := ConfigKernel.IpCpu
@@ -1362,7 +1361,7 @@ func enviarInterrupcion(pid int, tid int) {
 
 func DevolverPidTid(w http.ResponseWriter, r *http.Request) {
 
-	var tcb TCBRequest
+	var tcb Interrupcion
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&tcb)
 
@@ -1372,10 +1371,12 @@ func DevolverPidTid(w http.ResponseWriter, r *http.Request) {
 	}
 	pid := tcb.Pid
 	tid := tcb.Tid
+	motivo := tcb.Interrupcion
 	tcbActual := getTCB(pid, tid)
-
+	log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por: %s ##", pid, tid, motivo)
 	quitarExec(tcbActual)
 	encolarReady(tcbActual)
+
 
 	w.WriteHeader(http.StatusOK)
 }
