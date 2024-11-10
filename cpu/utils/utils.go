@@ -26,10 +26,10 @@ var dataFromMemory uint32 //verrr
 var flagSegmentationFault bool
 var syscallEnviada bool = false
 
-//DEFINICION DE TIPOS
+// DEFINICION DE TIPOS
 type hiloAnterior struct {
-	Pid int 
-	Tid int 
+	Pid int
+	Tid int
 }
 
 type InstructionReq struct {
@@ -51,8 +51,8 @@ type InstructionResponse struct {
 	Instruction string `json:"instruction"`
 }
 type Interrupcion struct {
-	Pid          int  `json:"pid"`
-	Tid          int  `json:"tid"`
+	Pid          int    `json:"pid"`
+	Tid          int    `json:"tid"`
 	Interrupcion string `json:"interrupcion"`
 }
 
@@ -68,7 +68,7 @@ type Interrupt struct {
 	Pid               int
 	Tid               int
 	flagInterrucption bool
-	motivo 	          string
+	motivo            string
 }
 type MemoryRequest struct {
 	PID     int    `json:"pid"`
@@ -245,12 +245,12 @@ func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 }
 
 func InstructionCycle(contexto *contextoEjecucion) {
-	
-	log.Printf("El pid %d y tid %d" , hiloAnt.Pid, hiloAnt.Pid)
-	if (hiloAnt.Pid == contexto.pcb.Pid && hiloAnt.Tid == contexto.tcb.Tid) {
+
+	log.Printf("El pid %d y tid %d", hiloAnt.Pid, hiloAnt.Pid)
+	if hiloAnt.Pid == contexto.pcb.Pid && hiloAnt.Tid == contexto.tcb.Tid {
 
 		if CheckInterrupt(*contexto) {
-		
+
 			if err := RealizarInterrupcion(contexto); err != nil {
 				log.Printf("Error al ejecutar la interrupción: %v", err)
 			}
@@ -258,7 +258,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		}
 	}
 	guardarPidyTid(contexto.pcb.Pid, contexto.tcb.Tid)
-	
+
 	for {
 		log.Printf("Instrucción solicitada de PID: %d, TID: %d, PC: %d", contexto.pcb.Pid, contexto.tcb.Tid, contexto.tcb.PC)
 
@@ -286,7 +286,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		log.Printf("## TID: %d - Ejecutando: %s - Parámetros: %v", contexto.tcb.Tid, instructionLine[0], instruction.parameters)
 
 		if syscallEnviada {
-			
+
 			syscallEnviada = false
 			break
 		}
@@ -300,16 +300,16 @@ func InstructionCycle(contexto *contextoEjecucion) {
 	}
 }
 
-func guardarPidyTid(pid int, tid int){
+func guardarPidyTid(pid int, tid int) {
 	hiloAnt.Pid = pid
 	hiloAnt.Tid = tid
 }
 
 func EnviarPidTidPorInterrupcion(pidActual int, tidActual int, motivo string) error {
 	kernelReq := Interrupcion{
-		Pid: pidActual,
-		Tid: tidActual,
-		Interrupcion: motivo, 
+		Pid:          pidActual,
+		Tid:          tidActual,
+		Interrupcion: motivo,
 	}
 	body, err := json.Marshal(kernelReq)
 	if err != nil {
@@ -465,7 +465,6 @@ func Set(registrosCPU *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
-
 
 	err = ModificarValorCampo(registers, registro, uint32(valorUint))
 	if err != nil {
@@ -715,6 +714,7 @@ func Log(registrosCPU *contextoEjecucion, parameters []string) error {
 	if err != nil {
 		return err
 	}
+	log.Printf("El valor del registro %s es %d", registro, register)
 
 	return nil
 }
@@ -1006,16 +1006,13 @@ func ProcessExit(contexto *contextoEjecucion, parameters []string) error {
 		return err
 	}
 
-
 	if err := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "finalizarProceso"); err != nil {
 		return err
 	}
 
-
 	syscallEnviada = true
 	return nil
 }
-
 
 func ActualizarContextoDeEjecucion(contexto *contextoEjecucion) error {
 	contextoDeEjecucion := BodyContexto{
