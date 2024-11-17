@@ -318,7 +318,6 @@ func GetExecutionContext(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 
 	// Usar la función `buscarTCBPorPid` para obtener el tidMap
@@ -670,7 +669,7 @@ func asignarPorAlgoritmo(tipoDeAlgoritmo string, size int) int {
 func firstFit(processSize int) int {
 	for i, size := range particiones {
 		if !mapParticiones[i] && size >= processSize {
-			mapParticiones[i] = true                                                  //Bloquea la particion ya que fue asignada
+			mapParticiones[i] = true //Bloquea la particion ya que fue asignada
 			return i
 		}
 	}
@@ -695,7 +694,7 @@ func bestFit(processSize int) int {
 		}
 	}
 	if bestIndex != -1 {
-		mapParticiones[bestIndex] = true                     //Bloquea la particion ya que fue asignada
+		mapParticiones[bestIndex] = true //Bloquea la particion ya que fue asignada
 	}
 	if bestIndex != -1 && particionesConSuficienteTamaño == 0 {
 		log.Printf("Estas intentando crear un proceso con un tamaño mayor a todos los espacios de memoria")
@@ -888,7 +887,6 @@ func CreateThread(w http.ResponseWriter, r *http.Request) {
 		HX:  0,
 		PC:  0,
 	}
-
 
 	if err := guardarTodoEnElMap(thread.Pid, TCB, thread.Path); err != nil { //GUARDO EN EL MAP
 		log.Printf("ERROR AL GUARDAR")
@@ -1186,7 +1184,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 	// Leer datos de memoria
 	data := globals.MemoriaUsuario[valor.Base:valor.Limit]
-	tamanio := valor.Limit - valor.Base
+	tamanio := valor.Limit - valor.Base + 1
 
 	informacion := FsInfo{
 		Data:          data,
@@ -1248,5 +1246,5 @@ func Compactacion(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Ok"))
-	
+
 }

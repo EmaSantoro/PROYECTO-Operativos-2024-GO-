@@ -4,7 +4,7 @@
     "port_memory": 8002,
     "mount_dir": "/home/utnso/mount_dir",  
     "block_size": 64,
-    "block_count": 1024,
-    "block_access_delay": 15000,
+    "block_count": 8,
+    "block_access_delay": 2000,
     "log_level": "DEBUG"
 }

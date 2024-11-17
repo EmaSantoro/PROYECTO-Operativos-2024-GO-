@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"time"
@@ -63,16 +64,14 @@ func ConfigurarLogger() {
 /*---------------------- FUNCION INIT ----------------------*/
 
 func init() {
-	ConfigFs := IniciarConfiguracion("configsFS/config.json")
-
+	ConfigFS = IniciarConfiguracion("filesystem/configsFS/config.json")
 	//Al iniciar el modulo se debera validar que existan los archivos bitmap.dat y bloques.dat. En caso que no existan se deberan crear. Caso contrario se deberan tomar los ya existentes.
-	if ConfigFs != nil {
+	if ConfigFS != nil {
 		pathFS := ConfigFS.Mount_dir
 		blocksSize := ConfigFS.Block_size
 		blocksCount := ConfigFS.Block_count
 		sizeBloques := (blocksCount * blocksSize) / 8
 		sizeBitMap := blocksCount / 8
-
 		asegurarExistenciaDeArchivos(pathFS, sizeBloques, sizeBitMap)
 	}
 
@@ -99,37 +98,6 @@ func asegurarExistenciaDeArchivos(pathFS string, sizeBloques int, sizeBitMap int
 	}
 }
 
-func crearArchivo(path string, nombreArchivo string) {
-	nombre := path + "/" + nombreArchivo
-	archivo, err := os.Create(nombre)
-	if err != nil {
-		log.Fatalf("Error al crear el archivo '%s': %v", path, err)
-	}
-	defer archivo.Close()
-	log.Println("Archivo creado:", nombreArchivo)
-}
-
-func verificarExistenciaDeArchivo(path string, fileName string) {
-	filePath := path + "/" + fileName
-	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		log.Fatalf("El archivo '%s' no existe", fileName)
-	}
-}
-
-/*---------------------- FUNCIONES BLOQUES ----------------------*/
-func CrearBloques(path string, sizeBloques int) {
-	bloquesFilePath := path + "/bloques.dat"
-	bloquesFile, err := os.Create(bloquesFilePath)
-	if err != nil {
-		log.Fatalf("Error al crear el archivo de bloques %s : %v", bloquesFilePath, err)
-	}
-	defer bloquesFile.Close()
-	err2 := bloquesFile.Truncate(int64(sizeBloques))
-	if err2 != nil {
-		log.Fatalf("Error al establecer tamanio del archivo de bloques %s a tamanio %d: %v", bloquesFilePath, sizeBloques, err)
-	}
-}
-
 /*---------------------- FUNCIONES BITMAP ----------------------*/
 func CrearBitmap(path string, bitmapSize int) {
 	bitmapFilePath := path + "/bitmap.dat"
@@ -143,12 +111,12 @@ func CrearBitmap(path string, bitmapSize int) {
 	bitmap := NewBitmap()
 	bitmapGlobal = bitmap
 
-	bitmapBytes := bitmap.ToBytes()
+	/*bitmapBytes := bitmap.ToBytes()
 	_, err = bitmapFile.Write(bitmapBytes)
 	if err != nil {
 		log.Fatalf("Error al inicializar el archivo de bitmap '%s': %v", path, err)
 	}
-
+	*/
 	time.Sleep(time.Duration(ConfigFS.Block_access_delay) * time.Millisecond)
 }
 
@@ -192,12 +160,12 @@ func cargarBitmap() error {
 }
 
 func actualizarBitmap() error {
+
 	bitmapFile, err := os.OpenFile(bitmapFilePath, os.O_WRONLY, 0666)
 	if err != nil {
 		return err
 	}
 	defer bitmapFile.Close()
-
 	bitmapBytes := bitmapGlobal.ToBytes()
 	_, err = bitmapFile.Write(bitmapBytes)
 	if err != nil {
@@ -205,6 +173,20 @@ func actualizarBitmap() error {
 	}
 
 	return nil
+}
+
+/*---------------------- FUNCIONES BLOQUES ----------------------*/
+func CrearBloques(path string, sizeBloques int) {
+	bloquesFilePath := path + "/bloques.dat"
+	bloquesFile, err := os.Create(bloquesFilePath)
+	if err != nil {
+		log.Fatalf("Error al crear el archivo de bloques %s : %v", bloquesFilePath, err)
+	}
+	defer bloquesFile.Close()
+	err2 := bloquesFile.Truncate(int64(sizeBloques))
+	if err2 != nil {
+		log.Fatalf("Error al establecer tamanio del archivo de bloques %s a tamanio %d: %v", bloquesFilePath, sizeBloques, err)
+	}
 }
 
 /*---------------------- FUNCIONES DUMP MEMORY ----------------------*/
@@ -217,7 +199,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cantidadDeBloques := (int(dumpReq.Tamanio) / ConfigFS.Block_size) + 1
+	cantidadDeBloques := int(math.Ceil(float64(dumpReq.Tamanio)/float64(ConfigFS.Block_size))) + 1 //ver si se puede mejorar
 	// Verificar si hay suficiente espacio
 	if !hayEspacioDisponible(cantidadDeBloques) || !entraEnElBloqueDeIndice(cantidadDeBloques-1) {
 		http.Error(w, "No hay suficiente espacio", http.StatusInsufficientStorage)
