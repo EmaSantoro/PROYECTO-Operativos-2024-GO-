@@ -199,7 +199,7 @@ func init() {
 			go ejecutarHilosFIFO()
 		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
 			go ejecutarHilosPrioridades()
-		} else if ConfigKernel.AlgoritmoPlanificacion == "COLASMULTINIVEL" {
+		} else if ConfigKernel.AlgoritmoPlanificacion == "CMN" {
 			go ejecutarHilosColasMultinivel(ConfigKernel.Quantum)
 		} else {
 			log.Fatalf("Algoritmo de planificacion no valido")
@@ -887,7 +887,7 @@ func enviarTCBMemoria(tcb TCB, path string) error {
 	memoryRequest := TCBRequestMemory{}
 	memoryRequest.Pid = tcb.Pid
 	memoryRequest.Tid = tcb.Tid
-	memoryRequest.Path = "../pruebas/" + path
+	memoryRequest.Path = "pruebas/" + path
 
 	puerto := ConfigKernel.PuertoMemoria
 	ip := ConfigKernel.IpMemoria
