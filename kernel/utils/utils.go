@@ -123,8 +123,6 @@ var mutexColaExecHilo sync.Mutex
 var mutexColaBlockHilo sync.Mutex
 var mutexColaExitHilo sync.Mutex
 
-var mutexEnviarTCB sync.Mutex
-
 var mutexEsperarCompactacion sync.Mutex
 
 /*-------------------- VAR GLOBALES --------------------*/
@@ -195,7 +193,7 @@ func init() {
 			slog.SetLogLoggerLevel(slog.LevelDebug)
 		}
 
-		procesoInicial("procesoInicial", 0)
+		procesoInicial("PLANI_PROC", 32)
 
 		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
 			go ejecutarHilosFIFO()
@@ -889,7 +887,7 @@ func enviarTCBMemoria(tcb TCB, path string) error {
 	memoryRequest := TCBRequestMemory{}
 	memoryRequest.Pid = tcb.Pid
 	memoryRequest.Tid = tcb.Tid
-	memoryRequest.Path = path
+	memoryRequest.Path = "../pruebas/" + path
 
 	puerto := ConfigKernel.PuertoMemoria
 	ip := ConfigKernel.IpMemoria

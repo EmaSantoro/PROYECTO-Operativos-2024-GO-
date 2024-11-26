@@ -3,8 +3,8 @@
     "ip_memory": "127.0.0.1",
     "port_memory": 8002,
     "mount_dir": "/home/utnso/mount_dir",  
-    "block_size": 64,
-    "block_count": 8,
-    "block_access_delay": 2000,
+    "block_size": 16,
+    "block_count": 1024,
+    "block_access_delay": 2500,
     "log_level": "DEBUG"
 }
