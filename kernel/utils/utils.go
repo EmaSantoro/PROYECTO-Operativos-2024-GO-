@@ -17,9 +17,9 @@ import (
 
 /*---------------------- ESTRUCTURAS ----------------------*/
 type Interrupcion struct {
-	Pid          int  `json:"pid"`
-	Tid          int  `json:"tid"`
-	Interrupcion string  `json:"interrupcion"`
+	Pid          int    `json:"pid"`
+	Tid          int    `json:"tid"`
+	Interrupcion string `json:"interrupcion"`
 }
 
 type PCB struct {
@@ -193,7 +193,7 @@ func init() {
 			slog.SetLogLoggerLevel(slog.LevelDebug)
 		}
 
-		procesoInicial("PLANI_PROC", 32)
+		procesoInicial(ConfigKernel.ArchivoInicial, ConfigKernel.SizeInicial)
 
 		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
 			go ejecutarHilosFIFO()
@@ -257,8 +257,7 @@ func CrearProceso(w http.ResponseWriter, r *http.Request) {
 
 	iniciarProceso(path, size, prioridad)
 	tcbActual := getTCB(pidActual, tidActual)
-	
-	
+
 	enviarTCBCpu(tcbActual)
 
 	w.WriteHeader(http.StatusOK)
@@ -841,7 +840,7 @@ func comenzarQuantum(Hilo TCB, quantum int) {
 		case <-timer.C:
 			if isInExec(Hilo) {
 				enviarInterrupcion(Hilo.Pid, Hilo.Tid, "Quantum")
-			} 
+			}
 			return
 		default:
 			// Evitar bloqueo del select
@@ -1056,7 +1055,6 @@ func ManejarIo(w http.ResponseWriter, r *http.Request) {
 
 	tcb := getTCB(pid, tid)
 
-
 	quitarExec(tcb)
 	encolarBlock(tcb, "IO")
 
@@ -1247,7 +1245,7 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 					}
 				}
 				if isInExec(hiloSolicitante) {
-				enviarTCBCpu(hiloSolicitante)
+					enviarTCBCpu(hiloSolicitante)
 				} else {
 					break
 				}
@@ -1374,7 +1372,6 @@ func DevolverPidTid(w http.ResponseWriter, r *http.Request) {
 	log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por: %s ##", pid, tid, motivo)
 	quitarExec(tcbActual)
 	encolarReady(tcbActual)
-
 
 	w.WriteHeader(http.StatusOK)
 }
