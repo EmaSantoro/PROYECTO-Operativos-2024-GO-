@@ -142,21 +142,30 @@ func (b *Bitmap) FromBytes(bytes []byte) {
 }
 
 func cargarBitmap() error {
-	bitmapFile, err := os.Open(bitmapFilePath)
-	if err != nil {
-		return err
-	}
-	defer bitmapFile.Close()
+    bitmapFile, err := os.Open(bitmapFilePath)
+    if err != nil {
+        return err
+    }
+    defer bitmapFile.Close()
 
-	bitmapBytes := make([]byte, ConfigFS.Block_count/8)
-	_, err = bitmapFile.Read(bitmapBytes)
-	if err != nil {
-		return err
-	}
+    fileInfo, err := bitmapFile.Stat()
+    if err != nil {
+        return err
+    }
 
-	bitmapGlobal = NewBitmap()
-	bitmapGlobal.FromBytes(bitmapBytes)
-	return nil
+    if fileInfo.Size() == 0 {
+        // El archivo está vacío, no hay necesidad de cargar el bitmap
+        return nil
+    }
+    bitmapBytes := make([]byte, ConfigFS.Block_count/8)
+    _, err = bitmapFile.Read(bitmapBytes)
+    if err != nil {
+        return err
+    }
+
+    bitmapGlobal = NewBitmap()
+    bitmapGlobal.FromBytes(bitmapBytes)
+    return nil
 }
 
 func actualizarBitmap() error {
