@@ -287,7 +287,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 
 		if flagSegmentationFault {
 			flagSegmentationFault = false
-			err := EnviarSegmentationFault(contexto.pcb.pid, contexto.tcb.tid)
+			err := EnviarSegmentationFault(contexto.pcb.Pid, contexto.tcb.Tid)
 			if err != nil {
 				log.Printf("Error al enviar segmentation fault: %v", err)
 			}
