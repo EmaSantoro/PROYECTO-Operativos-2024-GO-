@@ -1013,12 +1013,13 @@ func quitarBlock(tcb TCB) {
 }
 
 func eliminarHiloCola(colaHilo []TCB, tcb TCB) []TCB {
+	var nuevaColaHilo []TCB
 	for i, t := range colaHilo {
 		if t.Pid == tcb.Pid && t.Tid == tcb.Tid {
-			colaHilo = append(colaHilo[:i], colaHilo[i+1:]...)
+			nuevaColaHilo = append(colaHilo[:i], colaHilo[i+1:]...)
 		}
 	}
-	return colaHilo
+	return nuevaColaHilo
 }
 
 func obtenerHiloDeCola(colaHilo []TCB, criterio func(TCB) bool) (TCB, error) {
@@ -1372,6 +1373,25 @@ func DevolverPidTid(w http.ResponseWriter, r *http.Request) {
 	log.Printf("## (<PID:%d>:<TID:%d>) - Desalojado por: %s ##", pid, tid, motivo)
 	quitarExec(tcbActual)
 	encolarReady(tcbActual)
+
+	w.WriteHeader(http.StatusOK)
+}
+
+func SegmentationFault(w http.ResponseWriter, r *http.Request) {
+
+	var tcb TCBRequest
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&tcb)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	pid := tcb.Pid
+	tid := tcb.Tid
+	log.Printf("## (<PID:%d>:<TID:%d>) - <SEGMENTATION_FAULT> ##", pid, tid)
+
+	exitProcess(pid)
 
 	w.WriteHeader(http.StatusOK)
 }

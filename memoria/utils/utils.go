@@ -168,7 +168,7 @@ const (
 var mapPCBPorTCB = make(map[PCB]map[estructuraHilo][]string) //ESTE ES EL PRINCIPAL DIGAMOS
 var mapParticiones []bool
 var mapPIDxBaseLimit = make(map[int]Valor) //map de pid por base y limit
-var mapPCBPorParticion = make(map[PCB]int)
+var mapPCBPorParticion = make(map[int]int) //map de pid por particion
 
 // var mapParticiones[]bool //estado de las particiones ocupada/libre
 // var particiones = MemoriaConfig.Particiones //vector de particiones, aca tengo los tamaños en int
@@ -468,7 +468,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 			mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
 
 			//marcar particion como ocupada
-			if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
+			if err := guardarPCBenMapConRespectivaParticion(pcb.Pid, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
 				http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
 				return
 			}
@@ -521,7 +521,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 
 			// mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
 
-			if err := guardarPCBenMapConRespectivaParticion(pcb, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
+			if err := guardarPCBenMapConRespectivaParticion(pcb.Pid, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
 				http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
 				return
 			}
@@ -548,8 +548,8 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 	w.Write(respuesta)
 }
 
-func guardarPCBenMapConRespectivaParticion(pcb PCB, numeroDeParticion int) error {
-	mapPCBPorParticion[pcb] = numeroDeParticion
+func guardarPCBenMapConRespectivaParticion(pid int, numeroDeParticion int) error {
+	mapPCBPorParticion[pid] = numeroDeParticion
 	return nil
 }
 
@@ -591,7 +591,7 @@ func compactarLasParticiones() {
 
 func actualizarPCBxParticionNueva(mapeoOriginalANuevo map[int]int) {
 
-	nuevoMapPCBPorParticion := make(map[PCB]int)
+	nuevoMapPCBPorParticion := make(map[int]int)
 
 	for pcb, particionOriginal := range mapPCBPorParticion {
 		if nuevaParticion, ok := mapeoOriginalANuevo[particionOriginal]; ok {
@@ -623,16 +623,16 @@ func actualizarBasesYLímites() {
 
 	for i := 0; i < len(particiones); i++ {
 		if mapParticiones[i] { // Si la partición está ocupada
-			for pcb, particion := range mapPCBPorParticion {
+			for pid, particion := range mapPCBPorParticion {
 				if particion == i {
 					// Actualizar la base y el límite
-					pcb.Base = uint32(baseAcumulada)
-					pcb.Limit = uint32(baseAcumulada + particiones[i] - 1)
+					//pcb.Base = uint32(baseAcumulada) //
+					//pcb.Limit = uint32(baseAcumulada + particiones[i] - 1) //
 
 					// Actualizar en el mapa PID -> Base/Limit
-					mapPIDxBaseLimit[pcb.Pid] = Valor{
-						Base:  pcb.Base,
-						Limit: pcb.Limit,
+					mapPIDxBaseLimit[pid] = Valor{
+						Base:  uint32(baseAcumulada),
+						Limit: uint32(baseAcumulada + particiones[i] - 1),
 					}
 
 					// Incrementar la base acumulada
@@ -774,22 +774,24 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	pid := kernelReq.Pid
+	log.Printf("## Entro a terminate - PID: %d ", pid) ///// Borrar
 	numeroDeParticion, err := encontrarParticionPorPID(pid)
-	tamanio := particiones[numeroDeParticion]
+	log.Printf("## Encuentro particion - PID: %d - num: %d", pid, numeroDeParticion) ///// Borrar
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
+	tamanio := particiones[numeroDeParticion]
+
 	if esquemaMemoria == "FIJAS" { //PARA FIJAS
 		mapParticiones[numeroDeParticion] = false // libero el map booleano que indicaba si la particion esta libre o no
-
-		delete(mapPCBPorParticion, PCB{Pid: pid}) // elimino la estructura del pcb en el map de particiones
+		delete(mapPCBPorParticion, pid)           // elimino la estructura del pcb en el map de particiones
 		delete(mapPCBPorTCB, PCB{Pid: pid})       // elimino el pcb del map anidado
 		delete(mapPIDxBaseLimit, pid)             // elimino el pid del map de base y limit
 	} else if esquemaMemoria == "DINAMICAS" {
 		mapParticiones[numeroDeParticion] = false
 		consolidarParticiones(numeroDeParticion) //consolido las particiones libres
-		delete(mapPCBPorParticion, PCB{Pid: pid})
+		delete(mapPCBPorParticion, pid)
 		delete(mapPCBPorTCB, PCB{Pid: pid})
 		delete(mapPIDxBaseLimit, pid)
 	}
@@ -802,17 +804,20 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 func encontrarParticionPorPID(pid int) (int, error) {
 	particionEncontrada := -1
 	err := fmt.Errorf("PID no encontrado")
-
+	log.Printf("## tamaño map %d", len(mapPCBPorParticion)) // BORRAR
 	if len(mapPCBPorParticion) == 1 {
 		pcb := PCB{Pid: pid}
-		particion, ok := mapPCBPorParticion[pcb]
+		log.Printf("## PCB %v", pcb)                // BORRAR
+		log.Printf("## MAP %v", mapPCBPorParticion) // BORRAR
+		particion, ok := mapPCBPorParticion[pid]
+		log.Printf("## particion %d - ok: %v ", particion, ok) // BORRAR
 		if ok {
 			particionEncontrada = particion
 			err = nil
 		}
 	} else {
-		for pcb, particion := range mapPCBPorParticion {
-			if pcb.Pid == pid {
+		for pid, particion := range mapPCBPorParticion {
+			if pid == pid {
 				particionEncontrada = particion
 				err = nil
 				break //si haces un return dentro de este genera un error, por eso lo gestione asi
@@ -832,9 +837,9 @@ func consolidarParticiones(numeroDeParticion int) {
 		particiones = append(particiones[:numeroDeParticion], particiones[numeroDeParticion+1:]...) // Eliminar partición actual
 		mapParticiones = append(mapParticiones[:numeroDeParticion], mapParticiones[numeroDeParticion+1:]...)
 
-		for pcb, particion := range mapPCBPorParticion {
+		for pid, particion := range mapPCBPorParticion {
 			if particion == numeroDeParticion {
-				mapPCBPorParticion[pcb] = numeroDeParticion - 1
+				mapPCBPorParticion[pid] = numeroDeParticion - 1
 			} else if particion > numeroDeParticion {
 				mapeoOriginalANuevo[particion] = particion - 1
 			}
@@ -848,9 +853,9 @@ func consolidarParticiones(numeroDeParticion int) {
 		particiones = append(particiones[:numeroDeParticion+1], particiones[numeroDeParticion+2:]...)
 		mapParticiones = append(mapParticiones[:numeroDeParticion+1], mapParticiones[numeroDeParticion+2:]...)
 
-		for pcb, particion := range mapPCBPorParticion {
+		for pid, particion := range mapPCBPorParticion {
 			if particion == numeroDeParticion+1 {
-				mapPCBPorParticion[pcb] = numeroDeParticion
+				mapPCBPorParticion[pid] = numeroDeParticion
 			} else if particion > numeroDeParticion+1 {
 				mapeoOriginalANuevo[particion] = particion - 1
 			}

@@ -285,11 +285,20 @@ func InstructionCycle(contexto *contextoEjecucion) {
 
 		log.Printf("## TID: %d - Ejecutando: %s - Parámetros: %v", contexto.tcb.Tid, instructionLine[0], instruction.parameters)
 
-		if syscallEnviada {
+		if flagSegmentationFault {
+			flagSegmentationFault = false
+			err := EnviarSegmentationFault(contexto.pcb.pid, contexto.tcb.tid)
+			if err != nil {
+				log.Printf("Error al enviar segmentation fault: %v", err)
+			}
+			break
+		}
 
+		if syscallEnviada {
 			syscallEnviada = false
 			break
 		}
+
 		// Check Interrupt
 		if CheckInterrupt(*contexto) {
 			if err := RealizarInterrupcion(contexto); err != nil {
@@ -298,6 +307,22 @@ func InstructionCycle(contexto *contextoEjecucion) {
 			break
 		}
 	}
+}
+
+func EnviarSegmentationFault(pid int, tid int) error {
+	kernelReq := KernelExeReq{
+		Pid: pid,
+		Tid: tid,
+	}
+	body, err := json.Marshal(kernelReq)
+	if err != nil {
+		return err
+	}
+	err2 := EnviarAModulo(ConfigsCpu.IpKernel, ConfigsCpu.PuertoKernel, bytes.NewBuffer(body), "segmentationFault")
+	if err2 != nil {
+		return err2
+	}
+	return nil
 }
 
 func guardarPidyTid(pid int, tid int) {
@@ -439,10 +464,6 @@ func Execute(ContextoDeEjecucion *contextoEjecucion, intruction DecodedInstructi
 }
 
 func CheckInterrupt(contexto contextoEjecucion) bool {
-	if flagSegmentationFault {
-		flagSegmentationFault = false
-		return true
-	}
 	mutexInterrupt.Lock()
 	if nuevaInterrupcion.flagInterrucption && contexto.pcb.Pid == nuevaInterrupcion.Pid && contexto.tcb.Tid == nuevaInterrupcion.Tid {
 		nuevaInterrupcion.flagInterrucption = false

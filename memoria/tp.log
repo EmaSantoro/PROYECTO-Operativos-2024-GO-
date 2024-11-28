@@ -336,3 +336,13 @@ created by net/http.(*Server).Serve in goroutine 1
 2024/10/11 21:18:49 Entre a get instruction
 2024/10/11 21:18:50 me llego: 0
 2024/10/11 21:18:50 tengo guardado: map[]
+2024/11/27 23:30:00 ## Proceso Creado - PID: 1 - Tamaño: 32
+2024/11/27 23:30:01 Error al abrir el archivo en PATH: pruebas/HOLA
+2024/11/27 23:30:01 ERROR AL GUARDAR
+2024/11/27 23:30:02 error: no se encontró el TID 0 para el PID 1
+2024/11/27 23:30:03 error: no se encontró el PID 0
+2024/11/27 23:30:53 ## Proceso Creado - PID: 1 - Tamaño: 32
+2024/11/27 23:30:54 Error al abrir el archivo en PATH: pruebas/HOLA
+2024/11/27 23:30:54 ERROR AL GUARDAR
+2024/11/27 23:30:55 error: no se encontró el TID 0 para el PID 1
+2024/11/27 23:30:56 error: no se encontró el PID 0

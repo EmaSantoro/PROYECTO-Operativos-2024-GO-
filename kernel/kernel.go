@@ -39,6 +39,8 @@ func main() {
 
 	http.HandleFunc("POST /dumpMemory", utils.DumpMemory)
 
+	http.HandleFunc("POST /segmentationFault", utils.SegmentationFault)
+
 	//Escuchar (bloqueante)
 	http.ListenAndServe(":"+strconv.Itoa(puerto), nil)
 
