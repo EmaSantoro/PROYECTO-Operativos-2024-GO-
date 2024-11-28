@@ -240,13 +240,10 @@ func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 	log.Printf("PCB : %d TID : %d - Solicitud Contexto de Ejecucion Exitosa", contexto.Pcb.Pid, contexto.Tcb.Tid)
 	contextoDeEjecucion.pcb = contexto.Pcb
 	contextoDeEjecucion.tcb = contexto.Tcb
-	//contextoDeEjecucion.pcb.Pid = 1
 	return contextoDeEjecucion
 }
 
 func InstructionCycle(contexto *contextoEjecucion) {
-
-	log.Printf("El pid %d y tid %d", hiloAnt.Pid, hiloAnt.Pid)
 	if hiloAnt.Pid == contexto.pcb.Pid && hiloAnt.Tid == contexto.tcb.Tid {
 
 		if CheckInterrupt(*contexto) {
@@ -257,6 +254,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 			return
 		}
 	}
+
 	guardarPidyTid(contexto.pcb.Pid, contexto.tcb.Tid)
 
 	for {
@@ -403,7 +401,7 @@ func Fetch(pid int, tid int, PC *uint32) ([]string, error) {
 	instructions := strings.Fields(instructionResponse.Instruction) // Separar la instrucción en partes
 
 	log.Printf("PID: %d TID: %d - FETCH - Program Counter: %d", pid, tid, reqInstruccion.Pc)
-	*PC++ // Incrementa el program counter en uno
+	*PC++
 	return instructions, nil
 
 }
