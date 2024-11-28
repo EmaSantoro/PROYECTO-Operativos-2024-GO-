@@ -53,7 +53,7 @@ func modifyJSONFile(filePath string, FS string, CPU string, kernel string, memor
 
 func main() {
 	// Parsear argumentos de la línea de comandos
-	FS := flag.String("ip", "", "Valor para ip_filesystem")
+	FS := flag.String("fs", "", "Valor para ip_filesystem")
 	CPU := flag.String("cpu", "", "Valor para ip_cpu")
 	Kernel := flag.String("kernel", "", "Valor para ip_kernel")
 	Memoria := flag.String("memoria", "", "Valor para ip_memoria")
