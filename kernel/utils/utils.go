@@ -16,6 +16,10 @@ import (
 )
 
 /*---------------------- ESTRUCTURAS ----------------------*/
+
+type MemoryRes struct{
+	espacio bool  `json:"espacio"`
+}
 type Interrupcion struct {
 	Pid          int    `json:"pid"`
 	Tid          int    `json:"tid"`
@@ -1071,6 +1075,7 @@ func ManejarIo(w http.ResponseWriter, r *http.Request) {
 
 func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	var hilo TCBRequest
+	
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&hilo)
 	if err != nil {
@@ -1086,9 +1091,13 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	quitarExec(tcb)
 	encolarBlock(tcb, "DUMP_MEMORY")
 
-	err = enviarDumpMemoryAMemoria(tcb)
+	err, EspacioParaElArchivo := enviarDumpMemoryAMemoria(tcb)
 
-	if err == nil {
+	if err != nil {
+		slog.Error("Error al enviar el dump memory a memoria")
+	}
+
+	if EspacioParaElArchivo {
 		quitarBlock(tcb)
 		encolarReady(tcb)
 	} else {
@@ -1099,7 +1108,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func enviarDumpMemoryAMemoria(tcb TCB) error {
+func enviarDumpMemoryAMemoria(tcb TCB) (error, bool) {
 
 	memoryRequest := TCBRequest{}
 	memoryRequest.Pid = tcb.Pid
@@ -1112,22 +1121,36 @@ func enviarDumpMemoryAMemoria(tcb TCB) error {
 
 	if err != nil {
 		slog.Error("error codificando" + err.Error())
-		return err
+		return err, false
 	}
 
 	url := fmt.Sprintf("http://%s:%d/dumpMemory", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 
+
+
 	if err != nil {
 		slog.Error("Error enviando TCB para dump memory. ip: %s - puerto: %d", ip, puerto)
-		return err
+		return err, false
 	}
 
 	if resp.StatusCode != http.StatusOK {
 		log.Fatalf("Error en la respuesta del modulo de CPU. status_code: %d", resp.StatusCode)
-		return err
+		return err, false
 	}
-	return nil
+
+	var respuestaMemoria MemoryRes
+
+	err = json.NewDecoder(resp.Body).Decode(&respuestaMemoria)
+
+	if err != nil{
+		log.Printf("ERROR DE DECODIFICACION")
+		return err, false
+	}
+
+
+	
+	return nil, respuestaMemoria.espacio
 }
 
 /*---------- FUNCIONES SYSCALL MUTEX ----------*/

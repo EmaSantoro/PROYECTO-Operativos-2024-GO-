@@ -18,10 +18,16 @@ import (
 )
 
 /*-------------------- ESTRUCTURAS --------------------*/
+
+
 type PCB struct { //NO ES LA MISMA PCB QUE TIENE KERNEL DIGAMOS ES UNA PROPIA DE MEMORIA
 	Pid   int
 	Base  uint32 //no las usaria
 	Limit uint32 //no las usaria
+}
+
+type MemoryRes struct {
+	Espacio bool `json:"espacio"`
 }
 
 type Valor struct {
@@ -160,8 +166,8 @@ var MemoriaConfig *globals.Config
 
 const (
 	HayEspacio   int = 1
-	Compactar        = 2
-	NoHayEspacio     = 3
+	Compactar    int = 2
+	NoHayEspacio int = 3
 )
 
 // MAPS
@@ -817,8 +823,8 @@ func encontrarParticionPorPID(pid int) (int, error) {
 			err = nil
 		}
 	} else {
-		for pid, particion := range mapPCBPorParticion {
-			if pid == pid {
+		for pidRecorrido, particion := range mapPCBPorParticion {
+			if pidRecorrido == pid {
 				particionEncontrada = particion
 				err = nil
 				break //si haces un return dentro de este genera un error, por eso lo gestione asi
@@ -1205,13 +1211,42 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := EnviarAModulo(MemoriaConfig.IpFs, MemoriaConfig.PuertoFs, bytes.NewBuffer(body), "dumpMemory"); err != nil {
+	//---------
+	espacio, err := EnviarAFS(bytes.NewBuffer(body), "dumpMemory")
+	if err != nil {
 		http.Error(w, fmt.Sprintf("Error al comunicar con FileSystem: %v", err), http.StatusInternalServerError)
 		return
 	}
-
+	respuesta, err := json.Marshal(&espacio)
+	if err != nil {
+		http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Ok"))
+	w.Write(respuesta)
+}
+
+func EnviarAFS( body io.Reader, endPoint string) (MemoryRes,error){
+	var respuestaFS MemoryRes
+	respuestaFS.Espacio = false
+	url := fmt.Sprintf("http://%s:%d/%s", MemoriaConfig.IpFs, MemoriaConfig.PuertoFs, endPoint)
+	resp, err := http.Post(url, "application/json", body)
+	if err != nil {
+		log.Printf("error enviando mensaje al End point %s - IP:%s - Puerto:%d", endPoint,  MemoriaConfig.IpFs, MemoriaConfig.PuertoFs)
+		return respuestaFS, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("Error al recibir la respuesta del End point %s - IP:%s - Puerto:%d", endPoint,  MemoriaConfig.IpFs, MemoriaConfig.PuertoFs)
+		err := fmt.Errorf("%s", resp.Status)
+		return respuestaFS, err
+	}
+	
+	err = json.NewDecoder(resp.Body).Decode(&respuestaFS)
+	if err != nil {
+		log.Printf("Error de decodificado")
+		return respuestaFS, err
+	}
+	return  respuestaFS, nil
 }
 
 func PasarDeUintAByte(num uint32) []byte {

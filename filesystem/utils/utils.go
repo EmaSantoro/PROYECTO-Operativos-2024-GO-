@@ -24,6 +24,10 @@ type Bitmap struct {
 	bits []int
 }
 
+type MemoryRes struct{
+	Espacio bool  `json:"espacio"`
+}
+
 type Metadata struct {
 	IndexBlock int    `json:"index_block"`
 	Size       uint32 `json:"size"`
@@ -155,6 +159,7 @@ func cargarBitmap() error {
 
     if fileInfo.Size() == 0 {
         // El archivo está vacío, no hay necesidad de cargar el bitmap
+		bitmapGlobal = NewBitmap()
         return nil
     }
     bitmapBytes := make([]byte, ConfigFS.Block_count/8)
@@ -202,6 +207,9 @@ func CrearBloques(path string, sizeBloques int) {
 
 func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	dumpReq := FSmemoriaREQ{}
+	var espacio MemoryRes
+	espacio.Espacio = true
+	
 	// Decodificar la solicitud JSON
 	if err := json.NewDecoder(r.Body).Decode(&dumpReq); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -212,44 +220,46 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	// Verificar si hay suficiente espacio
 	if !hayEspacioDisponible(cantidadDeBloques) || !entraEnElBloqueDeIndice(cantidadDeBloques-1) {
 		http.Error(w, "No hay suficiente espacio", http.StatusInsufficientStorage)
-		return
-	}
+		espacio.Espacio = false
+	}else {
+			// Reservar bloques en el bitmap
+			bloquesReservados, err := reservarBloques(cantidadDeBloques, dumpReq.NombreArchivo)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+			}
+			
+			// Crear archivo de metadata
+			archivoMetaData, err := crearArchivoMetaData(dumpReq.NombreArchivo, bloquesReservados[0], dumpReq.Tamanio)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			
+			log.Printf("## Archivo Creado: <%s> - Tamanio: <%d>", archivoMetaData, dumpReq.Tamanio)
+			// Guardar el bitmap actualizado en el archivo
+			err = actualizarBitmap()
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
 
-	// Reservar bloques en el bitmap
-	bloquesReservados, err := reservarBloques(cantidadDeBloques, dumpReq.NombreArchivo)
+			// Escribir contenido a los bloques de datos
+			err = actualizarBloques(bloquesReservados, dumpReq.Data)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+	}
+	respuesta, err := json.Marshal(&espacio)
+
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
 		return
 	}
 
-	// Crear archivo de metadata
-	archivoMetaData, err := crearArchivoMetaData(dumpReq.NombreArchivo, bloquesReservados[0], dumpReq.Tamanio)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	log.Printf("## Archivo Creado: <%s> - Tamanio: <%d>", archivoMetaData, dumpReq.Tamanio)
-
-	// Escribir punteros al archivo de punteros	???????????????????????????
-	// Guardar el bitmap actualizado en el archivo
-	err = actualizarBitmap()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	// Escribir contenido a los bloques de datos
-	err = actualizarBloques(bloquesReservados, dumpReq.Data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	// Responder con éxito
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(fmt.Sprintf(": ## Fin de solicitud - Archivo: <%s>", archivoMetaData)))
-
+	w.Write(respuesta)
 }
 
 func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error {
