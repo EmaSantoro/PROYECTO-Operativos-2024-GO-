@@ -60,8 +60,8 @@ func main() {
 	flag.Parse()
 
 	// Directorios de archivos JSON a modificar
-	jsonDirs := []string{"/home/utnso/tp-2024-2c-Opertativo2/cpu/configsCPU", "/home/utnso/tp-2024-2c-Opertativo2/memoria/configsMemoria",
-		"/home/utnso/tp-2024-2c-Opertativo2/kernel/configsKERNEL", "/home/utnso/tp-2024-2c-Opertativo2/filesystem/configsFS"}
+	jsonDirs := []string{"/tp-2024-2c-Opertativo2/cpu/configsCPU", "/tp-2024-2c-Opertativo2/memoria/configsMemoria",
+		"/tp-2024-2c-Opertativo2/kernel/configsKERNEL", "/tp-2024-2c-Opertativo2/filesystem/configsFS"}
 
 	// jsonDirs := []string{"C:/Users/faust/Documents/UTN/tp-2024-1c-Panza_confianza/cpu/CPUconfigs"}
 	// Verificar que se hayan proporcionado todos los argumentos necesarios
