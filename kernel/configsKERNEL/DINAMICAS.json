@@ -5,11 +5,8 @@
     "ip_cpu"  : "127.0.0.1",
     "puerto_cpu": 8004,
     "algoritmo_planificacion"   : "CMN",
-    "quantum" : 3750,
+    "quantum" : 500,
     "log_level": "DEBUG",
-    "size_inicial": 32,
-    "archivo_inicial": "RECURSOS_MUTEX_PROC"
+    "size_inicial": 128,
+    "archivo_inicial": "MEM_DINAMICA_BASE"
 }
-
-
-

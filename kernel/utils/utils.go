@@ -176,7 +176,7 @@ func init() {
 		slog.SetLogLoggerLevel(slog.LevelError)
 	SE SETEA EL NIVEL MINIMO DE LOGS A IMPRIMIR POR CONSOLA*/
 
-	ConfigKernel = IniciarConfiguracion("kernel/configsKERNEL/config.json")
+	ConfigKernel = IniciarConfiguracion(os.Args[1])
 
 	if ConfigKernel != nil {
 

@@ -204,7 +204,8 @@ func ConfigurarLogger() {
 
 // INICIAR MODULO
 func init() {
-	MemoriaConfig = IniciarConfiguracion("memoria/configsMemoria/config.json")
+	
+	MemoriaConfig = IniciarConfiguracion(os.Args[1])
 	// Si el config no tiene nada termina
 	if MemoriaConfig == nil {
 		log.Fatal("ClientConfig is not initialized")

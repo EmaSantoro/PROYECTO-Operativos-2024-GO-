@@ -165,7 +165,7 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 }
 
 func init() {
-	ConfigsCpu = IniciarConfiguracion("cpu/configsCPU/config.json")
+	ConfigsCpu = IniciarConfiguracion(os.Args[1])
 
 }
 

@@ -64,7 +64,7 @@ func ConfigurarLogger() {
 /*---------------------- FUNCION INIT ----------------------*/
 
 func init() {
-	ConfigFS = IniciarConfiguracion("filesystem/configsFS/config.json")
+	ConfigFS = IniciarConfiguracion(os.Args[1])
 	//Al iniciar el modulo se debera validar que existan los archivos bitmap.dat y bloques.dat. En caso que no existan se deberan crear. Caso contrario se deberan tomar los ya existentes.
 	if ConfigFS != nil {
 		pathFS := ConfigFS.Mount_dir
