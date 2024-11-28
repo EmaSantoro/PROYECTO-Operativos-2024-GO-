@@ -2,7 +2,7 @@ package globals
 
 type Config struct {
 	Puerto             int    `json:"port"`               // Puerto de escucha del servidor
-	IpMemoria          string `json:"ip_memory"`          // IP de la memoria
+	IpMemoria          string `json:"ip_memoria"`         // IP de la memoria
 	PuertoMemoria      int    `json:"port_memory"`        // Puerto de la memoria
 	Mount_dir          string `json:"mount_dir"`          // path donde se encuentran los archivos fs
 	Block_size         int    `json:"block_size"`         // tamaño de bloque de los archivos fs
