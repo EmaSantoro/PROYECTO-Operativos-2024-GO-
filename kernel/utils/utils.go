@@ -16,10 +16,6 @@ import (
 )
 
 /*---------------------- ESTRUCTURAS ----------------------*/
-
-type MemoryRes struct{
-	espacio bool  `json:"espacio"`
-}
 type Interrupcion struct {
 	Pid          int    `json:"pid"`
 	Tid          int    `json:"tid"`
@@ -105,9 +101,18 @@ type estadoMemoria struct {
 	Estado int `json:"estado"`
 }
 
+type Proceso struct{
+	PCB PCB
+	Size int
+	Path string
+	Prioridad int
+}
+
 /*-------------------- COLAS GLOBALES --------------------*/
 
-var colaNewproceso []PCB
+var colaProcesosSinIniciar []Proceso
+
+//var colaNewproceso []PCB
 var colaProcesosInicializados []PCB
 var colaExitproceso []PCB
 
@@ -117,8 +122,8 @@ var colaBlockHilo []TCB
 var colaExitHilo []TCB
 
 /*-------------------- MUTEX GLOBALES --------------------*/
-
-var mutexColaNewproceso sync.Mutex
+var mutexProcesosSinIniciar sync.Mutex
+//var mutexColaNewproceso sync.Mutex
 var mutexColaExitproceso sync.Mutex
 var mutexColaProcesosInicializados sync.Mutex
 
@@ -132,15 +137,16 @@ var mutexEsperarCompactacion sync.Mutex
 /*-------------------- VAR GLOBALES --------------------*/
 
 var (
-	nextPid = 1
-	nextTid = 0
+	nextPid = 0
 )
+
+var nextTid []int
 
 var ConfigKernel *globals.Config
 
 /*---------------------- CANALES ----------------------*/
 
-var esperarFinProceso bool = true
+//var esperarFinProceso bool = true
 var esperarFinCompactacion bool = true
 
 //VER CANAL esperarFinProceso QUE LO USAMOS PARA SABER CUANDO FINALIZA UN PROCESO Y ASI PODER INICIALIZAR OTRO PERO NOS ESTA SIENDO BLOQUEANTE
@@ -199,7 +205,7 @@ func init() {
 
 		procesoInicial(ConfigKernel.ArchivoInicial, ConfigKernel.SizeInicial)
 
-		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
+		/*if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
 			go ejecutarHilosFIFO()
 		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
 			go ejecutarHilosPrioridades()
@@ -207,7 +213,7 @@ func init() {
 			go ejecutarHilosColasMultinivel(ConfigKernel.Quantum)
 		} else {
 			log.Fatalf("Algoritmo de planificacion no valido")
-		}
+		}*/
 	} else {
 		log.Fatalf("Configuracion no inicializada, segui participando...")
 	}
@@ -218,7 +224,11 @@ func init() {
 func procesoInicial(path string, size int) {
 
 	pcb := createPCB()
-	encolarProcesoNew(pcb)
+	//encolarProcesoNew(pcb)
+	var proceso Proceso = Proceso{pcb, size, path, 0}
+	mutexProcesosSinIniciar.Lock()
+	colaProcesosSinIniciar = append(colaProcesosSinIniciar, proceso)
+	mutexProcesosSinIniciar.Unlock()
 	inicializarProceso(path, size, 0, pcb)
 
 }
@@ -270,10 +280,61 @@ func CrearProceso(w http.ResponseWriter, r *http.Request) {
 func iniciarProceso(path string, size int, prioridad int) {
 
 	pcb := createPCB()
-	encolarProcesoNew(pcb)
-	go inicializarProceso(path, size, prioridad, pcb)
+	//encolarProcesoNew(pcb)
+	var proceso Proceso = Proceso{pcb, size, path, prioridad}
+	mutexProcesosSinIniciar.Lock()
+	colaProcesosSinIniciar = append(colaProcesosSinIniciar, proceso)
+	mutexProcesosSinIniciar.Unlock()
+	inicializarProceso(path, size, prioridad, pcb)
+	//go inicializarProceso(path, size, prioridad, pcb)
 
 }
+
+
+func inicializarProceso(path string, size int, prioridad int, pcb PCB){
+
+	log.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
+
+	
+	if esElPrimerProcesoSinIniciar(pcb) {
+		
+		estadoMemoria := consultaEspacioAMemoria(size, pcb)
+	
+		if estadoMemoria == HayEspacio{
+			nextTid = append(nextTid, 0)
+			tcb := createTCB(pcb.Pid, prioridad) 
+			pcb.Tid = append(pcb.Tid, tcb.Tid)   
+
+			enviarTCBMemoria(tcb, path)
+
+			proceso := colaProcesosSinIniciar[0]
+			colaProcesosSinIniciar = colaProcesosSinIniciar[1:]
+
+			//quitarProcesoNew(pcb)
+			encolarProcesoInicializado(proceso.PCB)
+			encolarReady(tcb)
+
+		}else if estadoMemoria == Compactar{
+
+			mutexEsperarCompactacion.Lock()
+			esperarFinCompactacion = false
+			mutexEsperarCompactacion.Unlock()
+
+			compactar()
+			inicializarProceso(path, size, prioridad, pcb)
+
+			mutexEsperarCompactacion.Lock()
+			esperarFinCompactacion = true
+			mutexEsperarCompactacion.Unlock()
+
+		}else if estadoMemoria == NoHayEspacio{
+			log.Printf("## (<PID: %d >) NO HAY PARTICIONES DISPONIBLES PARA SU TAMANIO", pcb.Pid)
+		}else{
+			slog.Error("Error en el estado de la memoria")
+		}
+	}
+}
+
 
 const (
 	HayEspacio   int = 1
@@ -281,13 +342,13 @@ const (
 	NoHayEspacio int = 3
 )
 
-func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
+/*func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 	for {
 		if esperarFinProceso {
 			if esElPrimerProcesoEnNew(pcb) {
 				estadoMemoria := consultaEspacioAMemoria(size, pcb)
 				if estadoMemoria == HayEspacio {
-					nextTid = 0
+					nextTid = append(nextTid, 0)
 					tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
 					pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
 
@@ -302,34 +363,43 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
 					esperarFinCompactacion = false
 					mutexEsperarCompactacion.Unlock()
 
-					for {
-						if len(colaExecHilo) == 0 {
+					//for {
+						//if len(colaExecHilo) == 0 {
 							compactar()
-							break
-						}
-					}
+						//	break
+						//}
+					//}
 
 					mutexEsperarCompactacion.Lock()
 					esperarFinCompactacion = true
 					mutexEsperarCompactacion.Unlock()
-				} else {
-					slog.Warn("El tamanio del proceso es mas grande que la memoria, esperando a que finalice otro proceso ....")
+					
+				} else if estadoMemoria == NoHayEspacio {
+					log.Printf("## (<PID: %d >) NO HAY PARTICIONES DISPONIBLES PARA SU TAMANIO", pcb.Pid)
 					esperarFinProceso = false
+				} else{
+					slog.Error("Error en el estado de la memoria")
 				}
 
 			}
 		}
 	}
-}
+}*/
 
-func esElPrimerProcesoEnNew(pcb PCB) bool {
+/*func esElPrimerProcesoEnNew(pcb PCB) bool {
 	return colaNewproceso[0].Pid == pcb.Pid
+}*/
+
+func esElPrimerProcesoSinIniciar(pcb PCB) bool {
+	return colaProcesosSinIniciar[0].PCB.Pid == pcb.Pid
 }
 
-func compactar() {
+func compactar(){
 
 	puerto := ConfigKernel.PuertoMemoria
 	ip := ConfigKernel.IpMemoria
+
+	log.Printf("## Se solicita compactar la memoria ##")
 
 	url := fmt.Sprintf("http://%s:%d/compactacion", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(nil))
@@ -341,7 +411,6 @@ func compactar() {
 	if resp.StatusCode != http.StatusOK {
 		slog.Warn("Error en el proceso de compactar") //Se hace aca, porque si lo ponemos como un else de la consulta a memoria, ante cualquier error responde esto
 	}
-
 }
 
 func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
@@ -398,7 +467,12 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 
 	if resp == nil {
 		// Notificar a traves del canal
-		esperarFinProceso = true
+		//esperarFinProceso = true
+		if len(colaProcesosSinIniciar) > 0 {
+			proceso := colaProcesosSinIniciar[0]
+			inicializarProceso(proceso.Path, proceso.Size, proceso.Prioridad, proceso.PCB)
+		}
+
 	} else {
 		slog.Error("Error al enviar el proceso finalizado a memoria")
 		return fmt.Errorf("error al enviar el proceso finalizado a memoria")
@@ -456,27 +530,23 @@ func consultaEspacioAMemoria(size int, pcb PCB) int {
 		slog.Error("error enviando tamanio del proceso", slog.Int("pid", pcb.Pid), slog.String("ip", ip), slog.Int("puerto", puerto))
 
 	}
-
-	if resp.StatusCode != http.StatusOK {
-		slog.Warn("El tamanio del proceso es mas grande que la memoria disponible", slog.Int("pid", pcb.Pid)) //Se hace aca, porque si lo ponemos como un else de la consulta a memoria, ante cualquier error responde esto
-	}
-
 	var estado estadoMemoria
 
 	err = json.NewDecoder(resp.Body).Decode(&estado)
+
 	if err != nil {
 		return -1
 	}
 	return estado.Estado
 }
 
-func encolarProcesoNew(pcb PCB) {
+/*func encolarProcesoNew(pcb PCB) {
 	mutexColaNewproceso.Lock()
 	colaNewproceso = append(colaNewproceso, pcb)
 	mutexColaNewproceso.Unlock()
 
 	log.Printf("## (<PID %d>) Se crea el proceso - Estado: NEW", pcb.Pid)
-}
+}*/
 
 func encolarProcesoExit(pcb PCB) {
 
@@ -485,6 +555,7 @@ func encolarProcesoExit(pcb PCB) {
 	mutexColaExitproceso.Unlock()
 
 	log.Printf(" ## (<PID: %d>) finaliza el Proceso - Estado: EXIT ##", pcb.Pid)
+
 
 }
 
@@ -506,7 +577,7 @@ func quitarProcesoInicializado(pcb PCB) {
 	mutexColaProcesosInicializados.Unlock()
 }
 
-func quitarProcesoNew(pcb PCB) {
+/*func quitarProcesoNew(pcb PCB) {
 	mutexColaNewproceso.Lock()
 	for i, p := range colaNewproceso {
 		if p.Pid == pcb.Pid {
@@ -514,16 +585,16 @@ func quitarProcesoNew(pcb PCB) {
 		}
 	}
 	mutexColaNewproceso.Unlock()
-}
+}*/
 
 /*---------- FUNCIONES HILOS ----------*/
 
 func createTCB(pid int, prioridad int) TCB {
-	nextTid++
+	nextTid[pid - 1]++
 
 	return TCB{
 		Pid:             pid,
-		Tid:             nextTid - 1,
+		Tid:             nextTid[pid - 1] - 1,
 		Prioridad:       prioridad,
 		HilosBloqueados: []int{},
 	}
@@ -769,7 +840,7 @@ func actualizarTCB(tcb TCB) {
 
 /*---------- FUNCIONES HILOS ALGORITMOS PLANIFICACION ----------*/
 //FIFO
-func ejecutarHilosFIFO() {
+/*func ejecutarHilosFIFO() {
 	var Hilo TCB
 	for {
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
@@ -778,7 +849,7 @@ func ejecutarHilosFIFO() {
 		}
 	}
 }
-
+*/
 func ejecutarInstruccion(Hilo TCB) {
 	if esperarFinCompactacion {
 		quitarReady(Hilo)
@@ -788,7 +859,7 @@ func ejecutarInstruccion(Hilo TCB) {
 }
 
 // PRIORIDADES
-func ejecutarHilosPrioridades() {
+/*func ejecutarHilosPrioridades() {
 	for {
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
@@ -802,6 +873,7 @@ func ejecutarHilosPrioridades() {
 		}
 	}
 }
+*/
 
 func obtenerHiloMayorPrioridad() TCB {
 
@@ -821,7 +893,7 @@ func obtenerHiloMayorPrioridad() TCB {
 }
 
 // MULTICOLAS
-func ejecutarHilosColasMultinivel(quantum int) {
+/*func ejecutarHilosColasMultinivel(quantum int) {
 	for {
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
 			Hilo := obtenerHiloMayorPrioridad()
@@ -834,24 +906,18 @@ func ejecutarHilosColasMultinivel(quantum int) {
 			}
 		}
 	}
-}
+}*/
 
 func comenzarQuantum(Hilo TCB, quantum int) {
-	timer := time.NewTimer(time.Duration(quantum) * time.Millisecond)
 
-	for {
-		select {
-		case <-timer.C:
-			if isInExec(Hilo) {
-				enviarInterrupcion(Hilo.Pid, Hilo.Tid, "Quantum")
-			}
-			return
-		default:
-			// Evitar bloqueo del select
-			time.Sleep(time.Millisecond)
+	 time.Sleep(time.Duration(quantum) * time.Millisecond)
+
+	 if len(colaExecHilo) > 0 {
+		if Hilo.Tid == colaExecHilo[0].Tid && Hilo.Pid == colaExecHilo[0].Pid {
+			enviarInterrupcion(Hilo.Pid, Hilo.Tid, "Quantum")
 		}
-	}
-
+	 }
+			
 }
 
 /*---------- FUNCIONES HILOS ENVIO DE TCB ----------*/
@@ -965,14 +1031,71 @@ func desbloquearHilosJoin(tid int, pid int) {
 
 func encolarReady(tcb TCB) {
 
-	//nuevoHiloEnCola <- true
-
 	mutexColaReadyHilo.Lock()
 	colaReadyHilo = append(colaReadyHilo, tcb)
 	mutexColaReadyHilo.Unlock()
 
 	log.Printf("## (<PID %d>:<TID %d>) Se encola el Hilo - Estado: READY", tcb.Pid, tcb.Tid)
+
+	go verificarReplanificar(tcb)
 }
+
+
+func verificarReplanificar(tcb TCB){
+
+	switch ConfigKernel.AlgoritmoPlanificacion {
+	case "FIFO":
+		if len(colaExecHilo) == 0 && len(colaReadyHilo) > 0 && esperarFinCompactacion{
+			Hilo := colaReadyHilo[0]
+			ejecutarInstruccion(Hilo)
+			break
+		}
+	case "PRIORIDADES":
+		if len(colaExecHilo) == 0 && len(colaReadyHilo) > 0 && esperarFinCompactacion{
+			Hilo := obtenerHiloMayorPrioridad()
+			ejecutarInstruccion(Hilo)
+			break
+		} else if len(colaExecHilo) > 0 && tcb.Prioridad < colaExecHilo[0].Prioridad && esperarFinCompactacion{		 
+			enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
+			break
+		}
+	case "CMN":
+		if len(colaExecHilo) == 0 && len(colaReadyHilo) > 0 && esperarFinCompactacion{
+			Hilo := obtenerHiloMayorPrioridad()
+			go comenzarQuantum(Hilo, ConfigKernel.Quantum)
+			ejecutarInstruccion(Hilo)
+			break
+		} else if len(colaExecHilo) > 0 && tcb.Prioridad < colaExecHilo[0].Prioridad && esperarFinCompactacion {
+			enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
+			break
+		}
+	}
+}
+
+func replanificar() {
+	switch ConfigKernel.AlgoritmoPlanificacion {
+	case "FIFO":
+		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
+			Hilo := colaReadyHilo[0]
+			ejecutarInstruccion(Hilo)
+			break
+		}
+	case "PRIORIDADES":
+		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
+			Hilo := obtenerHiloMayorPrioridad()
+			ejecutarInstruccion(Hilo)
+			break
+		}
+	case "CMN":
+		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
+			Hilo := obtenerHiloMayorPrioridad()
+			go comenzarQuantum(Hilo, ConfigKernel.Quantum)
+			ejecutarInstruccion(Hilo)
+			break
+		}
+	}
+}
+
 
 func encolarExec(tcb TCB) {
 	mutexColaExecHilo.Lock()
@@ -1008,6 +1131,8 @@ func quitarExec(tcb TCB) {
 	mutexColaExecHilo.Lock()
 	colaExecHilo = eliminarHiloCola(colaExecHilo, tcb)
 	mutexColaExecHilo.Unlock()
+
+	go replanificar()
 }
 
 func quitarBlock(tcb TCB) {
@@ -1091,13 +1216,13 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	quitarExec(tcb)
 	encolarBlock(tcb, "DUMP_MEMORY")
 
-	err, EspacioParaElArchivo := enviarDumpMemoryAMemoria(tcb)
+	espacioParaElArchivo, err := enviarDumpMemoryAMemoria(tcb)
 
 	if err != nil {
 		slog.Error("Error al enviar el dump memory a memoria")
 	}
 
-	if EspacioParaElArchivo {
+	if espacioParaElArchivo {
 		quitarBlock(tcb)
 		encolarReady(tcb)
 	} else {
@@ -1108,7 +1233,7 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func enviarDumpMemoryAMemoria(tcb TCB) (error, bool) {
+func enviarDumpMemoryAMemoria(tcb TCB) (bool, error) {
 
 	memoryRequest := TCBRequest{}
 	memoryRequest.Pid = tcb.Pid
@@ -1121,36 +1246,30 @@ func enviarDumpMemoryAMemoria(tcb TCB) (error, bool) {
 
 	if err != nil {
 		slog.Error("error codificando" + err.Error())
-		return err, false
+		return false, err
 	}
 
 	url := fmt.Sprintf("http://%s:%d/dumpMemory", ip, puerto)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
-
-
-
 	if err != nil {
 		slog.Error("Error enviando TCB para dump memory. ip: %s - puerto: %d", ip, puerto)
-		return err, false
+		return false, err
 	}
-
-	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("Error en la respuesta del modulo de CPU. status_code: %d", resp.StatusCode)
-		return err, false
-	}
-
-	var respuestaMemoria MemoryRes
-
-	err = json.NewDecoder(resp.Body).Decode(&respuestaMemoria)
-
-	if err != nil{
-		log.Printf("ERROR DE DECODIFICACION")
-		return err, false
-	}
-
-
 	
-	return nil, respuestaMemoria.espacio
+	body2, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error al leer la respuesta de Memoria:", err)
+		return false, err
+	}
+	var resultado map[string]bool
+	err = json.Unmarshal(body2, &resultado)
+	if err != nil {
+		fmt.Println("Error al procesar la respuesta JSON:", err)
+		return false, err
+	}
+	respuesta := resultado["resultado"]
+
+	return respuesta , nil
 }
 
 /*---------- FUNCIONES SYSCALL MUTEX ----------*/
@@ -1310,9 +1429,18 @@ func unlockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 				if len(mutex.colaBloqueados) > 0 {
 					hiloDesbloqueado := mutex.colaBloqueados[0]
 					mutex.colaBloqueados = mutex.colaBloqueados[1:]
+					
+					for i, m := range proceso.Mutex {
+						if m.Nombre == mutexNombre {
+							proceso.Mutex[i] = mutex
+							actualizarPCB(proceso)
+							break
+						}
+					}
 					quitarBlock(hiloDesbloqueado)
 					encolarReady(hiloDesbloqueado)
-					lockMutex(proceso, hiloDesbloqueado, mutexNombre) // preguntar si tiene que hacer esto o cuando se vuelva a ejecutar el hilo tiene que repreguntar hacer lock mutex
+					lockMutex(proceso, hiloDesbloqueado, mutexNombre)
+					return nil 
 				}
 
 				for i, m := range proceso.Mutex {

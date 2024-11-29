@@ -24,10 +24,6 @@ type Bitmap struct {
 	bits []int
 }
 
-type MemoryRes struct{
-	Espacio bool  `json:"espacio"`
-}
-
 type Metadata struct {
 	IndexBlock int    `json:"index_block"`
 	Size       uint32 `json:"size"`
@@ -207,8 +203,7 @@ func CrearBloques(path string, sizeBloques int) {
 
 func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	dumpReq := FSmemoriaREQ{}
-	var espacio MemoryRes
-	espacio.Espacio = true
+	var response map[string]bool
 	
 	// Decodificar la solicitud JSON
 	if err := json.NewDecoder(r.Body).Decode(&dumpReq); err != nil {
@@ -219,9 +214,10 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	cantidadDeBloques := int(math.Ceil(float64(dumpReq.Tamanio)/float64(ConfigFS.Block_size))) + 1 //ver si se puede mejorar
 	// Verificar si hay suficiente espacio
 	if !hayEspacioDisponible(cantidadDeBloques) || !entraEnElBloqueDeIndice(cantidadDeBloques-1) {
-		http.Error(w, "No hay suficiente espacio", http.StatusInsufficientStorage)
-		espacio.Espacio = false
+		log.Printf("No hay suficiente espacio")
+		response = map[string]bool{"resultado": false}
 	}else {
+			response = map[string]bool{"resultado": true}
 			// Reservar bloques en el bitmap
 			bloquesReservados, err := reservarBloques(cantidadDeBloques, dumpReq.NombreArchivo)
 			if err != nil {
@@ -251,15 +247,9 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 	}
-	respuesta, err := json.Marshal(&espacio)
-
-	if err != nil {
-		http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
-		return
-	}
-
-	w.WriteHeader(http.StatusOK)
-	w.Write(respuesta)
+	respBytes, _ := json.Marshal(response)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(respBytes)
 }
 
 func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error {

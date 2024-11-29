@@ -19,15 +19,10 @@ import (
 
 /*-------------------- ESTRUCTURAS --------------------*/
 
-
 type PCB struct { //NO ES LA MISMA PCB QUE TIENE KERNEL DIGAMOS ES UNA PROPIA DE MEMORIA
 	Pid   int
 	Base  uint32 //no las usaria
 	Limit uint32 //no las usaria
-}
-
-type MemoryRes struct {
-	Espacio bool `json:"espacio"`
 }
 
 type Valor struct {
@@ -210,7 +205,7 @@ func ConfigurarLogger() {
 
 // INICIAR MODULO
 func init() {
-	
+
 	MemoriaConfig = IniciarConfiguracion(os.Args[1])
 	// Si el config no tiene nada termina
 	if MemoriaConfig == nil {
@@ -257,6 +252,7 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	time.Sleep(time.Duration(MemoriaConfig.Delay_Respuesta) * time.Millisecond)
 	// Buscar el PCB que tenga el Pid solicitado y nos da las estructuras de los hilos asociado
 	tidMap := buscarTCBPorPid(instructionReq.Pid)
+
 	if tidMap == nil {
 		http.Error(w, fmt.Sprintf("No se encontró el PID %d", instructionReq.Pid), http.StatusNotFound)
 		log.Printf("error: no se encontró el PID %d", instructionReq.Pid)
@@ -270,6 +266,7 @@ func GetInstruction(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
+
 	if instrucciones == nil {
 		http.Error(w, fmt.Sprintf("No se encontró el TID %d para el PID %d", instructionReq.Tid, instructionReq.Pid), http.StatusNotFound)
 		log.Printf("error: no se encontró el TID %d para el PID %d", instructionReq.Tid, instructionReq.Pid)
@@ -455,7 +452,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 
 		if numeroDeParticion == -1 {
 
-			http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
+			//http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
 			estado.Estado = NoHayEspacio
 
 		} else {
@@ -501,15 +498,15 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 				//compactarLasParticiones() //compacto las particiones libres
 				//actualizarBasesYLímites() //actualizo las bases y limites
 			} else {
-				http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
+				//http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
 				estado.Estado = NoHayEspacio
 			}
 		} else {
 			estado.Estado = HayEspacio
 			//SI HAY PARTICION DISPONIBLE PARA EL TAMAÑO DEL PROCESO
 			if particiones[numeroDeParticion] > process.Size {
-
 				subdividirParticion(numeroDeParticion, process.Size) //subdivir la particion en dos (una ocupada y otra libre)
+				log.Printf("## Particiones: %v", particiones)
 			}
 
 			//BASE
@@ -551,7 +548,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 		return
 	}
 
-	w.WriteHeader(http.StatusOK) // Esto da superfluos error ya que si arriba retorna http error al no tener un return genera un error, hay que ver como solucionarlo
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(respuesta)
 }
 
@@ -575,41 +572,95 @@ func espacioLibreSuficiente(Size int) bool {
 
 // COMPACTAR LAS PARTICIONES QUE ESTAN LIBRES
 func compactarLasParticiones() {
+	log.Printf("ENTRO A COMPACTAR")
+	log.Printf("PARTICIONES VECTOR INICIAL: %v", particiones)
 	nuevaParticion := 0
 	i := 0
-	mapeoOriginalANuevo := make(map[int]int)
+	//mapeoOriginalANuevo := make(map[int]int)
 
 	for i < len(particiones) { //la idea es recorrer todas las particiones
+		log.Printf("ENTRO AL FOR")
 		if !mapParticiones[i] { // Si la partición está libre, la sumamos al total y la eliminamos
-			nuevaParticion += particiones[i]                                     //aca guardo el tamaño para mi nueva particion que va a ser la compacta
+			log.Printf("POSICION %d", i)
+			nuevaParticion += particiones[i] //aca guardo el tamaño para mi nueva particion que va a ser la compacta
+			actualizarPCBxParticionNueva(i)
 			particiones = append(particiones[:i], particiones[i+1:]...)          // se saca la partición
 			mapParticiones = append(mapParticiones[:i], mapParticiones[i+1:]...) // actualizar el map de estados
-		} else {
-			mapeoOriginalANuevo[i] = len(particiones)
-			i++ // si llega a estar ocupada la particion, paso a la siguiente
+			log.Printf("BITMAP %v ", mapParticiones)
+			log.Printf("PARTICIONES VECTOR : %v", particiones)
 		}
+		i++
 	}
 
 	particiones = append(particiones, nuevaParticion)
 	mapParticiones = append(mapParticiones, false) // La nueva partición estará libre
-
-	actualizarPCBxParticionNueva(mapeoOriginalANuevo) //actualizo el mapa de pcb por particion
+	log.Printf("PARTICIONES VECTOR FINAL : %v", particiones)
+	//actualizarPCBxParticionNueva(mapeoOriginalANuevo) //actualizo el mapa de pcb por particion
 }
 
-func actualizarPCBxParticionNueva(mapeoOriginalANuevo map[int]int) {
+func actualizarPCBxParticionNueva(numeroPart int) {
 
-	nuevoMapPCBPorParticion := make(map[int]int)
-
-	for pcb, particionOriginal := range mapPCBPorParticion {
-		if nuevaParticion, ok := mapeoOriginalANuevo[particionOriginal]; ok {
-			nuevoMapPCBPorParticion[pcb] = nuevaParticion
-		} else {
-			nuevoMapPCBPorParticion[pcb] = particionOriginal
+	log.Printf("MAP INICIAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
+	log.Printf("NUMERO DE PARTICION: %d", numeroPart)
+	for pid, particion := range mapPCBPorParticion {
+		log.Printf("PARTICION ENCONTRADA %d EN PID %d", particion, pid)
+		if particion == numeroPart {
+			mapPCBPorParticion[pid] = particion - 1
+			cambiarBaseYLimite(pid, particion)
+		} else if particion > numeroPart {
+			mapPCBPorParticion[pid] = particion - 1
+			cambiarBaseYLimite(pid, particion)
 		}
 	}
-
-	mapPCBPorParticion = nuevoMapPCBPorParticion
+	log.Printf("MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
 }
+
+func cambiarBaseYLimite(pid int, particion int) {
+	valor := mapPIDxBaseLimit[pid]
+	valor.Base = uint32(sumatoria(particion-1) + 1)
+	valor.Limit = uint32(sumatoria(particion-1) + particiones[particion-1])
+	log.Printf("VALOR BASE Y LIMITE: %v", valor)
+	log.Printf("PID: %d PARTICION: %d", pid, particion)
+}
+
+func sumatoria(posicion int) int {
+	suma := 0
+	for i := 0; i < posicion; i++ {
+		suma += particiones[i]
+	}
+	return suma
+}
+
+// func actualizarPCBxBaseYLimit(posicion int){
+
+// 	//recorrer el map de pcb
+
+// 	log.Printf("MAP INICIAL QUERIENDOSE ACTUALIZAR: %v", mapPIDxBaseLimit)
+// 	for pid, valor := range mapPIDxBaseLimit {
+// 		if valor.Base == uint32(i) {
+// 			valor.Base = uint32(i - particiones[i])
+// 			valor.Limit = uint32(i + particiones[i] - 1)
+// 			mapPIDxBaseLimit[pid] = valor
+// 		}
+// 	}
+// 	log.Printf("MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPIDxBaseLimit)
+
+// }
+
+// //func actualizarPCBxParticionNueva(mapeoOriginalANuevo map[int]int) {
+
+// 	nuevoMapPCBPorParticion := make(map[int]int)
+
+// 	for pcb, particionOriginal := range mapPCBPorParticion {
+// 		if nuevaParticion, ok := mapeoOriginalANuevo[particionOriginal]; ok {
+// 			nuevoMapPCBPorParticion[pcb] = nuevaParticion
+// 		} else {
+// 			nuevoMapPCBPorParticion[pcb] = particionOriginal
+// 		}
+// 	}
+
+// 	mapPCBPorParticion = nuevoMapPCBPorParticion
+// }
 
 func subdividirParticion(numeroDeParticion, processSize int) {
 
@@ -621,34 +672,35 @@ func subdividirParticion(numeroDeParticion, processSize int) {
 	espacioRestante := originalTam - processSize //me sobraron 400 de espacio que no se uso, entonces creo una nueva particion que esta va a estar libre
 	if espacioRestante > 0 {
 		particiones = append(particiones, espacioRestante) //agrego la nueva particion al vector de particiones
-		mapParticiones = append(mapParticiones, false)     // y esta nueva particion va a estar libre para ser la proxima a usar
+		mapParticiones = append(mapParticiones, false)
+		//mapParticiones[len(particiones)-1] = false // Agregas la nueva partición libre.
 	}
 }
 
-func actualizarBasesYLímites() {
-	baseAcumulada := 0
+// func actualizarBasesYLímites() {
+// 	baseAcumulada := 0
 
-	for i := 0; i < len(particiones); i++ {
-		if mapParticiones[i] { // Si la partición está ocupada
-			for pid, particion := range mapPCBPorParticion {
-				if particion == i {
-					// Actualizar la base y el límite
-					//pcb.Base = uint32(baseAcumulada) //
-					//pcb.Limit = uint32(baseAcumulada + particiones[i] - 1) //
+// 	for i := 0; i < len(particiones); i++ {
+// 		if mapParticiones[i] { // Si la partición está ocupada
+// 			for pid, particion := range mapPCBPorParticion {
+// 				if particion == i {
+// 					// Actualizar la base y el límite
+// 					//pcb.Base = uint32(baseAcumulada) //
+// 					//pcb.Limit = uint32(baseAcumulada + particiones[i] - 1) //
 
-					// Actualizar en el mapa PID -> Base/Limit
-					mapPIDxBaseLimit[pid] = Valor{
-						Base:  uint32(baseAcumulada),
-						Limit: uint32(baseAcumulada + particiones[i] - 1),
-					}
+// 					// Actualizar en el mapa PID -> Base/Limit
+// 					mapPIDxBaseLimit[pid] = Valor{
+// 						Base:  uint32(baseAcumulada),
+// 						Limit: uint32(baseAcumulada + particiones[i] - 1),
+// 					}
 
-					// Incrementar la base acumulada
-					baseAcumulada += particiones[i]
-				}
-			}
-		}
-	}
-}
+// 					// Incrementar la base acumulada
+// 					baseAcumulada += particiones[i]
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 //--------------------------------------------------------------------
 
@@ -788,6 +840,7 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
+
 	tamanio := particiones[numeroDeParticion]
 
 	if esquemaMemoria == "FIJAS" { //PARA FIJAS
@@ -836,7 +889,7 @@ func encontrarParticionPorPID(pid int) (int, error) {
 }
 
 func consolidarParticiones(numeroDeParticion int) {
-	mapeoOriginalANuevo := make(map[int]int)
+	//mapeoOriginalANuevo := make(map[int]int)
 
 	//CONSOLIDAR IZQUIERDA
 	for numeroDeParticion > 0 && !mapParticiones[numeroDeParticion-1] {
@@ -844,14 +897,15 @@ func consolidarParticiones(numeroDeParticion int) {
 		particiones = append(particiones[:numeroDeParticion], particiones[numeroDeParticion+1:]...) // Eliminar partición actual
 		mapParticiones = append(mapParticiones[:numeroDeParticion], mapParticiones[numeroDeParticion+1:]...)
 
-		for pid, particion := range mapPCBPorParticion {
-			if particion == numeroDeParticion {
-				mapPCBPorParticion[pid] = numeroDeParticion - 1
-			} else if particion > numeroDeParticion {
-				mapeoOriginalANuevo[particion] = particion - 1
-			}
-		}
-		numeroDeParticion--
+		actualizarPCBxParticionNueva(numeroDeParticion)
+		// for pid, particion := range mapPCBPorParticion {
+		// 	if particion == numeroDeParticion {
+		// 		mapPCBPorParticion[pid] = numeroDeParticion - 1
+		// 	} else if particion > numeroDeParticion {
+		// 		mapeoOriginalANuevo[particion] = particion - 1
+		// 	}
+		// }
+		// numeroDeParticion--
 	}
 
 	//CONSOLIDAR DERECHA
@@ -860,16 +914,18 @@ func consolidarParticiones(numeroDeParticion int) {
 		particiones = append(particiones[:numeroDeParticion+1], particiones[numeroDeParticion+2:]...)
 		mapParticiones = append(mapParticiones[:numeroDeParticion+1], mapParticiones[numeroDeParticion+2:]...)
 
-		for pid, particion := range mapPCBPorParticion {
-			if particion == numeroDeParticion+1 {
-				mapPCBPorParticion[pid] = numeroDeParticion
-			} else if particion > numeroDeParticion+1 {
-				mapeoOriginalANuevo[particion] = particion - 1
-			}
-		}
+		actualizarPCBxParticionNueva(numeroDeParticion)
+		// for pid, particion := range mapPCBPorParticion {
+		// 	if particion == numeroDeParticion+1 {
+		// 		mapPCBPorParticion[pid] = numeroDeParticion
+		// 	} else if particion > numeroDeParticion+1 {
+		// 		mapeoOriginalANuevo[particion] = particion - 1
+		// 	}
+		// }
 	}
 
-	actualizarPCBxParticionNueva(mapeoOriginalANuevo)
+	//actualizarPCBxParticionNueva(numeroDeParticion)
+	//actualizarPCBxParticionNueva(mapeoOriginalANuevo)
 }
 
 //-----------------------------------------CREATE THREAD--------------------------------------------
@@ -1212,41 +1268,37 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//---------
-	espacio, err := EnviarAFS(bytes.NewBuffer(body), "dumpMemory")
+	respuesta, err := EnviarAFS(bytes.NewBuffer(body), "dumpMemory")
+
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error al comunicar con FileSystem: %v", err), http.StatusInternalServerError)
 		return
 	}
-	respuesta, err := json.Marshal(&espacio)
-	if err != nil {
-		http.Error(w, "Error al codificar los datos como JSON", http.StatusInternalServerError)
-		return
-	}
-	w.WriteHeader(http.StatusOK)
+
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(respuesta)
 }
 
-func EnviarAFS( body io.Reader, endPoint string) (MemoryRes,error){
-	var respuestaFS MemoryRes
-	respuestaFS.Espacio = false
+func EnviarAFS(body io.Reader, endPoint string) ([]byte, error) {
+
 	url := fmt.Sprintf("http://%s:%d/%s", MemoriaConfig.IpFs, MemoriaConfig.PuertoFs, endPoint)
 	resp, err := http.Post(url, "application/json", body)
+
 	if err != nil {
-		log.Printf("error enviando mensaje al End point %s - IP:%s - Puerto:%d", endPoint,  MemoriaConfig.IpFs, MemoriaConfig.PuertoFs)
-		return respuestaFS, err
+		log.Printf("error enviando mensaje al End point %s - IP:%s - Puerto:%d", endPoint, MemoriaConfig.IpFs, MemoriaConfig.PuertoFs)
+		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("Error al recibir la respuesta del End point %s - IP:%s - Puerto:%d", endPoint,  MemoriaConfig.IpFs, MemoriaConfig.PuertoFs)
-		err := fmt.Errorf("%s", resp.Status)
-		return respuestaFS, err
+		log.Printf("Error al recibir la respuesta del End point %s - IP:%s - Puerto:%d", endPoint, MemoriaConfig.IpFs, MemoriaConfig.PuertoFs)
+		return nil, err
 	}
-	
-	err = json.NewDecoder(resp.Body).Decode(&respuestaFS)
+
+	filesystemResponse, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Printf("Error de decodificado")
-		return respuestaFS, err
+		log.Printf("Error al leer la respuesta de Filesystem")
+		return nil, err
 	}
-	return  respuestaFS, nil
+	return filesystemResponse, nil
 }
 
 func PasarDeUintAByte(num uint32) []byte {
@@ -1281,11 +1333,9 @@ func GenerarNombreArchivo(pid int, tid int) string {
 ///------------------------------------COMPACTACION--------------------------------------------------
 
 func Compactacion(w http.ResponseWriter, r *http.Request) {
-
+	log.Printf("LLEGO LA SEÑAL DE COMPACTACION")
 	compactarLasParticiones() //compacto las particiones libres
-	actualizarBasesYLímites() //actualizo las bases y limites
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Ok"))
-
 }
