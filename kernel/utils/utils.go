@@ -590,11 +590,11 @@ func quitarProcesoInicializado(pcb PCB) {
 /*---------- FUNCIONES HILOS ----------*/
 
 func createTCB(pid int, prioridad int) TCB {
-	nextTid[pid - 1]++
+	nextTid[pid]++
 
 	return TCB{
 		Pid:             pid,
-		Tid:             nextTid[pid - 1] - 1,
+		Tid:             nextTid[pid] - 1,
 		Prioridad:       prioridad,
 		HilosBloqueados: []int{},
 	}
