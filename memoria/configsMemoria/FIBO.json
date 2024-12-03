@@ -2,7 +2,7 @@
     "port": 8002,
     "memory_size": 2048,
     "instruction_path": "/home/utnso/scripts-pruebas",
-    "response_delay": 200,
+    "response_delay": 10,
     "ip_kernel": "127.0.0.1",
     "port_kernel": 8001,
     "ip_cpu": "127.0.0.1",

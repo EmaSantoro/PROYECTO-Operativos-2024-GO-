@@ -5,7 +5,7 @@
     "ip_cpu"  : "127.0.0.1",
     "puerto_cpu": 8004,
     "algoritmo_planificacion"   : "CMN",
-    "quantum" : 250,
+    "quantum" : 125,
     "log_level": "DEBUG",
     "size_inicial": 16,
     "archivo_inicial": "THE_EMPTINESS_MACHINE"
