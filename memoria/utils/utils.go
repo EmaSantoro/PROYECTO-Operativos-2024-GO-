@@ -892,7 +892,7 @@ func consolidarParticiones(numeroDeParticion int) {
 	//mapeoOriginalANuevo := make(map[int]int)
 
 	//CONSOLIDAR IZQUIERDA
-	for numeroDeParticion > 0 && !mapParticiones[numeroDeParticion-1] {
+	for numeroDeParticion > 0 && !mapParticiones[numeroDeParticion-1] { //me fijo si la de la izquierda esta libre
 		particiones[numeroDeParticion-1] += particiones[numeroDeParticion]                          // Sumar tamaño de la partición actual a la anterior
 		particiones = append(particiones[:numeroDeParticion], particiones[numeroDeParticion+1:]...) // Eliminar partición actual
 		mapParticiones = append(mapParticiones[:numeroDeParticion], mapParticiones[numeroDeParticion+1:]...)

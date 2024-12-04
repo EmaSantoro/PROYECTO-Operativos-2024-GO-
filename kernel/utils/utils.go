@@ -137,7 +137,7 @@ var mutexEsperarCompactacion sync.Mutex
 /*-------------------- VAR GLOBALES --------------------*/
 
 var (
-	nextPid = 0
+	nextPid = 1
 )
 
 var nextTid []int
@@ -205,7 +205,7 @@ func init() {
 
 		procesoInicial(ConfigKernel.ArchivoInicial, ConfigKernel.SizeInicial)
 
-		/*if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
+		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
 			go ejecutarHilosFIFO()
 		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
 			go ejecutarHilosPrioridades()
@@ -213,7 +213,7 @@ func init() {
 			go ejecutarHilosColasMultinivel(ConfigKernel.Quantum)
 		} else {
 			log.Fatalf("Algoritmo de planificacion no valido")
-		}*/
+		}
 	} else {
 		log.Fatalf("Configuracion no inicializada, segui participando...")
 	}
@@ -243,13 +243,13 @@ func createPCB() PCB {
 	}
 }
 
-func getPCB(pid int) PCB {
-	for _, pcb := range colaProcesosInicializados {
-		if pcb.Pid == pid {
-			return pcb
-		}
-	}
-	return PCB{}
+func getPCB(pid int) (PCB, error) {
+    for _, pcb := range colaProcesosInicializados {
+        if pcb.Pid == pid {
+            return pcb, nil
+        }
+    }
+    return PCB{}, fmt.Errorf("PCB with pid %d not found", pid)
 }
 
 func CrearProceso(w http.ResponseWriter, r *http.Request) {
@@ -269,7 +269,9 @@ func CrearProceso(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <PROCESS_CREATE> ##", pidActual, tidActual)
 
+	
 	iniciarProceso(path, size, prioridad)
+
 	tcbActual := getTCB(pidActual, tidActual)
 
 	enviarTCBCpu(tcbActual)
@@ -307,11 +309,10 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB){
 
 			enviarTCBMemoria(tcb, path)
 
-			proceso := colaProcesosSinIniciar[0]
 			colaProcesosSinIniciar = colaProcesosSinIniciar[1:]
 
 			//quitarProcesoNew(pcb)
-			encolarProcesoInicializado(proceso.PCB)
+			encolarProcesoInicializado(pcb)
 			encolarReady(tcb)
 
 		}else if estadoMemoria == Compactar{
@@ -441,10 +442,7 @@ func FinalizarProceso(w http.ResponseWriter, r *http.Request) {
 
 func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra un hilo en block no deberia estar en ninguna otra, no?
 
-	pcb := getPCB(pid)
-	quitarProcesoInicializado(pcb)
-	encolarProcesoExit(pcb)
-
+	
 	for _, tcb := range colaReadyHilo {
 		if tcb.Pid == pid {
 			exitHilo(pid, tcb.Tid)
@@ -462,6 +460,11 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 			exitHilo(pid, tcb.Tid)
 		}
 	}
+
+	pcb, _ := getPCB(pid)
+	quitarProcesoInicializado(pcb)
+	encolarProcesoExit(pcb)
+
 
 	resp := enviarProcesoFinalizadoAMemoria(pcb)
 
@@ -590,11 +593,11 @@ func quitarProcesoInicializado(pcb PCB) {
 /*---------- FUNCIONES HILOS ----------*/
 
 func createTCB(pid int, prioridad int) TCB {
-	nextTid[pid]++
+	nextTid[pid - 1]++
 
 	return TCB{
 		Pid:             pid,
-		Tid:             nextTid[pid] - 1,
+		Tid:             nextTid[pid - 1] - 1,
 		Prioridad:       prioridad,
 		HilosBloqueados: []int{},
 	}
@@ -662,7 +665,7 @@ func iniciarHilo(pid int, path string, prioridad int) error {
 
 	enviarTCBMemoria(tcb, path)
 
-	pcb := getPCB(pid)
+	pcb, _ := getPCB(pid)
 	pcb.Tid = append(pcb.Tid, tcb.Tid)
 	actualizarPCB(pcb)
 	encolarReady(tcb)
@@ -758,7 +761,7 @@ func EntrarHilo(w http.ResponseWriter, r *http.Request) { //debe ser del mismo p
 
 func exitHilo(pid int, tid int) error {
 	hilo := getTCB(pid, tid)
-	pcb := getPCB(pid)
+	pcb, _ := getPCB(pid)
 	pcb.Tid = removeTid(pcb.Tid, tid)
 	actualizarPCB(pcb)
 
@@ -846,16 +849,16 @@ func actualizarTCB(tcb TCB) {
 
 /*---------- FUNCIONES HILOS ALGORITMOS PLANIFICACION ----------*/
 //FIFO
-/*func ejecutarHilosFIFO() {
+func ejecutarHilosFIFO() {
 	var Hilo TCB
 	for {
-		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
+		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion {
 			Hilo = colaReadyHilo[0]
 			ejecutarInstruccion(Hilo)
 		}
 	}
 }
-*/
+
 func ejecutarInstruccion(Hilo TCB) {
 	if esperarFinCompactacion {
 		quitarReady(Hilo)
@@ -865,28 +868,28 @@ func ejecutarInstruccion(Hilo TCB) {
 }
 
 // PRIORIDADES
-/*func ejecutarHilosPrioridades() {
+func ejecutarHilosPrioridades() {
+	var Hilo TCB
 	for {
-		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
-			Hilo := obtenerHiloMayorPrioridad()
-			ejecutarInstruccion(Hilo)
+		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
+			HiloAEjecutar := obtenerHiloMayorPrioridad()
+			ejecutarInstruccion(HiloAEjecutar)
 
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
-			Hilo := obtenerHiloMayorPrioridad()
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && esperarFinCompactacion{
+			
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
 			}
 		}
 	}
 }
-*/
+
 
 func obtenerHiloMayorPrioridad() TCB {
 
 	mutexColaReadyHilo.Lock()
 
-	var hiloMayorPrioridad TCB
-	hiloMayorPrioridad = colaReadyHilo[0]
+	hiloMayorPrioridad := colaReadyHilo[0]
 	for _, hilo := range colaReadyHilo {
 		if hilo.Prioridad < hiloMayorPrioridad.Prioridad {
 			hiloMayorPrioridad = hilo
@@ -899,20 +902,21 @@ func obtenerHiloMayorPrioridad() TCB {
 }
 
 // MULTICOLAS
-/*func ejecutarHilosColasMultinivel(quantum int) {
+func ejecutarHilosColasMultinivel(quantum int) {
+	var Hilo TCB
 	for {
-		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 {
-			Hilo := obtenerHiloMayorPrioridad()
+		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
+			Hilo = obtenerHiloMayorPrioridad()
 			go comenzarQuantum(Hilo, quantum)
 			ejecutarInstruccion(Hilo)
-		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 {
-			Hilo := obtenerHiloMayorPrioridad()
+		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && esperarFinCompactacion{
+			
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
 			}
 		}
 	}
-}*/
+}
 
 func comenzarQuantum(Hilo TCB, quantum int) {
 
@@ -1043,11 +1047,11 @@ func encolarReady(tcb TCB) {
 
 	log.Printf("## (<PID %d>:<TID %d>) Se encola el Hilo - Estado: READY", tcb.Pid, tcb.Tid)
 
-	go verificarReplanificar(tcb)
+	//go verificarReplanificar(tcb)
 }
 
 
-func verificarReplanificar(tcb TCB){
+/*func verificarReplanificar(tcb TCB){
 
 	switch ConfigKernel.AlgoritmoPlanificacion {
 	case "FIFO":
@@ -1067,6 +1071,7 @@ func verificarReplanificar(tcb TCB){
 		}
 	case "CMN":
 		if len(colaExecHilo) == 0 && len(colaReadyHilo) > 0 && esperarFinCompactacion{
+			log.Printf("## Se replanifica el hilo despues de hacer ready ##")
 			Hilo := obtenerHiloMayorPrioridad()
 			go comenzarQuantum(Hilo, ConfigKernel.Quantum)
 			ejecutarInstruccion(Hilo)
@@ -1077,6 +1082,7 @@ func verificarReplanificar(tcb TCB){
 		}
 	}
 }
+
 
 func replanificar() {
 	switch ConfigKernel.AlgoritmoPlanificacion {
@@ -1094,13 +1100,14 @@ func replanificar() {
 		}
 	case "CMN":
 		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
+			log.Printf("## Se replanifica el hilo despues de hacer exit ##")
 			Hilo := obtenerHiloMayorPrioridad()
 			go comenzarQuantum(Hilo, ConfigKernel.Quantum)
 			ejecutarInstruccion(Hilo)
 			break
 		}
 	}
-}
+}*/
 
 
 func encolarExec(tcb TCB) {
@@ -1138,7 +1145,7 @@ func quitarExec(tcb TCB) {
 	colaExecHilo = eliminarHiloCola(colaExecHilo, tcb)
 	mutexColaExecHilo.Unlock()
 
-	go replanificar()
+	//go replanificar()
 }
 
 func quitarBlock(tcb TCB) {
@@ -1297,7 +1304,7 @@ func CrearMutex(w http.ResponseWriter, r *http.Request) {
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <MUTEX_CREATE> ##", pid, tid)
 
 	mutexNuevo := mutexCreate(mutexNombre)
-	pcb := getPCB(pid)
+	pcb, _ := getPCB(pid)
 	pcb.Mutex = append(pcb.Mutex, mutexNuevo)
 	actualizarPCB(pcb) //actualizo la PCB con los nuevos mutex
 	tcbActual := getTCB(pid, tid)
@@ -1310,7 +1317,9 @@ func CrearMutex(w http.ResponseWriter, r *http.Request) {
 func actualizarPCB(pcb PCB) {
 	for i, p := range colaProcesosInicializados {
 		if p.Pid == pcb.Pid {
+			mutexColaProcesosInicializados.Lock()
 			colaProcesosInicializados[i] = pcb
+			mutexColaProcesosInicializados.Unlock()
 		}
 	}
 }
@@ -1330,8 +1339,8 @@ func BloquearMutex(w http.ResponseWriter, r *http.Request) {
 	mutexNombre := mutex.Mutex
 
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <MUTEX_LOCK> ##", pid, tid)
-
-	proceso := getPCB(pid)
+	
+	proceso, _ := getPCB(pid)
 	hiloSolicitante := getTCB(pid, tid)
 
 	err = lockMutex(proceso, hiloSolicitante, mutexNombre)
@@ -1361,7 +1370,7 @@ func LiberarMutex(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicitó syscall: <MUTEX_UNLOCK> ##", pid, tid)
 
-	proceso := getPCB(pid)
+	proceso, _ := getPCB(pid)
 	hiloSolicitante := getTCB(pid, tid)
 
 	err = unlockMutex(proceso, hiloSolicitante, mutexNombre)
@@ -1383,6 +1392,7 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 		if mutex.Nombre == mutexNombre {
 
 			if !mutex.Bloqueado { // si el mutex no esta bloqueado se lo asigno al hilo que lo pidio
+
 				mutex.Bloqueado = true
 				mutex.HiloUsando = hiloSolicitante.Tid
 
@@ -1394,6 +1404,7 @@ func lockMutex(proceso PCB, hiloSolicitante TCB, mutexNombre string) error {
 					}
 				}
 				if isInExec(hiloSolicitante) {
+
 					enviarTCBCpu(hiloSolicitante)
 				} else {
 					break

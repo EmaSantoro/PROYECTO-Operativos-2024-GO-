@@ -17,12 +17,13 @@ import (
 )
 
 // var globales
+var wg sync.WaitGroup
 var hiloAnt hiloAnterior
 var ConfigsCpu *globals.Config
 var mutexInterrupt sync.Mutex
 var nuevaInterrupcion Interrupt
 var memoryData sync.WaitGroup
-var dataFromMemory uint32 //verrr
+var dataFromMemory uint32
 var flagSegmentationFault bool
 var syscallEnviada bool = false
 
@@ -166,6 +167,8 @@ func IniciarConfiguracion(filePath string) *globals.Config {
 
 func init() {
 	ConfigsCpu = IniciarConfiguracion(os.Args[1])
+	hiloAnt.Pid = -1
+	hiloAnt.Tid = -1
 
 }
 
@@ -180,7 +183,7 @@ func ConfigurarLogger() {
 
 // FUNCIONES PRINCIPALES
 func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
-
+	log.Printf("ME LLEGA NUEVO PID Y TID")
 	var processAndThreadIDs KernelExeReq
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&processAndThreadIDs)
@@ -194,13 +197,15 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
-
+	wg.Add(1)
 	contextoActual := GetContextoEjecucion(processAndThreadIDs.Pid, processAndThreadIDs.Tid)
 
 	InstructionCycle(&contextoActual)
 
 }
 func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
+	log.Printf("Busca el contexto de ejecucion")
+
 	var contextoDeEjecucion contextoEjecucion
 	var reqContext KernelExeReq
 	reqContext.Pid = pid
@@ -245,16 +250,19 @@ func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
 
 func InstructionCycle(contexto *contextoEjecucion) {
 	if hiloAnt.Pid == contexto.pcb.Pid && hiloAnt.Tid == contexto.tcb.Tid {
-
+		log.Printf("Entra a evaluar HILO ANTERIOR")
 		if CheckInterrupt(*contexto) {
 
 			if err := RealizarInterrupcion(contexto); err != nil {
 				log.Printf("Error al ejecutar la interrupción: %v", err)
 			}
+			log.Printf("FINALIZA EJECUCION POR INTERRUPCION DE PID : %d y TID : %d ", contexto.pcb.Pid, contexto.tcb.Tid)
+			wg.Done()
 			return
+
 		}
 	}
-
+	wg.Done()
 	guardarPidyTid(contexto.pcb.Pid, contexto.tcb.Tid)
 
 	for {
@@ -277,11 +285,12 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		log.Printf("Instrucción decodificada: INSTUCCIÓN = %s, PARÁMETROS = %v", instructionLine[0], instruction.parameters)
 
 		// Execute
+		log.Printf("## TID: %d - Ejecutando: %s - Parámetros: %v", contexto.tcb.Tid, instructionLine[0], instruction.parameters)
 		if err := Execute(contexto, instruction); err != nil {
 			log.Printf("Error al ejecutar %v: %v", instructionLine, err)
 		}
 
-		log.Printf("## TID: %d - Ejecutando: %s - Parámetros: %v", contexto.tcb.Tid, instructionLine[0], instruction.parameters)
+		
 
 		if flagSegmentationFault {
 			flagSegmentationFault = false
@@ -302,6 +311,7 @@ func InstructionCycle(contexto *contextoEjecucion) {
 			if err := RealizarInterrupcion(contexto); err != nil {
 				log.Printf("Error al ejecutar la interrupcion: %v", err)
 			}
+			log.Printf("FINALIZA EJECUCION POR INTERRUPCION DE PID : %d y TID : %d ", contexto.pcb.Pid, contexto.tcb.Tid)
 			break
 		}
 	}
@@ -1108,12 +1118,14 @@ func RecieveInterruption(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("ok"))
-
+	log.Printf("## Llega interrupcion al puerto Interrupt")
+	wg.Wait()
+	log.Printf("## Se registra la interrupcion")
 	mutexInterrupt.Lock()
 	nuevaInterrupcion.flagInterrucption = true
 	nuevaInterrupcion.Pid = interrupction.Pid
 	nuevaInterrupcion.Tid = interrupction.Tid
 	nuevaInterrupcion.motivo = interrupction.Interrupcion
 	mutexInterrupt.Unlock()
-	log.Printf("## Llega interrupcion al puerto Interrupt")
+
 }
