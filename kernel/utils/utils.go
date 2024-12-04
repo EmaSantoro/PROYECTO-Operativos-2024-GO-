@@ -737,10 +737,16 @@ func EntrarHilo(w http.ResponseWriter, r *http.Request) { //debe ser del mismo p
 	pid := hilosJoin.Pid
 	tidActual := hilosJoin.TidActual
 	tidAEjecutar := hilosJoin.TidCambio
+	tcbAEjecutar := getTCB(pid, tidAEjecutar)
+	tcbActual := getTCB(pid, tidActual)
 	log.Printf("## (<PID:%d>:<TID:%d>) - Solicito syscall: <THREAD_JOIN> ##", pid, tidActual)
 
+	if(isInReady(tcbAEjecutar)){
 	err = joinHilo(pid, tidActual, tidAEjecutar)
-
+	}else{
+		log.Printf("## (<PID:%d>:<TID:%d>) - No se puede hacer join con un hilo que no existe ##", pid, tidActual)
+		enviarTCBCpu(tcbActual)
+	}
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
