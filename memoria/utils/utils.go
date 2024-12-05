@@ -577,9 +577,8 @@ func compactarLasParticiones() {
 	nuevaParticion := 0
 	i := 0
 	//mapeoOriginalANuevo := make(map[int]int)
-
+	log.Printf("PROBANDO AHORA BIT MAP PARTICIONES %v", mapParticiones)
 	for i < len(particiones) { //la idea es recorrer todas las particiones
-		log.Printf("ENTRO AL FOR")
 		if !mapParticiones[i] { // Si la partición está libre, la sumamos al total y la eliminamos
 			log.Printf("POSICION %d", i)
 			nuevaParticion += particiones[i] //aca guardo el tamaño para mi nueva particion que va a ser la compacta
@@ -588,12 +587,16 @@ func compactarLasParticiones() {
 			mapParticiones = append(mapParticiones[:i], mapParticiones[i+1:]...) // actualizar el map de estados
 			log.Printf("BITMAP %v ", mapParticiones)
 			log.Printf("PARTICIONES VECTOR : %v", particiones)
+		} else {
+			i++
 		}
-		i++
+
 	}
 
 	particiones = append(particiones, nuevaParticion)
+	log.Printf("ANTES APPEND FALSE BIT MAP PARTICIONES %v", mapParticiones)
 	mapParticiones = append(mapParticiones, false) // La nueva partición estará libre
+	log.Printf("DESPUES APPEND FALSE BIT MAP PARTICIONES %v", mapParticiones)
 	log.Printf("PARTICIONES VECTOR FINAL : %v", particiones)
 	//actualizarPCBxParticionNueva(mapeoOriginalANuevo) //actualizo el mapa de pcb por particion
 }
@@ -613,6 +616,23 @@ func actualizarPCBxParticionNueva(numeroPart int) {
 		}
 	}
 	log.Printf("MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
+}
+func actualizarParaConsolidarPIDxParticion(numeroPart int) {
+
+	log.Printf("CONSOLIDACION: MAP INICIAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
+	log.Printf("CONSOLIDACION: NUMERO DE PARTICION: %d", numeroPart)
+	for pid, particion := range mapPCBPorParticion {
+		log.Printf("CONSOLIDACION: PARTICION ENCONTRADA %d EN PID %d", particion, pid)
+		/*if particion == numeroPart {
+			mapPCBPorParticion[pid] = particion - 1
+			cambiarBaseYLimite(pid, particion)
+		} else */if particion > numeroPart {
+			mapPCBPorParticion[pid] = particion - 1
+			cambiarBaseYLimite(pid, particion)
+		}
+	}
+	log.Printf("CONSOLIDACION: MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
+	return
 }
 
 func cambiarBaseYLimite(pid int, particion int) {
@@ -850,8 +870,9 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 		delete(mapPIDxBaseLimit, pid)             // elimino el pid del map de base y limit
 	} else if esquemaMemoria == "DINAMICAS" {
 		mapParticiones[numeroDeParticion] = false
-		consolidarParticiones(numeroDeParticion) //consolido las particiones libres
 		delete(mapPCBPorParticion, pid)
+		consolidarParticiones(numeroDeParticion) //consolido las particiones libres
+
 		delete(mapPCBPorTCB, PCB{Pid: pid})
 		delete(mapPIDxBaseLimit, pid)
 	}
@@ -892,12 +913,15 @@ func consolidarParticiones(numeroDeParticion int) {
 	//mapeoOriginalANuevo := make(map[int]int)
 
 	//CONSOLIDAR IZQUIERDA
-	for numeroDeParticion > 0 && !mapParticiones[numeroDeParticion-1] { //me fijo si la de la izquierda esta libre
+	log.Printf("ANTES DE CONSOLIDAR MAP PARTICIONES: %v", mapParticiones)
+	log.Printf("ANTES DE CONSOLIDAR PARTICIONES: %v", particiones)
+	if numeroDeParticion > 0 && !mapParticiones[numeroDeParticion-1] { //me fijo si la de la izquierda esta libre
 		particiones[numeroDeParticion-1] += particiones[numeroDeParticion]                          // Sumar tamaño de la partición actual a la anterior
 		particiones = append(particiones[:numeroDeParticion], particiones[numeroDeParticion+1:]...) // Eliminar partición actual
 		mapParticiones = append(mapParticiones[:numeroDeParticion], mapParticiones[numeroDeParticion+1:]...)
-
-		actualizarPCBxParticionNueva(numeroDeParticion)
+		log.Printf("DESPUES DE CONSOLIDAR IZ MAP PARTICIONES: %v", mapParticiones)
+		log.Printf("DESPUES DE CONSOLIDAR IZ PARTICIONES: %v", particiones)
+		actualizarParaConsolidarPIDxParticion(numeroDeParticion)
 		// for pid, particion := range mapPCBPorParticion {
 		// 	if particion == numeroDeParticion {
 		// 		mapPCBPorParticion[pid] = numeroDeParticion - 1
@@ -909,12 +933,13 @@ func consolidarParticiones(numeroDeParticion int) {
 	}
 
 	//CONSOLIDAR DERECHA
-	for numeroDeParticion < len(particiones)-1 && !mapParticiones[numeroDeParticion+1] {
+	if numeroDeParticion < len(particiones)-1 && !mapParticiones[numeroDeParticion+1] {
 		particiones[numeroDeParticion] += particiones[numeroDeParticion+1]
 		particiones = append(particiones[:numeroDeParticion+1], particiones[numeroDeParticion+2:]...)
 		mapParticiones = append(mapParticiones[:numeroDeParticion+1], mapParticiones[numeroDeParticion+2:]...)
-
-		actualizarPCBxParticionNueva(numeroDeParticion)
+		log.Printf("DESPUES DE CONSOLIDAR DER MAP PARTICIONES: %v", mapParticiones)
+		log.Printf("DESPUES DE CONSOLIDAR DER PARTICIONES: %v", particiones)
+		actualizarParaConsolidarPIDxParticion(numeroDeParticion)
 		// for pid, particion := range mapPCBPorParticion {
 		// 	if particion == numeroDeParticion+1 {
 		// 		mapPCBPorParticion[pid] = numeroDeParticion
