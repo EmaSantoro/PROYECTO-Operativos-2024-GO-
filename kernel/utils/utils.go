@@ -205,15 +205,15 @@ func init() {
 
 		procesoInicial(ConfigKernel.ArchivoInicial, ConfigKernel.SizeInicial)
 
-		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
-			go ejecutarHilosFIFO()
-		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
-			go ejecutarHilosPrioridades()
-		} else if ConfigKernel.AlgoritmoPlanificacion == "CMN" {
-			go ejecutarHilosColasMultinivel(ConfigKernel.Quantum)
-		} else {
-			log.Fatalf("Algoritmo de planificacion no valido")
-		}
+			if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
+				go ejecutarHilosFIFO()
+			} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
+				go ejecutarHilosPrioridades()
+			} else if ConfigKernel.AlgoritmoPlanificacion == "CMN" {
+				go ejecutarHilosColasMultinivel(ConfigKernel.Quantum)
+			} else {
+				log.Fatalf("Algoritmo de planificacion no valido")
+			}
 	} else {
 		log.Fatalf("Configuracion no inicializada, segui participando...")
 	}
@@ -856,6 +856,11 @@ func ejecutarHilosFIFO() {
 			Hilo = colaReadyHilo[0]
 			ejecutarInstruccion(Hilo)
 		}
+		if len(colaProcesosInicializados) <= 0 {
+			log.Printf("finalizo la planificacion")
+			break;
+			
+		}
 	}
 }
 
@@ -876,10 +881,13 @@ func ejecutarHilosPrioridades() {
 			ejecutarInstruccion(HiloAEjecutar)
 
 		} else if len(colaReadyHilo) > 0 && len(colaExecHilo) >= 1 && esperarFinCompactacion{
-			
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
 			}
+		}
+		if len(colaProcesosInicializados) <= 0 {
+			log.Printf("finalizo la planificacion")
+			break;
 		}
 	}
 }
@@ -914,6 +922,10 @@ func ejecutarHilosColasMultinivel(quantum int) {
 			if Hilo.Prioridad < colaExecHilo[0].Prioridad {
 				enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
 			}
+		}
+		if len(colaProcesosInicializados) <= 0 {
+			log.Printf("finalizo la planificacion")
+			break;
 		}
 	}
 }
