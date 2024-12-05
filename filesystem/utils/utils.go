@@ -142,31 +142,31 @@ func (b *Bitmap) FromBytes(bytes []byte) {
 }
 
 func cargarBitmap() error {
-    bitmapFile, err := os.Open(bitmapFilePath)
-    if err != nil {
-        return err
-    }
-    defer bitmapFile.Close()
+	bitmapFile, err := os.Open(bitmapFilePath)
+	if err != nil {
+		return err
+	}
+	defer bitmapFile.Close()
 
-    fileInfo, err := bitmapFile.Stat()
-    if err != nil {
-        return err
-    }
+	fileInfo, err := bitmapFile.Stat()
+	if err != nil {
+		return err
+	}
 
-    if fileInfo.Size() == 0 {
-        // El archivo está vacío, no hay necesidad de cargar el bitmap
+	if fileInfo.Size() == 0 {
+		// El archivo está vacío, no hay necesidad de cargar el bitmap
 		bitmapGlobal = NewBitmap()
-        return nil
-    }
-    bitmapBytes := make([]byte, ConfigFS.Block_count/8)
-    _, err = bitmapFile.Read(bitmapBytes)
-    if err != nil {
-        return err
-    }
+		return nil
+	}
+	bitmapBytes := make([]byte, ConfigFS.Block_count/8)
+	_, err = bitmapFile.Read(bitmapBytes)
+	if err != nil {
+		return err
+	}
 
-    bitmapGlobal = NewBitmap()
-    bitmapGlobal.FromBytes(bitmapBytes)
-    return nil
+	bitmapGlobal = NewBitmap()
+	bitmapGlobal.FromBytes(bitmapBytes)
+	return nil
 }
 
 func actualizarBitmap() error {
@@ -204,7 +204,7 @@ func CrearBloques(path string, sizeBloques int) {
 func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	dumpReq := FSmemoriaREQ{}
 	var response map[string]bool
-	
+
 	// Decodificar la solicitud JSON
 	if err := json.NewDecoder(r.Body).Decode(&dumpReq); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -216,49 +216,50 @@ func DumpMemory(w http.ResponseWriter, r *http.Request) {
 	if !hayEspacioDisponible(cantidadDeBloques) || !entraEnElBloqueDeIndice(cantidadDeBloques-1) {
 		log.Printf("No hay suficiente espacio")
 		response = map[string]bool{"resultado": false}
-	}else {
-			response = map[string]bool{"resultado": true}
-			// Reservar bloques en el bitmap
-			bloquesReservados, err := reservarBloques(cantidadDeBloques, dumpReq.NombreArchivo)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+	} else {
+		response = map[string]bool{"resultado": true}
+		// Reservar bloques en el bitmap
+		bloquesReservados, err := reservarBloques(cantidadDeBloques, dumpReq.NombreArchivo)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
-			}
-			
-			// Crear archivo de metadata
-			archivoMetaData, err := crearArchivoMetaData(dumpReq.NombreArchivo, bloquesReservados[0], dumpReq.Tamanio)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-			
-			log.Printf("## Archivo Creado: <%s> - Tamanio: <%d>", archivoMetaData, dumpReq.Tamanio)
-			// Guardar el bitmap actualizado en el archivo
-			err = actualizarBitmap()
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
+		}
 
-			// Escribir contenido a los bloques de datos
-			err = actualizarBloques(bloquesReservados, dumpReq.Data)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
+		// Crear archivo de metadata
+		archivoMetaData, err := crearArchivoMetaData(dumpReq.NombreArchivo, bloquesReservados[0], dumpReq.Tamanio)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		log.Printf("## Archivo Creado: <%s> - Tamanio: <%d>", archivoMetaData, dumpReq.Tamanio)
+		// Guardar el bitmap actualizado en el archivo
+		err = actualizarBitmap()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Escribir contenido a los bloques de datos
+		err = actualizarBloques(bloquesReservados, dumpReq.Data, dumpReq.NombreArchivo)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		log.Printf("## Fin de solicitud - Archivo: <%s>", dumpReq.NombreArchivo)
 	}
 	respBytes, _ := json.Marshal(response)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(respBytes)
 }
 
-func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error {
+func actualizarBloques(bloquesReservados []int, dumpReqData []byte, nombreArchivo string) error {
 	bloquesFile, err := os.OpenFile(bloquesFilePath, os.O_WRONLY, 0666)
 	if err != nil {
 		return err
 	}
 	defer bloquesFile.Close()
-	cargarBloqueIndices(bloquesFile, bloquesReservados)
+	cargarBloqueIndices(bloquesFile, bloquesReservados, nombreArchivo)
 	bloques := bloquesReservados[1:]
 	var data []byte
 	for indice, bloqueIndex := range bloques {
@@ -268,15 +269,17 @@ func actualizarBloques(bloquesReservados []int, dumpReqData []byte) error {
 			data = dumpReqData[indice*ConfigFS.Block_size:]
 		}
 		escribirBloque(bloqueIndex, bloquesFile, data)
+		log.Printf("## Acceso Bloque - Archivo: <%s> - Tipo Bloque: <BLOQUE> - Bloque File System <%d>", nombreArchivo, bloqueIndex)
 	}
 
 	return nil
 }
 
-func cargarBloqueIndices(bloquesFile *os.File, bloquesReservados []int) {
+func cargarBloqueIndices(bloquesFile *os.File, bloquesReservados []int, nombreArchivo string) {
 	bloqueIndex := bloquesReservados[0]
 	bloquesABytes := toBytesBloque(bloquesReservados[1:])
 	escribirBloque(bloqueIndex, bloquesFile, bloquesABytes)
+	log.Printf("## Acceso Bloque - Archivo: <%s> - Tipo Bloque: <INDICE> - Bloque File System <%d>", nombreArchivo, bloqueIndex)
 
 }
 func escribirBloque(bloque int, bloquesFile *os.File, data []byte) {

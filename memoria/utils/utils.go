@@ -1083,6 +1083,8 @@ func ReadMemoryHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	log.Printf("## <Lectura> - (<PID:%d> : <TID:%d>) - Dir. Fisica: <%d> - Tamanio <%d>", memReq.PID, memReq.TID, memReq.Address, len(data))
+
 	w.WriteHeader(http.StatusOK)
 	w.Write(respuestaJson)
 }
@@ -1181,6 +1183,8 @@ func WriteMemoryHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	log.Printf("## <Escritura> - (<PID:%d> : <TID:%d>) - Dir. Fisica: <%d> - Tamanio <%d>", memReq.PID, memReq.TID, memReq.Address, len(memReq.Data))
 
 	w.WriteHeader(http.StatusOK)
 }
