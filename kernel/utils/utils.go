@@ -219,6 +219,19 @@ func init() {
 	}
 }
 
+func planificacion(){
+	if len(colaReadyHilo) < 1{
+		if ConfigKernel.AlgoritmoPlanificacion == "FIFO" {
+			go ejecutarHilosFIFO()
+		} else if ConfigKernel.AlgoritmoPlanificacion == "PRIORIDADES" {
+			go ejecutarHilosPrioridades()
+		} else if ConfigKernel.AlgoritmoPlanificacion == "CMN" {
+			go ejecutarHilosColasMultinivel(ConfigKernel.Quantum)
+		} else {
+			log.Fatalf("Algoritmo de planificacion no valido")
+		}
+	}
+}
 /*---------- FUNCIONES PROCESOS ----------*/
 
 func procesoInicial(path string, size int) {
@@ -293,7 +306,9 @@ func iniciarProceso(path string, size int, prioridad int) {
 }
 
 
-func inicializarProceso(path string, size int, prioridad int, pcb PCB){
+
+
+func inicializarProceso(path string, size int, prioridad int, pcb PCB) bool{
 
 	log.Printf(" ## (<PID>:%d) Se crea el proceso - Estado: NEW ##", pcb.Pid)
 
@@ -314,6 +329,7 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB){
 			//quitarProcesoNew(pcb)
 			encolarProcesoInicializado(pcb)
 			encolarReady(tcb)
+			return true
 
 		}else if estadoMemoria == Compactar{
 
@@ -334,6 +350,7 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB){
 			slog.Error("Error en el estado de la memoria")
 		}
 	}
+	return false
 }
 
 
@@ -470,10 +487,10 @@ func exitProcess(pid int) error { //Consulta de nico: teoricamente si encuentra 
 
 	if resp == nil {
 		// Notificar a traves del canal
-		//esperarFinProceso = true
-		if len(colaProcesosSinIniciar) > 0 {
+		loInicio := true
+		for len(colaProcesosSinIniciar) > 0 && loInicio {
 			proceso := colaProcesosSinIniciar[0]
-			inicializarProceso(proceso.Path, proceso.Size, proceso.Prioridad, proceso.PCB)
+			loInicio = inicializarProceso(proceso.Path, proceso.Size, proceso.Prioridad, proceso.PCB)
 		}
 
 	} else {
@@ -859,7 +876,6 @@ func ejecutarHilosFIFO() {
 		if len(colaProcesosInicializados) <= 0 {
 			log.Printf("finalizo la planificacion")
 			break;
-			
 		}
 	}
 }
