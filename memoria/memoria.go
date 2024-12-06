@@ -26,11 +26,6 @@ func main() {
 	globals.MemoriaUsuario = make([]byte, globals.ClientConfig.Tamanio_Memoria) //inicializar tamaño de la memoria
 
 	// funciones que va a manejar el servidor (Kernel , cpu y filesystem)
-
-	//mux.HandleFunc("Endpoint", Funcion a la que responde)
-	//mux := http.NewServeMux() // se crea el servidor
-	// mux.HandleFunc("POST /actualizarContextoDeEjecucion", utils.ActualizarContextoDeEjecucion)
-	// http.HandleFunc("POST /setInstructionFromFileToMap", utils.SetInstructionsFromFileToMap) //guardo todo en un map
 	http.HandleFunc("POST /createProcess", utils.CreateProcess)                          //creo un proceso cuando me pasan el pcb,tcb,path y size
 	http.HandleFunc("POST /terminateProcess", utils.TerminateProcess)                    //borro un proceso cuando me pasan el pid
 	http.HandleFunc("POST /createThread", utils.CreateThread)                            //creo un hilo cuando me pasan el pcb,tcb,path y size

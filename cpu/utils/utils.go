@@ -183,7 +183,7 @@ func ConfigurarLogger() {
 
 // FUNCIONES PRINCIPALES
 func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
-	log.Printf("ME LLEGA NUEVO PID Y TID")
+	//log.Printf("ME LLEGA NUEVO PID Y TID")
 	var processAndThreadIDs KernelExeReq
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&processAndThreadIDs)
@@ -204,7 +204,7 @@ func RecibirPIDyTID(w http.ResponseWriter, r *http.Request) {
 
 }
 func GetContextoEjecucion(pid int, tid int) (context contextoEjecucion) {
-	log.Printf("Busca el contexto de ejecucion")
+	//log.Printf("Busca el contexto de ejecucion")
 
 	var contextoDeEjecucion contextoEjecucion
 	var reqContext KernelExeReq
@@ -289,8 +289,6 @@ func InstructionCycle(contexto *contextoEjecucion) {
 		if err := Execute(contexto, instruction); err != nil {
 			log.Printf("Error al ejecutar %v: %v", instructionLine, err)
 		}
-
-		
 
 		if flagSegmentationFault {
 			flagSegmentationFault = false

@@ -288,7 +288,6 @@ func iniciarProceso(path string, size int, prioridad int) {
 	colaProcesosSinIniciar = append(colaProcesosSinIniciar, proceso)
 	mutexProcesosSinIniciar.Unlock()
 	inicializarProceso(path, size, prioridad, pcb)
-	//go inicializarProceso(path, size, prioridad, pcb)
 
 }
 
@@ -321,11 +320,12 @@ func inicializarProceso(path string, size int, prioridad int, pcb PCB) bool {
 			mutexEsperarCompactacion.Unlock()
 
 			compactar()
-			inicializarProceso(path, size, prioridad, pcb)
 
 			mutexEsperarCompactacion.Lock()
 			esperarFinCompactacion = true
 			mutexEsperarCompactacion.Unlock()
+
+			return inicializarProceso(path, size, prioridad, pcb)
 
 		} else if estadoMemoria == NoHayEspacio {
 			log.Printf("## (<PID: %d >) NO HAY PARTICIONES DISPONIBLES PARA SU TAMANIO", pcb.Pid)
@@ -341,54 +341,6 @@ const (
 	Compactar    int = 2
 	NoHayEspacio int = 3
 )
-
-/*func inicializarProceso(path string, size int, prioridad int, pcb PCB) {
-	for {
-		if esperarFinProceso {
-			if esElPrimerProcesoEnNew(pcb) {
-				estadoMemoria := consultaEspacioAMemoria(size, pcb)
-				if estadoMemoria == HayEspacio {
-					nextTid = append(nextTid, 0)
-					tcb := createTCB(pcb.Pid, prioridad) // creamos hilo main
-					pcb.Tid = append(pcb.Tid, tcb.Tid)   // agregamos el hilo a la listas de hilos del proceso
-
-					enviarTCBMemoria(tcb, path)
-
-					quitarProcesoNew(pcb)
-					encolarProcesoInicializado(pcb)
-					encolarReady(tcb)
-					break
-				} else if estadoMemoria == Compactar {
-					mutexEsperarCompactacion.Lock()
-					esperarFinCompactacion = false
-					mutexEsperarCompactacion.Unlock()
-
-					//for {
-						//if len(colaExecHilo) == 0 {
-							compactar()
-						//	break
-						//}
-					//}
-
-					mutexEsperarCompactacion.Lock()
-					esperarFinCompactacion = true
-					mutexEsperarCompactacion.Unlock()
-
-				} else if estadoMemoria == NoHayEspacio {
-					log.Printf("## (<PID: %d >) NO HAY PARTICIONES DISPONIBLES PARA SU TAMANIO", pcb.Pid)
-					esperarFinProceso = false
-				} else{
-					slog.Error("Error en el estado de la memoria")
-				}
-
-			}
-		}
-	}
-}*/
-
-/*func esElPrimerProcesoEnNew(pcb PCB) bool {
-	return colaNewproceso[0].Pid == pcb.Pid
-}*/
 
 func esElPrimerProcesoSinIniciar(pcb PCB) bool {
 	return colaProcesosSinIniciar[0].PCB.Pid == pcb.Pid
@@ -859,6 +811,7 @@ func ejecutarHilosFIFO() {
 	}
 }
 
+// ejecutarInstruccion ejecuta una instruccion de un hilo y la quita de la cola de ready y la pone en la cola de ejecucion y la envia a la cpu
 func ejecutarInstruccion(Hilo TCB) {
 	if esperarFinCompactacion {
 		quitarReady(Hilo)
@@ -1053,66 +1006,7 @@ func encolarReady(tcb TCB) {
 
 	log.Printf("## (<PID %d>:<TID %d>) Se encola el Hilo - Estado: READY", tcb.Pid, tcb.Tid)
 
-	//go verificarReplanificar(tcb)
 }
-
-/*func verificarReplanificar(tcb TCB){
-
-	switch ConfigKernel.AlgoritmoPlanificacion {
-	case "FIFO":
-		if len(colaExecHilo) == 0 && len(colaReadyHilo) > 0 && esperarFinCompactacion{
-			Hilo := colaReadyHilo[0]
-			ejecutarInstruccion(Hilo)
-			break
-		}
-	case "PRIORIDADES":
-		if len(colaExecHilo) == 0 && len(colaReadyHilo) > 0 && esperarFinCompactacion{
-			Hilo := obtenerHiloMayorPrioridad()
-			ejecutarInstruccion(Hilo)
-			break
-		} else if len(colaExecHilo) > 0 && tcb.Prioridad < colaExecHilo[0].Prioridad && esperarFinCompactacion{
-			enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
-			break
-		}
-	case "CMN":
-		if len(colaExecHilo) == 0 && len(colaReadyHilo) > 0 && esperarFinCompactacion{
-			log.Printf("## Se replanifica el hilo despues de hacer ready ##")
-			Hilo := obtenerHiloMayorPrioridad()
-			go comenzarQuantum(Hilo, ConfigKernel.Quantum)
-			ejecutarInstruccion(Hilo)
-			break
-		} else if len(colaExecHilo) > 0 && tcb.Prioridad < colaExecHilo[0].Prioridad && esperarFinCompactacion {
-			enviarInterrupcion(colaExecHilo[0].Pid, colaExecHilo[0].Tid, "Prioridades")
-			break
-		}
-	}
-}
-
-
-func replanificar() {
-	switch ConfigKernel.AlgoritmoPlanificacion {
-	case "FIFO":
-		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
-			Hilo := colaReadyHilo[0]
-			ejecutarInstruccion(Hilo)
-			break
-		}
-	case "PRIORIDADES":
-		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
-			Hilo := obtenerHiloMayorPrioridad()
-			ejecutarInstruccion(Hilo)
-			break
-		}
-	case "CMN":
-		if len(colaReadyHilo) > 0 && len(colaExecHilo) == 0 && esperarFinCompactacion{
-			log.Printf("## Se replanifica el hilo despues de hacer exit ##")
-			Hilo := obtenerHiloMayorPrioridad()
-			go comenzarQuantum(Hilo, ConfigKernel.Quantum)
-			ejecutarInstruccion(Hilo)
-			break
-		}
-	}
-}*/
 
 func encolarExec(tcb TCB) {
 	mutexColaExecHilo.Lock()

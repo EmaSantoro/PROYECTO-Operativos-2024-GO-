@@ -495,10 +495,7 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 			//aca deberia de alguna manera verificar si puede o no compactar
 			if espacioLibreSuficiente(process.Size) { //funcion que me devuelve true o false si hay espacio suficiente sumando todas las particiones libres
 				estado.Estado = Compactar
-				//compactarLasParticiones() //compacto las particiones libres
-				//actualizarBasesYLímites() //actualizo las bases y limites
 			} else {
-				//http.Error(w, "No hay espacio en la memoria", http.StatusConflict)
 				estado.Estado = NoHayEspacio
 			}
 		} else {
@@ -522,8 +519,6 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 			pcb.Limit = uint32(limitEnInt)
 
 			mapPIDxBaseLimit[process.Pid] = Valor{Base: pcb.Base, Limit: pcb.Limit}
-
-			// mapParticiones[numeroDeParticion] = true //marcar particion como ocupada
 
 			if err := guardarPCBenMapConRespectivaParticion(pcb.Pid, numeroDeParticion); err != nil { //GUARDO EN EL MAP pcb, y el numero de particion
 				http.Error(w, err.Error(), http.StatusInternalServerError) //MII MAP DE PCB X NMRO DE PARTICION
@@ -572,21 +567,20 @@ func espacioLibreSuficiente(Size int) bool {
 
 // COMPACTAR LAS PARTICIONES QUE ESTAN LIBRES
 func compactarLasParticiones() {
-	log.Printf("ENTRO A COMPACTAR")
-	log.Printf("PARTICIONES VECTOR INICIAL: %v", particiones)
+	//log.Printf("ENTRO A COMPACTAR")
+	//log.Printf("PARTICIONES VECTOR INICIAL: %v", particiones)
 	nuevaParticion := 0
 	i := 0
-	//mapeoOriginalANuevo := make(map[int]int)
-	log.Printf("PROBANDO AHORA BIT MAP PARTICIONES %v", mapParticiones)
+	//log.Printf("PROBANDO AHORA BIT MAP PARTICIONES %v", mapParticiones)
 	for i < len(particiones) { //la idea es recorrer todas las particiones
 		if !mapParticiones[i] { // Si la partición está libre, la sumamos al total y la eliminamos
-			log.Printf("POSICION %d", i)
+			//log.Printf("POSICION %d", i)
 			nuevaParticion += particiones[i] //aca guardo el tamaño para mi nueva particion que va a ser la compacta
 			actualizarPCBxParticionNueva(i)
 			particiones = append(particiones[:i], particiones[i+1:]...)          // se saca la partición
 			mapParticiones = append(mapParticiones[:i], mapParticiones[i+1:]...) // actualizar el map de estados
-			log.Printf("BITMAP %v ", mapParticiones)
-			log.Printf("PARTICIONES VECTOR : %v", particiones)
+			//log.Printf("BITMAP %v ", mapParticiones)
+			//log.Printf("PARTICIONES VECTOR : %v", particiones)
 		} else {
 			i++
 		}
@@ -594,19 +588,19 @@ func compactarLasParticiones() {
 	}
 
 	particiones = append(particiones, nuevaParticion)
-	log.Printf("ANTES APPEND FALSE BIT MAP PARTICIONES %v", mapParticiones)
+	//log.Printf("ANTES APPEND FALSE BIT MAP PARTICIONES %v", mapParticiones)
 	mapParticiones = append(mapParticiones, false) // La nueva partición estará libre
-	log.Printf("DESPUES APPEND FALSE BIT MAP PARTICIONES %v", mapParticiones)
-	log.Printf("PARTICIONES VECTOR FINAL : %v", particiones)
+	//log.Printf("DESPUES APPEND FALSE BIT MAP PARTICIONES %v", mapParticiones)
+	//log.Printf("PARTICIONES VECTOR FINAL : %v", particiones)
 	//actualizarPCBxParticionNueva(mapeoOriginalANuevo) //actualizo el mapa de pcb por particion
 }
 
 func actualizarPCBxParticionNueva(numeroPart int) {
 
-	log.Printf("MAP INICIAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
-	log.Printf("NUMERO DE PARTICION: %d", numeroPart)
+	//log.Printf("MAP INICIAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
+	//log.Printf("NUMERO DE PARTICION: %d", numeroPart)
 	for pid, particion := range mapPCBPorParticion {
-		log.Printf("PARTICION ENCONTRADA %d EN PID %d", particion, pid)
+		//log.Printf("PARTICION ENCONTRADA %d EN PID %d", particion, pid)
 		if particion == numeroPart {
 			mapPCBPorParticion[pid] = particion - 1
 			cambiarBaseYLimite(pid, particion)
@@ -615,23 +609,22 @@ func actualizarPCBxParticionNueva(numeroPart int) {
 			cambiarBaseYLimite(pid, particion)
 		}
 	}
-	log.Printf("MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
+	//log.Printf("MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
 }
 func actualizarParaConsolidarPIDxParticion(numeroPart int) {
 
-	log.Printf("CONSOLIDACION: MAP INICIAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
-	log.Printf("CONSOLIDACION: NUMERO DE PARTICION: %d", numeroPart)
+	// log.Printf("CONSOLIDACION: MAP INICIAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
+	// log.Printf("CONSOLIDACION: NUMERO DE PARTICION: %d", numeroPart)
+
 	for pid, particion := range mapPCBPorParticion {
-		log.Printf("CONSOLIDACION: PARTICION ENCONTRADA %d EN PID %d", particion, pid)
-		/*if particion == numeroPart {
-			mapPCBPorParticion[pid] = particion - 1
-			cambiarBaseYLimite(pid, particion)
-		} else */if particion > numeroPart {
+		//log.Printf("CONSOLIDACION: PARTICION ENCONTRADA %d EN PID %d", particion, pid)
+
+		if particion > numeroPart {
 			mapPCBPorParticion[pid] = particion - 1
 			cambiarBaseYLimite(pid, particion)
 		}
 	}
-	log.Printf("CONSOLIDACION: MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
+	//log.Printf("CONSOLIDACION: MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPCBPorParticion)
 	return
 }
 
@@ -651,37 +644,6 @@ func sumatoria(posicion int) int {
 	return suma
 }
 
-// func actualizarPCBxBaseYLimit(posicion int){
-
-// 	//recorrer el map de pcb
-
-// 	log.Printf("MAP INICIAL QUERIENDOSE ACTUALIZAR: %v", mapPIDxBaseLimit)
-// 	for pid, valor := range mapPIDxBaseLimit {
-// 		if valor.Base == uint32(i) {
-// 			valor.Base = uint32(i - particiones[i])
-// 			valor.Limit = uint32(i + particiones[i] - 1)
-// 			mapPIDxBaseLimit[pid] = valor
-// 		}
-// 	}
-// 	log.Printf("MAP FINAL QUERIENDOSE ACTUALIZAR: %v", mapPIDxBaseLimit)
-
-// }
-
-// //func actualizarPCBxParticionNueva(mapeoOriginalANuevo map[int]int) {
-
-// 	nuevoMapPCBPorParticion := make(map[int]int)
-
-// 	for pcb, particionOriginal := range mapPCBPorParticion {
-// 		if nuevaParticion, ok := mapeoOriginalANuevo[particionOriginal]; ok {
-// 			nuevoMapPCBPorParticion[pcb] = nuevaParticion
-// 		} else {
-// 			nuevoMapPCBPorParticion[pcb] = particionOriginal
-// 		}
-// 	}
-
-// 	mapPCBPorParticion = nuevoMapPCBPorParticion
-// }
-
 func subdividirParticion(numeroDeParticion, processSize int) {
 
 	originalTam := particiones[numeroDeParticion] //ej: 500 y mi proceso es 100, enntonces en originalTam sera 500
@@ -696,31 +658,6 @@ func subdividirParticion(numeroDeParticion, processSize int) {
 		//mapParticiones[len(particiones)-1] = false // Agregas la nueva partición libre.
 	}
 }
-
-// func actualizarBasesYLímites() {
-// 	baseAcumulada := 0
-
-// 	for i := 0; i < len(particiones); i++ {
-// 		if mapParticiones[i] { // Si la partición está ocupada
-// 			for pid, particion := range mapPCBPorParticion {
-// 				if particion == i {
-// 					// Actualizar la base y el límite
-// 					//pcb.Base = uint32(baseAcumulada) //
-// 					//pcb.Limit = uint32(baseAcumulada + particiones[i] - 1) //
-
-// 					// Actualizar en el mapa PID -> Base/Limit
-// 					mapPIDxBaseLimit[pid] = Valor{
-// 						Base:  uint32(baseAcumulada),
-// 						Limit: uint32(baseAcumulada + particiones[i] - 1),
-// 					}
-
-// 					// Incrementar la base acumulada
-// 					baseAcumulada += particiones[i]
-// 				}
-// 			}
-// 		}
-// 	}
-// }
 
 //--------------------------------------------------------------------
 
