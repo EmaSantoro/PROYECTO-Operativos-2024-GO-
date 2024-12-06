@@ -241,6 +241,7 @@ func BuscarBaseLimitPorPID(pid int) (Valor, error) {
 }
 
 // /--------------------------------------------GET INSTRUCTION---------------------------------------------
+
 func GetInstruction(w http.ResponseWriter, r *http.Request) {
 	var instructionReq InstructionReq
 	decoder := json.NewDecoder(r.Body)
@@ -495,10 +496,10 @@ func CreateProcess(w http.ResponseWriter, r *http.Request) { //recibe la pid y e
 			//aca deberia de alguna manera verificar si puede o no compactar
 			if espacioLibreSuficiente(process.Size) { //funcion que me devuelve true o false si hay espacio suficiente sumando todas las particiones libres
 				estado.Estado = Compactar
-			} else {
+			} else{
 				estado.Estado = NoHayEspacio
 			}
-		} else {
+		} else{
 			estado.Estado = HayEspacio
 			//SI HAY PARTICION DISPONIBLE PARA EL TAMAÑO DEL PROCESO
 			if particiones[numeroDeParticion] > process.Size {
@@ -632,8 +633,8 @@ func cambiarBaseYLimite(pid int, particion int) {
 	valor := mapPIDxBaseLimit[pid]
 	valor.Base = uint32(sumatoria(particion-1) + 1)
 	valor.Limit = uint32(sumatoria(particion-1) + particiones[particion-1])
-	log.Printf("VALOR BASE Y LIMITE: %v", valor)
-	log.Printf("PID: %d PARTICION: %d", pid, particion)
+	//log.Printf("VALOR BASE Y LIMITE: %v", valor)
+	//log.Printf("PID: %d PARTICION: %d", pid, particion)
 }
 
 func sumatoria(posicion int) int {
@@ -822,13 +823,13 @@ func TerminateProcess(w http.ResponseWriter, r *http.Request) {
 func encontrarParticionPorPID(pid int) (int, error) {
 	particionEncontrada := -1
 	err := fmt.Errorf("PID no encontrado")
-	log.Printf("## tamaño map %d", len(mapPCBPorParticion)) // BORRAR
+	//log.Printf("## tamaño map %d", len(mapPCBPorParticion)) // BORRAR
 	if len(mapPCBPorParticion) == 1 {
 		pcb := PCB{Pid: pid}
-		log.Printf("## PCB %v", pcb)                // BORRAR
-		log.Printf("## MAP %v", mapPCBPorParticion) // BORRAR
+		//log.Printf("## PCB %v", pcb)                // BORRAR
+		//log.Printf("## MAP %v", mapPCBPorParticion) // BORRAR
 		particion, ok := mapPCBPorParticion[pid]
-		log.Printf("## particion %d - ok: %v ", particion, ok) // BORRAR
+		//log.Printf("## particion %d - ok: %v ", particion, ok) // BORRAR
 		if ok {
 			particionEncontrada = particion
 			err = nil
@@ -850,14 +851,14 @@ func consolidarParticiones(numeroDeParticion int) {
 	//mapeoOriginalANuevo := make(map[int]int)
 
 	//CONSOLIDAR IZQUIERDA
-	log.Printf("ANTES DE CONSOLIDAR MAP PARTICIONES: %v", mapParticiones)
-	log.Printf("ANTES DE CONSOLIDAR PARTICIONES: %v", particiones)
+	//log.Printf("ANTES DE CONSOLIDAR MAP PARTICIONES: %v", mapParticiones)
+	//log.Printf("ANTES DE CONSOLIDAR PARTICIONES: %v", particiones)
 	if numeroDeParticion > 0 && !mapParticiones[numeroDeParticion-1] { //me fijo si la de la izquierda esta libre
 		particiones[numeroDeParticion-1] += particiones[numeroDeParticion]                          // Sumar tamaño de la partición actual a la anterior
 		particiones = append(particiones[:numeroDeParticion], particiones[numeroDeParticion+1:]...) // Eliminar partición actual
 		mapParticiones = append(mapParticiones[:numeroDeParticion], mapParticiones[numeroDeParticion+1:]...)
-		log.Printf("DESPUES DE CONSOLIDAR IZ MAP PARTICIONES: %v", mapParticiones)
-		log.Printf("DESPUES DE CONSOLIDAR IZ PARTICIONES: %v", particiones)
+		//log.Printf("DESPUES DE CONSOLIDAR IZ MAP PARTICIONES: %v", mapParticiones)
+		//log.Printf("DESPUES DE CONSOLIDAR IZ PARTICIONES: %v", particiones)
 		actualizarParaConsolidarPIDxParticion(numeroDeParticion)
 		// for pid, particion := range mapPCBPorParticion {
 		// 	if particion == numeroDeParticion {
@@ -874,8 +875,8 @@ func consolidarParticiones(numeroDeParticion int) {
 		particiones[numeroDeParticion] += particiones[numeroDeParticion+1]
 		particiones = append(particiones[:numeroDeParticion+1], particiones[numeroDeParticion+2:]...)
 		mapParticiones = append(mapParticiones[:numeroDeParticion+1], mapParticiones[numeroDeParticion+2:]...)
-		log.Printf("DESPUES DE CONSOLIDAR DER MAP PARTICIONES: %v", mapParticiones)
-		log.Printf("DESPUES DE CONSOLIDAR DER PARTICIONES: %v", particiones)
+		//log.Printf("DESPUES DE CONSOLIDAR DER MAP PARTICIONES: %v", mapParticiones)
+		//log.Printf("DESPUES DE CONSOLIDAR DER PARTICIONES: %v", particiones)
 		actualizarParaConsolidarPIDxParticion(numeroDeParticion)
 		// for pid, particion := range mapPCBPorParticion {
 		// 	if particion == numeroDeParticion+1 {
@@ -1299,7 +1300,7 @@ func GenerarNombreArchivo(pid int, tid int) string {
 ///------------------------------------COMPACTACION--------------------------------------------------
 
 func Compactacion(w http.ResponseWriter, r *http.Request) {
-	log.Printf("LLEGO LA SEÑAL DE COMPACTACION")
+	//log.Printf("LLEGO LA SEÑAL DE COMPACTACION")
 	compactarLasParticiones() //compacto las particiones libres
 
 	w.WriteHeader(http.StatusOK)
