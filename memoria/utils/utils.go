@@ -825,7 +825,7 @@ func encontrarParticionPorPID(pid int) (int, error) {
 	err := fmt.Errorf("PID no encontrado")
 	//log.Printf("## tamaño map %d", len(mapPCBPorParticion)) // BORRAR
 	if len(mapPCBPorParticion) == 1 {
-		pcb := PCB{Pid: pid}
+		//pcb := PCB{Pid: pid}
 		//log.Printf("## PCB %v", pcb)                // BORRAR
 		//log.Printf("## MAP %v", mapPCBPorParticion) // BORRAR
 		particion, ok := mapPCBPorParticion[pid]
