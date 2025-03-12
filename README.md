@@ -119,8 +119,12 @@ Cada módulo tendrá un **archivo de configuración** que definirá:
 
 Este proyecto no podria haber sido posible sin el trabajo de cada uno de sus integrantes.
 
-Nicolas Schkurko (NicolasSchkurko)
-Milagros Arce (milagrosarce)
-Milagros Lujan Salafia (MilagrosLu)
-Ramiro Di Santo (ramidisanto)
-Santoro Emanuel (EmaSantoro)
+Nicolas Schkurko (@NicolasSchkurko)
+
+Milagros Arce (@milagrosarce)
+
+Milagros Lujan Salafia (@MilagrosLu)
+
+Ramiro Di Santo (@ramidisanto)
+
+Santoro Emanuel (@EmaSantoro)
